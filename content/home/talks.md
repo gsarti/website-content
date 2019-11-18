@@ -29,7 +29,7 @@ subtitle = " "
     category = ""
     publication_type = ""
     exclude_featured = false
-    exclude_past = false
+    exclude_past = true
     exclude_future = false
     
 [design]
