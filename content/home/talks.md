@@ -21,7 +21,7 @@ subtitle = " "
   offset = 0
 
   # Page order. Descending (desc) or ascending (asc) date.
-  order = "asc"
+  order = "desc"
 
   # Filter posts by a taxonomy term.
   [content.filters]
@@ -29,7 +29,7 @@ subtitle = " "
     category = ""
     publication_type = ""
     exclude_featured = false
-    exclude_past = true
+    exclude_past = false
     exclude_future = false
     
 [design]
