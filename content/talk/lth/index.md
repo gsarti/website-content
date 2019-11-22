@@ -1,31 +1,30 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Neural Language Models: the New Frontier of Natural Language Understanding"
-event: StaTalk 2019
-event_url: http://statalk2019.units.it
-location: Room 1A,, Building H3, University of Trieste, Italy
+title: "Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks"
+event: Statistical Machine Learning Course Presentation
+event_url:
+location: Room 4B, Building H2bis, University of Trieste, Italy
 address:
   street:
-  city: 
+  city:
   region:
   postcode:
   country:
-summary: "An overview of the latest advances in the field of NLP, with a focus on neural models and language understanding."
-abstract: "The field of Natural Language Processing went through a significant paradigm shift in the last few years, moving rapidly from grammars and rulesets to neural networks. In this talk, I will focus on the latest significant advances in the field, namely contextual representation and the transformer architecture for neural language models, showing their relation to natural language inference and understanding."
+summary: "Is it possible to induce sparseness in neural networks while preserving its performances? An overview of latest advances in making neural approaches more parsimonious"
+abstract: "Lottery ticket hypothesis is one of the latest and most significant advances in the field of theoretical deep learning, suggesting that sparse yet effective representations can be found inside large overparametrized neural networks. We present a brief introduction to the context of neural network pruning and proceed to present three significant papers discussing the impact of lottery ticket hypothesis in deep learning research." 
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-date: 2019-11-22
-#date_end: 2019-10-27T17:59:41+01:00
+date: 2019-07-18
 all_day: true
 
 # Schedule page publish date (NOT talk date).
-publishDate: 2019-10-27T17:59:41+01:00
+publishDate: 2019-11-22T10:42:03+01:00
 
 authors: [Gabriele Sarti]
-tags: [Natural Language Processing, Natural Language Understanding, Language Modeling, Deep Learning, StaTalk, University of Trieste]
-categories: ["Natural Language Processing", "Academic"]
+tags: [Deep Learning, Course Presentation, University of Trieste]
+categories: ["Deep Learning", "Academic"]
 
 # Is this a featured talk? (true/false)
 featured: true
@@ -47,7 +46,7 @@ image:
 #   icon: twitter
 
 # Optional filename of your slides within your talk's folder or a URL.
-url_slides: https://drive.google.com/open?id=1e176ELPg4nU37Piaapw4bChEHLKBMWgz
+url_slides: https://drive.google.com/open?id=1jXvaUU-mqf3MWqCTNDTjfRsUbOKbozAH
 
 url_code:
 url_pdf:

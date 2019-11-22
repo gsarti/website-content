@@ -5,7 +5,7 @@ title: "Histopathologic Cancer Detection with Neural Networks"
 summary: "A journey into the state of the art of histopathologic cancer detection approaches."
 
 authors: [Gabriele Sarti, Leonardo Stincone, Andrea Lorenzon]
-tags: [Computer Vision, Capsule Networks, DenseNet, Cancer Detection, Kaggle Competition, DSSC Project]
+tags: [Computer Vision, Capsule Networks, Cancer Detection, Kaggle Competition, University of Trieste]
 categories: ["Computer Vision"]
 
 date: 2019-06-28

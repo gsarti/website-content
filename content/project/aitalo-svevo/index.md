@@ -5,7 +5,7 @@ title: "AItalo Svevo: Letters from an Artificial Intelligence"
 summary: "Generating letters with a neural language model in the style of Italo Svevo, a famous italian writer of the 20th century."
 
 authors: [Gabriele Sarti, Cristina Fenu, Eric Medvet]
-tags: [Natural Language Generation, Neural Language Model, Italian NLP, Public Workshop, GPT-2]
+tags: [Natural Language Generation, Language Modeling, Italian NLP, Trieste Next]
 categories: ["Digital Humanities"]
 
 date: 2019-09-27

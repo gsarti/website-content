@@ -24,7 +24,7 @@ all_day: false
 publishDate: 2019-10-27T17:59:41+01:00
 
 authors: [Gabriele Sarti, Felice Dell'Orletta, Cristina Fenu]
-tags: [NLP, Natural Language Processing, Digital Humanities, AI, Natural Language Generation, Futurism, Trieste, Science+Fiction]
+tags: [Natural Language Processing, Digital Humanities, Natural Language Generation, Science+Fiction Festival]
 categories: ["Digital Humanities", "Divulgative"]
 
 # Is this a featured talk? (true/false)
