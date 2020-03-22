@@ -21,10 +21,10 @@ organizations:
 bio: I'm a Master student in Data Science at University of Trieste and the International School of Advanced Studies (SISSA). My research interests focus on interpreting deep models and understanding their learning dynamics, in particular when dealing with natural language.
 
 interests:
-- Natural Language Processing
-- Interpretability in Deep Learning
-- Socially-oriented AI Applications
+- Natural Language Understanding and Emergence
+- Interpretability of Deep Learning Models
 - Representation Learning
+- Psycholinguistics
 
 education:
   courses:
@@ -74,4 +74,8 @@ user_groups:
 - Visitors
 ---
 
-I'm a Master student in Data Science at [University of Trieste](https://www.units.it/) and [SISSA](https://www.sissa.it/), currently working at [ItaliaNLP Lab](http://www.italianlp.it/) with Felice Dell'Orletta for my thesis project on NLP. My research interests focus on interpreting deep models and understanding their learning dynamics, in particular when dealing with natural language. I am also interested in positive social applications of machine learning and AI ethics.
+Hey there! I am currently working with the [ItaliaNLP Lab](http://www.italianlp.it/) and the [L2R Lab](https://lrlac.sissa.it/) under the joint supervision of Felice Dell'Orletta and Davide Crepaldi for my thesis project on NLP and psycholinguistics. 
+
+<br>
+
+My research interests focus on interpreting deep models and understanding their learning dynamics, in particular when dealing with natural language. I am also interested in positive social applications of machine learning and AI ethics.

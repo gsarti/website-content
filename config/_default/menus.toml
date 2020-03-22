@@ -28,6 +28,11 @@
   url = "#projects"
   weight = 5
 
+[[main]]
+  name = "AI2S"
+  url = "https://ai2s.it"
+  weight = 6
+
 # [[main]]
 #   name = "CV"
 #   url = "#cv"
