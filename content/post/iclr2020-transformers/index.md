@@ -122,7 +122,7 @@ In the self-attention equation the factor $QK^T$ represents a bottleneck, taking
 
 ![](assets/extra_hop.png)
 
-While Transformers were optimized to operate on single sequences or pairs of sequences, they can hardly generalize to settings where evidence is scattered in multiple pieces of text, as for the challenging task of **multi-hop question answering**.
+While Transformers were optimized to operate on single sequences or pairs of sequences, they can hardly generalize to settings where evidence is scattered in multiple pieces of text, as in the challenging task of **multi-hop question answering**.
 
 **Transformer-XH** introduces a new variant of attention, **eXtra Hop Attention**, that can be applied to a graph of text sequences connected by edges (e.g. hyperlinks). This new attention mechanism uses the special `[CLS]` token at the beginning of each sequence as an **attention hub** that attends to all other connected sequences in the graph. The resulting representation is then combined to the one obtained by standard self-attention through a linear projection. The resulting model shows significant improvements for tasks requiring reasoning over graphs, at the cost of the extra computations introduced by the new attention mechanism.
 
@@ -147,7 +147,7 @@ While those tasks seem to induce meaningful token and sentence-level representat
 
 ![](assets/electra.png)
 
-The masking strategy used in BERT-like models is very data inefficient, using only ~15% of the input text to complete the MLM task. However, the percentage of masked data can hardly be increased since having too many masked tokens may degrade the overall context information.
+The masking strategy used in BERT-like models is quite data inefficient, using only ~15% of the input text to complete the MLM task. However, the percentage of masked data can hardly be increased since having too many masked tokens may degrade the overall context information.
 
 **ELECTRA** proposes a simple yet effective approach to cope with this inefficiency. A small masked language model is trained and then used as a generator to fill the masked tokens in the input with its predictions, as in normal MLM. However, the new task for the main model will be a **discriminative** one: instead of predicting masked tokens, the model has to detect which tokens have been replaced by the generator. This allows leveraging the entire input sequence for training. As mentioned by the authors, this approach consistently outperforms MLM pre-training given the same compute budget.
 
@@ -157,7 +157,7 @@ The masking strategy used in BERT-like models is very data inefficient, using on
 
 ![](assets/structural_objectives.png)
 
-As we saw previously, Transformers do not explicitly account for structures present in the input. While tree-structured attention injects a heavy hierarchical bias in the model architecture, **StructBERT** adopts two lighter but effective approaches to make the resulting representations more aware of the underlying sequentiality of language.
+As seen previously, Transformers do not explicitly account for structures present in the input. While tree-structured attention injects a heavy hierarchical bias in the model architecture, **StructBERT** adopts two lighter but effective approaches to make the resulting representations more aware of the underlying sequentiality of language.
 
 The first is a **word structural objective** where trigrams inside the inputs are randomly shuffled, and their original position must be reconstructed. This is done in parallel with normal MLM. The **sentence structural objective** is a lighter variant of the sentence reordering introduced in [ERNIE 2.0](https://arxiv.org/abs/1907.12412) and equal to the **sentence ordering prediction** introduced in [ALBERT](https://iclr.cc/virtual_2020/poster_H1eA7AEtvS.html): given a pair of sentences $(S_1, S_2)$ as input, we ask the model to discriminate whether $S_2$ precedes, follows or is unrelated to $S_1$. This new task extends the standard NSP, which was deemed as too easy for learning meaningful sentence relations. These additions result in significant improvements over standard benchmarks for natural language understanding.
 
@@ -227,13 +227,13 @@ In recent models based on BERT and Transformer-XL the input embeddings size $E$ 
 
 The original Transformer architecture is composed of an encoder and a decoder, each composed by a stacked sequence of identical layers that transform input embeddings in outputs having the same dimension (hence the name Transformer).
 
-Each layer of the Transformer encoder is composed of two sublayers, a multi-head self-attention mechanism and a feed-forward network, surrounded by residual connections and followed by layer normalization. The decoder adds a third layer that performs multi-head self-attention over the encoder output while modifying the original self-attention sublayer to prevent attending to future context, as required by the autoregressive language modeling objective saw before.
+Each layer of the Transformer encoder is composed of two sublayers, a multi-head self-attention mechanism and a feed-forward network, surrounded by residual connections and followed by layer normalization. The decoder includes a third layer that performs multi-head self-attention over the encoder output and modifies the original self-attention sublayer to prevent attending to future context, as required by the autoregressive language modeling objective presented above.
 
 Bidirectional variants of the Transformer drop the decoder structure and focus solely on the encoder to generate the contextual embeddings needed for various tasks, including MLM.
 
 [Transformer-XL](https://www.aclweb.org/anthology/P19-1285/) notably introduces a notion of **memory** for Transformer networks, where hidden states obtained in previous segments are weighted with attention and reused to better model long-term dependencies, preventing **context fragmentation**.
 
-The following approaches try to build on top of current structures to improve long-range modeling, reduce the parameter count, or optimize the computation performed by the model. 
+The following approaches try to build on top of current structures to improve long-range modeling, reduce the parameter count, or optimize the computation performed by the model.
 
 ### Compressive Memory
 
@@ -253,7 +253,7 @@ In Transformer-XL's recurrent memory approach, old memories are discarded to ena
 
 The main idea behind **reversibility** is to enable the recovering of activations in any layer of the network by using only activations of the following layer and model parameters. This feature is especially interesting when applied to Transformer models since they are usually composed of a large pile of stacked layers and their memory complexity grows linearly with the layer count.
 
-**Reformer** introduces reversibility in the Transformer architecture by combining attention and feed-forward sublayers into a single reversible layer. This allows to store activations only for the topmost layer and recover all the other ones by reversing layers during back-propagation, making the model depth irrelevant from a memory perspective. Further improvements in memory complexity are achieved by **chunking** independent computations in feed-forward and reversible layers. 
+**Reformer** introduces reversibility in the Transformer architecture by combining attention and feed-forward sublayers into a single reversible layer. This allows to store activations only for the topmost layer and recover all the other ones by reversing layers during back-propagation, making the model depth irrelevant memory-wise. Further improvements in memory complexity are achieved by **chunking** independent computations in feed-forward and reversible layers.
 
 ### Cross-Layer Parameter Sharing
 
@@ -263,7 +263,7 @@ The main idea behind **reversibility** is to enable the recovering of activation
 
 A simple yet very effective approach to greatly reduce the parameter count inside deep Transformer models is to share parameters across multiple layers, as it was shown in the [Universal Transformer](https://arxiv.org/abs/1807.03819) paper at ICLR 2019.
 
-**ALBERT** authors experiment cross-layer parameter sharing for both self-attention and feed-forward sublayers, finding that sharing both weight matrices contributes to bringing down the total parameter count of the model by a factor of $7\times$ (for embedding size $E = 128$) while only slightly affecting final performances. The use of parameter sharing leads to smoother transition across layers and effectively stabilizes network parameters. 
+**ALBERT** authors experiment cross-layer parameter sharing for both self-attention and feed-forward sublayers, finding that sharing both weight matrices contributes to bringing down the total parameter count of the model by a factor of $7\times$ (for embedding size $E = 128$) while only slightly affecting final performances. The use of parameter sharing leads to smoother transition across layers and effectively stabilizes network parameters.
 
 ### Adaptive Depth Estimation
 
@@ -277,10 +277,10 @@ Current models perform a fixed number of computations for each input, regardless
 
 # Conclusion
 
-As you can see from the sections above, many of these approaches offer widely applicable solutions to specific problems that characterize the original Transformer architecture, ranging from the self-attention computation to the model structure itself. 
+Many of the approaches introduced at ICLR 2020 offer widely applicable solutions to specific problems that characterize the original Transformer architecture, ranging from the self-attention computation to the model structure itself.
 
-Many of these approaches seem promising for future developments of the Transformer and, most importantly, are likely to bring complementary improvements once many of them included in a single architecture. 
+Many of these approaches seem promising for future developments of the Transformer and, most importantly, are likely to bring complementary improvements once many of them included in a single architecture.
 
-In light of this, my wish for ICLR 2021 is to see more incremental work that puts together already-existing strategies to highlight the most effective combinations between them.
+My hope for ICLR 2021 is to see more incremental work that puts together already-existing strategies to highlight the most effective combinations between them.
 
 *See also:* [What’s new for Transformers at the ICLR 2020 Conference?](https://towardsdatascience.com/whats-new-for-transformers-at-the-iclr-2020-conference-4285a4294792) by Sergi Castella
