@@ -11,7 +11,7 @@ tags: [Natural Language Processing, Language Modeling, Deep Learning, Transforme
 categories: []
 date: 2020-05-03T19:27:36+02:00
 lastmod: 2020-05-03T19:27:36+02:00
-featured: false
+featured: true
 draft: false
 
 # Featured image
@@ -98,7 +98,7 @@ Conventional self-attention is deemed as redundant since it was empirically show
 
 ![](assets/hierarchical_accumulation.png)
 
-A weakness of the standard Transformer is the absence of inductive biases to account for the hierarchical structure of language. This is due in part to the difficulty in operating with tree-like structures usually modeled by recurrent or recursive mechanisms while maintaining the constant parallel time complexity of self-attention.
+A weakness of the standard Transformer is the absence of inductive biases to account for the hierarchical structure of language. This is due in part to the difficulty in operating with tree-like structures that are usually modeled by recurrent or recursive mechanisms while maintaining the constant parallel time complexity of self-attention.
 
 The proposed solution leverages constituency parses of input text to build a tree of hidden states, using **hierarchical accumulation** to build the value of non-terminals as the aggregation of lower representations in the tree. The final output representation is built by performing a **weighted aggregation** of branch-level representations.
 
