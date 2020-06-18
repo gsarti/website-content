@@ -50,6 +50,6 @@ title = "News"
 
 &nbsp;
 
-- Our **COVID-19 Semantic Browser** to facilitate the work of biomedical researchers working on countering the ongoing pandemic is available [here](covidbrowser.areasciencepark.it)!
+- Our **COVID-19 Semantic Browser** to facilitate the work of biomedical researchers working on countering the ongoing pandemic is available [here](http://covidbrowser.areasciencepark.it)!
 
 - Co-founded and rapidly setting up [AI Student Society](https://www.ai2s.it), a non-profit student association to support the local AI & ML student community. Contact us at [info@ai2s.it](mailto:info@ai2s.it) for more info!
