@@ -2,7 +2,7 @@
 # Hero widget.
 widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = false  # This file represents a page section.
-active = true  # Activate this widget? true/false
+active = false  # Activate this widget? true/false
 weight = 20  # Order that this section will appear.
 
 title = "News"
@@ -50,6 +50,6 @@ title = "News"
 
 &nbsp;
 
-- Our **COVID-19 Semantic Browser** to facilitate the work of biomedical researchers working on countering the ongoing pandemic is available [here](http://covidbrowser.areasciencepark.it)!
+<!--- Our **COVID-19 Semantic Browser** to facilitate the work of biomedical researchers working on countering the ongoing pandemic is available [here](http://covidbrowser.areasciencepark.it)!-->
 
 - Co-founded and rapidly setting up [AI Student Society](https://www.ai2s.it), a non-profit student association to support the local AI & ML student community. Contact us at [info@ai2s.it](mailto:info@ai2s.it) for more info!
