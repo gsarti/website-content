@@ -40,10 +40,6 @@ links:
   url: https://arxiv.org/abs/2008.10875
   icon_pack: fas
   icon: file-contract
-- name: Citation
-  url: https://pastebin.com/TDAftDia
-  icon_pack: fas
-  icon: quote-right
 
 url_pdf: 
 url_code:
