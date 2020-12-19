@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Data Science MSc Student
+role: MSc Data Science
 
 # Organizations/Affiliations
 organizations:
@@ -18,7 +18,7 @@ organizations:
   url: "https://dssc.units.it/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: I'm a Master student in Data Science at University of Trieste and the International School of Advanced Studies (SISSA). My research interests focus on interpreting deep models and understanding their learning dynamics, in particular when dealing with natural language.
+bio: I have recently graduated from the Master's in Data Science at University of Trieste and the International School of Advanced Studies (SISSA). My research interests focus on interpreting deep models and understanding their learning dynamics, in particular when dealing with natural language.
 
 interests:
 - Natural Language Understanding
@@ -30,7 +30,7 @@ education:
   courses:
   - course: MSc in Data Science
     institution: University of Trieste & SISSA, IT
-    year: expected 2020
+    year: 2020
   - course: DEC in Software Management
     institution: Cégep de Saint-Hyacinthe, CA
     year: 2018
@@ -46,12 +46,12 @@ social:
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/gsarti_
-# - icon: google-scholar
-#   icon_pack: ai
-#   link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
-# - icon: semantic-scholar
-#   icon_pack: ai
-#   link: https://semanticscholar.com/
+- icon: google-scholar
+  icon_pack: ai
+  link: https://scholar.google.com/citations?user=sK0B_08AAAAJ
+#- icon: semantic-scholar
+#  icon_pack: ai
+#  link: https://semanticscholar.com/
 - icon: github
   icon_pack: fab
   link: https://github.com/gsarti
@@ -74,7 +74,7 @@ user_groups:
 - Visitors
 ---
 
-Hey there! I am currently working with the [ItaliaNLP Lab](http://www.italianlp.it/) and the [L2R Lab](https://lrlac.sissa.it/) under the joint supervision of Felice Dell'Orletta and Davide Crepaldi for my thesis project on NLP and psycholinguistics perspectives for linguistic complexity assessment. 
+Hey there! I have recently graduated from the Data Science MSc program at the University of Trieste and SISSA. For my thesis project, I worked with the [ItaliaNLP Lab](http://www.italianlp.it/) and the [L2R Lab](https://lrlac.sissa.it/) under the joint supervision of Felice Dell'Orletta and Davide Crepaldi on NLP and psycholinguistics perspectives for linguistic complexity assessment. 
 
 <br>
 
