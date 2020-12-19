@@ -2,7 +2,7 @@
 # Hero widget.
 widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = false  # This file represents a page section.
-active = false  # Activate this widget? true/false
+active = true  # Activate this widget? true/false
 weight = 20  # Order that this section will appear.
 
 title = "News"
@@ -50,6 +50,12 @@ title = "News"
 
 &nbsp;
 
+- My master's thesis *"Interpreting Neural Language Models for Linguistic Complexity Assessment"* is available in PDF/Gitbook formats [here](../../thesis/introduction.html). Feedback and comments are welcome! 🙂
+
+- **18/12/2020**: My system [UmBERTo-MTSA](../publication/umberto-mtsa) received a special mention at the 7th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian ([EVALITA 2020](http://www.evalita.it/2020/bestsystemawars)).
+
+- **11/12/2020**: Graduated from the Data Science MSc: 110 Cum Laude! 🎉
+
 <!--- Our **COVID-19 Semantic Browser** to facilitate the work of biomedical researchers working on countering the ongoing pandemic is available [here](http://covidbrowser.areasciencepark.it)!-->
 
-- Co-founded and rapidly setting up [AI Student Society](https://www.ai2s.it), a non-profit student association to support the local AI & ML student community. Contact us at [info@ai2s.it](mailto:info@ai2s.it) for more info!
+<!--- Co-founded and rapidly setting up [AI Student Society](https://www.ai2s.it), a non-profit student association to support the local AI & ML student community. Contact us at [info@ai2s.it](mailto:info@ai2s.it) for more info!-->

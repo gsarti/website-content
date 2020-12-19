@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Conclusion | Interpreting Neural Language Models for Linguistic Complexity Assessment</title>
+  <meta name="description" content="This is a test description" />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Conclusion | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://gsarti.com/master-thesis" />
+  <meta property="og:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+  <meta property="og:description" content="This is a test description" />
+  <meta name="github-repo" content="gsarti/interpreting-complexity" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Conclusion | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  
+  <meta name="twitter:description" content="This is a test description" />
+  <meta name="twitter:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+
+<meta name="author" content="Gabriele Sarti" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="figures/icons/apple-icon.png" />
+  <link rel="shortcut icon" href="figures/icons/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="chap-ex3.html"/>
+<link rel="next" href="app-ling-feats.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="templates/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="introduction.html#introduction"><strong>Introduction</strong></a></li>
+<li class="chapter" data-level="1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html"><i class="fa fa-check"></i><b>1</b> <strong>Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="1.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:categorizing"><i class="fa fa-check"></i><b>1.1</b> Categorizing Linguistic Complexity Measures</a></li>
+<li class="chapter" data-level="1.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:intrinsic"><i class="fa fa-check"></i><b>1.2</b> Intrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:structural"><i class="fa fa-check"></i><b>1.2.1</b> Structural Linguistic Complexity</a></li>
+<li class="chapter" data-level="1.2.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:lm-surprisal"><i class="fa fa-check"></i><b>1.2.2</b> Language Modeling Surprisal</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:extrinsic"><i class="fa fa-check"></i><b>1.3</b> Extrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:readability"><i class="fa fa-check"></i><b>1.3.1</b> Automatic Readability Assessment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:pc"><i class="fa fa-check"></i><b>1.3.2</b> Perceived Complexity Prediction</a></li>
+<li class="chapter" data-level="1.3.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:eye-tracking"><i class="fa fa-check"></i><b>1.3.3</b> Gaze Metrics Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:garden-path"><i class="fa fa-check"></i><b>1.4</b> Garden-path Sentences</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chap-models.html"><a href="chap-models.html"><i class="fa fa-check"></i><b>2</b> <strong>Models of Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="2.1" data-path="chap-models.html"><a href="chap-models.html#subchap:desiderata"><i class="fa fa-check"></i><b>2.1</b> Desiderata for Models of Linguistic Complexity</a></li>
+<li class="chapter" data-level="2.2" data-path="chap-models.html"><a href="chap-models.html#subchap:nlm"><i class="fa fa-check"></i><b>2.2</b> Neural Language Models: Unsupervised Multitask Learners</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:syntax-nlm"><i class="fa fa-check"></i><b>2.2.1</b> Emergent Linguistic Structures in Neural Language Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chap-models.html"><a href="chap-models.html#subchap:analyzing-nlm"><i class="fa fa-check"></i><b>2.3</b> Analyzing Neural Models of Complexity</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:probe"><i class="fa fa-check"></i><b>2.3.1</b> Probing classifiers</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chap-models.html"><a href="chap-models.html#subsubchap:rsa"><i class="fa fa-check"></i><b>2.3.2</b> Representational Similarity Analysis</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chap-models.html"><a href="chap-models.html#subsubchap:pwcca"><i class="fa fa-check"></i><b>2.3.3</b> Projection-Weighted Canonical Correlation Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-ex1.html"><a href="chap-ex1.html"><i class="fa fa-check"></i><b>3</b> <strong>Complexity Phenomena in Linguistic Annotations and Language Models</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-data"><i class="fa fa-check"></i><b>3.1</b> Data and Preprocessing</a></li>
+<li class="chapter" data-level="3.2" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-analysis"><i class="fa fa-check"></i><b>3.2</b> Analysis of Linguistic Phenomena</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-analysis-bins"><i class="fa fa-check"></i><b>3.2.1</b> Linguistic Phenomena in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-modeling"><i class="fa fa-check"></i><b>3.3</b> Modeling Online and Offline Linguistic Complexity</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-modeling-bins"><i class="fa fa-check"></i><b>3.3.1</b> Modeling Complexity in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-probing"><i class="fa fa-check"></i><b>3.4</b> Probing Linguistic Phenomena in ALBERT Representations</a></li>
+<li class="chapter" data-level="3.5" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap-ex2.html"><a href="chap-ex2.html"><i class="fa fa-check"></i><b>4</b> <strong>Representational Similarity in Models of Complexity</strong></a><ul>
+<li class="chapter" data-level="4.1" data-path="chap-ex2.html"><a href="chap-ex2.html#knowledge-driven-requirements-for-learning-models"><i class="fa fa-check"></i><b>4.1</b> Knowledge-driven Requirements for Learning Models</a></li>
+<li class="chapter" data-level="4.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-experiments"><i class="fa fa-check"></i><b>4.2</b> Experimentsl Evaluation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-data"><i class="fa fa-check"></i><b>4.2.1</b> Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-inter"><i class="fa fa-check"></i><b>4.2.2</b> Inter-model Representational Similarity</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-intra"><i class="fa fa-check"></i><b>4.2.3</b> Intra-model Representational Similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-summary"><i class="fa fa-check"></i><b>4.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap-ex3.html"><a href="chap-ex3.html"><i class="fa fa-check"></i><b>5</b> <strong>Gaze-informed Models for Cognitive Processing Prediction</strong></a><ul>
+<li class="chapter" data-level="5.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-setup"><i class="fa fa-check"></i><b>5.1</b> Experimental Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-experiments"><i class="fa fa-check"></i><b>5.2</b> Experimental Evaluation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-magnitudes"><i class="fa fa-check"></i><b>5.2.1</b> Estimating Magnitudes of Garden-path Delays</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-predicting"><i class="fa fa-check"></i><b>5.2.2</b> Predicting Delays with Surprisal and Gaze Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-summary"><i class="fa fa-check"></i><b>5.3</b> Summary</a></li>
+</ul></li>
+<li><a href="conclusion.html#conclusion"><strong>Conclusion</strong></a><ul>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Broader Impact and Ethical Perspectives</a></li>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i>Future Directions</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app-ling-feats.html"><a href="app-ling-feats.html"><i class="fa fa-check"></i><b>A</b> Linguistic Features</a><ul>
+<li class="chapter" data-level="A.1" data-path="app-ling-feats.html"><a href="app-ling-feats.html#raw-text-properties-and-lexical-variety"><i class="fa fa-check"></i><b>A.1</b> Raw Text Properties and Lexical Variety</a></li>
+<li class="chapter" data-level="A.2" data-path="app-ling-feats.html"><a href="app-ling-feats.html#morpho-syntacting-information"><i class="fa fa-check"></i><b>A.2</b> Morpho-syntacting Information</a></li>
+<li class="chapter" data-level="A.3" data-path="app-ling-feats.html"><a href="app-ling-feats.html#verbal-predicate-structure"><i class="fa fa-check"></i><b>A.3</b> Verbal Predicate Structure</a></li>
+<li class="chapter" data-level="A.4" data-path="app-ling-feats.html"><a href="app-ling-feats.html#global-and-local-parsed-tree-structures"><i class="fa fa-check"></i><b>A.4</b> Global and Local Parsed Tree Structures</a></li>
+<li class="chapter" data-level="A.5" data-path="app-ling-feats.html"><a href="app-ling-feats.html#syntactic-relations"><i class="fa fa-check"></i><b>A.5</b> Syntactic Relations</a></li>
+<li class="chapter" data-level="A.6" data-path="app-ling-feats.html"><a href="app-ling-feats.html#subordination-phenomena"><i class="fa fa-check"></i><b>A.6</b> Subordination Phenomena</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="app-et-metrics.html"><a href="app-et-metrics.html"><i class="fa fa-check"></i><b>B</b> Precisions on Eye-tracking Metrics and Preprocessing</a></li>
+<li class="chapter" data-level="C" data-path="app-et-modeling.html"><a href="app-et-modeling.html"><i class="fa fa-check"></i><b>C</b> Multi-task Token-level Regression for Gaze Metrics Prediction</a></li>
+<li class="chapter" data-level="D" data-path="app-intra-sim.html"><a href="app-intra-sim.html"><i class="fa fa-check"></i><b>D</b> Intra-model Similarity for All Models</a></li>
+<li class="chapter" data-level="E" data-path="app-garden-paths-et.html"><a href="app-garden-paths-et.html"><i class="fa fa-check"></i><b>E</b> Gaze Metrics Predictions for Garden Path Sentences</a></li>
+<li class="chapter" data-level="F" data-path="app-params.html"><a href="app-params.html"><i class="fa fa-check"></i><b>F</b> Reproducibility and Environmental Impact</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://gsarti.com">Back to my website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interpreting Neural Language Models<br />
+for Linguistic Complexity Assessment</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="conclusion" class="section level1 unnumbered">
+<h1><strong>Conclusion</strong></h1>
+
+<p>This thesis work adopted a model-driven approach to investigate the relationship between different linguistic complexity perspectives for the English language and study how those are learned and encoded by deep learning models at various abstraction levels.</p>
+<p>From the theoretical viewpoint of connecting different complexity perspectives using empirical annotations, Chapter <a href="chap-ex1.html#chap:ex1">3</a> analysis highlighted the strong connection between online/offline complexity metrics and length-related linguistic properties of sentences. The relation was further investigated in length-controlled settings, obtaining similar results across online gaze measurements but different for offline perceived complexity annotations. The overall results identify syntagmatic complexity as the primary source of variation in both offline and online complexity perception for readers. However, they also show how the variety in parts and hierarchical structures contributes differently across different complexity perspectives when sentence length is controlled. Another theoretical aspect supported by Chapter <a href="chap-ex3.html#chap:ex3">5</a> experimental results is the role played by cognitive mechanisms other than predictability in shaping human processing patterns on ambiguous constructions like garden-path sentences. In this context, a computational model that accurately predicts the presence or garden-path effects was used as a psycholinguistic subject to provide predictability annotations on standard and atypical constructions. A surprisal-to-reading-times conversion coefficient was then estimated from gaze annotations and surprisal scores on standard constructions. The resulting reading times were used to highlight how the model widely overestimated the magnitude of garden-path effects, following the methodology of <span class="citation">Schijndel and Linzen (<a href="#ref-schjindel-linzen-2020-single">2020</a>)</span>. While results differ significantly from the latter study due to a much larger conversion coefficient, the presence of different accounts for cognitive processing is supported when considering how proportions in predicted magnitudes on different types of constructions do not match the ones reported in recent psycholinguistics literature.</p>
+<p>Despite interesting theoretical findings, this work is mostly devoted to interpreting complexity phenomena from a modeling standpoint. Chapter <a href="chap-ex1.html#chap:ex1">3</a> evaluates the encoding of linguistic properties inside neural language models’ representations using probing tasks performed before and after model fine-tuning on complexity-related tasks. Results highlighted the emergence of task-related linguistic properties within the model’s representations after the fine-tuning process, providing evidence for the relation between models’ linguistic skills during training and their performances on morphosyntactically-related tasks. In light of these findings, it can be conjectured that linguistic probes may provide a reasonable estimate of the task-oriented quality of representations for those highly-syntactic tasks. In Chapter <a href="chap-ex2.html#chap:ex2">4</a>, the representations learned by neural language models were compared across layers and fine-tuning tasks using representational similarity approaches. The absence of higher similarity scores between complexity-trained models compared to the pre-trained one suggests that training objectives are learned by overfitting annotations and that learned parameters hardly capture information that could be relevant for multiple complexity-related tasks.</p>
+<p>Moreover, task framing and the annotation modalities were observed to play a much larger role in defining representational similarity scores rather than the conceptual similarity between tasks. This fact supports the claim that standard optimization procedures used in deep learning are not suitable for this type of concept-driven learning. Finally, Chapter <a href="chap-ex3.html#chap:ex3">5</a> highlighted the inability of standard neural language models in leveraging syntactic cues to improve prediction in the context of garden-path effects. Models fine-tuned on gaze annotations were tested on garden-path test suites to evaluate whether reading time predictions can perform as well as surprisal in identifying garden-path triggers. Results highlight how models heavily overfit gaze annotation and cannot predict the increase in reading times observed in human subjects despite being exposed to the temporary syntactic ambiguity that characterizes garden-path constructions.</p>
+<p>Recent trends in transfer learning have profoundly shaped the last few years of research in NLP, leading to astonishing improvements in almost all language-related tasks, including linguistic complexity prediction. Despite all the hype, the fundamental problem behind all computational linguistics research remains: even the most powerful deep learning models do not “understand” language, and their learned representations are “potentially useful, but incomplete, reflections of the actual meaning” they derive from structural training procedures <span class="citation">(Bender and Koller <a href="#ref-bender-koller-2020-climbing">2020</a>)</span>. In support of this affirmation, all models leveraged in this study by following closely standard procedures were found lacking in generalization capabilities and hierarchical abstraction, despite their excellent performances on predicting in-domain observations. To conclude with a somewhat cliché affirmation, much work still needs to be done to drive generalizable, hierarchical, and compositional representation learning in language models, enabling proper human-level natural language understanding.</p>
+<div id="broader-impact-and-ethical-perspectives" class="section level2 unnumbered">
+<h2>Broader Impact and Ethical Perspectives</h2>
+<p>The findings described in this thesis work are mostly meta-analytical, and as such, mostly intended to distill theoretical insights and evaluate recent efforts in the natural language processing community. This said, some of the models and procedures described in this work can be clearly beneficial to society. For example, using models trained to predict reading patterns may be used in educational settings to identify difficult passages that can be simplified, improving reading comprehension for students in a fully-personalizable way. This type of technology can also be applied to domain-specific documents such as juridical or medical reports to identify critical areas that can be adapted to improve layman’s understanding. However, it is essential to recognize the potentially malicious usage of such systems. The integration of eye-tracking systems in mobile devices, paired with predictive models presented in this work, could be used to build harmful surveillance systems and advertisement platforms using gaze predictions for extreme behavioral manipulation. Moreover, multiple individuals’ gaze data could be leveraged by autonomous systems to enforce discriminatory practices towards neurodiverse subjects in hardly-detectable ways. In terms of research impact, the experiments presented in this work may provide useful insights into the behavior of neural language models for researchers working in the fields of interpretability in NLP and computational psycholinguistics.</p>
+</div>
+<div id="future-directions" class="section level2 unnumbered">
+<h2>Future Directions</h2>
+<p>In conclusion, multiple paths to improve and extend the scope of this work were identified during the experimental process, and will be left here as a final note for my future self and for anyone interested in pushing forward research in fields related to this thesis’ topics.</p>
+<ul>
+<li><p>Self-training has recently proven to be very effective for compensating the lack of large labeled datasets in the context of acceptability and complexity prediction <span class="citation">(Sarti <a href="#ref-sarti-2020-umbertomtsa">2020</a>)</span>. In light of these results, it would be interesting to evaluate whether self-training could also improve the performances and generalization of models used for gaze metrics prediction.</p></li>
+<li><p>Evaluate whether gaze-trained neural language models having undergone a <em>cloze distillation process</em> <span class="citation">(Eisape, Zaslavsky, and Levy <a href="#ref-eisape-etal-2020-cloze">2020</a>)</span>, combining intuitions from masked language modeling and knowledge distillation <span class="citation">(Hinton, Vinyals, and Dean <a href="#ref-hinton-etal-2015-distilling">2015</a>)</span>, would produce better results for modeling out-of-distribution garden-path phenomena compared to the somewhat naive approach adopted in this study.</p></li>
+<li><p>Incorporating gaze metrics prediction in the training objectives of learning models can be interesting to account for human cognitive biases during reading. The crucial aspect is how to get a sufficient amount of annotated data to make this idea scalable for modern language models’ pre-training needs. In this regard, it could be interesting to test the approach by <span class="citation">Hollenstein and Zhang (<a href="#ref-hollenstein-zhang-2019-entity">2019</a>)</span> where mean gaze scores are averaged for each type across annotators, effectively providing a way to label input sentences with robust gaze information in an unsupervised manner.</p></li>
+<li><p>Since eye-tracking metrics are complexity signals with free human supervision, it could be possible to leverage those for simplification and other related tasks in an iterative learning-from-human-feedback paradigm similar to the one described in <span class="citation">Stiennon et al. (<a href="#ref-stiennon-etal-2020-learning">2020</a>)</span>.</p></li>
+<li><p>It should in principle be possible to use human processing data as a replacement for the self-attention computation. The dot product critically bounds the computational efficiency of attention-based models, and fixed attention has been shown to have a limited negative impact on final results while making inference much faster <span class="citation">(Tay et al. <a href="#ref-tay-etal-2020-synthesizer">2020</a>)</span>. Fixing attention weights using human attention, as measured by eye-tracking metrics, can be an exciting perspective to explore in this context. This idea can be thought of as an application of human attention regularization of LSTM attentional networks for various tasks proposed in <span class="citation">Barrett et al. (<a href="#ref-barrett-etal-2018-sequence">2018</a>)</span> to Transformers networks.</p></li>
+<li><p>Would explicitly embedding complexity in the learning process of language models favor hierarchical abstraction? In this perspective, it would be exciting to evaluate whether a model trained on easy-to-hard sentences following language acquisition insights would encode different knowledge in terms of linguistic structures, concept abstraction, and allowances.</p></li>
+<li><p>Finding better ways to instill useful inductive biases into learning models, especially for syntax-heavy downstream tasks. Concrete examples following this direction may use parsing as a complementary task to keep top-level representations sensible to syntactic changes, as tested in <span class="citation">Glavas and Vulic (<a href="#ref-glavas-vulic-2020-supervised">2020</a>)</span> for natural language understanding, or use hybrid symbolic-neural models to represent syntax as in <span class="citation">Zanzotto et al. (<a href="#ref-zanzotto-etal-2020-kermit">2020</a>)</span>.</p></li>
+</ul>
+
+</div>
+</div>
+
+
+
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-barrett-etal-2018-sequence">
+<p>Barrett, Maria, Joachim Bingel, Nora Hollenstein, Marek Rei, and Anders Søgaard. 2018. “Sequence Classification with Human Attention.” In <em>Proceedings of the 22nd Conference on Computational Natural Language Learning</em>, 302–12. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/K18-1030">https://doi.org/10.18653/v1/K18-1030</a>.</p>
+</div>
+<div id="ref-bender-koller-2020-climbing">
+<p>Bender, Emily M., and Alexander Koller. 2020. “Climbing Towards NLU: On Meaning, Form, and Understanding in the Age of Data.” In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</em>, 5185–98. Online: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.acl-main.463">https://doi.org/10.18653/v1/2020.acl-main.463</a>.</p>
+</div>
+<div id="ref-eisape-etal-2020-cloze">
+<p>Eisape, Tiwalayo, Noga Zaslavsky, and Roger Levy. 2020. “Cloze Distillation Improves Psychometric Predictive Power.” In <em>Proceedings of the 24th Conference on Computational Natural Language Learning</em>, 609–19. Online: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/2020.conll-1.49">https://www.aclweb.org/anthology/2020.conll-1.49</a>.</p>
+</div>
+<div id="ref-glavas-vulic-2020-supervised">
+<p>Glavas, Goran, and Ivan Vulic. 2020. “Is Supervised Syntactic Parsing Beneficial for Language Understanding? An Empirical Investigation.” <em>ArXiv Pre-Print</em> 2008.06788. <a href="https://arxiv.org/abs/2008.06788">https://arxiv.org/abs/2008.06788</a>.</p>
+</div>
+<div id="ref-hinton-etal-2015-distilling">
+<p>Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. 2015. “Distilling the Knowledge in a Neural Network.” <em>ArXiv Pre-Print</em> 1503.02531. <a href="https://arxiv.org/abs/1503.02531">https://arxiv.org/abs/1503.02531</a>.</p>
+</div>
+<div id="ref-hollenstein-zhang-2019-entity">
+<p>Hollenstein, Nora, and Ce Zhang. 2019. “Entity Recognition at First Sight: Improving NER with Eye Movement Information.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 1–10. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1001">https://doi.org/10.18653/v1/N19-1001</a>.</p>
+</div>
+<div id="ref-sarti-2020-umbertomtsa">
+<p>Sarti, Gabriele. 2020. “UmBERTo-MTSA @ AcCompl-It: Improving Complexity and Acceptability Prediction with Multi-Task Learning on Self-Supervised Annotations.” <em>ArXiv Pre-Print</em> 2011.05197. <a href="https://arxiv.org/abs/2011.05197">https://arxiv.org/abs/2011.05197</a>.</p>
+</div>
+<div id="ref-schjindel-linzen-2020-single">
+<p>Schijndel, Marten van, and Tal Linzen. 2020. “Single-Stage Prediction Models Do Not Explain the Magnitude of Syntactic Disambiguation Difficulty.” <em>PsyArXiv Pre-Print</em> sgbqy. <a href="https://psyarxiv.com/sgbqy/">https://psyarxiv.com/sgbqy/</a>.</p>
+</div>
+<div id="ref-stiennon-etal-2020-learning">
+<p>Stiennon, Nisan, Long Ouyang, Jeff Wu, Daniel M. Ziegler, Ryan Lowe, Chelsea Voss, Alec Radford, Dario Amodei, and Paul Christiano. 2020. “Learning to Summarize from Human Feedback.” <em>ArXiv Pre-Print</em> 2009.01325. <a href="https://arxiv.org/abs/2009.01325">https://arxiv.org/abs/2009.01325</a>.</p>
+</div>
+<div id="ref-tay-etal-2020-synthesizer">
+<p>Tay, Yi, Dara Bahri, Donald Metzler, D. Juan, Zhe Zhao, and Che Zheng. 2020. “Synthesizer: Rethinking Self-Attention in Transformer Models.” <em>ArXiv Pre-Print</em> 2005.00743. <a href="https://arxiv.org/abs/2005.00743">https://arxiv.org/abs/2005.00743</a>.</p>
+</div>
+<div id="ref-zanzotto-etal-2020-kermit">
+<p>Zanzotto, Fabio Massimo, Andrea Santilli, Leonardo Ranaldi, Dario Onorati, Pierfrancesco Tommasino, and Francesca Fallucchi. 2020. “KERMIT: Complementing Transformer Architectures with Encoders of Explicit Syntactic Interpretations.” In <em>Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (Emnlp)</em>, 256–67. Online: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/2020.emnlp-main.18">https://www.aclweb.org/anthology/2020.emnlp-main.18</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap-ex3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="app-ling-feats.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gsarti/master-thesis/tree/master/06-Conclusion.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Sarti_2020_Interpreting_NLMs_for_LCA.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

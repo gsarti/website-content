@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Gaze-informed Models for Cognitive Processing Prediction | Interpreting Neural Language Models for Linguistic Complexity Assessment</title>
+  <meta name="description" content="This is a test description" />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Gaze-informed Models for Cognitive Processing Prediction | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://gsarti.com/master-thesis" />
+  <meta property="og:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+  <meta property="og:description" content="This is a test description" />
+  <meta name="github-repo" content="gsarti/interpreting-complexity" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Gaze-informed Models for Cognitive Processing Prediction | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  
+  <meta name="twitter:description" content="This is a test description" />
+  <meta name="twitter:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+
+<meta name="author" content="Gabriele Sarti" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="figures/icons/apple-icon.png" />
+  <link rel="shortcut icon" href="figures/icons/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="chap-ex2.html"/>
+<link rel="next" href="conclusion.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="templates/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="introduction.html#introduction"><strong>Introduction</strong></a></li>
+<li class="chapter" data-level="1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html"><i class="fa fa-check"></i><b>1</b> <strong>Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="1.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:categorizing"><i class="fa fa-check"></i><b>1.1</b> Categorizing Linguistic Complexity Measures</a></li>
+<li class="chapter" data-level="1.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:intrinsic"><i class="fa fa-check"></i><b>1.2</b> Intrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:structural"><i class="fa fa-check"></i><b>1.2.1</b> Structural Linguistic Complexity</a></li>
+<li class="chapter" data-level="1.2.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:lm-surprisal"><i class="fa fa-check"></i><b>1.2.2</b> Language Modeling Surprisal</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:extrinsic"><i class="fa fa-check"></i><b>1.3</b> Extrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:readability"><i class="fa fa-check"></i><b>1.3.1</b> Automatic Readability Assessment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:pc"><i class="fa fa-check"></i><b>1.3.2</b> Perceived Complexity Prediction</a></li>
+<li class="chapter" data-level="1.3.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:eye-tracking"><i class="fa fa-check"></i><b>1.3.3</b> Gaze Metrics Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:garden-path"><i class="fa fa-check"></i><b>1.4</b> Garden-path Sentences</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chap-models.html"><a href="chap-models.html"><i class="fa fa-check"></i><b>2</b> <strong>Models of Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="2.1" data-path="chap-models.html"><a href="chap-models.html#subchap:desiderata"><i class="fa fa-check"></i><b>2.1</b> Desiderata for Models of Linguistic Complexity</a></li>
+<li class="chapter" data-level="2.2" data-path="chap-models.html"><a href="chap-models.html#subchap:nlm"><i class="fa fa-check"></i><b>2.2</b> Neural Language Models: Unsupervised Multitask Learners</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:syntax-nlm"><i class="fa fa-check"></i><b>2.2.1</b> Emergent Linguistic Structures in Neural Language Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chap-models.html"><a href="chap-models.html#subchap:analyzing-nlm"><i class="fa fa-check"></i><b>2.3</b> Analyzing Neural Models of Complexity</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:probe"><i class="fa fa-check"></i><b>2.3.1</b> Probing classifiers</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chap-models.html"><a href="chap-models.html#subsubchap:rsa"><i class="fa fa-check"></i><b>2.3.2</b> Representational Similarity Analysis</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chap-models.html"><a href="chap-models.html#subsubchap:pwcca"><i class="fa fa-check"></i><b>2.3.3</b> Projection-Weighted Canonical Correlation Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-ex1.html"><a href="chap-ex1.html"><i class="fa fa-check"></i><b>3</b> <strong>Complexity Phenomena in Linguistic Annotations and Language Models</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-data"><i class="fa fa-check"></i><b>3.1</b> Data and Preprocessing</a></li>
+<li class="chapter" data-level="3.2" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-analysis"><i class="fa fa-check"></i><b>3.2</b> Analysis of Linguistic Phenomena</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-analysis-bins"><i class="fa fa-check"></i><b>3.2.1</b> Linguistic Phenomena in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-modeling"><i class="fa fa-check"></i><b>3.3</b> Modeling Online and Offline Linguistic Complexity</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-modeling-bins"><i class="fa fa-check"></i><b>3.3.1</b> Modeling Complexity in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-probing"><i class="fa fa-check"></i><b>3.4</b> Probing Linguistic Phenomena in ALBERT Representations</a></li>
+<li class="chapter" data-level="3.5" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap-ex2.html"><a href="chap-ex2.html"><i class="fa fa-check"></i><b>4</b> <strong>Representational Similarity in Models of Complexity</strong></a><ul>
+<li class="chapter" data-level="4.1" data-path="chap-ex2.html"><a href="chap-ex2.html#knowledge-driven-requirements-for-learning-models"><i class="fa fa-check"></i><b>4.1</b> Knowledge-driven Requirements for Learning Models</a></li>
+<li class="chapter" data-level="4.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-experiments"><i class="fa fa-check"></i><b>4.2</b> Experimentsl Evaluation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-data"><i class="fa fa-check"></i><b>4.2.1</b> Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-inter"><i class="fa fa-check"></i><b>4.2.2</b> Inter-model Representational Similarity</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-intra"><i class="fa fa-check"></i><b>4.2.3</b> Intra-model Representational Similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-summary"><i class="fa fa-check"></i><b>4.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap-ex3.html"><a href="chap-ex3.html"><i class="fa fa-check"></i><b>5</b> <strong>Gaze-informed Models for Cognitive Processing Prediction</strong></a><ul>
+<li class="chapter" data-level="5.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-setup"><i class="fa fa-check"></i><b>5.1</b> Experimental Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-experiments"><i class="fa fa-check"></i><b>5.2</b> Experimental Evaluation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-magnitudes"><i class="fa fa-check"></i><b>5.2.1</b> Estimating Magnitudes of Garden-path Delays</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-predicting"><i class="fa fa-check"></i><b>5.2.2</b> Predicting Delays with Surprisal and Gaze Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-summary"><i class="fa fa-check"></i><b>5.3</b> Summary</a></li>
+</ul></li>
+<li><a href="conclusion.html#conclusion"><strong>Conclusion</strong></a><ul>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Broader Impact and Ethical Perspectives</a></li>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i>Future Directions</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app-ling-feats.html"><a href="app-ling-feats.html"><i class="fa fa-check"></i><b>A</b> Linguistic Features</a><ul>
+<li class="chapter" data-level="A.1" data-path="app-ling-feats.html"><a href="app-ling-feats.html#raw-text-properties-and-lexical-variety"><i class="fa fa-check"></i><b>A.1</b> Raw Text Properties and Lexical Variety</a></li>
+<li class="chapter" data-level="A.2" data-path="app-ling-feats.html"><a href="app-ling-feats.html#morpho-syntacting-information"><i class="fa fa-check"></i><b>A.2</b> Morpho-syntacting Information</a></li>
+<li class="chapter" data-level="A.3" data-path="app-ling-feats.html"><a href="app-ling-feats.html#verbal-predicate-structure"><i class="fa fa-check"></i><b>A.3</b> Verbal Predicate Structure</a></li>
+<li class="chapter" data-level="A.4" data-path="app-ling-feats.html"><a href="app-ling-feats.html#global-and-local-parsed-tree-structures"><i class="fa fa-check"></i><b>A.4</b> Global and Local Parsed Tree Structures</a></li>
+<li class="chapter" data-level="A.5" data-path="app-ling-feats.html"><a href="app-ling-feats.html#syntactic-relations"><i class="fa fa-check"></i><b>A.5</b> Syntactic Relations</a></li>
+<li class="chapter" data-level="A.6" data-path="app-ling-feats.html"><a href="app-ling-feats.html#subordination-phenomena"><i class="fa fa-check"></i><b>A.6</b> Subordination Phenomena</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="app-et-metrics.html"><a href="app-et-metrics.html"><i class="fa fa-check"></i><b>B</b> Precisions on Eye-tracking Metrics and Preprocessing</a></li>
+<li class="chapter" data-level="C" data-path="app-et-modeling.html"><a href="app-et-modeling.html"><i class="fa fa-check"></i><b>C</b> Multi-task Token-level Regression for Gaze Metrics Prediction</a></li>
+<li class="chapter" data-level="D" data-path="app-intra-sim.html"><a href="app-intra-sim.html"><i class="fa fa-check"></i><b>D</b> Intra-model Similarity for All Models</a></li>
+<li class="chapter" data-level="E" data-path="app-garden-paths-et.html"><a href="app-garden-paths-et.html"><i class="fa fa-check"></i><b>E</b> Gaze Metrics Predictions for Garden Path Sentences</a></li>
+<li class="chapter" data-level="F" data-path="app-params.html"><a href="app-params.html"><i class="fa fa-check"></i><b>F</b> Reproducibility and Environmental Impact</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://gsarti.com">Back to my website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interpreting Neural Language Models<br />
+for Linguistic Complexity Assessment</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap:ex3" class="section level1">
+<h1><span class="header-section-number">5</span> <strong>Gaze-informed Models for Cognitive Processing Prediction</strong></h1>
+<p><!-- this will include a mini table of contents--></p>
+
+<blockquote>
+<p>This final experimental chapter aims to study the syntactic generalization capabilities of neural language models by evaluating their performances over atypical linguistic constructions. In particular, architectures pre-trained with masked and causal language modeling are evaluated in their ability to predict garden-path effects on three test suites taken from the SyntaxGym psycholinguistic benchmark. First, the results of previous studies using GPT-2 surprisal to predict garden-path effects are reproduced, and a conversion coefficient is used to evaluate GPT-2 surprisal in terms of human reading times delays. Two neural language models are fine-tuned over gaze metrics from multiple eye-tracking corpora in a multitask token-level setting. Gaze metric predictions on garden-path sentences are evaluated to see whether gaze data fine-tuning can improve garden-path effects prediction. Results highlight how GPT-2 surprisals overestimate the magnitude of MV/RR and NP/Z garden-path effects, and fine-tuning procedures on gaze metrics prediction over typical linguistic structures do not benefit the generalization capabilities of neural language models on out-of-distribution cases like garden-path sentences.</p>
+</blockquote>
+<p>Human behavioral data collected during naturalistic reading can provide useful insights into the primary sources of processing difficulties during reading comprehension. Multiple cognitive processing theories were formulated to account for the sources of such difficulties (see Section <a href="chap-ling-comp.html#subchap:garden-path">1.4</a>). Notably, <strong>surprisal theory</strong> <span class="citation">(Hale <a href="#ref-hale-2001-probabilistic">2001</a>; Levy <a href="#ref-levy-2008-expectation">2008</a>)</span> suggests that processing during reading is the direct result of a single mechanism, that is, the shift in readers’ probability distribution over all possible parses. To evaluate whether this perspective holds empirically, language models defining a probability distribution over a vocabulary given previous context (RNNs in <span class="citation">Elman (<a href="#ref-elman-1991-distributed">1991</a>)</span> and <span class="citation">Mikolov et al. (<a href="#ref-mikolov-etal-2010-recurrent">2010</a>)</span>, recently Transformers in <span class="citation">Hu et al. (<a href="#ref-hu-etal-2020-systematic">2020</a>)</span>) are commonly used to obtain accurate predictability estimates that can directly be compared to behavioral recordings (e.g. gaze metrics) acting as proxies of human cognitive processing.</p>
+<p>A computational model that consistently mimics human processing behaviors would provide strong evidence of cognitive processing’s underlying probabilistic-driven nature. For this reason, many studies in the fields of syntax and psycholinguistics have focused on probing the abilities of language models to highlight phenomena related to reading difficulties <span class="citation">(Linzen, Dupoux, and Goldberg <a href="#ref-linzen-etal-2016-assessing">2016</a>; Gulordava et al. <a href="#ref-gulordava-etal-2018-colorless">2018</a>; Futrell et al. <a href="#ref-futrell-etal-2019-neural">2019</a>)</span>. Peculiar constructions like garden-path sentences are often used in this context to evaluate the generalization capabilities of language models for two main reasons. First, garden-path sentences are rare in naturally-occurring text. As such, they represent out-of-distribution examples for any language model trained on conventional data and can be used to test the latter’s generalization capabilities. Secondly, researchers nowadays have access to reasonably-sized literature describing the impact of garden-path effects on cognitive processing proxies such as gaze recordings, with articles being often released alongside publicly-available resources for reproducible evaluation <span class="citation">(Prasad and Linzen <a href="#ref-prasad-linzen-2019-self">2019</a><a href="#ref-prasad-linzen-2019-self">a</a>, <a href="#ref-prasad-linzen-2019-much">2019</a><a href="#ref-prasad-linzen-2019-much">b</a>)</span> and recently even ad-hoc benchmarks <span class="citation">(Gauthier et al. <a href="#ref-gauthier-etal-2020-syntaxgym">2020</a>)</span>.</p>
+<p>This final experimental chapter evaluates the ability of neural language models in predicting garden-path effects observed on human subjects, using language modeling surprisal and eye-tracking metrics elicited respectively before and after multitask token-level eye-tracking fine-tuning for garden-path effects prediction. Specifically, an autoregressive (GPT-2, <span class="citation">Radford et al. (<a href="#ref-radford-etal-2019-language">2019</a>)</span>) and a masked language model (ALBERT, <span class="citation">Lan et al. (<a href="#ref-lan-etal-2020-albert">2020</a>)</span>) are first tested over three garden-path test suites that are part of the SyntaxGym benchmark to evaluate whether their language modeling surprisal before and after eye-tracking fine-tuning (ET) can be used to predict the presence and the magnitude of garden-path effects over disambiguating regions. In particular, GPT-2 and GPT-2 XL results presented in <span class="citation">Hu et al. (<a href="#ref-hu-etal-2020-systematic">2020</a>)</span> are reproduced. Finally, the same procedure is repeated using predicted eye-tracking scores predicted by models after fine-tuning instead of language modeling surprisal, following the intuition that an accurate model of gaze measurements should predict such phenomena correctly.</p>
+<p>While the usage of surprisal is a common practice for garden-path effect prediction, leveraging eye-tracking scores predicted by a neural language model trained for this purpose is a novel research direction that is deemed interesting as a way to combine the predictive power of modern language models and the strong connection between cognitive processing and gaze metrics. While predicted gaze metrics for garden-path evaluation were used in concurrent studies <span class="citation">(Schijndel and Linzen <a href="#ref-schjindel-linzen-2020-single">2020</a>)</span>, the approach adopted by this work can be regarded as complementary evidence since eye-tracking metrics predictions are produced as results of an end-to-end supervised fine-tuning procedure involving a neural language model rather than being derived from surprisal values through a conversion coefficient. Findings suggest that, while surprisal scores from autoregressive models accurately reflect garden-path structures both before and after fine-tuning, gaze metrics predictions produced by fine-tuned models do not account for the temporary syntactic ambiguity that characterizes such sentences and makes them difficult to process.</p>
+<p><span class="custompar">Contributions</span> This study validates the performances of standard and gaze-informed Transformed-based neural language models for garden-path effects prediction. In particular:</p>
+<ul>
+<li><p>It reproduces the GPT-2 performances on garden-path test suites reported by <span class="citation">Gauthier et al. (<a href="#ref-gauthier-etal-2020-syntaxgym">2020</a>)</span> and highlights how GPT-2 overestimates reading delays caused by garden-path effects on MV/RR and NP/Z constructions.</p></li>
+<li><p>It highlights masked language models’ inability to consistently predict garden-path effects, using language modeling surprisal and gaze metrics predictions.</p></li>
+<li><p>It introduces a novel gaze metrics multitask token-level fine-tuning approach that, despite being accurate for predicting eye-tracking scores on standard constructions, does not improve models’ performances on garden-path effects predictions.</p></li>
+</ul>
+<div id="subchap:ex3-setup" class="section level2">
+<h2><span class="header-section-number">5.1</span> Experimental Setup</h2>
+<p><span class="custompar">Fine-tuning data</span> As for the gaze metrics model presented in the previous chapter, all eye-tracking datasets presented in Section <a href="chap-ling-comp.html#subsubchap:eye-tracking">1.3.3</a> were merged and used to fine-tune neural language models using the multitask token-level approach described in Appendix <a href="app-et-modeling.html#app:et-modeling">C</a>. Only the training variant without embedding concatenation (referred to as “surprisal” in the appendix) was evaluated on garden-path test suites given comparable modeling performances.</p>
+<p><span class="custompar">Models</span> Two variants of GPT-2 having respectively 117 million and 1.5 billion parameters are evaluated in terms of surprisal-driven predictability, alongside an ALBERT model with 11 million parameters.<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a> Only the small GPT-2 model and the ALBERT model were fine-tuned for gaze metric predictions due to limited computational resources.</p>
+<p><span class="custompar">Evaluation data</span> SyntaxGym <span class="citation">(Gauthier et al. <a href="#ref-gauthier-etal-2020-syntaxgym">2020</a>)</span> is a recently introduced online platform designed to make the targeted evaluation of language models on psycholinguistic test suites both accessible and reproducible. The MV/RR and NP/Z test suites containing garden paths from <span class="citation">Futrell et al. (<a href="#ref-futrell-etal-2019-neural">2019</a>)</span> are used in the context of this work. The MV/RR test suite consists of 28 groups containing a sentence with a main verb/reduced relative ambiguity and its non-ambiguous rewritings. In comparison, the NP/Z test suites consist of 24 groups containing a sentence with a nominal/zero predicate ambiguity, produced either by a misinterpreted transitive use of a verb (Verb Transitivity) or the absence of an object for the main verb (Overt Object). Examples (3), (4), and (5) from Section <a href="chap-ling-comp.html#subchap:garden-path">1.4</a> follow the format used in the three SyntaxGym test suites used in this work.</p>
+
+
+<div class="figure" style="text-align: center"><span id="fig:gpt2-surprisal"></span>
+<img src="figures/5_gpt2_surprisal_npz_ambig.png" alt="Average GPT-2 surprisal predictions and examples for the NP/Z Ambiguity with Verb Transitivity (top), the NP/Z Ambiguity with Overt Object (middle), and the MV/RR Ambiguity (bottom) SyntaxGym test suites used in this study. Star marks the garden-path disambiguator (bold in examples), and bars show 95% confidence intervals." width="100%" /><img src="figures/5_gpt2_surprisal_npz_obj.png" alt="Average GPT-2 surprisal predictions and examples for the NP/Z Ambiguity with Verb Transitivity (top), the NP/Z Ambiguity with Overt Object (middle), and the MV/RR Ambiguity (bottom) SyntaxGym test suites used in this study. Star marks the garden-path disambiguator (bold in examples), and bars show 95% confidence intervals." width="100%" /><img src="figures/5_gpt2_surprisal_mvrr.png" alt="Average GPT-2 surprisal predictions and examples for the NP/Z Ambiguity with Verb Transitivity (top), the NP/Z Ambiguity with Overt Object (middle), and the MV/RR Ambiguity (bottom) SyntaxGym test suites used in this study. Star marks the garden-path disambiguator (bold in examples), and bars show 95% confidence intervals." width="100%" />
+<p class="caption">
+Figure 5.1: Average GPT-2 surprisal predictions and examples for the NP/Z Ambiguity with Verb Transitivity (top), the NP/Z Ambiguity with Overt Object (middle), and the MV/RR Ambiguity (bottom) SyntaxGym test suites used in this study. Star marks the garden-path disambiguator (bold in examples), and bars show 95% confidence intervals.
+</p>
+</div>
+</div>
+<div id="subchap:ex3-experiments" class="section level2">
+<h2><span class="header-section-number">5.2</span> Experimental Evaluation</h2>
+<p>For the first part of the experiments, the smallest version of the model GPT-2 is used. Figure <a href="chap-ex3.html#fig:gpt2-surprisal">5.1</a> reproduces the original setting tested by <span class="citation">Hu et al. (<a href="#ref-hu-etal-2020-systematic">2020</a>)</span>, showing how predictability estimates produced by the model correctly individuate the presence of garden-path effects.<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a> Surprisal values are computed using a pre-trained GPT-2 for all tokens in all sentences of the three test suites. Then, those values are aggregated by summing them across all tokens composing a sentence region. For example, for the NP/Z Ambiguity test suite entry shown in example (a) the region “Start” will be associated with the sum of surprisal estimates for all subword tokens in the sequence <em>While the students</em>. It is important to note that the four variants of the same sentence have only minimal variations, but only one of those (the underlined one in all examples) is a garden-path sentence. After computing GPT-2 surprisal scores for all regions of all sentences in the test sets, those are averaged region-wise across sentences belonging to the same test set to obtain the three plots presented in Figure <a href="chap-ex3.html#fig:gpt2-surprisal">5.1</a>. The star symbol is used to mark the disambiguating region of garden-path sentences, making evident how predictability estimates are significantly lower (i.e., higher surprisal values) for those and correctly predict the presence of a garden-path effect in most settings and for all the three garden-path variants.</p>
+<div id="subsubchap:ex3-magnitudes" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Estimating Magnitudes of Garden-path Delays</h3>
+<p>An important part of evaluating model predictions over garden-path sentences is determining whether the increase in surprisal scores correctly captures the effect’s magnitude. <span class="citation">Schijndel and Linzen (<a href="#ref-schjindel-linzen-2020-single">2020</a>)</span> perform this evaluation on RNN language models, finding that they vastly underestimate garden-path effects for MV/RR and NP/Z ambiguities. In their approach, <span class="citation">Schijndel and Linzen (<a href="#ref-schjindel-linzen-2020-single">2020</a>)</span> estimate the surprisal-to-reading-times conversion rate at 2ms per surprisal bit by fitting a linear mixed-effect model on relevant factors (surprisal, entropy, word length, among others) relative to a word and its three preceding words to account for spillover effects. The approach adopted in this work is different in that it stems from the empirical relation between surprisal scores produced by GPT-2 and reading times produced by eye-tracking experiments’ participants. Figure <a href="chap-ex3.html#fig:surprisal-ratios">5.2</a> presents the median values over words for the ratio between gaze metrics recorded by participants and GPT-2 surprisal estimates, with the red cross indicating the average median surprisal-to-metric ratio <span class="math inline">\(C_{\text{corpus}}^{\text{metric}}\)</span> computed across all participants of a corpus. The following formula is used to produce the surprisal-to-reading-times conversion coefficient:
+<span class="math display">\[\begin{equation}
+C_{S\rightarrow RT} = w_1 \cdot C_{\text{GECO}}^{\text{FPD}} + w_2 \cdot C_{\text{Dundee}}^{\text{FPD}} + w_3 \cdot C_{\text{ZuCo NR}}^{\text{FPD}} + w_4 \cdot C_{\text{ZuCo SR}}^{\text{FPD}} + w_5 \cdot C_{\text{ZuCo 2.0}}^{\text{FPD}}
+\end{equation}\]</span>
+with <span class="math inline">\(w = [.4, .45, .05, .05, .05]\)</span> being the weighting coefficients representing the proportion of each corpus’ tokens over the total amount of available gaze-annotated tokens.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:surprisal-ratios"></span>
+<img src="figures/5_surprisal_ratios.png" alt="Median scores for the ratio between gaze metrics units and GPT-2 surprisal estimates across all participants of all eye-tracking datasets used in this study. The red cross shows the average across participants of a single dataset. Units are in ms for durations, % for FXP, and raw counts for FXC." width="100%" />
+<p class="caption">
+Figure 5.2: Median scores for the ratio between gaze metrics units and GPT-2 surprisal estimates across all participants of all eye-tracking datasets used in this study. The red cross shows the average across participants of a single dataset. Units are in ms for durations, % for FXP, and raw counts for FXC.
+</p>
+</div>
+<p>The resulting value for the conversion coefficient is <span class="math inline">\(27.7\)</span>, i.e., <em>each surprisal bit predicted by GPT-2 accounts for roughly 27.7 milliseconds in first pass duration</em> (30.3ms using TFD). When applied to the average effects predicted by GPT-2 in Figure <a href="chap-ex3.html#fig:gpt2-surprisal">5.1</a>, it leads to an estimated delay of roughly 64ms for the MV/RR setting and 166ms and 194ms for the NP/Z Ambiguity and NP/Z Overt Object settings, respectively. These computed delays overestimate the literature’s effects: <span class="citation">Prasad and Linzen (<a href="#ref-prasad-linzen-2019-self">2019</a><a href="#ref-prasad-linzen-2019-self">a</a>)</span> and <span class="citation">Prasad and Linzen (<a href="#ref-prasad-linzen-2019-much">2019</a><a href="#ref-prasad-linzen-2019-much">b</a>)</span>, for example, report an average garden-path effect of 22ms and 27ms for MV/RR and NP/Z variants, respectively. However, it should be mentioned that precedent studies found higher delays for NP/Z structures: <span class="citation">Grodner et al. (<a href="#ref-grodner-etal-2003-against">2003</a>)</span> find a 64ms delay on disambiguating words, and <span class="citation">Sturt, Pickering, and Crocker (<a href="#ref-sturt-etal-1999-structural">1999</a>)</span>‘s delays of 152ms per word are close to the estimates produced by GPT-2 surprisal predictions. Overall, using models’ surprisal on gaze-annotated sentences to directly compute a conversion coefficient produces values that correctly identify delays on disambiguating regions and overestimate the magnitude of garden-path effects conversely to what was found by <span class="citation">Schijndel and Linzen (<a href="#ref-schjindel-linzen-2020-single">2020</a>)</span>. Even with an adjustment of the conversion coefficient to match MV/RR estimates with <span class="citation">Prasad and Linzen (<a href="#ref-prasad-linzen-2019-self">2019</a><a href="#ref-prasad-linzen-2019-self">a</a>)</span> findings, the NP/Z effect prediction would still be much larger than the empirically-observed values collected in comparable settings.</p>
+</div>
+<div id="subsubchap:ex3-predicting" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Predicting Delays with Surprisal and Gaze Metrics</h3>
+<p>The other perspective explored in this study is evaluating whether gaze metric predicted by models fine-tuned on eye-tracking corpora annotations can correctly estimate the presence and magnitude of garden-path effects and how they compare to surprisal-driven approaches. Table <a href="chap-ex3.html#tab:gp-results">5.1</a> presents the accuracy of multiple pre-trained Transformer-based language models in respecting a set of three conditions taken from <span class="citation">Hu et al. (<a href="#ref-hu-etal-2020-systematic">2020</a>)</span> for each SyntaxGym test suite, namely:
+<span class="math display">\[\begin{equation}
+V_d(b) &lt; V_d(a);\qquad V_d(c) &lt; V_d(a);\qquad V_d(c)-V_d(d) &lt; V_d(a)-V_d(b)
+\end{equation}\]</span>
+Where <span class="math inline">\(V_d(a)\)</span> corresponds to the value, either in terms of surprisal or gaze metrics, assigned by a model to the disambiguating region <span class="math inline">\(d\)</span> of sentence <span class="math inline">\(a\)</span>, and <span class="math inline">\(a,b,c,d\)</span> are the same sentence’s variants for each test suite presented in examples (3),(4) and (5) of Section <a href="chap-ling-comp.html#subchap:garden-path">1.4</a>. Accuracy is computed as the proportion of items in the test suite on which the language model’s predictions conform to the respective criterion. The first three models (GPT-2, GPT-2 XL, and ALBERT) are the pre-trained variants of the three models presented in Table <a href="chap-ex3.html#subchap:ex3-setup">5.1</a> without additional fine-tuning. Instead, the GPT-2 ET and ALBERT ET models correspond to the same GPT-2 and ALBERT models as before after a multitask token-level fine-tuning on gaze metrics for all the aggregated corpora. The top part of Table <a href="chap-ex3.html#tab:gp-results">5.1</a> shows the five models’ performances while using region-aggregated surprisals as predictors. Focusing on the GPT-2 variants, it can be observed that they all achieve considerably high scores on all evaluated conditions. Conversely, ALBERT masked language models poorly fit the specified criteria. This fact can be intuitively explained by accounting for the different training and evaluation setup used for the two architectures. GPT-2 models are likely to produce high surprisal estimates for garden-path sentences since, processing the input autoregressively and having access only to previous tokens, they incur in the same syntactic ambiguities faced by human readers.</p>
+<table class="table" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:gp-results">Table 5.1: </span>Results of experiments using surprisal and gaze metrics as predictors for garden-path effects on the three SyntaxGym test suites.
+</caption>
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+NP/Z Verb Transitivity
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+NP/Z Overt Object
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+MV/RR Ambiguity
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Cond. 1 <sup>1</sup>
+</th>
+<th style="text-align:center;">
+Cond. 2 <sup>2</sup>
+</th>
+<th style="text-align:center;">
+Cond. 3 <sup>3</sup>
+</th>
+<th style="text-align:center;">
+Cond. 1 <sup>a</sup>
+</th>
+<th style="text-align:center;">
+Cond. 2 <sup>b</sup>
+</th>
+<th style="text-align:center;">
+Cond. 3 <sup>c</sup>
+</th>
+<th style="text-align:center;">
+Cond. 1 <sup>*</sup>
+</th>
+<th style="text-align:center;">
+Cond. 2 <sup>†</sup>
+</th>
+<th style="text-align:center;">
+Cond. 3 <sup>‡</sup>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="5">
+Surprisal
+</td>
+<td style="text-align:left;">
+GPT-2
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+<span style="     ">0.96</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.92</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.88</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.96</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">1</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">1</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">1</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.89</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.82</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GPT-2 XL
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">1</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.96</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">1</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.96</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">1</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">1</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.93</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.75</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.75</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ALBERT
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+<span style="     ">0.21</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.63</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.58</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.21</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.54</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.61</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.54</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.38</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GPT-2 ET
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+<span style="     ">0.96</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.88</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.79</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.96</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">1</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.96</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.96</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.79</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.82</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ALBERT ET
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.58</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.75</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.62</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.64</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.64</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="12">
+Eye-tracking metrics
+</td>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="6">
+GPT-2 ET
+</td>
+<td style="text-align:left;">
+FFD
+</td>
+<td style="text-align:center;">
+<span style="     ">0.29</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.38</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.29</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.54</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.86</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.57</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FPD
+</td>
+<td style="text-align:center;">
+<span style="     ">0.13</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.67</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.13</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.86</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.54</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.36</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FXP
+</td>
+<td style="text-align:center;">
+<span style="     ">0.38</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.41</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.71</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.43</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.57</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FXC
+</td>
+<td style="text-align:center;">
+<span style="     ">0.75</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.75</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.63</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.92</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.54</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TFD
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.33</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.58</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.75</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.79</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.43</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.39</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TRD
+</td>
+<td style="text-align:center;">
+<span style="     ">0.67</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.54</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.63</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.25</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.54</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.29</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.39</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="6">
+ALBERT ET
+</td>
+<td style="text-align:left;">
+FFD
+</td>
+<td style="text-align:center;">
+<span style="     ">0.67</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.33</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.83</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.67</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.68</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.61</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FPD
+</td>
+<td style="text-align:center;">
+<span style="     ">0.54</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.41</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.33</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.38</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.79</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.75</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.75</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.57</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.46</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FXP
+</td>
+<td style="text-align:center;">
+<span style="     ">0.28</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.29</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.54</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.38</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.63</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.29</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.43</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FXC
+</td>
+<td style="text-align:center;">
+<span style="     ">0.63</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.46</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.38</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.67</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.71</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.86</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.43</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.39</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TFD
+</td>
+<td style="text-align:center;">
+<span style="     ">0.75</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.38</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.29</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.88</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.83</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.79</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.61</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.54</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TRD
+</td>
+<td style="text-align:center;">
+<span style="     ">0.96</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.42</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.63</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.75</span>
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.79</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.5</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.57</span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Description of the evaluated conditions
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<span style="font-style: italic;text-decoration: underline;">NP/Z Verb Trans.: </span> <sup>1</sup> [Ambig. No Comma] &gt; [Ambig. Comma]; <sup>2</sup> [Ambig. No Comma] &gt; [Unambig. No Comma]; <sup>3</sup> [Ambig. No Comma] - [Ambig. Comma] &gt; [Unambig. No Comma] - [Unambig. Comma]
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<span style="font-style: italic;text-decoration: underline;">NP/Z Overt Obj.: </span> <sup>a</sup> [No Obj. No Comma] &gt; [No Obj. Comma]; <sup>b</sup> [No Obj. No Comma] &gt; [Obj. No Comma]; <sup>c</sup> [No Obj. No Comma] - [No Obj. Comma] &gt; [Obj. No Comma] - [Obj. Comma]
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<span style="font-style: italic;text-decoration: underline;">MV/RR Ambig.: </span> <sup>*</sup> [Reduced Ambig.] &gt; [Unred. Ambig.]; <sup>†</sup> [Reduced Ambig.] &gt; [Reduced Unambig.]; <sup>‡</sup> [Reduced Ambig.] - [Unred. Ambig.] &gt; [Reduced Unambig.] - [Unred. Unambig.]
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Conversely, ALBERT-like masked language models have access to bidirectional contexts and are not exposed to the ambiguity. It is interesting to observe that while the eye-tracking fine-tuning procedure appears to hamper GPT-2 surprisal performances, it generally improves the ALBERT model’s accuracy. This phenomenon may be due to the sequential nature of reading that is being captured by gaze metrics and transferred to the bidirectional ALBERT model as a useful bias for sequential processing. The same procedure performs suboptimally, instead, when associated with an inherently autoregressive model like the GPT-2 decoder</p>
+<p>The bottom part of Table <a href="chap-ex3.html#tab:gp-results">5.1</a> presents the two ET-trained models’ accuracy in matching criteria using predicted gaze metrics. For both GPT-2 and ALBERT, it can be observed that gaze metrics vastly underperform in accuracy terms. We can conclude that, despite the conceptual relation between gaze metrics and predictability observed in humans, the predictions of fine-tuned model cannot generalize to unseen settings, and as such <em>eye-tracking predictions obtained after a fine-tuning on standard constructions do not appear useful to individuate or estimate the magnitude of garden-path effects</em>. This observation suggests that fine-tuned models stick to predicting gaze metric values that are the most likely for each specific token, regardless of the surrounding context’s ambiguities. Plots in Appendix <a href="app-garden-paths-et.html#app:garden-paths-et">E</a> present the region-aggregated average scores for all metrics predicted by GPT-2 ET in the same format as before and show how predictions on the disambiguator regions are unaffected by the presence of previous ambiguities.</p>
+</div>
+</div>
+<div id="subchap:ex3-summary" class="section level2">
+<h2><span class="header-section-number">5.3</span> Summary</h2>
+<p>This chapter focused on two perspectives related to the evaluation of neural language models for garden-path effects prediction. First, promising results from previous studies using GPT-2 surprisal to evaluate predictability are reproduced, and language modeling surprisal estimates are converted to reading times using a conversion coefficient. Resulting predictions vastly overestimate the magnitude of garden-path effects in all settings, suggesting the presence of additional mechanisms besides predictability in shaping cognitive processing in the presence of ambiguous constructions like garden-path sentences. This evidence is further supported by the second experimental perspective, in which reading times for garden-path sentences are predicted by models fine-tuned on eye-tracking annotations on corpora containing standard constructions. Results suggest that predicted gaze metrics poorly estimate the presence of garden-path effects over disambiguating regions, suggesting that fine-tuned models are once again incapable of out-of-the-box generalization beyond training settings.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-elman-1991-distributed">
+<p>Elman, Jeffrey L. 1991. “Distributed Representations, Simple Recurrent Networks, and Grammatical Structure.” <em>Machine Learning</em> 7 (2-3). Springer: 195–225.</p>
+</div>
+<div id="ref-futrell-etal-2019-neural">
+<p>Futrell, Richard, Ethan Wilcox, Takashi Morita, Peng Qian, Miguel Ballesteros, and Roger Levy. 2019. “Neural Language Models as Psycholinguistic Subjects: Representations of Syntactic State.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 32–42. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1004">https://doi.org/10.18653/v1/N19-1004</a>.</p>
+</div>
+<div id="ref-gauthier-etal-2020-syntaxgym">
+<p>Gauthier, Jon, Jennifer Hu, Ethan Wilcox, Peng Qian, and Roger Levy. 2020. “SyntaxGym: An Online Platform for Targeted Evaluation of Language Models.” In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics: System Demonstrations</em>, 70–76. Online: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.acl-demos.10">https://doi.org/10.18653/v1/2020.acl-demos.10</a>.</p>
+</div>
+<div id="ref-grodner-etal-2003-against">
+<p>Grodner, Daniel, Edward Gibson, Vered Argaman, and Maria Babyonyshev. 2003. “Against Repair-Based Reanalysis in Sentence Comprehension.” <em>Journal of Psycholinguistic Research</em> 32 (2). Springer: 141–66.</p>
+</div>
+<div id="ref-gulordava-etal-2018-colorless">
+<p>Gulordava, Kristina, Piotr Bojanowski, Edouard Grave, Tal Linzen, and Marco Baroni. 2018. “Colorless Green Recurrent Networks Dream Hierarchically.” In <em>Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers)</em>, 1195–1205. New Orleans, Louisiana: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N18-1108">https://doi.org/10.18653/v1/N18-1108</a>.</p>
+</div>
+<div id="ref-hale-2001-probabilistic">
+<p>Hale, John. 2001. “A Probabilistic Earley Parser as a Psycholinguistic Model.” In <em>Second Meeting of the North American Chapter of the Association for Computational Linguistics</em>.</p>
+</div>
+<div id="ref-hu-etal-2020-systematic">
+<p>Hu, Jennifer, Jon Gauthier, Peng Qian, Ethan Wilcox, and Roger Levy. 2020. “A Systematic Assessment of Syntactic Generalization in Neural Language Models.” In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</em>, 1725–44. Online: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.acl-main.158">https://doi.org/10.18653/v1/2020.acl-main.158</a>.</p>
+</div>
+<div id="ref-lan-etal-2020-albert">
+<p>Lan, Zhenzhong, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. 2020. “ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations.” In <em>International Conference on Learning Representations</em>. <a href="https://openreview.net/forum?id=H1eA7AEtvS">https://openreview.net/forum?id=H1eA7AEtvS</a>.</p>
+</div>
+<div id="ref-levy-2008-expectation">
+<p>Levy, Roger. 2008. “Expectation-Based Syntactic Comprehension.” <em>Cognition</em> 106 (3). Elsevier: 1126–77.</p>
+</div>
+<div id="ref-linzen-etal-2016-assessing">
+<p>Linzen, Tal, Emmanuel Dupoux, and Yoav Goldberg. 2016. “Assessing the Ability of Lstms to Learn Syntax-Sensitive Dependencies.” <em>Transactions of the Association for Computational Linguistics</em> 4. MIT Press: 521–35.</p>
+</div>
+<div id="ref-mikolov-etal-2010-recurrent">
+<p>Mikolov, Tomas, M. Karafiát, L. Burget, J. Cernocký, and S. Khudanpur. 2010. “Recurrent Neural Network Based Language Model.” In <em>INTERSPEECH</em>.</p>
+</div>
+<div id="ref-prasad-linzen-2019-self">
+<p>Prasad, Grusha, and Tal Linzen. 2019a. “Do Self-Paced Reading Studies Provide Evidence for Rapid Syntactic Adaptation?” <em>PsyArXiv Pre-Print</em>. <a href="https://tallinzen.net/media/papers/prasad_linzen_2019_adaptation.pdf">https://tallinzen.net/media/papers/prasad_linzen_2019_adaptation.pdf</a>.</p>
+</div>
+<div id="ref-prasad-linzen-2019-much">
+<p>Prasad, Grusha, and Tal Linzen. 2019b. “How Much Harder Are Hard Garden-Path Sentences Than Easy Ones?” <em>OSF Preprint</em> syh3j. <a href="https://osf.io/syh3j/">https://osf.io/syh3j/</a>.</p>
+</div>
+<div id="ref-radford-etal-2019-language">
+<p>Radford, A., Jeffrey Wu, R. Child, David Luan, Dario Amodei, and Ilya Sutskever. 2019. “Language Models Are Unsupervised Multitask Learners.” <em>OpenAI Blog</em>. OpenAI.</p>
+</div>
+<div id="ref-schjindel-linzen-2020-single">
+<p>Schijndel, Marten van, and Tal Linzen. 2020. “Single-Stage Prediction Models Do Not Explain the Magnitude of Syntactic Disambiguation Difficulty.” <em>PsyArXiv Pre-Print</em> sgbqy. <a href="https://psyarxiv.com/sgbqy/">https://psyarxiv.com/sgbqy/</a>.</p>
+</div>
+<div id="ref-sturt-etal-1999-structural">
+<p>Sturt, Patrick, Martin J Pickering, and Matthew W Crocker. 1999. “Structural Change and Reanalysis Difficulty in Language Comprehension.” <em>Journal of Memory and Language</em> 40 (1). Elsevier: 136–50.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="22">
+<li id="fn22"><p>The <code>gpt2</code>, <code>gpt2-xl</code> and <code>albert-base-v2</code> pre-trained models from 🤗 <code>transformers</code> <span class="citation">(Wolf et al. <a href="#ref-wolf-etal-2020-huggingface">2020</a>)</span>.<a href="chap-ex3.html#fnref22" class="footnote-back">↩</a></p></li>
+<li id="fn23"><p>Similar plots are available on the SyntaxGym website: <a href="http://syntaxgym.org/viz/individual" class="uri">http://syntaxgym.org/viz/individual</a><a href="chap-ex3.html#fnref23" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap-ex2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gsarti/master-thesis/tree/master/05-Cognitive-Phenomena.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Sarti_2020_Interpreting_NLMs_for_LCA.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

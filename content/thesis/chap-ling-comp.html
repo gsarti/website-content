@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Linguistic Complexity | Interpreting Neural Language Models for Linguistic Complexity Assessment</title>
+  <meta name="description" content="This is a test description" />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Linguistic Complexity | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://gsarti.com/master-thesis" />
+  <meta property="og:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+  <meta property="og:description" content="This is a test description" />
+  <meta name="github-repo" content="gsarti/interpreting-complexity" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Linguistic Complexity | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  
+  <meta name="twitter:description" content="This is a test description" />
+  <meta name="twitter:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+
+<meta name="author" content="Gabriele Sarti" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="figures/icons/apple-icon.png" />
+  <link rel="shortcut icon" href="figures/icons/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="chap-models.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="templates/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="introduction.html#introduction"><strong>Introduction</strong></a></li>
+<li class="chapter" data-level="1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html"><i class="fa fa-check"></i><b>1</b> <strong>Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="1.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:categorizing"><i class="fa fa-check"></i><b>1.1</b> Categorizing Linguistic Complexity Measures</a></li>
+<li class="chapter" data-level="1.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:intrinsic"><i class="fa fa-check"></i><b>1.2</b> Intrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:structural"><i class="fa fa-check"></i><b>1.2.1</b> Structural Linguistic Complexity</a></li>
+<li class="chapter" data-level="1.2.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:lm-surprisal"><i class="fa fa-check"></i><b>1.2.2</b> Language Modeling Surprisal</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:extrinsic"><i class="fa fa-check"></i><b>1.3</b> Extrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:readability"><i class="fa fa-check"></i><b>1.3.1</b> Automatic Readability Assessment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:pc"><i class="fa fa-check"></i><b>1.3.2</b> Perceived Complexity Prediction</a></li>
+<li class="chapter" data-level="1.3.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:eye-tracking"><i class="fa fa-check"></i><b>1.3.3</b> Gaze Metrics Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:garden-path"><i class="fa fa-check"></i><b>1.4</b> Garden-path Sentences</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chap-models.html"><a href="chap-models.html"><i class="fa fa-check"></i><b>2</b> <strong>Models of Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="2.1" data-path="chap-models.html"><a href="chap-models.html#subchap:desiderata"><i class="fa fa-check"></i><b>2.1</b> Desiderata for Models of Linguistic Complexity</a></li>
+<li class="chapter" data-level="2.2" data-path="chap-models.html"><a href="chap-models.html#subchap:nlm"><i class="fa fa-check"></i><b>2.2</b> Neural Language Models: Unsupervised Multitask Learners</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:syntax-nlm"><i class="fa fa-check"></i><b>2.2.1</b> Emergent Linguistic Structures in Neural Language Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chap-models.html"><a href="chap-models.html#subchap:analyzing-nlm"><i class="fa fa-check"></i><b>2.3</b> Analyzing Neural Models of Complexity</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:probe"><i class="fa fa-check"></i><b>2.3.1</b> Probing classifiers</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chap-models.html"><a href="chap-models.html#subsubchap:rsa"><i class="fa fa-check"></i><b>2.3.2</b> Representational Similarity Analysis</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chap-models.html"><a href="chap-models.html#subsubchap:pwcca"><i class="fa fa-check"></i><b>2.3.3</b> Projection-Weighted Canonical Correlation Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-ex1.html"><a href="chap-ex1.html"><i class="fa fa-check"></i><b>3</b> <strong>Complexity Phenomena in Linguistic Annotations and Language Models</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-data"><i class="fa fa-check"></i><b>3.1</b> Data and Preprocessing</a></li>
+<li class="chapter" data-level="3.2" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-analysis"><i class="fa fa-check"></i><b>3.2</b> Analysis of Linguistic Phenomena</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-analysis-bins"><i class="fa fa-check"></i><b>3.2.1</b> Linguistic Phenomena in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-modeling"><i class="fa fa-check"></i><b>3.3</b> Modeling Online and Offline Linguistic Complexity</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-modeling-bins"><i class="fa fa-check"></i><b>3.3.1</b> Modeling Complexity in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-probing"><i class="fa fa-check"></i><b>3.4</b> Probing Linguistic Phenomena in ALBERT Representations</a></li>
+<li class="chapter" data-level="3.5" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap-ex2.html"><a href="chap-ex2.html"><i class="fa fa-check"></i><b>4</b> <strong>Representational Similarity in Models of Complexity</strong></a><ul>
+<li class="chapter" data-level="4.1" data-path="chap-ex2.html"><a href="chap-ex2.html#knowledge-driven-requirements-for-learning-models"><i class="fa fa-check"></i><b>4.1</b> Knowledge-driven Requirements for Learning Models</a></li>
+<li class="chapter" data-level="4.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-experiments"><i class="fa fa-check"></i><b>4.2</b> Experimentsl Evaluation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-data"><i class="fa fa-check"></i><b>4.2.1</b> Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-inter"><i class="fa fa-check"></i><b>4.2.2</b> Inter-model Representational Similarity</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-intra"><i class="fa fa-check"></i><b>4.2.3</b> Intra-model Representational Similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-summary"><i class="fa fa-check"></i><b>4.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap-ex3.html"><a href="chap-ex3.html"><i class="fa fa-check"></i><b>5</b> <strong>Gaze-informed Models for Cognitive Processing Prediction</strong></a><ul>
+<li class="chapter" data-level="5.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-setup"><i class="fa fa-check"></i><b>5.1</b> Experimental Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-experiments"><i class="fa fa-check"></i><b>5.2</b> Experimental Evaluation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-magnitudes"><i class="fa fa-check"></i><b>5.2.1</b> Estimating Magnitudes of Garden-path Delays</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-predicting"><i class="fa fa-check"></i><b>5.2.2</b> Predicting Delays with Surprisal and Gaze Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-summary"><i class="fa fa-check"></i><b>5.3</b> Summary</a></li>
+</ul></li>
+<li><a href="conclusion.html#conclusion"><strong>Conclusion</strong></a><ul>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Broader Impact and Ethical Perspectives</a></li>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i>Future Directions</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app-ling-feats.html"><a href="app-ling-feats.html"><i class="fa fa-check"></i><b>A</b> Linguistic Features</a><ul>
+<li class="chapter" data-level="A.1" data-path="app-ling-feats.html"><a href="app-ling-feats.html#raw-text-properties-and-lexical-variety"><i class="fa fa-check"></i><b>A.1</b> Raw Text Properties and Lexical Variety</a></li>
+<li class="chapter" data-level="A.2" data-path="app-ling-feats.html"><a href="app-ling-feats.html#morpho-syntacting-information"><i class="fa fa-check"></i><b>A.2</b> Morpho-syntacting Information</a></li>
+<li class="chapter" data-level="A.3" data-path="app-ling-feats.html"><a href="app-ling-feats.html#verbal-predicate-structure"><i class="fa fa-check"></i><b>A.3</b> Verbal Predicate Structure</a></li>
+<li class="chapter" data-level="A.4" data-path="app-ling-feats.html"><a href="app-ling-feats.html#global-and-local-parsed-tree-structures"><i class="fa fa-check"></i><b>A.4</b> Global and Local Parsed Tree Structures</a></li>
+<li class="chapter" data-level="A.5" data-path="app-ling-feats.html"><a href="app-ling-feats.html#syntactic-relations"><i class="fa fa-check"></i><b>A.5</b> Syntactic Relations</a></li>
+<li class="chapter" data-level="A.6" data-path="app-ling-feats.html"><a href="app-ling-feats.html#subordination-phenomena"><i class="fa fa-check"></i><b>A.6</b> Subordination Phenomena</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="app-et-metrics.html"><a href="app-et-metrics.html"><i class="fa fa-check"></i><b>B</b> Precisions on Eye-tracking Metrics and Preprocessing</a></li>
+<li class="chapter" data-level="C" data-path="app-et-modeling.html"><a href="app-et-modeling.html"><i class="fa fa-check"></i><b>C</b> Multi-task Token-level Regression for Gaze Metrics Prediction</a></li>
+<li class="chapter" data-level="D" data-path="app-intra-sim.html"><a href="app-intra-sim.html"><i class="fa fa-check"></i><b>D</b> Intra-model Similarity for All Models</a></li>
+<li class="chapter" data-level="E" data-path="app-garden-paths-et.html"><a href="app-garden-paths-et.html"><i class="fa fa-check"></i><b>E</b> Gaze Metrics Predictions for Garden Path Sentences</a></li>
+<li class="chapter" data-level="F" data-path="app-params.html"><a href="app-params.html"><i class="fa fa-check"></i><b>F</b> Reproducibility and Environmental Impact</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://gsarti.com">Back to my website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interpreting Neural Language Models<br />
+for Linguistic Complexity Assessment</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap:ling-comp" class="section level1">
+<h1><span class="header-section-number">1</span> <strong>Linguistic Complexity</strong></h1>
+<p><!--this will include a mini table of contents--></p>
+
+<p>Defining linguistic complexity in a univocal way is challenging, despite the subjective intuition that every individual may have about what should be deemed complex in written or spoken language. Indeed, if the faculty of language allows us to produce a possibly infinite set of sentences from a finite vocabulary, there are infinitely many ways in which a sentence may appear difficult to a reader’s eyes. An accurate definition is still debated in research fields like cognitive science, psycholinguistics, and computational linguistics. Nonetheless, it is indisputable that the concept of natural language complexity is closely related to difficulties in knowledge acquisition. This property stands both for human language learners and for computational models learning the distributional behavior of words in a corpus.</p>
+<p>This introductory chapter begins with a categorization of linguistic complexity annotations following taxonomical definitions found in the literature. Various complexity metrics are then introduced alongside corpora and resources that were used throughout this study. Finally, the focus will be put on garden-path sentences, peculiar syntactically-ambiguous constructs studied in the experiments of Chapter <a href="chap-ex3.html#chap:ex3">5</a>.</p>
+<div id="subchap:categorizing" class="section level2">
+<h2><span class="header-section-number">1.1</span> Categorizing Linguistic Complexity Measures</h2>
+<p>In modern literature about linguistic complexity, two positions, each trying to define the nature of linguistic complexity phenomena, can be identified. In <span class="citation">Kusters (<a href="#ref-kusters-2008-complexity">2008</a>)</span> words:</p>
+<blockquote>
+<p>On the one hand, complexity is used as a theory-internal concept, or linguistic tool, that refers only indirectly, by way of the theory, to language reality. On the other hand, complexity is defined as an empirical phenomenon, not part of, but to be explained by a theory.</p>
+</blockquote>
+<p>
+These definitions are coherent with the <strong>absolute</strong> and <strong>relative complexity</strong> terminology coined by <span class="citation">Miestamo (<a href="#ref-miestamo-2004-feasibility">2004</a>)</span>, where relative complexity is seen as a factor characterizing the perceptual experience of specific language users. In contrast, absolute complexity is structurally-defined by language constructs and independent from user evaluation. While these two perspectives seem to identify two opposite viewpoints over linguistic complexity, the distinction between the two becomes blurred when we consider that linguistic theories underlying absolute complexity evaluation are developed by linguists, who still have a subjective perspective despite their competence <span class="citation">(Kusters <a href="#ref-kusters-2003-linguistic">2003</a>)</span>. Two definitions are now introduced to operationalize absolute and relative complexity in the context of complexity measurements:</p>
+<p><span class="custompar">Intrinsic Perspective</span> The intrinsic perspective on linguistic complexity is closely related to the notion of absolute complexity. From the intrinsic viewpoint, language productions are evaluated using their distributional and structural properties, without any complexity annotation derived by language users. The linguistic system is characterized by a set of elementary components (lexicon, morphology, syntax <em>inter alia</em>) that interact hierarchically <span class="citation">(Cangelosi and Turner <a href="#ref-cangelosi-turner-2002-emergere">2002</a>)</span>, and their interactions can be measured in terms of complexity by fixing a set of rules and descriptions. The focus is on objectivity and automatic evaluation based on the intrinsic properties of language systems.</p>
+
+<p><span class="custompar">Extrinsic Perspective</span> The extrinsic perspective connects to the concept of relative complexity and takes into account the individual perspective of users. Complexity judgments are collected during or after the processing of linguistic productions and are then evaluated in terms of cognitive effort required by language users for comprehension. The extrinsic viewpoint is partaken by cognitive processing theories in psycholinguistics such as the Dependency Locality Theory <span class="citation">(Gibson <a href="#ref-gibson-1998-linguistic">1998</a>, <a href="#ref-gibson-2000-dependency">2000</a>)</span>, the Surprisal Theory <span class="citation">(Hale <a href="#ref-hale-2001-probabilistic">2001</a>, <a href="#ref-hale-2016-information">2016</a>; Levy <a href="#ref-levy-2008-expectation">2008</a>)</span>, and the more recent Lossy-context Surprisal Theory <span class="citation">(Futrell, Gibson, and Levy <a href="#ref-futrell-2020-lossy">2020</a>)</span>, aiming to disentangle the source of processing difficulties in sentence comprehension. The focus, in this case, is on the subjectivity of language users and their judgments.</p>
+
+<p>Despite being different under many aspects, the two perspectives are highly interdependent: a user’s perception of complexity will be strongly influenced by the distributional and structural properties of utterances, and some of those properties will be considered complex in relation to the type of judgments they typically elicit in language users. Provided that the strength of human influence in complexity measurements can vary widely depending on data collection procedures, the two perspectives can be seen as the two ends of a spectrum. A visual representation is provided by the horizontal axis of the complexity measures compass in Figure <a href="chap-ling-comp.html#fig:compass">1.1</a>.</p>
+<div class="figure"><span id="fig:compass"></span>
+<img src="figures/1_complexity_compass.png" alt="Complexity measures' compass." width="100%" />
+<p class="caption">
+Figure 1.1: Complexity measures’ compass.
+</p>
+</div>
+<p>An additional dimension for categorizing linguistic complexity metrics can be introduced by considering the time at which measures are obtained, relative to the incremental processing paradigm that characterizes natural reading in human subjects. In this context, <em>processing</em> is defined as any act aimed at extracting information from linguistic forms and structures, either by employing reasoning (in humans) or through computation (in automatic systems). Again, we can identify the two ends of a spectrum concerning processing modalities, related to the concepts of <strong>local</strong> and <strong>global complexity</strong> found in linguistic literature <span class="citation">(Edmonds <a href="#ref-edmonds-1999-syntactic">1999</a>; Miestamo <a href="#ref-miestamo-2004-feasibility">2004</a>, <a href="#ref-miestamo-2008-grammatical">2008</a>)</span>:</p>
+<p><span class="custompar">Online processing</span> Online complexity judgments are collected while a language user, be it a human subject or a computational system, is sequentially processing a text. Online processing is widely explored in the cognitive science literature, where behavioral metrics such are fMRI data and gaze recordings are collected from subjects exposed to locally and temporally-immediate inputs and tasks that require fast processing <span class="citation">(Iverson and Thelen <a href="#ref-iverson-thelen-1999-hand">1999</a>)</span>. The act of reading is predominantly performed by online cognition <span class="citation">(Meyer and Rice <a href="#ref-meyer-rice-1992-prose">1992</a>)</span>, making online measures especially suitable for complexity evaluation for natural reading.</p>
+
+<p><span class="custompar">Offline processing</span> Offline complexity judgments are collected at a later time when the language user has a complete and contextual view of the text in its entirety. Again, offline complexity is related to the offline cognition paradigm <span class="citation">(Day <a href="#ref-day-2004-religion">2004</a>)</span> typically used in re-evaluations and future planning. In practice, offline evaluation accounts for contextual and cultural factors closely related to individual subjectivity and is poorly captured by immediate online metrics.</p>
+
+<p>Figure <a href="chap-ling-comp.html#fig:compass">1.1</a> situates various linguistic complexity metrics in terms of processing modalities and analyzed perspective by including the processing spectrum on the vertical axis. In the next sections, all these measures will be introduced and their use will be motivated in light of this categorization.</p>
+</div>
+<div id="subchap:intrinsic" class="section level2">
+<h2><span class="header-section-number">1.2</span> Intrinsic Perspective</h2>
+<p>Complexity studies where the intrinsic point of view is adopted rely on annotations describing linguistic phenomena and structures in sentences and aim to map those to complexity levels or ratings, often resorting to formulas parametrized through empirical observation. Given the scarcity of experienced human annotators and the cost of a manual annotation process, computational systems have been primarily employed to extract linguistic information from raw text in an automated yet precise way.</p>
+<p>Another intrinsic viewpoint is based on the intuition that frequent constructs should be deemed as less complex than infrequent ones. In this case, terms’ co-occurrences are extracted from large corpora, and complexity judgments are derived from their probabilistic likelihood of appearance in a given context. Given the infeasibility of tracking co-occurrences for long sequences in large, typologically-varied corpora, <strong>computational language models</strong> are usually employed to learn approximations of co-occurrence likelihoods for specific constructs.</p>
+<p>While this thesis work only partially addresses the use of these approaches, they will be briefly introduced to provide additional context for understanding extrinsic perspectives and their experimental evaluation.</p>
+<div id="subsubchap:structural" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Structural Linguistic Complexity</h3>
+<p>Language systems can be seen as hierarchies of rules and processes governing various aspects of utterances production and use. For each of those levels, it is possible to identify characteristics leading to higher complexity from a structural standpoint <span class="citation">(Sinnemäki <a href="#ref-sinnemaki-2011-language">2011</a>)</span>:</p>
+<ul>
+<li><p>A greater number of parts in a specific language level leads to a greater <strong>syntagmatic complexity</strong> (also known as <em>constitutional complexity</em>). This mode is related to the <em>lexical</em> and “superficial” properties of language, such as the length of words and sentences.</p></li>
+<li><p>A greater variety of parts in a specific language level leads to a greater <strong>paradigmatic complexity</strong> (also known as <em>taxonomic complexity</em>). This mode characterizes, in particular, the <em>phonological</em> level, where the presence of an elaborated tonal system makes a language more complex <span class="citation">(McWhorter <a href="#ref-mcwhorter-2001-world">2001</a>)</span>, the <em>morphologic</em> level, where inflectional morphology is usually associated to a higher degree of complexity <span class="citation">(McWhorter <a href="#ref-mcwhorter-2001-world">2001</a>; Kusters <a href="#ref-kusters-2003-linguistic">2003</a>)</span> when compared to the regularity of derivational rules, and the <em>semantic</em> level, where polysemic words are generally considered more complex than monosemic ones <span class="citation">(Voghera <a href="#ref-voghera-2001-riflessioni">2001</a>)</span>.</p></li>
+<li><p>A greater variety of interrelation modalities and hierarchical structures leads to greater <strong>organizational and hierarchical complexities</strong>. Those complexity modes are mainly related to the <em>syntactic level</em>, where recursive and nested constructs are deemed more complex and possibly determinant in distinguishing human language from animal communication <span class="citation">(Hauser, Chomsky, and Fitch <a href="#ref-hauser-2002-faculty">2002</a>)</span>.</p></li>
+</ul>
+<p>Focusing on the syntactic level, we can find multiple factors accounting for greater complexity <span class="citation">(Berruto and Cerruti <a href="#ref-berruto-2011-linguistica">2011</a>)</span>:</p>
+<ul>
+<li><p>Subordinate clauses preceding the main clause, as in <em><span class="underline">If you need help</span>, let me know&quot;</em> as opposed to <em>“Let me know <span class="underline">if you need help</span>”</em>.</p></li>
+<li><p>Presence of long-range syntactic dependencies between non-contiguous elements, as in <em>“<span class="underline">The dog</span> that the cat chased for days <span class="underline">ran away</span>”</em> where the subject referent (<em>dog</em>) and its verb (<em>ran</em>) are far apart in the sentence.</p></li>
+<li><p>A high degree of nesting between elements and substructures, as in <em>“The mouse <strong>that the cat</strong> <span class="underline">that the dog bit</span> <strong>ate</strong> was bought at the fair”</em> where two nested subordinate clauses introduced by the preposition <em>that</em> are present.</p></li>
+<li><p>Repeated applications of recursive principles to build utterances with different meanings through the compositionality principle, as in <em>“I am a huge fan <span class="underline">of fans</span> of fans of … of recursion”</em>, where the number of recursions defines the final meaning of the sentence.</p></li>
+</ul>
+<p>While all those properties are relevant when evaluating an utterance’s complexity, only some can be easily extracted from corpora using automatic approaches. In the specific context of this work, the analysis of complexity-related features in Chapter <a href="chap-ex1.html#chap:ex1">3</a> makes use of the Profiling–UD tool<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <span class="citation">(Brunato et al. <a href="#ref-brunato-etal-2020-profiling">2020</a>)</span>, implementing a two-stage process: first, the linguistic annotation process is automatically performed by UDPipe <span class="citation">(Straka, Hajič, and Straková <a href="#ref-straka-etal-2016-udpipe">2016</a>)</span>, a multilingual pipeline leveraging neural parsers and taggers included in the Universal Dependencies initiative <span class="citation">(Nivre et al. <a href="#ref-nivre-etal-2016-universal">2016</a>)</span>. During this step, sentences are tokenized, lemmatized, POS-tagged (i.e., words are assigned lexical categories such as “Noun” and “Verb”) and parsed (i.e., the hierarchical structure of syntactic dependencies is inferred). Then, a set of about 130 linguistic features representing underlying linguistic properties of sentences is extracted from various levels of annotation. Those features account for multiple morphological, syntactic, and “superficial” properties related to linguistic complexity. A relevant subset of those features is presented in detail in Appendix <a href="app-ling-feats.html#app:ling-feats">A</a>.</p>
+<p>After deriving linguistic properties from sentences, either automatically as in this study or by manual annotations, two approaches are viable to determine their complexity while maintaining an intrinsic perspective (no human processing data involved):</p>
+
+<p><span class="custompar">Formula-based Approach</span> This approach treats linguistic properties of input texts as components of a formula used to determine levels or readability grades. Traditional readability formulas consider multiple factors, such as word length, sentence length, and word frequency. Parameters in those formulas are carefully hand-tuned to match human intuition and correlate well with human-graded readability levels.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+
+<p><span class="custompar">Learning-based Approach</span> This approach casts the complexity prediction problem in the supervised machine learning framework. More specifically, linguistic parsers are used to predict linguistic properties, and their accuracy on a set of gold-labeled instances is taken as an indicator of complexity. In the case of dependency parsers (i.e., models trained to extract the syntactic structure of a sentence), two evaluation metrics can be used: the <em>Unlabeled and Labeled Attachment Scores</em> (UAS and LAS), where the UAS is the percentage of words assigned to the right dependency head and LAS also consider if the dependency relation was labeled correctly.</p>
+<p>Both approaches are represented in Figure <a href="chap-ling-comp.html#fig:compass">1.1</a> under the label “Property-based Automatic LCA” and are considered offline since the text is generally not processed incrementally but instead taken as a whole.</p>
+</div>
+<div id="subsubchap:lm-surprisal" class="section level3">
+<h3><span class="header-section-number">1.2.2</span> Language Modeling Surprisal</h3>
+<p>The information-theoretic concept of <strong>surprisal</strong>, also known as <em>information content</em> of an event, can be seen as a quantification of the level of surprise caused by a specific outcome: an event that is certain yields no information, while the less probable an event is, the more surprising it gets. Formally, an event <span class="math inline">\(x\)</span> with probability <span class="math inline">\(p(x)\)</span> has a surprisal value equal to:</p>
+<p><span class="math display">\[\begin{equation}
+I(x) = - \log[p(x)]
+\end{equation}\]</span></p>
+<p>The idea that probabilistic expectations in the context of language reading are related to greater complexity in terms of cognitive processing was formalized by <em>surprisal theory</em> <span class="citation">(Hale <a href="#ref-hale-2001-probabilistic">2001</a>, <a href="#ref-hale-2016-information">2016</a>)</span>. Surprisal theory defines processing difficulties <span class="math inline">\(D\)</span> (which can be considered as proxies of complexity) as directly proportional to the surprisal produced in readers by a word <span class="math inline">\(w\)</span> given its previous context <span class="math inline">\(c\)</span> (i.e., preceding words in the sentence):</p>
+<p><span class="math display">\[\begin{equation}
+D(w_i|c) \propto -\log p(w_i|c) = -\log p(w_i|w_i-1, w_i-2,\dots, w_0)
+\end{equation}\]</span></p>
+<p>While processing difficulties imply human subjects’ presence, <strong>language models</strong> (LM) can be used to estimate the conceptually similar information-theoretic surprisal without the need of human annotations by learning word occurrences and co-occurrences probabilities from large quantities of text. Concretely, a language model is a probabilistic classifier that learns to predict a probability distribution over words of a vocabulary <span class="math inline">\(V\)</span> given a large number of contexts <span class="math inline">\(c\)</span> in which those words occur <span class="citation">(Goodman <a href="#ref-goodman-2001-bit">2001</a>)</span>:</p>
+<p><span class="math display">\[\begin{equation}
+p(w_i|c) \quad \forall\ w_i\in V
+\end{equation}\]</span></p>
+<p>After the training procedure it is possible to estimate the probability <span class="math inline">\(p(s)\)</span> of a sentence <span class="math inline">\(s\)</span> having length <span class="math inline">\(m\)</span> as the product of the conditional probabilities assigned to individual words by the language model, given its context:</p>
+<p><span class="math display" id="eq:sent-surprisal">\[\begin{equation}
+p(s) = p(w_1, \dots, w_m) = \prod_{i=1}^m p(w_i \ |c)
+\tag{1.1}
+\end{equation}\]</span></p>
+<p>We can consider the surprisal <span class="math inline">\(I(s) = -\log p(s)\)</span> as an <em>intrinsic measure</em> of linguistic complexity since it is a function of the co-occurrence relations derived by the training corpora. Thus, it describes how likely a construct can be observed in a structurally-sound manner, without relying on human processing data. However, automatic surprisal estimation using language models cannot be considered purely intrinsic since it is highly dependent on a multitude of factors that are arguably “less objective” than the linguistic categories of the previous section, such as the type and dimension of the considered context and the corpora employed by the LM to learn words’ distributional behavior.</p>
+<p>We can categorize modern language models in two broad categories: <strong>sequential</strong> models (also known as <em>autoregressive</em> or <em>causal</em> LMs) consider as context only preceding words, while <strong>bidirectional</strong> models (also known as <em>masked</em> LMs) consider both preceding and following words when estimating occurrence probabilities, much like the well-established <em>cloze test</em> <span class="citation">(Taylor <a href="#ref-taylor-1953-cloze">1953</a>)</span> in psycholinguistics. Equations <a href="chap-ling-comp.html#eq:sent-surprisal-cases">(1.2)</a> show how the sentence surprisal equation <a href="chap-ling-comp.html#eq:sent-surprisal">(1.1)</a> is adapted in both cases, using the product rule for logarithms:</p>
+<p><span class="math display" id="eq:sent-surprisal-cases">\[\begin{equation}
+\begin{split}
+I_{\mathrm{sequential}}(s) &amp; = - \sum_{i=1}^m \log p(w_i \ | w_1, w_2, \dots, w_{i-1})\\
+I_{\mathrm{bidirectional}}(s) &amp; = - \sum_{i=1}^m \log p(w_i \ | w_1, \dots, w_{i-1}, w_{i+1}, \dots, w_m)
+\end{split}
+\tag{1.2}
+\end{equation}\]</span></p>
+<p>If the LM used to estimate surprisal was sequential, then surprisal estimation could be considered part of the <em>online processing paradigm</em> despite the absence of a human subject.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> In the bidirectional case, the estimation of surprisals from the whole context can be assimilated with offline processing practices.</p>
+<p>The relation between co-occurrence frequencies estimated by a language model and perception of complexity is one of the aspects that make language models especially suitable for predicting extrinsic complexity metrics, as it will be discussed in Chapter <a href="chap-models.html#chap:models">2</a>.</p>
+</div>
+</div>
+<div id="subchap:extrinsic" class="section level2">
+<h2><span class="header-section-number">1.3</span> Extrinsic Perspective</h2>
+<p>Extrinsic complexity measures elicited from human-produced signals and annotations are the main focus of this thesis work. In this section, three different viewpoints on linguistic complexity assessment from a human perspective are introduced:</p>
+<ul>
+<li><p>The <strong>readability</strong> point-of-view, as intended in the context of the <em>automatic readability assessment</em> (ARA) task, is concerned with collocating similar textual inputs into difficulty levels that are often predetermined by writers and given a clear semantic interpretation (e.g., easy, medium, hard).</p></li>
+<li><p>The <strong>perceptual</strong> point-of-view, represented by the <em>perceived complexity prediction</em> (PCP) task, is based on human annotations of complexity on a numeric scale, taking into account disparate textual inputs presented sequentially to obtain more generalizable complexity annotations. Unlike ARA, PCP annotations are produced by readers after sentence comprehension.</p></li>
+<li><p>The <strong>cognitive</strong> point-of-view, employing cognitive signals collected by specialized machinery (e.g., electrodes, MRI scanners, eye-trackers) as proxies for the linguistic complexity experienced by users. In this work, the focus will be on the <em>gaze metrics prediction</em> task, using gaze data collected from subjects during natural reading.</p></li>
+</ul>
+<p>All three complexity-related tasks will be introduced alongside recent results in the literature. The corpora on which each task relies upon will also be presented in their respective sections.</p>
+<div id="subsubchap:readability" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Automatic Readability Assessment</h3>
+<p>While the term <em>readability assessment</em> is often broadly employed to denote the task of predicting the general reading difficulty of a text, here it is used to describe the typical approach in ARA, relying on corpora categorized by the writer’s perception of what is difficult for readers.</p>
+<p>We can take as an example the OneStopEnglish (OSE) corpus <span class="citation">(Vajjala and Lučić <a href="#ref-vajjala-lucic-2018-onestopenglish">2018</a>)</span>, which will be used later to study the ARA relation with other complexity tasks in Chapter <a href="chap-ex2.html#chap:ex2">4</a>. OSE contains 567 weekly articles from The Guardian newspaper rewritten by language teachers to suit three adult English learners’ levels. Each text can be divided into passages spanning one or multiple sentences, each labeled with a readability level (“Elementary”, “Intermediate” or “Advanced”) based on the original writers’ judgment. An example of the same passage at different reading levels is provided in Table <a href="chap-ling-comp.html#tab:ose-example">1.1</a>.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:ose-example">Table 1.1: </span>An OSE Corpus passage at different reading levels.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Reading Level
+</th>
+<th style="text-align:left;font-weight: bold;">
+Example
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Advanced (Adv)
+</td>
+<td style="text-align:left;width: 29em; ">
+Amsterdam still looks liberal to tourists, who were recently assured by the Labour Mayor that the city’s marijuana-selling coffee shops would stay open despite a new national law tackling drug tourism. But the Dutch capital may lose its reputation for tolerance over plans to dispatch nuisance neighbours
+to scum villages made from shipping containers.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Intermediate (Int)
+</td>
+<td style="text-align:left;width: 29em; ">
+To tourists, Amsterdam still seems very liberal. Recently the city’s Mayor assured them that the city’s marijuana-selling coffee shops would stay open despite a new national law to prevent drug tourism. But the Dutch capitals plans to send nuisance neighbours to scum villages made from shipping containers may damage its reputation for tolerance.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elementary (Ele)
+</td>
+<td style="text-align:left;width: 29em; ">
+To tourists, Amsterdam still seems very liberal. Recently the city’s Mayor told them that the coffee shops that sell marijuana would stay open, although there is a new national law to stop drug tourism. But the Dutch capital has a plan to send antisocial neighbours to scum villages made from shipping containers, and so maybe now people wont think it is a liberal city any more.
+</td>
+</tr>
+</tbody>
+</table>
+<p>From Table <a href="chap-ling-comp.html#tab:ose-example">1.1</a> example, it is evident that the reading level of a specific text should be interpreted only in relation to its other versions, i.e., elementary passages are not necessarily straightforward in absolute terms, but rather <em>less complicated than their intermediate and advanced counterparts</em>. This affirmation holds for the OSE corpus and other widely-used readability corpora such as the Newsela corpus <span class="citation">(Xu, Callison-Burch, and Napoles <a href="#ref-xu-etal-2015-problems">2015</a>)</span>, which contains newspaper articles rewritten by experts to match eleven school grade reading levels. For this reason, and because of its writer-centric perspective relying only on readability judgments formulated by the same writers who composed the passages, readability assessment is fundamentally different from the other extrinsic approaches.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> ARA can be framed as a machine learning task in which a computational model <span class="math inline">\(m\)</span> is trained to predict the readability level <span class="math inline">\(y \in \mathcal{Y}\)</span> over a set of labeled examples <span class="math inline">\(\mathcal{S} = (s_1, s_2, \dots, s_n)\)</span> in two possible ways:</p>
+<ul>
+<li><p>A simple multiclass classification setting, where the model predicts the level of a single sentence <span class="math inline">\(s\)</span>. In this case, the model outputs a prediction <span class="math inline">\(m(s) = \hat y \in \mathcal{Y}\)</span>. We can then minimize the categorical cross-entropy <span class="math inline">\(H(y, \hat y)\)</span> between gold and predicted labels during the training process and evaluate the model’s performances with standard classification metrics such as precision and recall. This approach is similar to the ones used for other extrinsic metrics but does not account for readability levels’ relative nature.</p></li>
+<li><p>A multiple-choice scenario, where the model is provided with two semantically equivalent sentences <span class="math inline">\(s_1, s_2\)</span> at different readability levels (<span class="math inline">\(s_1 \equiv s_2, y_1 \neq y_2\)</span>) and needs to predict which of the sentences has the highest readability level. In this case, which is more coherent with the relative nature of readability judgments, the model is trained to minimize the binary cross-entropy between gold and predicted labels <span class="math inline">\(y, \hat y \in \mathcal{Y}_{bin} = \{0,1\}\)</span> corresponding to the position of the more complex sentence in the pair.</p></li>
+</ul>
+<p>Expert annotations’ effectiveness in determining readers’ comprehension was recently questioned, as automatic readability scoring did not show a significant correlation to comprehension scores of participants, at least for the OSE Corpus <span class="citation">(Vajjala and Lucic <a href="#ref-vajjala-lucic-2019-understanding">2019</a>)</span>. However, measuring if this observation holds for other corpora and extrinsic approaches is beyond this thesis’s scope.</p>
+</div>
+<div id="subsubchap:pc" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> Perceived Complexity Prediction</h3>
+<p>While ARA measures linguistic complexity in a context-relative and writer-centric sense, the <em>perceived complexity prediction</em> (PCP) approach focuses on eliciting absolute complexity judgments directly from target readers, aiming at evaluating difficulties in comprehension rather than production. This approach was pioneered by <span class="citation">Brunato et al. (<a href="#ref-brunato-etal-2018-sentence">2018</a>)</span>, who collected crowdsourced complexity ratings from native speakers for Italian and English sentences and evaluated how different structural linguistic properties contribute to human complexity perception. The use of annotators recruited on a crowdsourcing platform was intended to better grasp the layman’s perspective on linguistic complexity, as opposed to ARA expert writers. If collected properly, crowdsourced annotations were shown to be highly reliable for linguistics and computational linguistics research by the survey of <span class="citation">Munro et al. (<a href="#ref-munro-etal-2010-crowdsourcing">2010</a>)</span>.</p>
+<p><span class="citation">Brunato et al. (<a href="#ref-brunato-etal-2018-sentence">2018</a>)</span> extracted 1200 sentences from both the newspaper sections of the Italian Universal Dependency Treebank (IUDT) <span class="citation">(Simi, Bosco, and Montemagni <a href="#ref-simi-etal-2014-less">2014</a>)</span> and the Penn Treebank <span class="citation">(McDonald et al. <a href="#ref-mcdonald-etal-2013-universal">2013</a>)</span>, such that those are equally distributed in term of length. To collect human complexity judgments, twenty native speakers were recruited for each language on a crowdsourcing platform. Annotators had to rate each sentence’s difficulty on a Likert 7-point scale, with 1 meaning “very simple” and 7 “very complex”. Sentences were randomly shuffled and presented in groups of five per web page, with annotators being given a minimum of ten seconds to complete each page to prevent skimming. The quality of annotations was measured using the Krippendorff alpha reliability, obtaining 26% and 24% for Italian and English. Table <a href="chap-ling-comp.html#tab:pc-example">1.2</a> presents an example of English sentences labeled with multiple annotators’ perceived complexity judgments.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:pc-example">Table 1.2: </span>Sample of sentences taken from the English portion of the Perceived Complexity (PC) Corpus with complexity scores from crowdsourced annotators.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Sentence
+</th>
+<th style="text-align:center;font-weight: bold;">
+A1
+</th>
+<th style="text-align:center;font-weight: bold;">
+A2
+</th>
+<th style="text-align:center;font-weight: bold;">
+A3
+</th>
+<th style="text-align:center;font-weight: bold;">
+…
+</th>
+<th style="text-align:center;font-weight: bold;">
+A20
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 25em; ">
+In other European markets, share prices closed sharply higher in Frankfurt and Zurich and posted moderate rises in Stockholm, Amsterdam and Milan.
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+…
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+The pound strengthened to $ 1.5795 from $ 1.5765.
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+…
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+In Connecticut, however, most state judges are appointed by the governor and approved by the state legislature.
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+…
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+When the market stabilized, he added, the firm sold the bonds and quickly paid the loans back.
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+…
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Paribas already holds about 18.7 % of Navigation Mixte, and the acquisition of the additional 48 % would cost it about 11 billion francs under its current bid.
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+…
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+</tbody>
+</table>
+<p>As can be expected, PC judgments show significant variability across participants since they cannot be easily framed in a relative setting. Since this work’s focus is related to a general notion of complexity, PC judgments are averaged and filtered to obtain a score reflecting the mean perception of complexity of all participants in experimental chapters. The averaged score is later treated as the gold label in a regression task, with machine learning models trained to minimize the <em>mean square error</em> between their predictions and gold average annotations. Another possibility, which is not explored in this thesis work, would be to consider only single participants’ judgments to model their linguistic complexity perception.</p>
+</div>
+<div id="subsubchap:eye-tracking" class="section level3">
+<h3><span class="header-section-number">1.3.3</span> Gaze Metrics Prediction</h3>
+<p>Gaze data collected from human subjects during reading can provide us with useful insights from an online extrinsic complexity perspective. Patterns found in both <em>saccades</em>, i.e., eye movements from one location to another, and <em>fixations</em>, where eyes are relatively stable while fixating a specific region, were shown to be reliably linked to a multitude of linguistic factors <span class="citation">(Demberg and Keller <a href="#ref-demberg-keller-2008-data">2008</a>)</span>. Because of this, a linking assumption between overt attention and mental processing can be reasonably established, and gaze metrics can be considered as proxies of cognitive effort, and thus of complexity, at various processing levels.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<p>Gaze metrics are widely employed in cognitive processing research because of their multiple benefits: optical eye-tracking systems are non-invasive and relatively inexpensive compared to other approaches that directly measure brain activity, such as electroencephalography (EEG) and all magnetic resonance imaging (MRI) variants. Moreover, gaze data generally have high spatial and temporal precision, limited only by sampling rates, which are generally in the order of few milliseconds. This aspect is crucial for reading research since it allows us to directly associate gaze measures to specific <em>areas of interest</em> (AOI, also called region), i.e., small portions of the visual input provided to participants.</p>
+
+<p><span class="custompar">Gaze data for NLP</span> Eye-tracking data and other cognitive signals were effectively used in many NLP applications such as POS tagging <span class="citation">(Barrett et al. <a href="#ref-barrett-etal-2016-weakly">2016</a>)</span>, sentiment analysis <span class="citation">(Mishra, Dey, and Bhattacharyya <a href="#ref-mishra-etal-2017-learning">2017</a>)</span>, native language identification <span class="citation">(Berzak, Katz, and Levy <a href="#ref-berzak-etal-2018-assessing">2018</a>)</span>, and dependency parsing <span class="citation">(Strzyz, Vilares, and Gómez-Rodríguez <a href="#ref-strzyz-etal-2019-towards">2019</a>)</span> <em>inter alia</em>, often providing modest yet consistent improvements across models and tasks through the combination of gaze features and linguistic features or distributed representations.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> In the context of linguistic complexity assessment, eye-tracking data were applied to the ARA task for both monolingual and bilingual participants, obtaining meaningful results for sentence-level classification in easy and hard-to-read categories <span class="citation">(Vasishth, Malsburg, and Engelmann <a href="#ref-vasishth-etal-2013-what">2013</a>; Ambati, Reddy, and Steedman <a href="#ref-ambati-etal-2016-assessing">2016</a>)</span>. For example, <span class="citation">Singh et al. (<a href="#ref-singh-etal-2016-quantifying">2016</a>)</span> first use a set of linguistic features to learn a reading times model from a set of gaze-annotated sentences and then use models’ predicted times over a second set of sentences to perform multiple-choice ARA. <span class="citation">González-Garduño and Søgaard (<a href="#ref-gonzalez-garduno-sogaard-2018-learning">2018</a>)</span> extend this approach in a multitask learning setting <span class="citation">(Caruana <a href="#ref-caruana-1997-multitask">1997</a>; Ruder <a href="#ref-ruder-2017-overview">2017</a>)</span>, using eye-movement prediction tasks to produce models able to predict readability levels both from a native speaker and foreign language learner perspective.</p>
+
+<p><span class="custompar">Collecting Eye-tracking Data</span> A typical procedure to collect gaze data for reading research, as described by <span class="citation">Schotter (<a href="#ref-schotter-2020-eyetracking">2020</a>)</span>, usually includes the following steps:</p>
+<ul>
+<li><p>Textual inputs are selected and split by experiment designers, first in areas of interest directly mapped to pixels (for natural reading, usually word boundaries), then over multiple rows, and finally in screens presented to participants. This step should take into account calibration errors to determine the correct level of tolerance for off-word fixations.</p></li>
+<li><p>A participant is placed in a room with a display computer used to present visual inputs and a host computer used to record data from the eye-tracker setup. Optical eye-trackers use infrared light beams, which are reflected differently by different parts of the eye, to measure pupil and corneal reflection and track gaze movements at each timestep. The setup is calibrated and validated for each participant to ensure the quality of results.</p></li>
+<li><p>Each participant follows the on-screen instructions to complete a reading task trial while remaining at a fixed distance from the screen. A <em>fixation report</em> containing events (saccades, fixations, blinks) is produced for each individual on the host computer.</p></li>
+<li><p>Finally, a data preprocessing step is taken for each trial to identify and remove artifacts and possibly decide to reject the trial. Some examples of standard practices are the merge of fixations below 80ms due to eye jittering, the exclusion of fixations caused by track loss after blinks, and vertical drift correction <span class="citation">(Carr et al. <a href="#ref-carr-etal-2020-algorithms">2020</a>)</span>. An <em>AOI report</em> containing gaze metrics grouped at AOI level can be produced.</p></li>
+</ul>
+<p><span class="custompar">Eye-tracking Metrics</span> Metrics derived from the AOI report contain information about the processing phases in which subjects incur during sentence comprehension. <em>Early gaze measures</em> capture information about lexical access and early processing of syntactic structures, while <em>late measures</em> are more likely to reflect comprehension and both syntactic and semantic disambiguation <span class="citation">(Demberg and Keller <a href="#ref-demberg-keller-2008-data">2008</a>)</span>. The third kind of measures, referred to as <em>contextual</em> following the categorization in <span class="citation">Hollenstein and Zhang (<a href="#ref-hollenstein-zhang-2019-entity">2019</a>)</span>, capture information from surrounding content. Table <a href="chap-ling-comp.html#tab:et-metrics">1.3</a> presents a subset of metrics, spanning the three categories, that will be used in the experimental section.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> These metrics represent a minimal group spanning various stages of the reading process and are leveraged to study differences between online and offline processing among extrinsic metrics. In the experimental part, gaze scores are often averaged across participants to reduce noise in measurements and obtain a single label for each metric that can later be used as a reference in a regression setting. The average fixation probability across participants for each AOI is a value comprised in the range <span class="math inline">\([0,1]\)</span> and represents the proportion of subjects that accessed the region during their first gaze pass.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:et-metrics">Table 1.3: </span>Eye-tracking metrics used in this study.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Type
+</th>
+<th style="text-align:left;font-weight: bold;">
+Metric Name
+</th>
+<th style="text-align:left;font-weight: bold;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;vertical-align: top !important;" rowspan="3">
+Early
+</td>
+<td style="text-align:left;">
+First Fixation Duration (FFD)
+</td>
+<td style="text-align:left;width: 17em; ">
+Duration of the first fixation over the region, including single fixations.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+First Pass Duration (FPD)
+</td>
+<td style="text-align:left;width: 17em; ">
+Duration of the first pass over a region.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fixation Probability (FXP)
+</td>
+<td style="text-align:left;width: 17em; ">
+Boolean value reflecting if the region was fixated or skipped during the first pass.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;vertical-align: top !important;" rowspan="2">
+Late
+</td>
+<td style="text-align:left;">
+Fixation Count (FXC)
+</td>
+<td style="text-align:left;width: 17em; ">
+Number of total fixations over a region.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total Fixation Duration (TFD)
+</td>
+<td style="text-align:left;width: 17em; ">
+Sum of all fixation durations over a region.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Contextual
+</td>
+<td style="text-align:left;">
+Total Regression Duration (TRD)
+</td>
+<td style="text-align:left;width: 17em; ">
+Duration of regressive saccades performed after a region’s first access and before going past it.
+</td>
+</tr>
+</tbody>
+</table>
+<p><span class="custompar">Eye-tracking Corpora</span> The experimental part of this thesis work leverages four widely used eye-tracking resources: the Dundee corpus <span class="citation">(Kennedy, Hill, and Pynte <a href="#ref-kennedy-etal-2003-dundee">2003</a>)</span>, the GECO corpus <span class="citation">(Cop et al. <a href="#ref-cop-etal-2017-presenting">2017</a>)</span>, the ZuCo corpus <span class="citation">(Hollenstein et al. <a href="#ref-hollenstein-2018-zuco">2018</a>)</span>, and ZuCo 2.0 <span class="citation">(Hollenstein, Troendle, et al. <a href="#ref-hollenstein-etal-2020-zuco">2020</a>)</span>. There are multiple reasons behind the choice of using multiple gaze-annotated corpora for this study. First, those corpora span different domains and provide us with a better intuition of what structures are perceived as complex in different settings and by different pools of subjects. Secondly, neural-network-based complexity models used in this work greatly benefit from a broader availability of annotated data to achieve higher performances in predicting eye-tracking metrics. Finally, while all corpora relied on different procedures and instrumentation, they are all derived from very similar experimental settings (i.e., natural reading on multiple lines), and can be easily merged after an individual normalization procedure <span class="citation">(Hollenstein and Zhang <a href="#ref-hollenstein-zhang-2019-entity">2019</a>)</span>. Table <a href="chap-ling-comp.html#tab:et-corpora">1.4</a> presents some descriptive statistics of the four corpora.</p>
+<ul>
+<li><p>The <strong>Dundee Corpus</strong> developed by <span class="citation">Kennedy, Hill, and Pynte (<a href="#ref-kennedy-etal-2003-dundee">2003</a>)</span> contains gaze data for ten native English speakers tasked with reading twenty newspaper articles from <em>The Independent</em>. The English section of the Dundee corpus includes 51,240 tokens in 2368 sentences. Texts were presented to subjects on a screen five lines at a time and recorded using a <em>Dr. Bois Oculometer Eyetracker</em> with 1 kHz monocular (right) sampling. Dundee corpus data are the oldest among selected corpora and have been extensively used in psycholinguistic research about naturalistic reading.</p></li>
+<li><p>The <strong>Ghent Eye-tracking Corpus</strong> (GECO) by <span class="citation">Cop et al. (<a href="#ref-cop-etal-2017-presenting">2017</a>)</span> was created more recently to study eye movements of both monolingual and bilingual subjects during naturalistic reading of the novel <em>The Mysterious Affair at Styles</em> by Agatha <span class="citation">Christie (<a href="#ref-christie-2003-mysterious">2003</a>)</span>. In the context of this work, only the monolingual portion collected from 14 native English speakers is used, comprising 56,409 tokens in 5,387 sentences. Eye movements were recorded with an <em>EyeLink 1000</em> system with 1 kHz binocular sampling (only right eye movements were considered), and the text was presented one paragraph at a time.</p></li>
+<li><p>The <strong>Zurich Cognitive Language Processing Corpus</strong> (ZuCo) by <span class="citation">Hollenstein et al. (<a href="#ref-hollenstein-2018-zuco">2018</a>)</span> is a dataset including both eye-tracking and EEG measurements collected simultaneously during both natural and task-oriented reading. The corpus contains 1100 English sentences from the Stanford Sentiment Treebank <span class="citation">(Socher et al. <a href="#ref-socher-etal-2013-recursive">2013</a>)</span> and the Wikipedia dump used in <span class="citation">Culotta, McCallum, and Betz (<a href="#ref-culotta-etal-2006-integrating">2006</a>)</span> with gaze data for 12 adult native speakers. Only the first two portions are used for the present work since they contain natural reading data, totalizing 700 sentences and 13,630 tokens. The text was presented on-screen one sentence at a time, and data were collected with an <em>EyeLink 1000</em> as for GECO.</p></li>
+<li><p><strong>ZuCo 2.0</strong> is an extension of ZuCo, including 739 sentences extracted from the Wikipedia corpus by <span class="citation">Culotta, McCallum, and Betz (<a href="#ref-culotta-etal-2006-integrating">2006</a>)</span>. Only the 349 sentences for which natural reading data were collected are used, and the 100 duplicates shared with ZuCo to evaluate differences in setup and participants are removed. Data were collected from 18 native English speakers using an <em>EyeLink 1000 Plus</em> with 500 kHz sampling.</p></li>
+</ul>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:et-corpora">Table 1.4: </span>Descriptive statistics of eye-tracking corpora.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+</th>
+<th style="text-align:center;font-weight: bold;">
+Dundee
+</th>
+<th style="text-align:center;font-weight: bold;">
+GECO
+</th>
+<th style="text-align:center;font-weight: bold;">
+ZuCo
+</th>
+<th style="text-align:center;font-weight: bold;">
+ZuCo 2.0
+</th>
+<th style="text-align:center;font-weight: bold;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+domain(s)
+</td>
+<td style="text-align:center;">
+news
+</td>
+<td style="text-align:center;">
+literature
+</td>
+<td style="text-align:center;width: 8em; ">
+movie reviews, Wiki articles
+</td>
+<td style="text-align:center;border-right:1px solid;">
+Wiki articles
+</td>
+<td style="text-align:center;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+# of sentences
+</td>
+<td style="text-align:center;">
+2368
+</td>
+<td style="text-align:center;">
+5387
+</td>
+<td style="text-align:center;width: 8em; ">
+700
+</td>
+<td style="text-align:center;border-right:1px solid;">
+349
+</td>
+<td style="text-align:center;">
+8804
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mean sent. length
+</td>
+<td style="text-align:center;">
+21.64
+</td>
+<td style="text-align:center;">
+10.47
+</td>
+<td style="text-align:center;width: 8em; ">
+19.47
+</td>
+<td style="text-align:center;border-right:1px solid;">
+19.51
+</td>
+<td style="text-align:center;">
+17.77
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+# of tokens
+</td>
+<td style="text-align:center;">
+51240
+</td>
+<td style="text-align:center;">
+56409
+</td>
+<td style="text-align:center;width: 8em; ">
+13630
+</td>
+<td style="text-align:center;border-right:1px solid;">
+6810
+</td>
+<td style="text-align:center;">
+128089
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unique token types
+</td>
+<td style="text-align:center;">
+9928
+</td>
+<td style="text-align:center;">
+6155
+</td>
+<td style="text-align:center;width: 8em; ">
+4650
+</td>
+<td style="text-align:center;border-right:1px solid;">
+2521
+</td>
+<td style="text-align:center;">
+16320
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mean token length
+</td>
+<td style="text-align:center;">
+4.88
+</td>
+<td style="text-align:center;">
+4.6
+</td>
+<td style="text-align:center;width: 8em; ">
+5.05
+</td>
+<td style="text-align:center;border-right:1px solid;">
+5.01
+</td>
+<td style="text-align:center;">
+4.89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mean fix. duration
+</td>
+<td style="text-align:center;">
+200
+</td>
+<td style="text-align:center;">
+210
+</td>
+<td style="text-align:center;width: 8em; ">
+117
+</td>
+<td style="text-align:center;border-right:1px solid;">
+117
+</td>
+<td style="text-align:center;">
+161
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mean gaze duration
+</td>
+<td style="text-align:center;">
+280
+</td>
+<td style="text-align:center;">
+234
+</td>
+<td style="text-align:center;width: 8em; ">
+139
+</td>
+<td style="text-align:center;border-right:1px solid;">
+134
+</td>
+<td style="text-align:center;">
+197
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<p>Tokens are obtained using whitespace tokenization, which is the same approach used to perform gaze annotations across all eye-tracking corpora. Mean sentence length is expressed in number of tokens, and the number of unique types is computed as the size of the vocabulary after removing punctuation from all tokens. Approximately 128,000 tokens annotated with gaze recordings from multiple participants were used in the experiments of Chapters <a href="chap-ex2.html#chap:ex2">4</a> and <a href="chap-ex3.html#chap:ex3">5</a>, while only GECO was used for the analysis of Chapter <a href="chap-ex1.html#chap:ex1">3</a>. Similarly to the PCP task, scores were averaged across subjects to reduce noise and obtain general estimates: in particular, reading times that were missing due to skipping were considered as having the lowest duration across annotators, which is a practice commonly used in literature. Again, considering individual participants’ scores is deemed attractive in a personalization perspective but far beyond this work’s scope.</p>
+</div>
+</div>
+<div id="subchap:garden-path" class="section level2">
+<h2><span class="header-section-number">1.4</span> Garden-path Sentences</h2>
+<div class="figure"><span id="fig:syntax-trees"></span>
+<img src="figures/1_syntax_trees_gp.png" alt="Syntax trees for the initial and complete parse of garden-path example (1)." width="100%" />
+<p class="caption">
+Figure 1.2: Syntax trees for the initial and complete parse of garden-path example (1).
+</p>
+</div>
+<p><strong>Garden-path sentences</strong>, named from the expression “leading down the garden path” implying deception, are grammatically correct sentences that create a momentarily ambiguous interpretation in readers. The initial interpretation is later falsified by words encountered during sequential reading, becoming a significant source of processing difficulties. For this reason, garden-path constructions are used to evaluate models of linguistic complexity in the experiments of Chapter <a href="chap-ex3.html#chap:ex3">5</a>. Consider the following recent headline by the newspaper <em>The Guardian</em>:<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>Vaccine trials halted after patient fell ill <span class="underline">restart</span>.</li>
+</ol>
+</blockquote>
+<p>Readers exposed to (1) tend to initially prefer the interpretation in which halted acts as the main verb of the sentence in simple past, i.e., <em>“Vaccine trials halted after patient fell ill.”</em> is interpreted as a well-formed and semantically meaningful sentence. When the verb <em>restart</em> is reached, it suddenly becomes evident that the original parse would lead to an ungrammatical sentence, and a reanalysis requiring nontrivial cognitive processing is triggered. In conclusion, one understands that <em>halted</em> is used as a passive participle, and <em>Vaccine trials</em> are the subordinate clause’s direct object, as shown in Figure <a href="chap-ling-comp.html#fig:syntax-trees">1.2</a>. We can rephrase the sentence with minimal changes to make it unambiguous:</p>
+<blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>Vaccine trials that were halted after patient fell ill restart.</li>
+</ol>
+</blockquote>
+<p>The choice for the initial parse can be explained in terms of frequency of occurrence: subject-verb-object sentences are encountered much more frequently than ones containing reduced relatives in everyday settings, making the first parse more likely <span class="citation">(Fine et al. <a href="#ref-fine-2013-rapid">2013</a>)</span>. We refer to the verb causing the reanalysis as <em>disambiguator</em>, and to the difference in cognitive processing between (1) and (2), measured using proxies such as gaze metrics, as <em>garden-path effect</em> <span class="citation">(Bever <a href="#ref-bever-1970-cognitive">1970</a>)</span>.</p>
+<p><span class="citation">Schijndel and Linzen (<a href="#ref-schjindel-linzen-2020-single">2020</a>)</span> present two families of cognitive processing theories trying to motivate the underlying difficulties in which humans incur with garden-path sentences:</p>
+<ul>
+<li><p><em>Two-stage accounts</em> assume that readers consider only one or a subset of possible parses for each sentence that it is reading <span class="citation">(Gibson <a href="#ref-gibson-1991-computational">1991</a>; Jurafsky <a href="#ref-jurafsky-1996-probabilistic">1996</a>)</span>, and processing difficulties arise as a consequence of the reanalysis process need to reconstruct parses that were initially disregarded or not considered <span class="citation">(Frazier and Fodor <a href="#ref-frazier-1978-sausage">1978</a>)</span>.</p></li>
+<li><p><em>One-stage accounts</em> such as <strong>surprisal theory</strong> <span class="citation">(Hale <a href="#ref-hale-2001-probabilistic">2001</a>; Levy <a href="#ref-levy-2008-expectation">2008</a>)</span> instead consider difficulties produced by garden paths as the products of a single processing mechanism. Dispreferred parses are not discarded, but rather associated with a lower probability compared to that of likely ones: “processing difficulty on every word in the sentence, including the disambiguating words in garden-path sentences, arises from the extent to which the word shifts the reader’s subjective probability distribution over possible parses” <span class="citation">(Schijndel and Linzen <a href="#ref-schjindel-linzen-2020-single">2020</a>)</span>.</p></li>
+</ul>
+<p>There are multiple types of garden-path sentences, usually categorized based on their respective syntactic ambiguities <span class="citation">(Frazier <a href="#ref-frazier-1978-comprehending">1978</a>)</span>. In this work, two classic garden-path families are studied in three different settings using examples taken from <span class="citation">Futrell et al. (<a href="#ref-futrell-etal-2019-neural">2019</a>)</span>. The first type is the <strong>MV/RR ambiguity</strong> presented in example (1), and repeated in (3a):</p>
+<blockquote>
+<ol start="3" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>The woman brought the sandwich <span class="underline">fell</span> in the dining room. <span class="verysmall">[RED., AMBIG.]</span></li>
+</ol></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>The woman who was brought the sandwich fell in the dining room. <span class="verysmall">[UNRED., AMBIG.]</span></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>The woman given the sandwich fell in the dining room. <span class="verysmall">[RED., UNAMBIG.]</span></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>The woman who was given the sandwich fell in the dining room. <span class="verysmall">[UNRED., UNAMBIG.]</span></li>
+</ol>
+</blockquote>
+<p>The label MV/RR indicates that <em>brought</em> can be initially parsed either as the main verb (MV) in the past tense of the clause or as a passive participle introducing a reduced relative (RR) clause, which postmodifies the subject. It is possible to rewrite the sentence by changing the ambiguous verb to an equivalent one having different forms for simple past and past participle (such as <em>gave</em> vs. <em>given</em>). In this case, we expect that the difference in cognitive processing for the disambiguator <em>fell</em> between the reduced (3c) and the unreduced (3d) version is smaller since the ambiguity is ruled out from the beginning.</p>
+<p>The second type of ambiguity is the <strong>NP/Z ambiguity</strong> presented in (4a):</p>
+<blockquote>
+<ol start="4" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>As the criminal shot the woman <span class="underline">yelled</span> at the top of her lungs. <span class="verysmall">[TRANS., NO COMMA]</span></li>
+</ol></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>As the criminal fled the woman yelled at the top of her lungs. <span class="verysmall">[INTRANS., NO COMMA]</span></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>As the criminal shot, the woman yelled at the top of her lungs. <span class="verysmall">[TRANS., COMMA]</span></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>As the criminal fled, the woman yelled at the top of her lungs. <span class="verysmall">[INTRANS., COMMA]</span></li>
+</ol>
+</blockquote>
+<p>The label NP/Z is used to indicate that the transitive verb <em>shot</em> can initially be understood to have either have a noun phrase (NP) object like <em>the woman</em> or a zero (Z), i.e., null object if used intransitively as it is the case for (4a). The sentence can be rewritten by substituting the transitive verb generating the ambiguity with an intransitive one, e.g., replacing <em>shot</em> with <em>fled</em> in (4b), by adding a disambiguating comma to force the null-object parse as in (4c), or by doing both as in (4d). We expect that the cognitive processing difference for the disambiguator <em>yelled</em> between the ambiguous (4a) and the unambiguous (4b) is smaller since the ambiguity is ruled out from the beginning.</p>
+<p>As an additional NP/Z setting evaluation, consider the case in which an overt object is added to the verb introducing the ambiguity:</p>
+<blockquote>
+<ol start="5" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>As the criminal shot the woman <span class="underline">yelled</span> at the top of her lungs. <span class="verysmall">[NO OBJ., NO COMMA]</span></li>
+</ol></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>As the criminal shot his gun the woman yelled at the top of her lungs. <span class="verysmall">[OBJ., NO COMMA]</span></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>As the criminal shot, the woman yelled at the top of her lungs. <span class="verysmall">[NO OBJ., COMMA]</span></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>As the criminal shot his gun, the woman yelled at the top of her lungs. <span class="verysmall">[OBJ., COMMA]</span></li>
+</ol>
+</blockquote>
+<p>Again, we expect that the difference in cognitive processing for <em>yelled</em> is higher in the non-object pair (5a)-(5c), where the first item is a garden-path sentence, rather than in the pair (5b)-(5d) where both sentences are unambiguous.</p>
+<p><span class="custompar">Gaze metrics and Garden-path Sentences</span> As can be intuitively assumed, garden-path effects are reflected in gaze metrics collected during natural reading. Multiple studies have focused on quantifying the difference between garden-path sentences and their unambiguous counterparts on reading times in human subjects. <span class="citation">Sturt, Pickering, and Crocker (<a href="#ref-sturt-etal-1999-structural">1999</a>)</span> found a massive delay of 152ms for each word in the disambiguating region of NP/Z sentences. <span class="citation">Grodner et al. (<a href="#ref-grodner-etal-2003-against">2003</a>)</span> estimate an average delay of 64ms over the disambiguating region for NP/Z constructs using 53 college students’ reading times over a set of 20 ambiguous sentences. More recently, <span class="citation">Prasad and Linzen (<a href="#ref-prasad-linzen-2019-much">2019</a><a href="#ref-prasad-linzen-2019-much">b</a>)</span> recorded eye measurements for 224 participants recruited through Amazon Mechanical Turk on the same set of NP/Z sentences as <span class="citation">Grodner et al. (<a href="#ref-grodner-etal-2003-against">2003</a>)</span>, finding a much lower average delay of 28ms, and suggesting an overestimation in previous studies due to small sample size and publication contingency to significant results. <span class="citation">Prasad and Linzen (<a href="#ref-prasad-linzen-2019-self">2019</a><a href="#ref-prasad-linzen-2019-self">a</a>)</span> collected self-paced reading times from 73 participants recruited on the Prolific Academic crowdsourcing platform and measured an average delay of 22ms over the disambiguating region for MV/RR constructs.</p>
+<p>Given the high variability in results across studies, it can be hypothesized that the way in which stimuli were presented to subjects plays a significant role in determining the magnitude of garden-path effects <span class="citation">(Van Schijndel and Linzen <a href="#ref-schjindel-linzen-2018-modeling">2018</a>)</span>. For example, a sentence presented word-by-word to subjects may yield more ecologically valid reading times estimates than a sentence presented region-by-region. Another problematic factor involves constraining the impact of garden-path effects to the disambiguating region: first, because <em>parafoveal preview effects may slightly anticipate the start of the effect</em> <span class="citation">(Schotter, Angele, and Rayner <a href="#ref-schotter-2012-parafoveal">2012</a>; Schotter <a href="#ref-schotter-2018-reading">2018</a>)</span>; and second, because due to <em>spillover</em> <span class="citation">(Mitchell <a href="#ref-mitchell-1984-evaluation">1984</a>)</span>, a phenomenon in which the surprisal of a word influences the reading times for itself and at least three subsequent words <span class="citation">(Smith and Levy <a href="#ref-smith-levy-2013-effect">2013</a>)</span>, reading times of the disambiguating region are influenced by preceding words, and influence subsequent ones, spreading the garden-path effect on a much broader context. For this reason, eye-tracking metrics are studied for all sentence regions in the experiments of Chapter <a href="chap-ex3.html#chap:ex3">5</a>.</p>
+
+
+
+<!-- Needed for leaving space to the quote, * is for no indentation after title -->
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-ambati-etal-2016-assessing">
+<p>Ambati, Bharat Ram, Siva Reddy, and Mark Steedman. 2016. “Assessing Relative Sentence Complexity Using an Incremental CCG Parser.” In <em>Proceedings of the 2016 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies</em>, 1051–7. San Diego, California: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N16-1120">https://doi.org/10.18653/v1/N16-1120</a>.</p>
+</div>
+<div id="ref-barrett-etal-2016-weakly">
+<p>Barrett, Maria, Joachim Bingel, Frank Keller, and Anders Søgaard. 2016. “Weakly Supervised Part-of-Speech Tagging Using Eye-Tracking Data.” In <em>Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</em>, 579–84. Berlin, Germany: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P16-2094">https://doi.org/10.18653/v1/P16-2094</a>.</p>
+</div>
+<div id="ref-berruto-2011-linguistica">
+<p>Berruto, Gaetano, and Massimo Simone Cerruti. 2011. <em>La Linguistica. Un Corso Introduttivo</em>. De Agostini.</p>
+</div>
+<div id="ref-berzak-etal-2018-assessing">
+<p>Berzak, Yevgeni, Boris Katz, and Roger Levy. 2018. “Assessing Language Proficiency from Eye Movements in Reading.” In <em>Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers)</em>, 1986–96. New Orleans, Louisiana: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N18-1180">https://doi.org/10.18653/v1/N18-1180</a>.</p>
+</div>
+<div id="ref-bever-1970-cognitive">
+<p>Bever, Thomas G. 1970. “The Cognitive Basis for Linguistic Structures.” <em>Cognition and the Development of Language</em>. Wiley.</p>
+</div>
+<div id="ref-brunato-etal-2020-profiling">
+<p>Brunato, Dominique, Andrea Cimino, Felice Dell’Orletta, Giulia Venturi, and Simonetta Montemagni. 2020. “Profiling-UD: A Tool for Linguistic Profiling of Texts.” In <em>Proceedings of the 12th Language Resources and Evaluation Conference</em>, 7145–51. Marseille, France: European Language Resources Association. <a href="https://www.aclweb.org/anthology/2020.lrec-1.883">https://www.aclweb.org/anthology/2020.lrec-1.883</a>.</p>
+</div>
+<div id="ref-brunato-etal-2018-sentence">
+<p>Brunato, Dominique, Lorenzo De Mattei, Felice Dell’Orletta, Benedetta Iavarone, and Giulia Venturi. 2018. “Is This Sentence Difficult? Do You Agree?” In <em>Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing</em>, 2690–9. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D18-1289">https://doi.org/10.18653/v1/D18-1289</a>.</p>
+</div>
+<div id="ref-cangelosi-turner-2002-emergere">
+<p>Cangelosi, Angelo, and Huck Turner. 2002. “L’emergere Del Linguaggio.” <em>Scienze Della Mente</em>.</p>
+</div>
+<div id="ref-carr-etal-2020-algorithms">
+<p>Carr, Jon W, Valentina N Pescuma, Michele Furlan, Maria Ktori, and Davide Crepaldi. 2020. “Algorithms for the Automated Correction of Vertical Drift in Eye Tracking Data.” <em>OSF Preprints</em>, June. <a href="osf.io/jg3nc">osf.io/jg3nc</a>.</p>
+</div>
+<div id="ref-caruana-1997-multitask">
+<p>Caruana, Rich. 1997. “Multitask Learning.” <em>Machine Learning</em> 28: 41–75. <a href="https://www.cs.utexas.edu/~kuipers/readings/Caruana-mlj-97.pdf">https://www.cs.utexas.edu/~kuipers/readings/Caruana-mlj-97.pdf</a>.</p>
+</div>
+<div id="ref-christie-2003-mysterious">
+<p>Christie, Agatha. 2003. <em>The Mysterious Affair at Styles: A Detective Story</em>. Modern Library.</p>
+</div>
+<div id="ref-cop-etal-2017-presenting">
+<p>Cop, Uschi, Nicolas Dirix, Denis Drieghe, and Wouter Duyck. 2017. “Presenting Geco: An Eyetracking Corpus of Monolingual and Bilingual Sentence Reading.” <em>Behavior Research Methods</em> 49 (2). Springer: 602–15.</p>
+</div>
+<div id="ref-culotta-etal-2006-integrating">
+<p>Culotta, Aron, Andrew McCallum, and Jonathan Betz. 2006. “Integrating Probabilistic Extraction Models and Data Mining to Discover Relations and Patterns in Text.” In <em>Proceedings of the Human Language Technology Conference of the NAACL, Main Conference</em>, 296–303. New York City, USA: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/N06-1038">https://www.aclweb.org/anthology/N06-1038</a>.</p>
+</div>
+<div id="ref-day-2004-religion">
+<p>Day, Matthew. 2004. “Religion, Off-Line Cognition and the Extended Mind.” <em>Journal of Cognition and Culture</em> 4 (1). Brill: 101–21.</p>
+</div>
+<div id="ref-demberg-keller-2008-data">
+<p>Demberg, Vera, and Frank Keller. 2008. “Data from Eye-Tracking Corpora as Evidence for Theories of Syntactic Processing Complexity.” <em>Cognition</em> 109 (2). Elsevier: 193–210.</p>
+</div>
+<div id="ref-edmonds-1999-syntactic">
+<p>Edmonds, Bruce M. 1999. “Syntactic Measures of Complexity.” PhD thesis, University of Manchester Manchester, UK.</p>
+</div>
+<div id="ref-fine-2013-rapid">
+<p>Fine, Alex B, T Florian Jaeger, Thomas A Farmer, and Ting Qian. 2013. “Rapid Expectation Adaptation During Syntactic Comprehension.” <em>PloS One</em> 8 (10). Public Library of Science: e77661.</p>
+</div>
+<div id="ref-frazier-1978-comprehending">
+<p>Frazier, Lyn. 1978. “On Comprehending Sentences: Syntactic Parsing Strategies.” PhD thesis, University of Connecticut.</p>
+</div>
+<div id="ref-frazier-1978-sausage">
+<p>Frazier, Lyn, and Janet Dean Fodor. 1978. “The Sausage Machine: A New Two-Stage Parsing Model.” <em>Cognition</em> 6 (4). Elsevier: 291–325.</p>
+</div>
+<div id="ref-futrell-2020-lossy">
+<p>Futrell, Richard, Edward Gibson, and Roger P Levy. 2020. “Lossy-Context Surprisal: An Information-Theoretic Model of Memory Effects in Sentence Processing.” <em>Cognitive Science</em> 44 (3). Wiley Online Library: e12814.</p>
+</div>
+<div id="ref-futrell-etal-2019-neural">
+<p>Futrell, Richard, Ethan Wilcox, Takashi Morita, Peng Qian, Miguel Ballesteros, and Roger Levy. 2019. “Neural Language Models as Psycholinguistic Subjects: Representations of Syntactic State.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 32–42. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1004">https://doi.org/10.18653/v1/N19-1004</a>.</p>
+</div>
+<div id="ref-gibson-1991-computational">
+<p>Gibson, Edward. 1991. “A Computational Theory of Human Linguistic Processing: Memory Limitations and Processing Breakdown.” PhD thesis, Pittsburgh, PA: Carnegie Mellon University.</p>
+</div>
+<div id="ref-gibson-1998-linguistic">
+<p>Gibson, Edward. 1998. “Linguistic Complexity: Locality of Syntactic Dependencies.” <em>Cognition</em> 68 (1). Elsevier: 1–76.</p>
+</div>
+<div id="ref-gibson-2000-dependency">
+<p>Gibson, Edward. 2000. “The Dependency Locality Theory: A Distance-Based Theory of Linguistic Complexity.” <em>Image, Language, Brain</em> 2000: 95–126.</p>
+</div>
+<div id="ref-gonzalez-garduno-sogaard-2018-learning">
+<p>González-Garduño, Ana Valeria, and Anders Søgaard. 2018. “Learning to Predict Readability Using Eye-Movement Data from Natives and Learners.” AAAI Conference on Artificial Intelligence.</p>
+</div>
+<div id="ref-goodman-2001-bit">
+<p>Goodman, Joshua. 2001. “A Bit of Progress in Language Modeling.” <em>arXiv Preprint Cs/0108005</em>.</p>
+</div>
+<div id="ref-grodner-etal-2003-against">
+<p>Grodner, Daniel, Edward Gibson, Vered Argaman, and Maria Babyonyshev. 2003. “Against Repair-Based Reanalysis in Sentence Comprehension.” <em>Journal of Psycholinguistic Research</em> 32 (2). Springer: 141–66.</p>
+</div>
+<div id="ref-hale-2001-probabilistic">
+<p>Hale, John. 2001. “A Probabilistic Earley Parser as a Psycholinguistic Model.” In <em>Second Meeting of the North American Chapter of the Association for Computational Linguistics</em>.</p>
+</div>
+<div id="ref-hale-2016-information">
+<p>Hale, John. 2016. “Information-Theoretical Complexity Metrics.” <em>Language and Linguistics Compass</em> 10 (9). Wiley Online Library: 397–412.</p>
+</div>
+<div id="ref-hauser-2002-faculty">
+<p>Hauser, Marc D, Noam Chomsky, and W Tecumseh Fitch. 2002. “The Faculty of Language: What Is It, Who Has It, and How Did It Evolve?” <em>Science</em> 298 (5598). American Association for the Advancement of Science: 1569–79.</p>
+</div>
+<div id="ref-hollenstein-2018-zuco">
+<p>Hollenstein, Nora, Jonathan Rotsztejn, Marius Troendle, Andreas Pedroni, Ce Zhang, and Nicolas Langer. 2018. “ZuCo, a Simultaneous Eeg and Eye-Tracking Resource for Natural Sentence Reading.” <em>Scientific Data</em> 5 (1). Nature Publishing Group: 1–13.</p>
+</div>
+<div id="ref-hollenstein-etal-2020-zuco">
+<p>Hollenstein, Nora, Marius Troendle, Ce Zhang, and Nicolas Langer. 2020. “ZuCo 2.0: A Dataset of Physiological Recordings During Natural Reading and Annotation.” In <em>Proceedings of the 12th Language Resources and Evaluation Conference</em>, 138–46. Marseille, France: European Language Resources Association. <a href="https://www.aclweb.org/anthology/2020.lrec-1.18">https://www.aclweb.org/anthology/2020.lrec-1.18</a>.</p>
+</div>
+<div id="ref-hollenstein-zhang-2019-entity">
+<p>Hollenstein, Nora, and Ce Zhang. 2019. “Entity Recognition at First Sight: Improving NER with Eye Movement Information.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 1–10. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1001">https://doi.org/10.18653/v1/N19-1001</a>.</p>
+</div>
+<div id="ref-iverson-thelen-1999-hand">
+<p>Iverson, Jana M, and Esther Thelen. 1999. “Hand, Mouth and Brain. The Dynamic Emergence of Speech and Gesture.” <em>Journal of Consciousness Studies</em> 6 (11-12). Imprint Academic: 19–40.</p>
+</div>
+<div id="ref-jurafsky-1996-probabilistic">
+<p>Jurafsky, Daniel. 1996. “A Probabilistic Model of Lexical and Syntactic Access and Disambiguation.” <em>Cognitive Science</em> 20 (2). Wiley Online Library: 137–94.</p>
+</div>
+<div id="ref-kennedy-etal-2003-dundee">
+<p>Kennedy, Alan, Robin Hill, and Joël Pynte. 2003. “The Dundee Corpus.” In <em>Proceedings of the 12th European Conference on Eye Movement</em>.</p>
+</div>
+<div id="ref-kusters-2003-linguistic">
+<p>Kusters, Wouter. 2003. “Linguistic Complexity.” PhD thesis, Netherlands Graduate School of Linguistics.</p>
+</div>
+<div id="ref-kusters-2008-complexity">
+<p>Kusters, Wouter. 2008. “Complexity in Linguistic Theory, Language Learning and Language Change.” In <em>Language Complexity: Typology, Contact, Change</em>, 3–22. John Benjamins Amsterdam, The Netherlands.</p>
+</div>
+<div id="ref-levy-2008-expectation">
+<p>Levy, Roger. 2008. “Expectation-Based Syntactic Comprehension.” <em>Cognition</em> 106 (3). Elsevier: 1126–77.</p>
+</div>
+<div id="ref-mcdonald-etal-2013-universal">
+<p>McDonald, Ryan, Joakim Nivre, Yvonne Quirmbach-Brundage, Yoav Goldberg, Dipanjan Das, Kuzman Ganchev, Keith Hall, et al. 2013. “Universal Dependency Annotation for Multilingual Parsing.” In <em>Proceedings of the 51st Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</em>, 92–97. Sofia, Bulgaria: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/P13-2017">https://www.aclweb.org/anthology/P13-2017</a>.</p>
+</div>
+<div id="ref-mcwhorter-2001-world">
+<p>McWhorter, John H. 2001. “The Worlds Simplest Grammars Are Creole Grammars.” <em>Linguistic Typology</em> 5 (2-3). De Gruyter Mouton: 125–66.</p>
+</div>
+<div id="ref-meyer-rice-1992-prose">
+<p>Meyer, Bonnie JF, and G Elizabeth Rice. 1992. “12 Prose Processing in Adulthood: The Text, the Reader, and the Task.” <em>Everyday Cognition in Adulthood and Late Life</em>. Cambridge Univ Pr, 157.</p>
+</div>
+<div id="ref-miestamo-2004-feasibility">
+<p>Miestamo, Matti. 2004. “On the Feasibility of Complexity Metrics.” In <em>FinEst Linguistics, Proceedings of the Annual Finnish and Estonian Conference of Linguistics</em>, 11–26. Tallin, Finland.</p>
+</div>
+<div id="ref-miestamo-2008-grammatical">
+<p>Miestamo, Matti. 2008. “Grammatical Complexity in a Cross-Linguistic Perspective.” In <em>Language Complexity: Typology, Contact, Change</em>, 41. John Benjamins Amsterdam, The Netherlands.</p>
+</div>
+<div id="ref-mishra-etal-2017-learning">
+<p>Mishra, Abhijit, Kuntal Dey, and Pushpak Bhattacharyya. 2017. “Learning Cognitive Features from Gaze Data for Sentiment and Sarcasm Classification Using Convolutional Neural Network.” In <em>Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</em>, 377–87. Vancouver, Canada: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P17-1035">https://doi.org/10.18653/v1/P17-1035</a>.</p>
+</div>
+<div id="ref-mitchell-1984-evaluation">
+<p>Mitchell, Don C. 1984. “An Evaluation of Subject-Paced Reading Tasks and Other Methods for Investigating Immediate Processes in Reading.” <em>New Methods in Reading Comprehension Research</em>, 69–89.</p>
+</div>
+<div id="ref-munro-etal-2010-crowdsourcing">
+<p>Munro, Robert, Steven Bethard, Victor Kuperman, Vicky Tzuyin Lai, Robin Melnick, Christopher Potts, Tyler Schnoebelen, and Harry Tily. 2010. “Crowdsourcing and Language Studies: The New Generation of Linguistic Data.” In <em>Proceedings of the NAACL HLT 2010 Workshop on Creating Speech and Language Data with Amazon’s Mechanical Turk</em>, 122–30. Los Angeles: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/W10-0719">https://www.aclweb.org/anthology/W10-0719</a>.</p>
+</div>
+<div id="ref-nivre-etal-2016-universal">
+<p>Nivre, Joakim, Marie-Catherine de Marneffe, Filip Ginter, Yoav Goldberg, Jan Hajič, Christopher D. Manning, Ryan McDonald, et al. 2016. “Universal Dependencies V1: A Multilingual Treebank Collection.” In <em>Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC’16)</em>, 1659–66. Portorož, Slovenia: European Language Resources Association (ELRA). <a href="https://www.aclweb.org/anthology/L16-1262">https://www.aclweb.org/anthology/L16-1262</a>.</p>
+</div>
+<div id="ref-prasad-linzen-2019-self">
+<p>Prasad, Grusha, and Tal Linzen. 2019a. “Do Self-Paced Reading Studies Provide Evidence for Rapid Syntactic Adaptation?” <em>PsyArXiv Pre-Print</em>. <a href="https://tallinzen.net/media/papers/prasad_linzen_2019_adaptation.pdf">https://tallinzen.net/media/papers/prasad_linzen_2019_adaptation.pdf</a>.</p>
+</div>
+<div id="ref-prasad-linzen-2019-much">
+<p>Prasad, Grusha, and Tal Linzen. 2019b. “How Much Harder Are Hard Garden-Path Sentences Than Easy Ones?” <em>OSF Preprint</em> syh3j. <a href="https://osf.io/syh3j/">https://osf.io/syh3j/</a>.</p>
+</div>
+<div id="ref-ruder-2017-overview">
+<p>Ruder, Sebastian. 2017. “An Overview of Multi-Task Learning in Deep Neural Networks.” <em>ArXiv Pre-Print</em> 1706.05098. <a href="https://arxiv.org/abs/1706.05098">https://arxiv.org/abs/1706.05098</a>.</p>
+</div>
+<div id="ref-schjindel-linzen-2020-single">
+<p>Schijndel, Marten van, and Tal Linzen. 2020. “Single-Stage Prediction Models Do Not Explain the Magnitude of Syntactic Disambiguation Difficulty.” <em>PsyArXiv Pre-Print</em> sgbqy. <a href="https://psyarxiv.com/sgbqy/">https://psyarxiv.com/sgbqy/</a>.</p>
+</div>
+<div id="ref-schotter-2018-reading">
+<p>Schotter, Elizabeth R. 2018. “Reading Ahead by Hedging Our Bets on Seeing the Future: Eye Tracking and Electrophysiology Evidence for Parafoveal Lexical Processing and Saccadic Control by Partial Word Recognition.” In <em>Psychology of Learning and Motivation</em>, 68:263–98. Elsevier.</p>
+</div>
+<div id="ref-schotter-2020-eyetracking">
+<p>Schotter, Elizabeth R. 2020. <em>Eye Tracking for Cognitive Science</em>. SISSA Course.</p>
+</div>
+<div id="ref-schotter-2012-parafoveal">
+<p>Schotter, Elizabeth R, Bernhard Angele, and Keith Rayner. 2012. “Parafoveal Processing in Reading.” <em>Attention, Perception, &amp; Psychophysics</em> 74 (1). Springer: 5–35.</p>
+</div>
+<div id="ref-simi-etal-2014-less">
+<p>Simi, Maria, Cristina Bosco, and Simonetta Montemagni. 2014. “Less Is More? Towards a Reduced Inventory of Categories for Training a Parser for the Italian Stanford Dependencies.” In <em>Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC’14)</em>, 83–90. Reykjavik, Iceland: European Language Resources Association (ELRA). <a href="http://www.lrec-conf.org/proceedings/lrec2014/pdf/818_Paper.pdf">http://www.lrec-conf.org/proceedings/lrec2014/pdf/818_Paper.pdf</a>.</p>
+</div>
+<div id="ref-singh-etal-2016-quantifying">
+<p>Singh, Abhinav Deep, Poojan Mehta, Samar Husain, and Rajkumar Rajakrishnan. 2016. “Quantifying Sentence Complexity Based on Eye-Tracking Measures.” In <em>Proceedings of the Workshop on Computational Linguistics for Linguistic Complexity (CL4LC)</em>, 202–12. Osaka, Japan: The COLING 2016 Organizing Committee. <a href="https://www.aclweb.org/anthology/W16-4123">https://www.aclweb.org/anthology/W16-4123</a>.</p>
+</div>
+<div id="ref-sinnemaki-2011-language">
+<p>Sinnemäki, Kaius. 2011. “Language Universals and Linguistic Complexity: Three Case Studies in Core Argument Marking.” PhD thesis, University of Helsinki.</p>
+</div>
+<div id="ref-smith-levy-2013-effect">
+<p>Smith, Nathaniel J, and Roger Levy. 2013. “The Effect of Word Predictability on Reading Time Is Logarithmic.” <em>Cognition</em> 128 (3). Elsevier: 302–19.</p>
+</div>
+<div id="ref-socher-etal-2013-recursive">
+<p>Socher, Richard, Alex Perelygin, Jean Wu, Jason Chuang, Christopher D. Manning, Andrew Ng, and Christopher Potts. 2013. “Recursive Deep Models for Semantic Compositionality over a Sentiment Treebank.” In <em>Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing</em>, 1631–42. Seattle, Washington, USA: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/D13-1170">https://www.aclweb.org/anthology/D13-1170</a>.</p>
+</div>
+<div id="ref-straka-etal-2016-udpipe">
+<p>Straka, Milan, Jan Hajič, and Jana Straková. 2016. “UDPipe: Trainable Pipeline for Processing CoNLL-U Files Performing Tokenization, Morphological Analysis, POS Tagging and Parsing.” In <em>Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC’16)</em>, 4290–7. Portorož, Slovenia: European Language Resources Association (ELRA). <a href="https://www.aclweb.org/anthology/L16-1680">https://www.aclweb.org/anthology/L16-1680</a>.</p>
+</div>
+<div id="ref-strzyz-etal-2019-towards">
+<p>Strzyz, Michalina, David Vilares, and Carlos Gómez-Rodríguez. 2019. “Towards Making a Dependency Parser See.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 1500–1506. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1160">https://doi.org/10.18653/v1/D19-1160</a>.</p>
+</div>
+<div id="ref-sturt-etal-1999-structural">
+<p>Sturt, Patrick, Martin J Pickering, and Matthew W Crocker. 1999. “Structural Change and Reanalysis Difficulty in Language Comprehension.” <em>Journal of Memory and Language</em> 40 (1). Elsevier: 136–50.</p>
+</div>
+<div id="ref-taylor-1953-cloze">
+<p>Taylor, Wilson L. 1953. “‘Cloze Procedure’: A New Tool for Measuring Readability.” <em>Journalism Quarterly</em> 30 (4). SAGE Publications Sage CA: Los Angeles, CA: 415–33.</p>
+</div>
+<div id="ref-vajjala-lucic-2019-understanding">
+<p>Vajjala, Sowmya, and Ivana Lucic. 2019. “On Understanding the Relation Between Expert Annotations of Text Readability and Target Reader Comprehension.” In <em>Proceedings of the Fourteenth Workshop on Innovative Use of Nlp for Building Educational Applications</em>, 349–59. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W19-4437">https://doi.org/10.18653/v1/W19-4437</a>.</p>
+</div>
+<div id="ref-vajjala-lucic-2018-onestopenglish">
+<p>Vajjala, Sowmya, and Ivana Lučić. 2018. “OneStopEnglish Corpus: A New Corpus for Automatic Readability Assessment and Text Simplification.” In <em>Proceedings of the Thirteenth Workshop on Innovative Use of NLP for Building Educational Applications</em>, 297–304. New Orleans, Louisiana: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W18-0535">https://doi.org/10.18653/v1/W18-0535</a>.</p>
+</div>
+<div id="ref-schjindel-linzen-2018-modeling">
+<p>Van Schijndel, Marten, and Tal Linzen. 2018. “Modeling Garden Path Effects Without Explicit Hierarchical Syntax.” In <em>Proceedings of the 40th Annual Conference of the Cognitive Science Society</em>, 2600–2605.</p>
+</div>
+<div id="ref-vasishth-etal-2013-what">
+<p>Vasishth, Shravan, Titus von der Malsburg, and Felix Engelmann. 2013. “What Eye Movements Can Tell Us About Sentence Comprehension.” <em>Cognitive Science</em> 4 2. Wiley interdisciplinary reviews: 125–34. <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/wcs.1209">https://onlinelibrary.wiley.com/doi/full/10.1002/wcs.1209</a>.</p>
+</div>
+<div id="ref-voghera-2001-riflessioni">
+<p>Voghera, Miriam. 2001. “Riflessioni Su Semplificazione, Complessità E Modalità Di Trasmissione: Sintassi E Semantica.” <em>Scritto E Parlato. Metodi, Testi E Contesti</em>. Aracne, 65–78.</p>
+</div>
+<div id="ref-xu-etal-2015-problems">
+<p>Xu, Wei, Chris Callison-Burch, and Courtney Napoles. 2015. “Problems in Current Text Simplification Research: New Data Can Help.” <em>Transactions of the Association for Computational Linguistics</em> 3: 283–97. <a href="https://doi.org/10.1162/tacl_a_00139">https://doi.org/10.1162/tacl_a_00139</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>Available at <a href="http://linguistic-profiling.italianlp.it" class="uri">http://linguistic-profiling.italianlp.it</a><a href="chap-ling-comp.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>This motivates the previous claim about the interdependence of intrinsic and extrinsic approaches. See Section 2.1 of <span class="citation">Martinc, Pollak, and Robnik-Sikonja (<a href="#ref-martinc-2019-supervised">2019</a>)</span> for an overview of the most popular metrics for English.<a href="chap-ling-comp.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>This is an admittedly simplistic reduction, given the importance of parafoveal processing in reading <span class="citation">(Schotter, Angele, and Rayner <a href="#ref-schotter-2012-parafoveal">2012</a>; Schotter <a href="#ref-schotter-2018-reading">2018</a>)</span><a href="chap-ling-comp.html#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>See <span class="citation">Collins-Thompson (<a href="#ref-collins-2014-computational">2014</a>)</span> for a thorough review of ARA approaches.<a href="chap-ling-comp.html#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>See <span class="citation">Rayner (<a href="#ref-rayner-1998-eye">1998</a>)</span> for a comprehensive survey on findings related to eye-tracking research.<a href="chap-ling-comp.html#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p>See <span class="citation">Hollenstein, Barrett, and Beinborn (<a href="#ref-hollenstein-etal-2020-towards">2020</a>)</span> for an exhaustive overview of current approaches and best practices.<a href="chap-ling-comp.html#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p>Appendix <a href="app-et-metrics.html#app:et-metrics">B</a> contains information about deriving metric values for all corpora.<a href="chap-ling-comp.html#fnref8" class="footnote-back">↩</a></p></li>
+<li id="fn9"><p><a href="https://twitter.com/drswissmiss/status/1304856856649756673" class="uri">https://twitter.com/drswissmiss/status/1304856856649756673</a><a href="chap-ling-comp.html#fnref9" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gsarti/master-thesis/tree/master/01-Linguistic-Complexity.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Sarti_2020_Interpreting_NLMs_for_LCA.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>F Reproducibility and Environmental Impact | Interpreting Neural Language Models for Linguistic Complexity Assessment</title>
+  <meta name="description" content="This is a test description" />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="F Reproducibility and Environmental Impact | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://gsarti.com/master-thesis" />
+  <meta property="og:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+  <meta property="og:description" content="This is a test description" />
+  <meta name="github-repo" content="gsarti/interpreting-complexity" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="F Reproducibility and Environmental Impact | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  
+  <meta name="twitter:description" content="This is a test description" />
+  <meta name="twitter:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+
+<meta name="author" content="Gabriele Sarti" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="figures/icons/apple-icon.png" />
+  <link rel="shortcut icon" href="figures/icons/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="app-garden-paths-et.html"/>
+<link rel="next" href="references.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="templates/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="introduction.html#introduction"><strong>Introduction</strong></a></li>
+<li class="chapter" data-level="1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html"><i class="fa fa-check"></i><b>1</b> <strong>Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="1.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:categorizing"><i class="fa fa-check"></i><b>1.1</b> Categorizing Linguistic Complexity Measures</a></li>
+<li class="chapter" data-level="1.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:intrinsic"><i class="fa fa-check"></i><b>1.2</b> Intrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:structural"><i class="fa fa-check"></i><b>1.2.1</b> Structural Linguistic Complexity</a></li>
+<li class="chapter" data-level="1.2.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:lm-surprisal"><i class="fa fa-check"></i><b>1.2.2</b> Language Modeling Surprisal</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:extrinsic"><i class="fa fa-check"></i><b>1.3</b> Extrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:readability"><i class="fa fa-check"></i><b>1.3.1</b> Automatic Readability Assessment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:pc"><i class="fa fa-check"></i><b>1.3.2</b> Perceived Complexity Prediction</a></li>
+<li class="chapter" data-level="1.3.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:eye-tracking"><i class="fa fa-check"></i><b>1.3.3</b> Gaze Metrics Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:garden-path"><i class="fa fa-check"></i><b>1.4</b> Garden-path Sentences</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chap-models.html"><a href="chap-models.html"><i class="fa fa-check"></i><b>2</b> <strong>Models of Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="2.1" data-path="chap-models.html"><a href="chap-models.html#subchap:desiderata"><i class="fa fa-check"></i><b>2.1</b> Desiderata for Models of Linguistic Complexity</a></li>
+<li class="chapter" data-level="2.2" data-path="chap-models.html"><a href="chap-models.html#subchap:nlm"><i class="fa fa-check"></i><b>2.2</b> Neural Language Models: Unsupervised Multitask Learners</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:syntax-nlm"><i class="fa fa-check"></i><b>2.2.1</b> Emergent Linguistic Structures in Neural Language Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chap-models.html"><a href="chap-models.html#subchap:analyzing-nlm"><i class="fa fa-check"></i><b>2.3</b> Analyzing Neural Models of Complexity</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:probe"><i class="fa fa-check"></i><b>2.3.1</b> Probing classifiers</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chap-models.html"><a href="chap-models.html#subsubchap:rsa"><i class="fa fa-check"></i><b>2.3.2</b> Representational Similarity Analysis</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chap-models.html"><a href="chap-models.html#subsubchap:pwcca"><i class="fa fa-check"></i><b>2.3.3</b> Projection-Weighted Canonical Correlation Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-ex1.html"><a href="chap-ex1.html"><i class="fa fa-check"></i><b>3</b> <strong>Complexity Phenomena in Linguistic Annotations and Language Models</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-data"><i class="fa fa-check"></i><b>3.1</b> Data and Preprocessing</a></li>
+<li class="chapter" data-level="3.2" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-analysis"><i class="fa fa-check"></i><b>3.2</b> Analysis of Linguistic Phenomena</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-analysis-bins"><i class="fa fa-check"></i><b>3.2.1</b> Linguistic Phenomena in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-modeling"><i class="fa fa-check"></i><b>3.3</b> Modeling Online and Offline Linguistic Complexity</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-modeling-bins"><i class="fa fa-check"></i><b>3.3.1</b> Modeling Complexity in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-probing"><i class="fa fa-check"></i><b>3.4</b> Probing Linguistic Phenomena in ALBERT Representations</a></li>
+<li class="chapter" data-level="3.5" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap-ex2.html"><a href="chap-ex2.html"><i class="fa fa-check"></i><b>4</b> <strong>Representational Similarity in Models of Complexity</strong></a><ul>
+<li class="chapter" data-level="4.1" data-path="chap-ex2.html"><a href="chap-ex2.html#knowledge-driven-requirements-for-learning-models"><i class="fa fa-check"></i><b>4.1</b> Knowledge-driven Requirements for Learning Models</a></li>
+<li class="chapter" data-level="4.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-experiments"><i class="fa fa-check"></i><b>4.2</b> Experimentsl Evaluation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-data"><i class="fa fa-check"></i><b>4.2.1</b> Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-inter"><i class="fa fa-check"></i><b>4.2.2</b> Inter-model Representational Similarity</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-intra"><i class="fa fa-check"></i><b>4.2.3</b> Intra-model Representational Similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-summary"><i class="fa fa-check"></i><b>4.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap-ex3.html"><a href="chap-ex3.html"><i class="fa fa-check"></i><b>5</b> <strong>Gaze-informed Models for Cognitive Processing Prediction</strong></a><ul>
+<li class="chapter" data-level="5.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-setup"><i class="fa fa-check"></i><b>5.1</b> Experimental Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-experiments"><i class="fa fa-check"></i><b>5.2</b> Experimental Evaluation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-magnitudes"><i class="fa fa-check"></i><b>5.2.1</b> Estimating Magnitudes of Garden-path Delays</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-predicting"><i class="fa fa-check"></i><b>5.2.2</b> Predicting Delays with Surprisal and Gaze Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-summary"><i class="fa fa-check"></i><b>5.3</b> Summary</a></li>
+</ul></li>
+<li><a href="conclusion.html#conclusion"><strong>Conclusion</strong></a><ul>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Broader Impact and Ethical Perspectives</a></li>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i>Future Directions</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app-ling-feats.html"><a href="app-ling-feats.html"><i class="fa fa-check"></i><b>A</b> Linguistic Features</a><ul>
+<li class="chapter" data-level="A.1" data-path="app-ling-feats.html"><a href="app-ling-feats.html#raw-text-properties-and-lexical-variety"><i class="fa fa-check"></i><b>A.1</b> Raw Text Properties and Lexical Variety</a></li>
+<li class="chapter" data-level="A.2" data-path="app-ling-feats.html"><a href="app-ling-feats.html#morpho-syntacting-information"><i class="fa fa-check"></i><b>A.2</b> Morpho-syntacting Information</a></li>
+<li class="chapter" data-level="A.3" data-path="app-ling-feats.html"><a href="app-ling-feats.html#verbal-predicate-structure"><i class="fa fa-check"></i><b>A.3</b> Verbal Predicate Structure</a></li>
+<li class="chapter" data-level="A.4" data-path="app-ling-feats.html"><a href="app-ling-feats.html#global-and-local-parsed-tree-structures"><i class="fa fa-check"></i><b>A.4</b> Global and Local Parsed Tree Structures</a></li>
+<li class="chapter" data-level="A.5" data-path="app-ling-feats.html"><a href="app-ling-feats.html#syntactic-relations"><i class="fa fa-check"></i><b>A.5</b> Syntactic Relations</a></li>
+<li class="chapter" data-level="A.6" data-path="app-ling-feats.html"><a href="app-ling-feats.html#subordination-phenomena"><i class="fa fa-check"></i><b>A.6</b> Subordination Phenomena</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="app-et-metrics.html"><a href="app-et-metrics.html"><i class="fa fa-check"></i><b>B</b> Precisions on Eye-tracking Metrics and Preprocessing</a></li>
+<li class="chapter" data-level="C" data-path="app-et-modeling.html"><a href="app-et-modeling.html"><i class="fa fa-check"></i><b>C</b> Multi-task Token-level Regression for Gaze Metrics Prediction</a></li>
+<li class="chapter" data-level="D" data-path="app-intra-sim.html"><a href="app-intra-sim.html"><i class="fa fa-check"></i><b>D</b> Intra-model Similarity for All Models</a></li>
+<li class="chapter" data-level="E" data-path="app-garden-paths-et.html"><a href="app-garden-paths-et.html"><i class="fa fa-check"></i><b>E</b> Gaze Metrics Predictions for Garden Path Sentences</a></li>
+<li class="chapter" data-level="F" data-path="app-params.html"><a href="app-params.html"><i class="fa fa-check"></i><b>F</b> Reproducibility and Environmental Impact</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://gsarti.com">Back to my website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interpreting Neural Language Models<br />
+for Linguistic Complexity Assessment</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="app:params" class="section level1">
+<h1><span class="header-section-number">F</span> Reproducibility and Environmental Impact</h1>
+<table class="table" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:train-params">Table F.1: </span>Variable training parameters used in the experiments of this study. MTL stands for multitask learning.
+</caption>
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Chapter 3
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Chapter 4
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Chapter 5
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+PC
+</th>
+<th style="text-align:center;">
+ET
+</th>
+<th style="text-align:center;">
+Probes
+</th>
+<th style="text-align:center;">
+PC
+</th>
+<th style="text-align:center;">
+ET
+</th>
+<th style="text-align:center;">
+RA
+</th>
+<th style="text-align:center;">
+ALBERT
+</th>
+<th style="text-align:center;">
+GPT-2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+fine-tuning
+</td>
+<td style="text-align:center;">
+standard
+</td>
+<td style="text-align:center;">
+MTL
+</td>
+<td style="text-align:center;border-right:1px solid;">
+MTL
+</td>
+<td style="text-align:center;">
+standard
+</td>
+<td style="text-align:center;">
+MTL
+</td>
+<td style="text-align:center;border-right:1px solid;">
+standard
+</td>
+<td style="text-align:center;">
+MTL
+</td>
+<td style="text-align:center;">
+MTL
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+granularity
+</td>
+<td style="text-align:center;">
+sent.
+</td>
+<td style="text-align:center;">
+sent.
+</td>
+<td style="text-align:center;border-right:1px solid;">
+sent.
+</td>
+<td style="text-align:center;">
+sent.
+</td>
+<td style="text-align:center;">
+word
+</td>
+<td style="text-align:center;border-right:1px solid;">
+sent.
+</td>
+<td style="text-align:center;">
+word
+</td>
+<td style="text-align:center;">
+word
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+freeze LM <span class="math inline">\(w\)</span>
+</td>
+<td style="text-align:center;">
+❌
+</td>
+<td style="text-align:center;">
+❌
+</td>
+<td style="text-align:center;border-right:1px solid;">
+✅
+</td>
+<td style="text-align:center;">
+❌
+</td>
+<td style="text-align:center;">
+❌
+</td>
+<td style="text-align:center;border-right:1px solid;">
+❌
+</td>
+<td style="text-align:center;">
+❌
+</td>
+<td style="text-align:center;">
+❌
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+weighted loss
+</td>
+<td style="text-align:center;">
+<ul>
+<li></td>
+<td style="text-align:center;">
+✅
+</td>
+<td style="text-align:center;border-right:1px solid;">
+❌
+</td>
+<td style="text-align:center;">
+<ul>
+<li></td>
+<td style="text-align:center;">
+❌
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<ul>
+<li></td>
+<td style="text-align:center;">
+❌
+</td>
+<td style="text-align:center;">
+❌
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CV folds
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;border-right:1px solid;">
+5
+</td>
+<td style="text-align:center;">
+<ul>
+<li></td>
+<td style="text-align:center;">
+<ul>
+<li></td>
+<td style="text-align:center;border-right:1px solid;">
+<ul>
+<li></td>
+<td style="text-align:center;">
+<ul>
+<li></td>
+<td style="text-align:center;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+early stopping
+</td>
+<td style="text-align:center;">
+✅
+</td>
+<td style="text-align:center;">
+✅
+</td>
+<td style="text-align:center;border-right:1px solid;">
+❌
+</td>
+<td style="text-align:center;">
+✅
+</td>
+<td style="text-align:center;">
+✅
+</td>
+<td style="text-align:center;border-right:1px solid;">
+✅
+</td>
+<td style="text-align:center;">
+✅
+</td>
+<td style="text-align:center;">
+✅
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+training epochs
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;border-right:1px solid;">
+5
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;border-right:1px solid;">
+15
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+patience
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<ul>
+<li></td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;border-right:1px solid;">
+5
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+evaluation steps
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+40
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<ul>
+<li></td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;border-right:1px solid;">
+80
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><span class="custompar">Tools</span> Experiments were executed on a Ubuntu 18.04 LTS server, using a NVIDIA K40 GPU with 12GB RAM and CUDA 10.1. Relevant Python libraries used throughout the study with their respective versions are: 🤗 <code>transformers 2.11.0</code> for accessing pre-trained Transformer language models, <code>farm 0.4.5</code> for multitask learning, <code>torch 1.3.0</code> as a backed for deep learning, and <code>syntaxgym 0.5.3</code> for Chapter <a href="chap-ex3.html#chap:ex3">5</a> experiments. Python 3.6.3 was used for all training scripts. A custom adaptation of the Oxforddown template was used for this thesis.<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a> Code for reproducibility purposes is available at the address <a href="https://github.com/gsarti/interpreting-complexity">https://github.com/gsarti/interpreting-complexity</a>.</p>
+<p><span class="custompar">Model Training</span> Table <a href="app-params.html#tab:train-params">F.1</a> present the set of variable training parameters used in all the experiments of this study. Besides those, a set of fixed parameters was also used: all experiments were performed using a batch size of 32 observations, a maximum sequence length of 128 tokens, a linear training schedule with one-tenth of total steps used as warmup steps, the <em>AdamW</em> optimizer <span class="citation">(Loshchilov and Hutter <a href="#ref-loshchilov-hutter-2019-decoupled">2019</a>)</span> with weight decay equal to <span class="math inline">\(0.01\)</span>, and a learning rate of <span class="math inline">\(10^{-5}\)</span>. No hyperparameter search was performed due to time limitations.</p>
+<p><span class="custompar">Tokenization</span> All tokenizers used in the experiments used cased text and were based respectively on the SentencePiece approach <span class="citation">(Kudo and Richardson <a href="#ref-kudo-richardson-2018-sentencepiece">2018</a>)</span> for ALBERT and a custom version of Byte-Pair Encoding tokenization <span class="citation">(Sennrich, Haddow, and Birch <a href="#ref-sennrich-etal-2016-neural">2016</a>)</span> with token-like whitespaces for GPT-2. Default <code>AlbertTokenizer</code> and <code>GPT2Tokenizer</code> classes available in the 🤗 <code>transformers</code> library with pretrained tokenizers were used for this purpose. The vocabulary used by those had size 30’000 for ALBERT and 50’257 for GPT-2, including special tokens.</p>
+<p><span class="custompar">Architecture</span> The default parameters for the 🤗 <code>transformers</code> checkpoints of ALBERT and GPT-2 (specifically, <code>albert-base-v2</code> and <code>gpt2</code> in the Model Hub) were used for this study. Concretely, this means embeddings and hidden sizes of 128 and 3072 for ALBERT and tied embedding-hidden size of 768 for GPT-2, 12 transformer blocks using 12 heads for multi-head self-attention each, and a smoothed variant of the Gaussian Error Linear Unit (GELU) as nonlinearity <span class="citation">(Hendrycks and Gimpel <a href="#ref-hendrycks-gimpel-2016-gaussian">2016</a>)</span>. GPT-2 has an embedding and attention dropout rate of 0.1 and a layer normalization <span class="citation">(Ba, Kiros, and Hinton <a href="#ref-ba-etal-2016-layer">2016</a>)</span> epsilon of <span class="math inline">\(10^{-5}\)</span>, while ALBERT employs a classifier dropout rate of 0.1 and a layer normalization epsilon of <span class="math inline">\(10^{-12}\)</span>.</p>
+<p><span class="custompar">CO2 Emissions Related to Experiments</span> Experiments were conducted using the private infrastructure of the ItaliaNLP Lab<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a> at the Institute for Computational Linguistics “A. Zampolli” (ILC-CNR) in Pisa, which has an estimated carbon efficiency of 0.321 kgCO<span class="math inline">\(_2\)</span>eq/kWh <span class="citation">(Moro and Lonza <a href="#ref-moro2018electricity">2018</a>)</span>. A cumulative of roughly 100 hours of computation was performed on a Tesla K40 GPU (TDP of 245W). Total emissions are estimated to be 7.86 kgCO<span class="math inline">\(_2\)</span>eq. Estimations were conducted using the Machine Learning Impact Calculator<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a> presented in <span class="citation">Lacoste et al. (<a href="#ref-lacoste2019quantifying">2019</a>)</span>.</p>
+<p>In-detail reports of all experimental runsre produced automatically using the MLFlow<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a> tool and are available at the following address: <a href="https://public-mlflow.deepset.ai/#/experiments/99">https://public-mlflow.deepset.ai/#/experiments/99</a>.</p>
+
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-ba-etal-2016-layer">
+<p>Ba, Jimmy, J. Kiros, and Geoffrey E. Hinton. 2016. “Layer Normalization.” <em>ArXiv Pre-Print</em> 1607.06450. <a href="https://arxiv.org/abs/1607.06450">https://arxiv.org/abs/1607.06450</a>.</p>
+</div>
+<div id="ref-hendrycks-gimpel-2016-gaussian">
+<p>Hendrycks, Dan, and Kevin Gimpel. 2016. “Gaussian Error Linear Units (Gelus).” <em>ArXiv Pre-Print</em> 1606.08415. <a href="https://arxiv.org/abs/1606.08415">https://arxiv.org/abs/1606.08415</a>.</p>
+</div>
+<div id="ref-kudo-richardson-2018-sentencepiece">
+<p>Kudo, Taku, and John Richardson. 2018. “SentencePiece: A Simple and Language Independent Subword Tokenizer and Detokenizer for Neural Text Processing.” In <em>Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing: System Demonstrations</em>, 66–71. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D18-2012">https://doi.org/10.18653/v1/D18-2012</a>.</p>
+</div>
+<div id="ref-lacoste2019quantifying">
+<p>Lacoste, Alexandre, Alexandra Luccioni, Victor Schmidt, and Thomas Dandres. 2019. “Quantifying the Carbon Emissions of Machine Learning.” <em>ArXiv Pre-Print</em> 1910.09700.</p>
+</div>
+<div id="ref-loshchilov-hutter-2019-decoupled">
+<p>Loshchilov, I., and F. Hutter. 2019. “Decoupled Weight Decay Regularization.” In <em>Proceeding of the 7th International Conference on Learning Representations (Iclr’19)</em>.</p>
+</div>
+<div id="ref-moro2018electricity">
+<p>Moro, Alberto, and Laura Lonza. 2018. “Electricity Carbon Intensity in European Member States: Impacts on Ghg Emissions of Electric Vehicles.” <em>Transportation Research Part D: Transport and Environment</em> 64. Elsevier: 5–14.</p>
+</div>
+<div id="ref-sennrich-etal-2016-neural">
+<p>Sennrich, Rico, Barry Haddow, and Alexandra Birch. 2016. “Neural Machine Translation of Rare Words with Subword Units.” In <em>Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</em>, 1715–25. Berlin, Germany: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P16-1162">https://doi.org/10.18653/v1/P16-1162</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="25">
+<li id="fn25"><p><a href="https://github.com/AI-Student-Society/thesisdown-it" class="uri">https://github.com/AI-Student-Society/thesisdown-it</a><a href="app-params.html#fnref25" class="footnote-back">↩</a></p></li>
+<li id="fn26"><p><a href="https://www.italianlp.it">https://www.italianlp.it</a><a href="app-params.html#fnref26" class="footnote-back">↩</a></p></li>
+<li id="fn27"><p><a href="https://mlco2.github.io/impact#compute">https://mlco2.github.io/impact#compute</a><a href="app-params.html#fnref27" class="footnote-back">↩</a></p></li>
+<li id="fn28"><p><a href="https://mlflow.org/" class="uri">https://mlflow.org/</a><a href="app-params.html#fnref28" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="app-garden-paths-et.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gsarti/master-thesis/tree/master/extra/Appendix.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Sarti_2020_Interpreting_NLMs_for_LCA.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

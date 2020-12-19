@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>References | Interpreting Neural Language Models for Linguistic Complexity Assessment</title>
+  <meta name="description" content="This is a test description" />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="References | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://gsarti.com/master-thesis" />
+  <meta property="og:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+  <meta property="og:description" content="This is a test description" />
+  <meta name="github-repo" content="gsarti/interpreting-complexity" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="References | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  
+  <meta name="twitter:description" content="This is a test description" />
+  <meta name="twitter:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+
+<meta name="author" content="Gabriele Sarti" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="figures/icons/apple-icon.png" />
+  <link rel="shortcut icon" href="figures/icons/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="app-params.html"/>
+
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="templates/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="introduction.html#introduction"><strong>Introduction</strong></a></li>
+<li class="chapter" data-level="1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html"><i class="fa fa-check"></i><b>1</b> <strong>Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="1.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:categorizing"><i class="fa fa-check"></i><b>1.1</b> Categorizing Linguistic Complexity Measures</a></li>
+<li class="chapter" data-level="1.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:intrinsic"><i class="fa fa-check"></i><b>1.2</b> Intrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:structural"><i class="fa fa-check"></i><b>1.2.1</b> Structural Linguistic Complexity</a></li>
+<li class="chapter" data-level="1.2.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:lm-surprisal"><i class="fa fa-check"></i><b>1.2.2</b> Language Modeling Surprisal</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:extrinsic"><i class="fa fa-check"></i><b>1.3</b> Extrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:readability"><i class="fa fa-check"></i><b>1.3.1</b> Automatic Readability Assessment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:pc"><i class="fa fa-check"></i><b>1.3.2</b> Perceived Complexity Prediction</a></li>
+<li class="chapter" data-level="1.3.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:eye-tracking"><i class="fa fa-check"></i><b>1.3.3</b> Gaze Metrics Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:garden-path"><i class="fa fa-check"></i><b>1.4</b> Garden-path Sentences</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chap-models.html"><a href="chap-models.html"><i class="fa fa-check"></i><b>2</b> <strong>Models of Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="2.1" data-path="chap-models.html"><a href="chap-models.html#subchap:desiderata"><i class="fa fa-check"></i><b>2.1</b> Desiderata for Models of Linguistic Complexity</a></li>
+<li class="chapter" data-level="2.2" data-path="chap-models.html"><a href="chap-models.html#subchap:nlm"><i class="fa fa-check"></i><b>2.2</b> Neural Language Models: Unsupervised Multitask Learners</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:syntax-nlm"><i class="fa fa-check"></i><b>2.2.1</b> Emergent Linguistic Structures in Neural Language Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chap-models.html"><a href="chap-models.html#subchap:analyzing-nlm"><i class="fa fa-check"></i><b>2.3</b> Analyzing Neural Models of Complexity</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:probe"><i class="fa fa-check"></i><b>2.3.1</b> Probing classifiers</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chap-models.html"><a href="chap-models.html#subsubchap:rsa"><i class="fa fa-check"></i><b>2.3.2</b> Representational Similarity Analysis</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chap-models.html"><a href="chap-models.html#subsubchap:pwcca"><i class="fa fa-check"></i><b>2.3.3</b> Projection-Weighted Canonical Correlation Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-ex1.html"><a href="chap-ex1.html"><i class="fa fa-check"></i><b>3</b> <strong>Complexity Phenomena in Linguistic Annotations and Language Models</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-data"><i class="fa fa-check"></i><b>3.1</b> Data and Preprocessing</a></li>
+<li class="chapter" data-level="3.2" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-analysis"><i class="fa fa-check"></i><b>3.2</b> Analysis of Linguistic Phenomena</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-analysis-bins"><i class="fa fa-check"></i><b>3.2.1</b> Linguistic Phenomena in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-modeling"><i class="fa fa-check"></i><b>3.3</b> Modeling Online and Offline Linguistic Complexity</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-modeling-bins"><i class="fa fa-check"></i><b>3.3.1</b> Modeling Complexity in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-probing"><i class="fa fa-check"></i><b>3.4</b> Probing Linguistic Phenomena in ALBERT Representations</a></li>
+<li class="chapter" data-level="3.5" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap-ex2.html"><a href="chap-ex2.html"><i class="fa fa-check"></i><b>4</b> <strong>Representational Similarity in Models of Complexity</strong></a><ul>
+<li class="chapter" data-level="4.1" data-path="chap-ex2.html"><a href="chap-ex2.html#knowledge-driven-requirements-for-learning-models"><i class="fa fa-check"></i><b>4.1</b> Knowledge-driven Requirements for Learning Models</a></li>
+<li class="chapter" data-level="4.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-experiments"><i class="fa fa-check"></i><b>4.2</b> Experimentsl Evaluation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-data"><i class="fa fa-check"></i><b>4.2.1</b> Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-inter"><i class="fa fa-check"></i><b>4.2.2</b> Inter-model Representational Similarity</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-intra"><i class="fa fa-check"></i><b>4.2.3</b> Intra-model Representational Similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-summary"><i class="fa fa-check"></i><b>4.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap-ex3.html"><a href="chap-ex3.html"><i class="fa fa-check"></i><b>5</b> <strong>Gaze-informed Models for Cognitive Processing Prediction</strong></a><ul>
+<li class="chapter" data-level="5.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-setup"><i class="fa fa-check"></i><b>5.1</b> Experimental Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-experiments"><i class="fa fa-check"></i><b>5.2</b> Experimental Evaluation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-magnitudes"><i class="fa fa-check"></i><b>5.2.1</b> Estimating Magnitudes of Garden-path Delays</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-predicting"><i class="fa fa-check"></i><b>5.2.2</b> Predicting Delays with Surprisal and Gaze Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-summary"><i class="fa fa-check"></i><b>5.3</b> Summary</a></li>
+</ul></li>
+<li><a href="conclusion.html#conclusion"><strong>Conclusion</strong></a><ul>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Broader Impact and Ethical Perspectives</a></li>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i>Future Directions</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app-ling-feats.html"><a href="app-ling-feats.html"><i class="fa fa-check"></i><b>A</b> Linguistic Features</a><ul>
+<li class="chapter" data-level="A.1" data-path="app-ling-feats.html"><a href="app-ling-feats.html#raw-text-properties-and-lexical-variety"><i class="fa fa-check"></i><b>A.1</b> Raw Text Properties and Lexical Variety</a></li>
+<li class="chapter" data-level="A.2" data-path="app-ling-feats.html"><a href="app-ling-feats.html#morpho-syntacting-information"><i class="fa fa-check"></i><b>A.2</b> Morpho-syntacting Information</a></li>
+<li class="chapter" data-level="A.3" data-path="app-ling-feats.html"><a href="app-ling-feats.html#verbal-predicate-structure"><i class="fa fa-check"></i><b>A.3</b> Verbal Predicate Structure</a></li>
+<li class="chapter" data-level="A.4" data-path="app-ling-feats.html"><a href="app-ling-feats.html#global-and-local-parsed-tree-structures"><i class="fa fa-check"></i><b>A.4</b> Global and Local Parsed Tree Structures</a></li>
+<li class="chapter" data-level="A.5" data-path="app-ling-feats.html"><a href="app-ling-feats.html#syntactic-relations"><i class="fa fa-check"></i><b>A.5</b> Syntactic Relations</a></li>
+<li class="chapter" data-level="A.6" data-path="app-ling-feats.html"><a href="app-ling-feats.html#subordination-phenomena"><i class="fa fa-check"></i><b>A.6</b> Subordination Phenomena</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="app-et-metrics.html"><a href="app-et-metrics.html"><i class="fa fa-check"></i><b>B</b> Precisions on Eye-tracking Metrics and Preprocessing</a></li>
+<li class="chapter" data-level="C" data-path="app-et-modeling.html"><a href="app-et-modeling.html"><i class="fa fa-check"></i><b>C</b> Multi-task Token-level Regression for Gaze Metrics Prediction</a></li>
+<li class="chapter" data-level="D" data-path="app-intra-sim.html"><a href="app-intra-sim.html"><i class="fa fa-check"></i><b>D</b> Intra-model Similarity for All Models</a></li>
+<li class="chapter" data-level="E" data-path="app-garden-paths-et.html"><a href="app-garden-paths-et.html"><i class="fa fa-check"></i><b>E</b> Gaze Metrics Predictions for Garden Path Sentences</a></li>
+<li class="chapter" data-level="F" data-path="app-params.html"><a href="app-params.html"><i class="fa fa-check"></i><b>F</b> Reproducibility and Environmental Impact</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://gsarti.com">Back to my website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interpreting Neural Language Models<br />
+for Linguistic Complexity Assessment</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<!-- If you're outputting to LaTeX, the heading and references will be generated by the OxThesis LaTeX template. This .Rmd file serves only to add the References headline to gitbook output before  the references are added by pandoc -->
+
+<div id="refs" class="references">
+<div>
+<p>Abdou, Mostafa, Artur Kulmizev, Felix Hill, Daniel M. Low, and Anders Søgaard. 2019. “Higher-Order Comparisons of Sentence Encoder Representations.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 5838–45. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1593">https://doi.org/10.18653/v1/D19-1593</a>.</p>
+</div>
+<div>
+<p>Abnar, Samira. 2020. “Visualizing Model Comparison.” <em>Blog Post</em>. <a href="https://samiraabnar.github.io/articles/2020-05/vizualization">https://samiraabnar.github.io/articles/2020-05/vizualization</a>.</p>
+</div>
+<div>
+<p>Abnar, Samira, Lisa Beinborn, Rochelle Choenni, and Willem Zuidema. 2019. “Blackbox Meets Blackbox: Representational Similarity &amp; Stability Analysis of Neural Language Models and Brains.” In <em>Proceedings of the 2019 Acl Workshop Blackboxnlp: Analyzing and Interpreting Neural Networks for Nlp</em>, 191–203. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W19-4820">https://doi.org/10.18653/v1/W19-4820</a>.</p>
+</div>
+<div>
+<p>Abnar, Samira, Mostafa Dehghani, and Willem Zuidema. 2020. “Transferring Inductive Biases Through Knowledge Distillation.” <em>ArXiv Pre-Print</em> 2006.00555. <a href="https://arxiv.org/abs/2006.00555">https://arxiv.org/abs/2006.00555</a>.</p>
+</div>
+<div>
+<p>Alain, Guillaume, and Yoshua Bengio. 2016. “Understanding Intermediate Layers Using Linear Classifier Probes.” <em>ArXiv Pre-Print</em> 1610.01644. <a href="https://arxiv.org/abs/1610.01644">https://arxiv.org/abs/1610.01644</a>.</p>
+</div>
+<div>
+<p>Alammar, Jay. 2018a. “The Illustrated Bert, Elmo, and Co. (How NLP Cracked Transfer Learning).” <em>Blog Post</em>. <a href="https://jalammar.github.io/illustrated-bert/">https://jalammar.github.io/illustrated-bert/</a>.</p>
+</div>
+<div>
+<p>———. 2018b. “The Illustrated Gpt-2.” <em>Blog Post</em>. <a href="https://http://jalammar.github.io/illustrated-gpt2/">https://http://jalammar.github.io/illustrated-gpt2/</a>.</p>
+</div>
+<div>
+<p>Ambati, Bharat Ram, Siva Reddy, and Mark Steedman. 2016. “Assessing Relative Sentence Complexity Using an Incremental CCG Parser.” In <em>Proceedings of the 2016 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies</em>, 1051–7. San Diego, California: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N16-1120">https://doi.org/10.18653/v1/N16-1120</a>.</p>
+</div>
+<div>
+<p>Andreas, Jacob, and Dan Klein. 2014. “How Much Do Word Embeddings Encode About Syntax?” In <em>Proceedings of the 52nd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</em>, 822–27. Baltimore, Maryland: Association for Computational Linguistics. <a href="https://doi.org/10.3115/v1/P14-2133">https://doi.org/10.3115/v1/P14-2133</a>.</p>
+</div>
+<div>
+<p>Ba, Jimmy, J. Kiros, and Geoffrey E. Hinton. 2016. “Layer Normalization.” <em>ArXiv Pre-Print</em> 1607.06450. <a href="https://arxiv.org/abs/1607.06450">https://arxiv.org/abs/1607.06450</a>.</p>
+</div>
+<div>
+<p>Bahdanau, Dzmitry, Kyunghyun Cho, and Yoshua Bengio. 2015. “Neural Machine Translation by Jointly Learning to Align and Translate.” In <em>Proceeding of the 3rd International Conference on Learning Representations (ICLR’15)</em>.</p>
+</div>
+<div>
+<p>Barrett, Maria, Joachim Bingel, Nora Hollenstein, Marek Rei, and Anders Søgaard. 2018. “Sequence Classification with Human Attention.” In <em>Proceedings of the 22nd Conference on Computational Natural Language Learning</em>, 302–12. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/K18-1030">https://doi.org/10.18653/v1/K18-1030</a>.</p>
+</div>
+<div>
+<p>Barrett, Maria, Joachim Bingel, Frank Keller, and Anders Søgaard. 2016. “Weakly Supervised Part-of-Speech Tagging Using Eye-Tracking Data.” In <em>Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</em>, 579–84. Berlin, Germany: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P16-2094">https://doi.org/10.18653/v1/P16-2094</a>.</p>
+</div>
+<div>
+<p>Belinkov, Yonatan, Sebastian Gehrmann, and Ellie Pavlick. 2020. “Interpretability and Analysis in Neural NLP.” In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics: Tutorial Abstracts</em>, 1–5. Online: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.acl-tutorials.1">https://doi.org/10.18653/v1/2020.acl-tutorials.1</a>.</p>
+</div>
+<div>
+<p>Belinkov, Yonatan, and James Glass. 2019. “Analysis Methods in Neural Language Processing: A Survey.” <em>Transactions of the Association for Computational Linguistics (TACL)</em> 7: 49–72. <a href="https://doi.org/10.1162/tacl\_a\_00254">https://doi.org/10.1162/tacl\_a\_00254</a>.</p>
+</div>
+<div>
+<p>Bender, Emily M., and Alexander Koller. 2020. “Climbing Towards NLU: On Meaning, Form, and Understanding in the Age of Data.” In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</em>, 5185–98. Online: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.acl-main.463">https://doi.org/10.18653/v1/2020.acl-main.463</a>.</p>
+</div>
+<div>
+<p>Berruto, Gaetano, and Massimo Simone Cerruti. 2011. <em>La Linguistica. Un Corso Introduttivo</em>. De Agostini.</p>
+</div>
+<div>
+<p>Berzak, Yevgeni, Boris Katz, and Roger Levy. 2018. “Assessing Language Proficiency from Eye Movements in Reading.” In <em>Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers)</em>, 1986–96. New Orleans, Louisiana: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N18-1180">https://doi.org/10.18653/v1/N18-1180</a>.</p>
+</div>
+<div>
+<p>Bever, Thomas G. 1970. “The Cognitive Basis for Linguistic Structures.” <em>Cognition and the Development of Language</em>. Wiley.</p>
+</div>
+<div>
+<p>Box, George EP. 1976. “Science and Statistics.” <em>Journal of the American Statistical Association</em> 71 (356). Taylor &amp; Francis: 791–99.</p>
+</div>
+<div>
+<p>Brunato, Dominique, Andrea Cimino, Felice Dell’Orletta, Giulia Venturi, and Simonetta Montemagni. 2020. “Profiling-UD: A Tool for Linguistic Profiling of Texts.” In <em>Proceedings of the 12th Language Resources and Evaluation Conference</em>, 7145–51. Marseille, France: European Language Resources Association. <a href="https://www.aclweb.org/anthology/2020.lrec-1.883">https://www.aclweb.org/anthology/2020.lrec-1.883</a>.</p>
+</div>
+<div>
+<p>Brunato, Dominique, Lorenzo De Mattei, Felice Dell’Orletta, Benedetta Iavarone, and Giulia Venturi. 2018. “Is This Sentence Difficult? Do You Agree?” In <em>Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing</em>, 2690–9. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D18-1289">https://doi.org/10.18653/v1/D18-1289</a>.</p>
+</div>
+<div>
+<p>Cangelosi, Angelo, and Huck Turner. 2002. “L’emergere Del Linguaggio.” <em>Scienze Della Mente</em>.</p>
+</div>
+<div>
+<p>Carr, Jon W, Valentina N Pescuma, Michele Furlan, Maria Ktori, and Davide Crepaldi. 2020. “Algorithms for the Automated Correction of Vertical Drift in Eye Tracking Data.” <em>OSF Preprints</em>, June. <a href="osf.io/jg3nc">osf.io/jg3nc</a>.</p>
+</div>
+<div>
+<p>Caruana, Rich. 1997. “Multitask Learning.” <em>Machine Learning</em> 28: 41–75. <a href="https://www.cs.utexas.edu/~kuipers/readings/Caruana-mlj-97.pdf">https://www.cs.utexas.edu/~kuipers/readings/Caruana-mlj-97.pdf</a>.</p>
+</div>
+<div>
+<p>Christie, Agatha. 2003. <em>The Mysterious Affair at Styles: A Detective Story</em>. Modern Library.</p>
+</div>
+<div>
+<p>Collins-Thompson, Kevyn. 2014. “Computational Assessment of Text Readability: A Survey of Current and Future Research.” <em>ITL-International Journal of Applied Linguistics</em> 165 (2). John Benjamins: 97–135. <a href="http://www-personal.umich.edu/~kevynct/pubs/ITL-readability-invited-article-v10-camera.pdf">http://www-personal.umich.edu/~kevynct/pubs/ITL-readability-invited-article-v10-camera.pdf</a>.</p>
+</div>
+<div>
+<p>Conneau, Alexis, German Kruszewski, Guillaume Lample, Loı̈c Barrault, and Marco Baroni. 2018. “What You Can Cram into a Single $&amp;!#* Vector: Probing Sentence Embeddings for Linguistic Properties.” In <em>Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</em>, 2126–36. Melbourne, Australia: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P18-1198">https://doi.org/10.18653/v1/P18-1198</a>.</p>
+</div>
+<div>
+<p>Cop, Uschi, Nicolas Dirix, Denis Drieghe, and Wouter Duyck. 2017. “Presenting Geco: An Eyetracking Corpus of Monolingual and Bilingual Sentence Reading.” <em>Behavior Research Methods</em> 49 (2). Springer: 602–15.</p>
+</div>
+<div>
+<p>Culotta, Aron, Andrew McCallum, and Jonathan Betz. 2006. “Integrating Probabilistic Extraction Models and Data Mining to Discover Relations and Patterns in Text.” In <em>Proceedings of the Human Language Technology Conference of the NAACL, Main Conference</em>, 296–303. New York City, USA: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/N06-1038">https://www.aclweb.org/anthology/N06-1038</a>.</p>
+</div>
+<div>
+<p>Day, Matthew. 2004. “Religion, Off-Line Cognition and the Extended Mind.” <em>Journal of Cognition and Culture</em> 4 (1). Brill: 101–21.</p>
+</div>
+<div>
+<p>Demberg, Vera, and Frank Keller. 2008. “Data from Eye-Tracking Corpora as Evidence for Theories of Syntactic Processing Complexity.” <em>Cognition</em> 109 (2). Elsevier: 193–210.</p>
+</div>
+<div>
+<p>Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. “BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 4171–86. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1423">https://doi.org/10.18653/v1/N19-1423</a>.</p>
+</div>
+<div>
+<p>Edmonds, Bruce M. 1999. “Syntactic Measures of Complexity.” PhD thesis, University of Manchester Manchester, UK.</p>
+</div>
+<div>
+<p>Eisape, Tiwalayo, Noga Zaslavsky, and Roger Levy. 2020. “Cloze Distillation Improves Psychometric Predictive Power.” In <em>Proceedings of the 24th Conference on Computational Natural Language Learning</em>, 609–19. Online: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/2020.conll-1.49">https://www.aclweb.org/anthology/2020.conll-1.49</a>.</p>
+</div>
+<div>
+<p>Eisenstein, Jacob. 2019. <em>Introduction to Natural Language Processing</em>. MIT press.</p>
+</div>
+<div>
+<p>Elman, Jeffrey L. 1991. “Distributed Representations, Simple Recurrent Networks, and Grammatical Structure.” <em>Machine Learning</em> 7 (2-3). Springer: 195–225.</p>
+</div>
+<div>
+<p>Ettinger, Allyson. 2020. “What BERT Is Not: Lessons from a New Suite of Psycholinguistic Diagnostics for Language Models.” <em>Transactions of the Association for Computational Linguistics</em> 8: 34–48. <a href="https://doi.org/10.1162/tacl_a_00298">https://doi.org/10.1162/tacl_a_00298</a>.</p>
+</div>
+<div>
+<p>Fine, Alex B, T Florian Jaeger, Thomas A Farmer, and Ting Qian. 2013. “Rapid Expectation Adaptation During Syntactic Comprehension.” <em>PloS One</em> 8 (10). Public Library of Science: e77661.</p>
+</div>
+<div>
+<p>Frankle, Jonathan, and Michael Carbin. 2018. “The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks.” In <em>Proceedings of the 8th International Conference on Learning Representations (Iclr’18)</em>.</p>
+</div>
+<div>
+<p>Frazier, Lyn. 1978. “On Comprehending Sentences: Syntactic Parsing Strategies.” PhD thesis, University of Connecticut.</p>
+</div>
+<div>
+<p>Frazier, Lyn, and Janet Dean Fodor. 1978. “The Sausage Machine: A New Two-Stage Parsing Model.” <em>Cognition</em> 6 (4). Elsevier: 291–325.</p>
+</div>
+<div>
+<p>Futrell, Richard, Edward Gibson, and Roger P Levy. 2020. “Lossy-Context Surprisal: An Information-Theoretic Model of Memory Effects in Sentence Processing.” <em>Cognitive Science</em> 44 (3). Wiley Online Library: e12814.</p>
+</div>
+<div>
+<p>Futrell, Richard, Ethan Wilcox, Takashi Morita, Peng Qian, Miguel Ballesteros, and Roger Levy. 2019. “Neural Language Models as Psycholinguistic Subjects: Representations of Syntactic State.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 32–42. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1004">https://doi.org/10.18653/v1/N19-1004</a>.</p>
+</div>
+<div>
+<p>Gauthier, Jon, Jennifer Hu, Ethan Wilcox, Peng Qian, and Roger Levy. 2020. “SyntaxGym: An Online Platform for Targeted Evaluation of Language Models.” In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics: System Demonstrations</em>, 70–76. Online: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.acl-demos.10">https://doi.org/10.18653/v1/2020.acl-demos.10</a>.</p>
+</div>
+<div>
+<p>Gauthier, Jon, and Roger Levy. 2019. “Linking Artificial and Human Neural Representations of Language.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 529–39. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1050">https://doi.org/10.18653/v1/D19-1050</a>.</p>
+</div>
+<div>
+<p>Gibson, Edward. 1991. “A Computational Theory of Human Linguistic Processing: Memory Limitations and Processing Breakdown.” PhD thesis, Pittsburgh, PA: Carnegie Mellon University.</p>
+</div>
+<div>
+<p>———. 1998. “Linguistic Complexity: Locality of Syntactic Dependencies.” <em>Cognition</em> 68 (1). Elsevier: 1–76.</p>
+</div>
+<div>
+<p>———. 2000. “The Dependency Locality Theory: A Distance-Based Theory of Linguistic Complexity.” <em>Image, Language, Brain</em> 2000: 95–126.</p>
+</div>
+<div>
+<p>Glavas, Goran, and Ivan Vulic. 2020. “Is Supervised Syntactic Parsing Beneficial for Language Understanding? An Empirical Investigation.” <em>ArXiv Pre-Print</em> 2008.06788. <a href="https://arxiv.org/abs/2008.06788">https://arxiv.org/abs/2008.06788</a>.</p>
+</div>
+<div>
+<p>González-Garduño, Ana Valeria, and Anders Søgaard. 2018. “Learning to Predict Readability Using Eye-Movement Data from Natives and Learners.” AAAI Conference on Artificial Intelligence.</p>
+</div>
+<div>
+<p>Goodfellow, Ian, Yoshua Bengio, Aaron Courville, and Yoshua Bengio. 2016. <em>Deep Learning</em>. MIT Press Cambridge.</p>
+</div>
+<div>
+<p>Goodman, Joshua. 2001. “A Bit of Progress in Language Modeling.” <em>arXiv Preprint Cs/0108005</em>.</p>
+</div>
+<div>
+<p>Grodner, Daniel, Edward Gibson, Vered Argaman, and Maria Babyonyshev. 2003. “Against Repair-Based Reanalysis in Sentence Comprehension.” <em>Journal of Psycholinguistic Research</em> 32 (2). Springer: 141–66.</p>
+</div>
+<div>
+<p>Gulordava, Kristina, Piotr Bojanowski, Edouard Grave, Tal Linzen, and Marco Baroni. 2018. “Colorless Green Recurrent Networks Dream Hierarchically.” In <em>Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers)</em>, 1195–1205. New Orleans, Louisiana: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N18-1108">https://doi.org/10.18653/v1/N18-1108</a>.</p>
+</div>
+<div>
+<p>Hale, John. 2001. “A Probabilistic Earley Parser as a Psycholinguistic Model.” In <em>Second Meeting of the North American Chapter of the Association for Computational Linguistics</em>.</p>
+</div>
+<div>
+<p>———. 2016. “Information-Theoretical Complexity Metrics.” <em>Language and Linguistics Compass</em> 10 (9). Wiley Online Library: 397–412.</p>
+</div>
+<div>
+<p>Hauser, Marc D, Noam Chomsky, and W Tecumseh Fitch. 2002. “The Faculty of Language: What Is It, Who Has It, and How Did It Evolve?” <em>Science</em> 298 (5598). American Association for the Advancement of Science: 1569–79.</p>
+</div>
+<div>
+<p>Hendrycks, Dan, and Kevin Gimpel. 2016. “Gaussian Error Linear Units (Gelus).” <em>ArXiv Pre-Print</em> 1606.08415. <a href="https://arxiv.org/abs/1606.08415">https://arxiv.org/abs/1606.08415</a>.</p>
+</div>
+<div>
+<p>Hewitt, John, and Percy Liang. 2019. “Designing and Interpreting Probes with Control Tasks.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 2733–43. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1275">https://doi.org/10.18653/v1/D19-1275</a>.</p>
+</div>
+<div>
+<p>Hewitt, John, and Christopher D. Manning. 2019. “A Structural Probe for Finding Syntax in Word Representations.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 4129–38. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1419">https://doi.org/10.18653/v1/N19-1419</a>.</p>
+</div>
+<div>
+<p>Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. 2015. “Distilling the Knowledge in a Neural Network.” <em>ArXiv Pre-Print</em> 1503.02531. <a href="https://arxiv.org/abs/1503.02531">https://arxiv.org/abs/1503.02531</a>.</p>
+</div>
+<div>
+<p>Hochreiter, Sepp, and Jürgen Schmidhuber. 1997. “Long Short-Term Memory.” <em>Neural Computation</em> 9 (8). MIT Press: 1735–80.</p>
+</div>
+<div>
+<p>Hollenstein, Nora, Maria Barrett, and Lisa Beinborn. 2020. “Towards Best Practices for Leveraging Human Language Processing Signals for Natural Language Processing.” In <em>Proceedings of the Second Workshop on Linguistic and Neurocognitive Resources</em>, 15–27. Marseille, France: European Language Resources Association. <a href="https://www.aclweb.org/anthology/2020.lincr-1.3">https://www.aclweb.org/anthology/2020.lincr-1.3</a>.</p>
+</div>
+<div>
+<p>Hollenstein, Nora, Jonathan Rotsztejn, Marius Troendle, Andreas Pedroni, Ce Zhang, and Nicolas Langer. 2018. “ZuCo, a Simultaneous Eeg and Eye-Tracking Resource for Natural Sentence Reading.” <em>Scientific Data</em> 5 (1). Nature Publishing Group: 1–13.</p>
+</div>
+<div>
+<p>Hollenstein, Nora, Antonio de la Torre, Nicolas Langer, and Ce Zhang. 2019. “CogniVal: A Framework for Cognitive Word Embedding Evaluation.” In <em>Proceedings of the 23rd Conference on Computational Natural Language Learning (Conll)</em>, 538–49. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/K19-1050">https://doi.org/10.18653/v1/K19-1050</a>.</p>
+</div>
+<div>
+<p>Hollenstein, Nora, Marius Troendle, Ce Zhang, and Nicolas Langer. 2020. “ZuCo 2.0: A Dataset of Physiological Recordings During Natural Reading and Annotation.” In <em>Proceedings of the 12th Language Resources and Evaluation Conference</em>, 138–46. Marseille, France: European Language Resources Association. <a href="https://www.aclweb.org/anthology/2020.lrec-1.18">https://www.aclweb.org/anthology/2020.lrec-1.18</a>.</p>
+</div>
+<div>
+<p>Hollenstein, Nora, and Ce Zhang. 2019. “Entity Recognition at First Sight: Improving NER with Eye Movement Information.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 1–10. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1001">https://doi.org/10.18653/v1/N19-1001</a>.</p>
+</div>
+<div>
+<p>Howard, Jeremy, and Sebastian Ruder. 2018. “Universal Language Model Fine-Tuning for Text Classification.” In <em>Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</em>, 328–39. Melbourne, Australia: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P18-1031">https://doi.org/10.18653/v1/P18-1031</a>.</p>
+</div>
+<div>
+<p>Hu, Jennifer, Jon Gauthier, Peng Qian, Ethan Wilcox, and Roger Levy. 2020. “A Systematic Assessment of Syntactic Generalization in Neural Language Models.” In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</em>, 1725–44. Online: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.acl-main.158">https://doi.org/10.18653/v1/2020.acl-main.158</a>.</p>
+</div>
+<div>
+<p>Iverson, Jana M, and Esther Thelen. 1999. “Hand, Mouth and Brain. The Dynamic Emergence of Speech and Gesture.” <em>Journal of Consciousness Studies</em> 6 (11-12). Imprint Academic: 19–40.</p>
+</div>
+<div>
+<p>Jawahar, Ganesh, Benoit Sagot, and Djamé Seddah. 2019. “What Does BERT Learn About the Structure of Language?” In <em>Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics</em>, 3651–7. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P19-1356">https://doi.org/10.18653/v1/P19-1356</a>.</p>
+</div>
+<div>
+<p>Jurafsky, Daniel. 1996. “A Probabilistic Model of Lexical and Syntactic Access and Disambiguation.” <em>Cognitive Science</em> 20 (2). Wiley Online Library: 137–94.</p>
+</div>
+<div>
+<p>Kennedy, Alan, Robin Hill, and Joël Pynte. 2003. “The Dundee Corpus.” In <em>Proceedings of the 12th European Conference on Eye Movement</em>.</p>
+</div>
+<div>
+<p>Kriegeskorte, N., M. Mur, and P. Bandettini. 2008. “Representational Similarity Analysis – Connecting the Branches of Systems Neuroscience.” <em>Frontiers in Systems Neuroscience</em> 2. <a href="https://doi.org/10.3389/neuro.06.004.2008">https://doi.org/10.3389/neuro.06.004.2008</a>.</p>
+</div>
+<div>
+<p>Kudo, Taku, and John Richardson. 2018. “SentencePiece: A Simple and Language Independent Subword Tokenizer and Detokenizer for Neural Text Processing.” In <em>Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing: System Demonstrations</em>, 66–71. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D18-2012">https://doi.org/10.18653/v1/D18-2012</a>.</p>
+</div>
+<div>
+<p>Kusters, Wouter. 2003. “Linguistic Complexity.” PhD thesis, Netherlands Graduate School of Linguistics.</p>
+</div>
+<div>
+<p>———. 2008. “Complexity in Linguistic Theory, Language Learning and Language Change.” In <em>Language Complexity: Typology, Contact, Change</em>, 3–22. John Benjamins Amsterdam, The Netherlands.</p>
+</div>
+<div>
+<p>Laakso, Aarre, and Garrison Cottrell. 2000. “Content and Cluster Analysis: Assessing Representational Similarity in Neural Systems.” <em>Philosophical Psychology</em> 13 (1). Taylor &amp; Francis: 47–76.</p>
+</div>
+<div>
+<p>Lacoste, Alexandre, Alexandra Luccioni, Victor Schmidt, and Thomas Dandres. 2019. “Quantifying the Carbon Emissions of Machine Learning.” <em>ArXiv Pre-Print</em> 1910.09700.</p>
+</div>
+<div>
+<p>Lan, Zhenzhong, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. 2020. “ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations.” In <em>International Conference on Learning Representations</em>. <a href="https://openreview.net/forum?id=H1eA7AEtvS">https://openreview.net/forum?id=H1eA7AEtvS</a>.</p>
+</div>
+<div>
+<p>Levy, Roger. 2008. “Expectation-Based Syntactic Comprehension.” <em>Cognition</em> 106 (3). Elsevier: 1126–77.</p>
+</div>
+<div>
+<p>Lin, Yongjie, Yi Chern Tan, and Robert Frank. 2019. “Open Sesame: Getting Inside BERT’s Linguistic Knowledge.” In <em>Proceedings of the 2019 Acl Workshop Blackboxnlp: Analyzing and Interpreting Neural Networks for Nlp</em>, 241–53. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W19-4825">https://doi.org/10.18653/v1/W19-4825</a>.</p>
+</div>
+<div>
+<p>Linzen, Tal, and Marco Baroni. 2021. “Syntactic Structure from Deep Learning.” <em>Annual Review of Linguistics</em> 7 (1): null. <a href="https://doi.org/10.1146/annurev-linguistics-032020-051035">https://doi.org/10.1146/annurev-linguistics-032020-051035</a>.</p>
+</div>
+<div>
+<p>Linzen, Tal, Emmanuel Dupoux, and Yoav Goldberg. 2016. “Assessing the Ability of Lstms to Learn Syntax-Sensitive Dependencies.” <em>Transactions of the Association for Computational Linguistics</em> 4. MIT Press: 521–35.</p>
+</div>
+<div>
+<p>Liu, Nelson F., Matt Gardner, Yonatan Belinkov, Matthew E. Peters, and Noah A. Smith. 2019. “Linguistic Knowledge and Transferability of Contextual Representations.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 1073–94. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1112">https://doi.org/10.18653/v1/N19-1112</a>.</p>
+</div>
+<div>
+<p>Loshchilov, I., and F. Hutter. 2019. “Decoupled Weight Decay Regularization.” In <em>Proceeding of the 7th International Conference on Learning Representations (Iclr’19)</em>.</p>
+</div>
+<div>
+<p>Martinc, Matej, S. Pollak, and M. Robnik-Sikonja. 2019. “Supervised and Unsupervised Neural Approaches to Text Readability.” <em>ArXiv Pre-Print</em> 1907.11779. <a href="https://arxiv.org/abs/1907.11779">https://arxiv.org/abs/1907.11779</a>.</p>
+</div>
+<div>
+<p>McDonald, Ryan, Joakim Nivre, Yvonne Quirmbach-Brundage, Yoav Goldberg, Dipanjan Das, Kuzman Ganchev, Keith Hall, et al. 2013. “Universal Dependency Annotation for Multilingual Parsing.” In <em>Proceedings of the 51st Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</em>, 92–97. Sofia, Bulgaria: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/P13-2017">https://www.aclweb.org/anthology/P13-2017</a>.</p>
+</div>
+<div>
+<p>McWhorter, John H. 2001. “The Worlds Simplest Grammars Are Creole Grammars.” <em>Linguistic Typology</em> 5 (2-3). De Gruyter Mouton: 125–66.</p>
+</div>
+<div>
+<p>Meyer, Bonnie JF, and G Elizabeth Rice. 1992. “12 Prose Processing in Adulthood: The Text, the Reader, and the Task.” <em>Everyday Cognition in Adulthood and Late Life</em>. Cambridge Univ Pr, 157.</p>
+</div>
+<div>
+<p>Miaschi, Alessio, Dominique Brunato, Felice Dell’Orletta, and Giulia Venturi. 2020. “Linguistic Profiling of a Neural Language Model.” In <em>Proceedings of the 28th Conference on Computational Linguistics (Coling)</em>. Online: Association for Computational Linguistics. <a href="https://arxiv.org/abs/2010.01869">https://arxiv.org/abs/2010.01869</a>.</p>
+</div>
+<div>
+<p>Miaschi, Alessio, and Felice Dell’Orletta. 2020. “Contextual and Non-Contextual Word Embeddings: An in-Depth Linguistic Investigation.” In <em>Proceedings of the 5th Workshop on Representation Learning for Nlp</em>, 110–19. Online: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/2020.repl4nlp-1.15">https://www.aclweb.org/anthology/2020.repl4nlp-1.15</a>.</p>
+</div>
+<div>
+<p>Miestamo, Matti. 2004. “On the Feasibility of Complexity Metrics.” In <em>FinEst Linguistics, Proceedings of the Annual Finnish and Estonian Conference of Linguistics</em>, 11–26. Tallin, Finland.</p>
+</div>
+<div>
+<p>———. 2008. “Grammatical Complexity in a Cross-Linguistic Perspective.” In <em>Language Complexity: Typology, Contact, Change</em>, 41. John Benjamins Amsterdam, The Netherlands.</p>
+</div>
+<div>
+<p>Mikolov, Tomas, Kai Chen, G. S. Corrado, and J. Dean. 2013. “Efficient Estimation of Word Representations in Vector Space.” <em>CoRR</em> abs/1301.3781.</p>
+</div>
+<div>
+<p>Mikolov, Tomas, M. Karafiát, L. Burget, J. Cernocký, and S. Khudanpur. 2010. “Recurrent Neural Network Based Language Model.” In <em>INTERSPEECH</em>.</p>
+</div>
+<div>
+<p>Mishra, Abhijit, Kuntal Dey, and Pushpak Bhattacharyya. 2017. “Learning Cognitive Features from Gaze Data for Sentiment and Sarcasm Classification Using Convolutional Neural Network.” In <em>Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</em>, 377–87. Vancouver, Canada: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P17-1035">https://doi.org/10.18653/v1/P17-1035</a>.</p>
+</div>
+<div>
+<p>Mitchell, Don C. 1984. “An Evaluation of Subject-Paced Reading Tasks and Other Methods for Investigating Immediate Processes in Reading.” <em>New Methods in Reading Comprehension Research</em>, 69–89.</p>
+</div>
+<div>
+<p>Morcos, Ari, Maithra Raghu, and Samy Bengio. 2018. “Insights on Representational Similarity in Neural Networks with Canonical Correlation.” In <em>Advances in Neural Information Processing Systems 31</em>, edited by S. Bengio, H. Wallach, H. Larochelle, K. Grauman, N. Cesa-Bianchi, and R. Garnett, 5727–36. Curran Associates, Inc. <a href="http://papers.nips.cc/paper/7815-insights-on-representational-similarity-in-neural-networks-with-canonical-correlation.pdf">http://papers.nips.cc/paper/7815-insights-on-representational-similarity-in-neural-networks-with-canonical-correlation.pdf</a>.</p>
+</div>
+<div>
+<p>Moro, Alberto, and Laura Lonza. 2018. “Electricity Carbon Intensity in European Member States: Impacts on Ghg Emissions of Electric Vehicles.” <em>Transportation Research Part D: Transport and Environment</em> 64. Elsevier: 5–14.</p>
+</div>
+<div>
+<p>Munro, Robert, Steven Bethard, Victor Kuperman, Vicky Tzuyin Lai, Robin Melnick, Christopher Potts, Tyler Schnoebelen, and Harry Tily. 2010. “Crowdsourcing and Language Studies: The New Generation of Linguistic Data.” In <em>Proceedings of the NAACL HLT 2010 Workshop on Creating Speech and Language Data with Amazon’s Mechanical Turk</em>, 122–30. Los Angeles: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/W10-0719">https://www.aclweb.org/anthology/W10-0719</a>.</p>
+</div>
+<div>
+<p>Nivre, Joakim, Marie-Catherine de Marneffe, Filip Ginter, Yoav Goldberg, Jan Hajič, Christopher D. Manning, Ryan McDonald, et al. 2016. “Universal Dependencies V1: A Multilingual Treebank Collection.” In <em>Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC’16)</em>, 1659–66. Portorož, Slovenia: European Language Resources Association (ELRA). <a href="https://www.aclweb.org/anthology/L16-1262">https://www.aclweb.org/anthology/L16-1262</a>.</p>
+</div>
+<div>
+<p>Pascanu, R., Tomas Mikolov, and Yoshua Bengio. 2013. “On the Difficulty of Training Recurrent Neural Networks.” In <em>Proceedings of the 30th International Conference on Machine Learning (Icml’13)</em>.</p>
+</div>
+<div>
+<p>Pennington, Jeffrey, Richard Socher, and Christopher Manning. 2014. “GloVe: Global Vectors for Word Representation.” In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em>, 1532–43. Doha, Qatar: Association for Computational Linguistics. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>.</p>
+</div>
+<div>
+<p>Peters, Matthew, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, and Luke Zettlemoyer. 2018. “Deep Contextualized Word Representations.” In <em>Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers)</em>, 2227–37. New Orleans, Louisiana: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N18-1202">https://doi.org/10.18653/v1/N18-1202</a>.</p>
+</div>
+<div>
+<p>Pimentel, Tiago, Josef Valvoda, Rowan Hall Maudslay, Ran Zmigrod, Adina Williams, and Ryan Cotterell. 2020. “Information-Theoretic Probing for Linguistic Structure.” In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</em>, 4609–22. Online: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.acl-main.420">https://doi.org/10.18653/v1/2020.acl-main.420</a>.</p>
+</div>
+<div>
+<p>Prasad, Grusha, and Tal Linzen. 2019a. “Do Self-Paced Reading Studies Provide Evidence for Rapid Syntactic Adaptation?” <em>PsyArXiv Pre-Print</em>. <a href="https://tallinzen.net/media/papers/prasad_linzen_2019_adaptation.pdf">https://tallinzen.net/media/papers/prasad_linzen_2019_adaptation.pdf</a>.</p>
+</div>
+<div>
+<p>———. 2019b. “How Much Harder Are Hard Garden-Path Sentences Than Easy Ones?” <em>OSF Preprint</em> syh3j. <a href="https://osf.io/syh3j/">https://osf.io/syh3j/</a>.</p>
+</div>
+<div>
+<p>Radford, A., Jeffrey Wu, R. Child, David Luan, Dario Amodei, and Ilya Sutskever. 2019. “Language Models Are Unsupervised Multitask Learners.” <em>OpenAI Blog</em>. OpenAI.</p>
+</div>
+<div>
+<p>Raghu, Maithra, Justin Gilmer, Jason Yosinski, and Jascha Sohl-Dickstein. 2017. “SVCCA: Singular Vector Canonical Correlation Analysis for Deep Learning Dynamics and Interpretability.” In <em>Advances in Neural Information Processing Systems 30</em>, edited by I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, 6076–85. Curran Associates, Inc. <a href="http://papers.nips.cc/paper/7188-svcca-singular-vector-canonical-correlation-analysis-for-deep-learning-dynamics-and-interpretability.pdf">http://papers.nips.cc/paper/7188-svcca-singular-vector-canonical-correlation-analysis-for-deep-learning-dynamics-and-interpretability.pdf</a>.</p>
+</div>
+<div>
+<p>Rajpurkar, Pranav, Jian Zhang, Konstantin Lopyrev, and Percy Liang. 2016. “SQuAD: 100,000+ Questions for Machine Comprehension of Text.” In <em>Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing</em>, 2383–92. Austin, Texas: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D16-1264">https://doi.org/10.18653/v1/D16-1264</a>.</p>
+</div>
+<div>
+<p>Rayner, Keith. 1998. “Eye Movements in Reading and Information Processing: 20 Years of Research.” <em>Psychological Bulletin</em> 124 (3). American Psychological Association: 372.</p>
+</div>
+<div>
+<p>Rello, Luz, Susana Bautista, Ricardo Baeza-Yates, Pablo Gervás, Raquel Hervás, and Horacio Saggion. 2013. “One Half or 50%? An Eye-Tracking Study of Number Representation Readability.” In <em>Human-Computer Interaction – Interact 2013</em>, edited by Paula Kotzé, Gary Marsden, Gitte Lindgaard, Janet Wesson, and Marco Winckler, 229–45. Berlin, Heidelberg: Springer Berlin Heidelberg.</p>
+</div>
+<div>
+<p>Rogers, Anna, O. Kovaleva, and Anna Rumshisky. 2020. “A Primer in Bertology: What We Know About How Bert Works.” <em>ArXiv Pre-Print</em> 2002.12327. <a href="https://arxiv.org/abs/2002.12327">https://arxiv.org/abs/2002.12327</a>.</p>
+</div>
+<div>
+<p>Ruder, Sebastian. 2017. “An Overview of Multi-Task Learning in Deep Neural Networks.” <em>ArXiv Pre-Print</em> 1706.05098. <a href="https://arxiv.org/abs/1706.05098">https://arxiv.org/abs/1706.05098</a>.</p>
+</div>
+<div>
+<p>———. 2020. “Why You Should Do NLP Beyond English.” <em>Blog Post</em>. <a href="http://ruder.io/nlp-beyond-english">http://ruder.io/nlp-beyond-english</a>.</p>
+</div>
+<div>
+<p>Samek, W., Grégoire Montavon, A. Vedaldi, L. Hansen, and K. Müller. 2019. “Explainable Ai: Interpreting, Explaining and Visualizing Deep Learning.” <em>Explainable AI: Interpreting, Explaining and Visualizing Deep Learning</em>.</p>
+</div>
+<div>
+<p>Sanguinetti, Manuela, and Cristina Bosco. 2015. “PartTUT: The Turin University Parallel Treebank.” In <em>Harmonization and Development of Resources and Tools for Italian Natural Language Processing Within the Parli Project</em>, edited by Roberto Basili, Cristina Bosco, Rodolfo Delmonte, Alessandro Moschitti, and Maria Simi, 51–69. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-14206-7\_3">https://doi.org/10.1007/978-3-319-14206-7\_3</a>.</p>
+</div>
+<div>
+<p>Saphra, Naomi, and Adam Lopez. 2019. “Understanding Learning Dynamics of Language Models with SVCCA.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 3257–67. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1329">https://doi.org/10.18653/v1/N19-1329</a>.</p>
+</div>
+<div>
+<p>Sapir, Edward. 1921. “Language.” London: Harcourt, Brace &amp; World, Inc.</p>
+</div>
+<div>
+<p>Sarti, Gabriele. 2020. “UmBERTo-MTSA @ AcCompl-It: Improving Complexity and Acceptability Prediction with Multi-Task Learning on Self-Supervised Annotations.” <em>ArXiv Pre-Print</em> 2011.05197. <a href="https://arxiv.org/abs/2011.05197">https://arxiv.org/abs/2011.05197</a>.</p>
+</div>
+<div>
+<p>Schijndel, Marten van, and Tal Linzen. 2020. “Single-Stage Prediction Models Do Not Explain the Magnitude of Syntactic Disambiguation Difficulty.” <em>PsyArXiv Pre-Print</em> sgbqy. <a href="https://psyarxiv.com/sgbqy/">https://psyarxiv.com/sgbqy/</a>.</p>
+</div>
+<div>
+<p>Schotter, Elizabeth R. 2018. “Reading Ahead by Hedging Our Bets on Seeing the Future: Eye Tracking and Electrophysiology Evidence for Parafoveal Lexical Processing and Saccadic Control by Partial Word Recognition.” In <em>Psychology of Learning and Motivation</em>, 68:263–98. Elsevier.</p>
+</div>
+<div>
+<p>———. 2020. <em>Eye Tracking for Cognitive Science</em>. SISSA Course.</p>
+</div>
+<div>
+<p>Schotter, Elizabeth R, Bernhard Angele, and Keith Rayner. 2012. “Parafoveal Processing in Reading.” <em>Attention, Perception, &amp; Psychophysics</em> 74 (1). Springer: 5–35.</p>
+</div>
+<div>
+<p>Sennrich, Rico, Barry Haddow, and Alexandra Birch. 2016. “Neural Machine Translation of Rare Words with Subword Units.” In <em>Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</em>, 1715–25. Berlin, Germany: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P16-1162">https://doi.org/10.18653/v1/P16-1162</a>.</p>
+</div>
+<div>
+<p>Shwartz-Ziv, Ravid, and Naftali Tishby. 2017. “Opening the Black Box of Deep Neural Networks via Information.” <em>ArXiv Pre-Print</em> 1703.00810. <a href="https://arxiv.org/abs/1703.00810">https://arxiv.org/abs/1703.00810</a>.</p>
+</div>
+<div>
+<p>Silveira, Natalia, Timothy Dozat, Marie-Catherine de Marneffe, Samuel Bowman, Miriam Connor, John Bauer, and Chris Manning. 2014. “A Gold Standard Dependency Corpus for English.” In <em>Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC’14)</em>, 2897–2904. Reykjavik, Iceland: European Language Resources Association (ELRA). <a href="http://www.lrec-conf.org/proceedings/lrec2014/pdf/1089_Paper.pdf">http://www.lrec-conf.org/proceedings/lrec2014/pdf/1089_Paper.pdf</a>.</p>
+</div>
+<div>
+<p>Simi, Maria, Cristina Bosco, and Simonetta Montemagni. 2014. “Less Is More? Towards a Reduced Inventory of Categories for Training a Parser for the Italian Stanford Dependencies.” In <em>Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC’14)</em>, 83–90. Reykjavik, Iceland: European Language Resources Association (ELRA). <a href="http://www.lrec-conf.org/proceedings/lrec2014/pdf/818_Paper.pdf">http://www.lrec-conf.org/proceedings/lrec2014/pdf/818_Paper.pdf</a>.</p>
+</div>
+<div>
+<p>Singh, Abhinav Deep, Poojan Mehta, Samar Husain, and Rajkumar Rajakrishnan. 2016. “Quantifying Sentence Complexity Based on Eye-Tracking Measures.” In <em>Proceedings of the Workshop on Computational Linguistics for Linguistic Complexity (CL4LC)</em>, 202–12. Osaka, Japan: The COLING 2016 Organizing Committee. <a href="https://www.aclweb.org/anthology/W16-4123">https://www.aclweb.org/anthology/W16-4123</a>.</p>
+</div>
+<div>
+<p>Sinnemäki, Kaius. 2011. “Language Universals and Linguistic Complexity: Three Case Studies in Core Argument Marking.” PhD thesis, University of Helsinki.</p>
+</div>
+<div>
+<p>Smith, Nathaniel J, and Roger Levy. 2013. “The Effect of Word Predictability on Reading Time Is Logarithmic.” <em>Cognition</em> 128 (3). Elsevier: 302–19.</p>
+</div>
+<div>
+<p>Socher, Richard, Alex Perelygin, Jean Wu, Jason Chuang, Christopher D. Manning, Andrew Ng, and Christopher Potts. 2013. “Recursive Deep Models for Semantic Compositionality over a Sentiment Treebank.” In <em>Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing</em>, 1631–42. Seattle, Washington, USA: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/D13-1170">https://www.aclweb.org/anthology/D13-1170</a>.</p>
+</div>
+<div>
+<p>Stiennon, Nisan, Long Ouyang, Jeff Wu, Daniel M. Ziegler, Ryan Lowe, Chelsea Voss, Alec Radford, Dario Amodei, and Paul Christiano. 2020. “Learning to Summarize from Human Feedback.” <em>ArXiv Pre-Print</em> 2009.01325. <a href="https://arxiv.org/abs/2009.01325">https://arxiv.org/abs/2009.01325</a>.</p>
+</div>
+<div>
+<p>Straka, Milan, Jan Hajič, and Jana Straková. 2016. “UDPipe: Trainable Pipeline for Processing CoNLL-U Files Performing Tokenization, Morphological Analysis, POS Tagging and Parsing.” In <em>Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC’16)</em>, 4290–7. Portorož, Slovenia: European Language Resources Association (ELRA). <a href="https://www.aclweb.org/anthology/L16-1680">https://www.aclweb.org/anthology/L16-1680</a>.</p>
+</div>
+<div>
+<p>Strzyz, Michalina, David Vilares, and Carlos Gómez-Rodríguez. 2019. “Towards Making a Dependency Parser See.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 1500–1506. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1160">https://doi.org/10.18653/v1/D19-1160</a>.</p>
+</div>
+<div>
+<p>Sturt, Patrick, Martin J Pickering, and Matthew W Crocker. 1999. “Structural Change and Reanalysis Difficulty in Language Comprehension.” <em>Journal of Memory and Language</em> 40 (1). Elsevier: 136–50.</p>
+</div>
+<div>
+<p>Sussillo, David, Mark M Churchland, Matthew T Kaufman, and Krishna V Shenoy. 2015. “A Neural Network That Finds a Naturalistic Solution for the Production of Muscle Activity.” <em>Nature Neuroscience</em> 18 (7). Nature Publishing Group: 1025–33.</p>
+</div>
+<div>
+<p>Tay, Yi, Dara Bahri, Donald Metzler, D. Juan, Zhe Zhao, and Che Zheng. 2020. “Synthesizer: Rethinking Self-Attention in Transformer Models.” <em>ArXiv Pre-Print</em> 2005.00743. <a href="https://arxiv.org/abs/2005.00743">https://arxiv.org/abs/2005.00743</a>.</p>
+</div>
+<div>
+<p>Taylor, Wilson L. 1953. “‘Cloze Procedure’: A New Tool for Measuring Readability.” <em>Journalism Quarterly</em> 30 (4). SAGE Publications Sage CA: Los Angeles, CA: 415–33.</p>
+</div>
+<div>
+<p>Tenney, Ian, Dipanjan Das, and Ellie Pavlick. 2019. “BERT Rediscovers the Classical NLP Pipeline.” In <em>Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics</em>, 4593–4601. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P19-1452">https://doi.org/10.18653/v1/P19-1452</a>.</p>
+</div>
+<div>
+<p>Thompson, Bruce. 1984. <em>Canonical Correlation Analysis: Uses and Interpretation</em>. 47. Sage.</p>
+</div>
+<div>
+<p>Turian, Joseph, Lev-Arie Ratinov, and Yoshua Bengio. 2010. “Word Representations: A Simple and General Method for Semi-Supervised Learning.” In <em>Proceedings of the 48th Annual Meeting of the Association for Computational Linguistics</em>, 384–94. Uppsala, Sweden: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/P10-1040">https://www.aclweb.org/anthology/P10-1040</a>.</p>
+</div>
+<div>
+<p>Vajjala, Sowmya, and Ivana Lucic. 2019. “On Understanding the Relation Between Expert Annotations of Text Readability and Target Reader Comprehension.” In <em>Proceedings of the Fourteenth Workshop on Innovative Use of Nlp for Building Educational Applications</em>, 349–59. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W19-4437">https://doi.org/10.18653/v1/W19-4437</a>.</p>
+</div>
+<div>
+<p>Vajjala, Sowmya, and Ivana Lučić. 2018. “OneStopEnglish Corpus: A New Corpus for Automatic Readability Assessment and Text Simplification.” In <em>Proceedings of the Thirteenth Workshop on Innovative Use of NLP for Building Educational Applications</em>, 297–304. New Orleans, Louisiana: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W18-0535">https://doi.org/10.18653/v1/W18-0535</a>.</p>
+</div>
+<div>
+<p>Van Schijndel, Marten, and Tal Linzen. 2018. “Modeling Garden Path Effects Without Explicit Hierarchical Syntax.” In <em>Proceedings of the 40th Annual Conference of the Cognitive Science Society</em>, 2600–2605.</p>
+</div>
+<div>
+<p>Vasishth, Shravan, Titus von der Malsburg, and Felix Engelmann. 2013. “What Eye Movements Can Tell Us About Sentence Comprehension.” <em>Cognitive Science</em> 4 2. Wiley interdisciplinary reviews: 125–34. <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/wcs.1209">https://onlinelibrary.wiley.com/doi/full/10.1002/wcs.1209</a>.</p>
+</div>
+<div>
+<p>Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. “Attention Is All You Need.” In <em>Advances in Neural Information Processing Systems 30</em>, edited by I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, 5998–6008. Curran Associates, Inc. <a href="http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf">http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf</a>.</p>
+</div>
+<div>
+<p>Voghera, Miriam. 2001. “Riflessioni Su Semplificazione, Complessità E Modalità Di Trasmissione: Sintassi E Semantica.” <em>Scritto E Parlato. Metodi, Testi E Contesti</em>. Aracne, 65–78.</p>
+</div>
+<div>
+<p>Voita, Elena, Rico Sennrich, and Ivan Titov. 2019. “The Bottom-up Evolution of Representations in the Transformer: A Study with Machine Translation and Language Modeling Objectives.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 4396–4406. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1448">https://doi.org/10.18653/v1/D19-1448</a>.</p>
+</div>
+<div>
+<p>Wallace, Eric, Yizhong Wang, Sujian Li, Sameer Singh, and Matt Gardner. 2019. “Do NLP Models Know Numbers? Probing Numeracy in Embeddings.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 5307–15. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1534">https://doi.org/10.18653/v1/D19-1534</a>.</p>
+</div>
+<div>
+<p>Wang, Alex, Amanpreet Singh, Julian Michael, Felix Hill, Omer Levy, and Samuel Bowman. 2018. “GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding.” In <em>Proceedings of the 2018 EMNLP Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP</em>, 353–55. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W18-5446">https://doi.org/10.18653/v1/W18-5446</a>.</p>
+</div>
+<div>
+<p>Wolf, Thomas, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue, Anthony Moi, Pierric Cistac, et al. 2020. “Transformers: State-of-the-Art Natural Language Processing.” In <em>Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: System Demonstrations</em>, 38–45. Online: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/2020.emnlp-demos.6">https://www.aclweb.org/anthology/2020.emnlp-demos.6</a>.</p>
+</div>
+<div>
+<p>Wu, Y., Mike Schuster, Z. Chen, Quoc V. Le, Mohammad Norouzi, Wolfgang Macherey, M. Krikun, et al. 2016. “Google’s Neural Machine Translation System: Bridging the Gap Between Human and Machine Translation.” <em>ArXiv Pre-Print</em> 1609.08144. <a href="https://arxiv.org/abs/1609.08144">https://arxiv.org/abs/1609.08144</a>.</p>
+</div>
+<div>
+<p>Xu, Wei, Chris Callison-Burch, and Courtney Napoles. 2015. “Problems in Current Text Simplification Research: New Data Can Help.” <em>Transactions of the Association for Computational Linguistics</em> 3: 283–97. <a href="https://doi.org/10.1162/tacl_a_00139">https://doi.org/10.1162/tacl_a_00139</a>.</p>
+</div>
+<div>
+<p>Zanzotto, Fabio Massimo, Andrea Santilli, Leonardo Ranaldi, Dario Onorati, Pierfrancesco Tommasino, and Francesca Fallucchi. 2020. “KERMIT: Complementing Transformer Architectures with Encoders of Explicit Syntactic Interpretations.” In <em>Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (Emnlp)</em>, 256–67. Online: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/2020.emnlp-main.18">https://www.aclweb.org/anthology/2020.emnlp-main.18</a>.</p>
+</div>
+<div>
+<p>Zeldes, Amir. 2017. “The GUM Corpus: Creating Multilayer Resources in the Classroom.” <em>Language Resources and Evaluation</em> 51: 581–612.</p>
+</div>
+<div>
+<p>Zhang, Kelly, and Samuel Bowman. 2018. “Language Modeling Teaches You More Than Translation Does: Lessons Learned Through Auxiliary Syntactic Task Analysis.” In <em>Proceedings of the 2018 EMNLP Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP</em>, 359–61. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W18-5448">https://doi.org/10.18653/v1/W18-5448</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="app-params.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gsarti/master-thesis/tree/master/extra/References.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Sarti_2020_Interpreting_NLMs_for_LCA.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

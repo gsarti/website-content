@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Representational Similarity in Models of Complexity | Interpreting Neural Language Models for Linguistic Complexity Assessment</title>
+  <meta name="description" content="This is a test description" />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Representational Similarity in Models of Complexity | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://gsarti.com/master-thesis" />
+  <meta property="og:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+  <meta property="og:description" content="This is a test description" />
+  <meta name="github-repo" content="gsarti/interpreting-complexity" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Representational Similarity in Models of Complexity | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  
+  <meta name="twitter:description" content="This is a test description" />
+  <meta name="twitter:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+
+<meta name="author" content="Gabriele Sarti" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="figures/icons/apple-icon.png" />
+  <link rel="shortcut icon" href="figures/icons/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="chap-ex1.html"/>
+<link rel="next" href="chap-ex3.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="templates/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="introduction.html#introduction"><strong>Introduction</strong></a></li>
+<li class="chapter" data-level="1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html"><i class="fa fa-check"></i><b>1</b> <strong>Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="1.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:categorizing"><i class="fa fa-check"></i><b>1.1</b> Categorizing Linguistic Complexity Measures</a></li>
+<li class="chapter" data-level="1.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:intrinsic"><i class="fa fa-check"></i><b>1.2</b> Intrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:structural"><i class="fa fa-check"></i><b>1.2.1</b> Structural Linguistic Complexity</a></li>
+<li class="chapter" data-level="1.2.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:lm-surprisal"><i class="fa fa-check"></i><b>1.2.2</b> Language Modeling Surprisal</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:extrinsic"><i class="fa fa-check"></i><b>1.3</b> Extrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:readability"><i class="fa fa-check"></i><b>1.3.1</b> Automatic Readability Assessment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:pc"><i class="fa fa-check"></i><b>1.3.2</b> Perceived Complexity Prediction</a></li>
+<li class="chapter" data-level="1.3.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:eye-tracking"><i class="fa fa-check"></i><b>1.3.3</b> Gaze Metrics Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:garden-path"><i class="fa fa-check"></i><b>1.4</b> Garden-path Sentences</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chap-models.html"><a href="chap-models.html"><i class="fa fa-check"></i><b>2</b> <strong>Models of Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="2.1" data-path="chap-models.html"><a href="chap-models.html#subchap:desiderata"><i class="fa fa-check"></i><b>2.1</b> Desiderata for Models of Linguistic Complexity</a></li>
+<li class="chapter" data-level="2.2" data-path="chap-models.html"><a href="chap-models.html#subchap:nlm"><i class="fa fa-check"></i><b>2.2</b> Neural Language Models: Unsupervised Multitask Learners</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:syntax-nlm"><i class="fa fa-check"></i><b>2.2.1</b> Emergent Linguistic Structures in Neural Language Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chap-models.html"><a href="chap-models.html#subchap:analyzing-nlm"><i class="fa fa-check"></i><b>2.3</b> Analyzing Neural Models of Complexity</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:probe"><i class="fa fa-check"></i><b>2.3.1</b> Probing classifiers</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chap-models.html"><a href="chap-models.html#subsubchap:rsa"><i class="fa fa-check"></i><b>2.3.2</b> Representational Similarity Analysis</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chap-models.html"><a href="chap-models.html#subsubchap:pwcca"><i class="fa fa-check"></i><b>2.3.3</b> Projection-Weighted Canonical Correlation Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-ex1.html"><a href="chap-ex1.html"><i class="fa fa-check"></i><b>3</b> <strong>Complexity Phenomena in Linguistic Annotations and Language Models</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-data"><i class="fa fa-check"></i><b>3.1</b> Data and Preprocessing</a></li>
+<li class="chapter" data-level="3.2" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-analysis"><i class="fa fa-check"></i><b>3.2</b> Analysis of Linguistic Phenomena</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-analysis-bins"><i class="fa fa-check"></i><b>3.2.1</b> Linguistic Phenomena in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-modeling"><i class="fa fa-check"></i><b>3.3</b> Modeling Online and Offline Linguistic Complexity</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-modeling-bins"><i class="fa fa-check"></i><b>3.3.1</b> Modeling Complexity in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-probing"><i class="fa fa-check"></i><b>3.4</b> Probing Linguistic Phenomena in ALBERT Representations</a></li>
+<li class="chapter" data-level="3.5" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap-ex2.html"><a href="chap-ex2.html"><i class="fa fa-check"></i><b>4</b> <strong>Representational Similarity in Models of Complexity</strong></a><ul>
+<li class="chapter" data-level="4.1" data-path="chap-ex2.html"><a href="chap-ex2.html#knowledge-driven-requirements-for-learning-models"><i class="fa fa-check"></i><b>4.1</b> Knowledge-driven Requirements for Learning Models</a></li>
+<li class="chapter" data-level="4.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-experiments"><i class="fa fa-check"></i><b>4.2</b> Experimentsl Evaluation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-data"><i class="fa fa-check"></i><b>4.2.1</b> Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-inter"><i class="fa fa-check"></i><b>4.2.2</b> Inter-model Representational Similarity</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-intra"><i class="fa fa-check"></i><b>4.2.3</b> Intra-model Representational Similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-summary"><i class="fa fa-check"></i><b>4.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap-ex3.html"><a href="chap-ex3.html"><i class="fa fa-check"></i><b>5</b> <strong>Gaze-informed Models for Cognitive Processing Prediction</strong></a><ul>
+<li class="chapter" data-level="5.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-setup"><i class="fa fa-check"></i><b>5.1</b> Experimental Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-experiments"><i class="fa fa-check"></i><b>5.2</b> Experimental Evaluation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-magnitudes"><i class="fa fa-check"></i><b>5.2.1</b> Estimating Magnitudes of Garden-path Delays</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-predicting"><i class="fa fa-check"></i><b>5.2.2</b> Predicting Delays with Surprisal and Gaze Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-summary"><i class="fa fa-check"></i><b>5.3</b> Summary</a></li>
+</ul></li>
+<li><a href="conclusion.html#conclusion"><strong>Conclusion</strong></a><ul>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Broader Impact and Ethical Perspectives</a></li>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i>Future Directions</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app-ling-feats.html"><a href="app-ling-feats.html"><i class="fa fa-check"></i><b>A</b> Linguistic Features</a><ul>
+<li class="chapter" data-level="A.1" data-path="app-ling-feats.html"><a href="app-ling-feats.html#raw-text-properties-and-lexical-variety"><i class="fa fa-check"></i><b>A.1</b> Raw Text Properties and Lexical Variety</a></li>
+<li class="chapter" data-level="A.2" data-path="app-ling-feats.html"><a href="app-ling-feats.html#morpho-syntacting-information"><i class="fa fa-check"></i><b>A.2</b> Morpho-syntacting Information</a></li>
+<li class="chapter" data-level="A.3" data-path="app-ling-feats.html"><a href="app-ling-feats.html#verbal-predicate-structure"><i class="fa fa-check"></i><b>A.3</b> Verbal Predicate Structure</a></li>
+<li class="chapter" data-level="A.4" data-path="app-ling-feats.html"><a href="app-ling-feats.html#global-and-local-parsed-tree-structures"><i class="fa fa-check"></i><b>A.4</b> Global and Local Parsed Tree Structures</a></li>
+<li class="chapter" data-level="A.5" data-path="app-ling-feats.html"><a href="app-ling-feats.html#syntactic-relations"><i class="fa fa-check"></i><b>A.5</b> Syntactic Relations</a></li>
+<li class="chapter" data-level="A.6" data-path="app-ling-feats.html"><a href="app-ling-feats.html#subordination-phenomena"><i class="fa fa-check"></i><b>A.6</b> Subordination Phenomena</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="app-et-metrics.html"><a href="app-et-metrics.html"><i class="fa fa-check"></i><b>B</b> Precisions on Eye-tracking Metrics and Preprocessing</a></li>
+<li class="chapter" data-level="C" data-path="app-et-modeling.html"><a href="app-et-modeling.html"><i class="fa fa-check"></i><b>C</b> Multi-task Token-level Regression for Gaze Metrics Prediction</a></li>
+<li class="chapter" data-level="D" data-path="app-intra-sim.html"><a href="app-intra-sim.html"><i class="fa fa-check"></i><b>D</b> Intra-model Similarity for All Models</a></li>
+<li class="chapter" data-level="E" data-path="app-garden-paths-et.html"><a href="app-garden-paths-et.html"><i class="fa fa-check"></i><b>E</b> Gaze Metrics Predictions for Garden Path Sentences</a></li>
+<li class="chapter" data-level="F" data-path="app-params.html"><a href="app-params.html"><i class="fa fa-check"></i><b>F</b> Reproducibility and Environmental Impact</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://gsarti.com">Back to my website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interpreting Neural Language Models<br />
+for Linguistic Complexity Assessment</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap:ex2" class="section level1">
+<h1><span class="header-section-number">4</span> <strong>Representational Similarity in Models of Complexity</strong></h1>
+<p><!-- this will include a mini table of contents--></p>
+
+<blockquote>
+<p>The experiments of this chapter aim to shed light on how the linguistic knowledge encoded in the contextual representations of complexity-trained neural language models varies across layers of abstraction and fine-tuning tasks. Two similarity approaches, Representational Similarity Analysis (RSA) and Projection-Weighted Canonical Correlation Analysis (PWCCA) are used to evaluate the relation subsisting between representations spanning different models and different layers of the same model. The outcomes are finally compared against a set of assumptions aimed at determining a model’s generalization capabilities across language phenomena. Results provide empirical evidence about the inability of state-of-the-art language modeling approaches to effectively represent an abstract hierarchy of linguistic complexity phenomena.</p>
+</blockquote>
+<p>Chapter <a href="chap-ex1.html#chap:ex1">3</a> highlighted how the relation between online and offline complexity perspectives and linguistic phenomena diverge when considering same-length sentences and how those properties of language are adequately captured by a neural language model fine-tuned on complexity metrics. This chapter adopts a complementary perspective on the model-driven study of complexity. Instead of connecting learned representations to the input’s structural properties, it explores how those representations change when the same model is exposed to different training objectives using similarity measures. This approach is used to gain insights on the underlying similarities across complexity metrics, using representations as proxies for the knowledge needed to correctly model various complexity phenomena under a minimal set of assumptions.</p>
+<p>The same ALBERT <span class="citation">(Lan et al. <a href="#ref-lan-etal-2020-albert">2020</a>)</span> model introduced in Section <a href="chap-models.html#subchap:nlm">2.2</a> and used for the last section’s probing task experiments is leveraged for this chapter’s experiments.<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> The model is first taken as-is in its pre-trained version without fine-tuning (referred to as <strong>Base</strong>). Then, three instances of it are fine-tuned respectively on <strong>Automatic Readability Assessment</strong> (RA, Section <a href="chap-ling-comp.html#subsubchap:readability">1.3.1</a>), <strong>Perceived Complexity Prediction</strong> (PC, Section <a href="chap-ling-comp.html#subsubchap:pc">1.3.2</a>) and <strong>Eye-tracking Metrics Prediction</strong> (ET, Section <a href="chap-ling-comp.html#subsubchap:eye-tracking">1.3.3</a>) until convergence. The four models are evaluated in two settings: first, by comparing the similarity of same-layer representation across models (<em>inter-model similarity</em>), and then comparing the similarity across different layers of the same model (<em>intra-model similarity</em>). For each setting, two similarity metrics are used: Representational Similarity Analysis (RSA, Section <a href="chap-models.html#subsubchap:rsa">2.3.2</a>) and Projection-Weighted Canonical Correlation Analysis (PWCCA, Section <a href="chap-models.html#subsubchap:pwcca">2.3.3</a>). RSA and PWCCA were selected since they provide different perspectives over the similarity of representations: if, on the one hand, RSA naively evaluates the similarity across input representations through correlation, PWCCA factors in the importance of sparsity patterns that characterize overparametrized neural networks using a projection operation. Both token and sentence-level representations are evaluated to obtain a fine-grained overview of representational similarity.</p>
+<p>The models trained on perceived complexity and eye-tracking metrics are again the main subjects of this study, given the logical and empirical relation subsisting between the two complexity perspectives highlighted in previous chapters. The additional use of Base and readability-trained models allows us to verify whether ALBERT representations satisfy a minimal set of assumptions deemed necessary and sufficient for modeling an abstraction hierarchy of linguistic complexity phenomena in an interpretable fashion. Results produced by representational similarity experiments diverge significantly from the initial hypothesis, suggesting the prominence of surface structures and task setups over underlying general knowledge about the nature of the modeled phenomena in shaping representations during the training process.</p>
+<p><span class="custompar">Contributions</span> While multiple works aimed at inspecting NLM representations by mean of similarity approaches already exist, this is the first work to the best of my knowledge that does so with the explicit purpose of evaluating the impact of linguistic complexity training. This work:</p>
+<ul>
+<li><p>Highlights similarity and differences in the representations of models trained on different complexity-related tasks to understand how neural network parameters capture different perspectives over linguistic complexity after the training process;</p></li>
+<li><p>Presents similarity and differences in the representations found at different layers of the same model to understand how knowledge is distributed hierarchically at various abstraction levels after training;</p></li>
+<li><p>Provide evidence about the inability of state-of-the-art NLP approaches to learning to effectively represent an abstract hierarchy of linguistic complexity phenomena in an unsupervised manner, relying solely on complexity-related annotations.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a></p></li>
+</ul>
+<div id="knowledge-driven-requirements-for-learning-models" class="section level2">
+<h2><span class="header-section-number">4.1</span> Knowledge-driven Requirements for Learning Models</h2>
+<p>At the beginning of Chapter <a href="chap-models.html#chap:models">2</a> two prerequisites to any model-driven study were defined: that available annotated corpora should be informative about the underlying phenomena we are trying to model, and that sufficiently elaborate models should be able to represent knowledge to solve phenomena-related tasks after being trained on those corpora effectively. This section formalizes the two assumptions and builds upon them to define a set of fundamental requirements that should be satisfied by models capable of generalizing over unseen linguistic structures after undergoing a learning process. Let:</p>
+<ul>
+<li><p><span class="math inline">\(\mathcal{C}^\phi_\alpha = \Big [ (x_1,\alpha_1)\dots(x_m,\alpha_m)\Big]\)</span> be an annotated corpus containing some knowledge relative to an abstract phenomenon of interest <span class="math inline">\(\phi\)</span> encoded in its annotations <span class="math inline">\(\alpha\)</span>. <span class="math inline">\(x\)</span> can represent any <span class="math inline">\(i\)</span>-th linguistic structure or substructure (sentence, word, morpheme). This notation can be generalized to settings where annotations are not explicitly defined (e.g. in the context of language modeling, next structure <span class="math inline">\(x_i+1\)</span> acts as an annotation for <span class="math inline">\(x_i\)</span>) or when multiple annotations are present (e.g. if <span class="math inline">\(\mathcal{C}\)</span> has two sets of annotations <span class="math inline">\(\alpha, \beta\)</span> modeling the same phenomenon <span class="math inline">\(\mathcal{K}\)</span> is equivalent to two corpora <span class="math inline">\(\mathcal{C}^\phi_\alpha, \mathcal{C}^\phi_\beta\)</span> with shared <span class="math inline">\(x\)</span>’s).</p></li>
+<li><p><span class="math inline">\(M\)</span> be a model that, after being trained on <span class="math inline">\(\mathcal{C}^{\phi}_\alpha\)</span>, learns representations (i.e. parameters) that allow him to map correctly linguistic structures to annotations</p></li>
+<li><p><span class="math inline">\(\mathcal{K}^\phi\)</span> be a set containing all empirical knowledge that is specifically relevant to phenomenon <span class="math inline">\(\phi\)</span>. <span class="math inline">\(\mathcal{K}^\phi_\alpha\)</span> represents all knowledge relative to <span class="math inline">\(\phi\)</span> contained in a corpus <span class="math inline">\(\mathcal{C}^\phi_\alpha\)</span>. Concretely, given a corpus <span class="math inline">\(\mathcal{C}^\phi_\alpha\)</span>, we can logically infer from it some estimate knowledge <span class="math inline">\(\tilde{\mathcal{K}}^\phi_\alpha\)</span> such that <span class="math inline">\(\tilde{\mathcal{K}}^\phi_\alpha \simeq \mathcal{K}^\phi_\alpha \subset \mathcal{K}^\phi\)</span>.</p></li>
+<li><p><span class="math inline">\(\varsigma_{\alpha, \beta}^{\phi}(x)\)</span> be an idealized similarity function reflecting the similarity between two sets of representations in performance-driven terms relative to phenomenon <span class="math inline">\(\phi\)</span>, i.e. measuring their invariance in relation to all knowledge sets <span class="math inline">\(\mathcal{K}^\varphi\)</span>, with <span class="math inline">\(\phi \neq \varphi\)</span> that are irrelevant to phenomenon <span class="math inline">\(\phi\)</span>.</p></li>
+</ul>
+<p>For example, taking linguistic complexity as <span class="math inline">\(\phi\)</span>, and the GECO corpus as <span class="math inline">\(\mathcal{C}^\phi_\alpha\)</span> (with <span class="math inline">\(\alpha\)</span> being e.g. the total fixation duration annotations), we may have <span class="math inline">\(\tilde{\mathcal{K}}^\phi_\alpha\)</span> (i.e. our inferred knowledge about linguistic complexity) contains the observation <span class="math inline">\(o =\)</span> “longer structures are more complex” because longer words have longer total fixation durations on average. Note that the relation <span class="math inline">\(o \in \mathcal{K}^\phi_\alpha\)</span> can only be hypothesized whenever a corpus with different annotations <span class="math inline">\(\mathcal{C}^\phi_\beta\)</span> pertinent to the same phenomenon allows us to infer a <span class="math inline">\(\tilde{\mathcal{K}}^\phi_\beta\)</span> such that <span class="math inline">\(o \in \tilde{\mathcal{K}}^\phi_\alpha \cap \tilde{\mathcal{K}}^\phi_\beta\)</span> (e.g. longer sentences are also deemed more complex on average in the perceived complexity corpus, so length is probably related to complexity in general).</p>
+<p>Chapter <a href="chap-models.html#chap:models">2</a> assumptions can now be summarized in a single statement:</p>
+
+<p><span class="custompar">Assumption 4.1</span> (Learning-driven encodability) A learning process that trains a model <span class="math inline">\(M\)</span> on a corpus <span class="math inline">\(\mathcal{C}^\phi_\alpha\)</span> up to a reasonable accuracy is equivalent to an encoding function that maps <span class="math inline">\(\phi\)</span>-relevant knowledge contained in <span class="math inline">\(\mathcal{C}^\phi_\alpha\)</span> to <span class="math inline">\(M\)</span>’s learned representations.</p>
+
+<p>If Assumption 4.1 is verified, then annotations must be informative, and the model must be able to encode all knowledge present in the corpora relevant to the phenomena. On top of that foundational assumption, three further requirements that are sufficient and necessary for building interpretable learning models able to represent knowledge in a generalizable manner are defined:</p>
+<p><span class="custompar">Assumption 4.2</span> (Knowledge-similarity interrelation) Given two corpora <span class="math inline">\(\mathcal{C}^\phi_\alpha, \mathcal{C}^\phi_\beta\)</span> providing different and possibly complementary knowledge about the same phenomenon <span class="math inline">\(\phi\)</span> and representations <span class="math inline">\(R^{M}_{\alpha}, R^{M}_{\beta}\)</span> learned by a model <span class="math inline">\(M\)</span> trained respectively on the two corpora, the more those representations are similar in relation to <span class="math inline">\(\phi\)</span>, the more <span class="math inline">\(\phi\)</span>-related shared knowledge is contained in the two corpora. When the two representations are perfectly <span class="math inline">\(\phi\)</span>-similar, the two corpora share the same <span class="math inline">\(\phi\)</span>-related knowledge.</p>
+<p><span class="custompar">Assumption 4.3</span> (Pertinence-based preponderance) The amount of knowledge <span class="math inline">\(\mathcal{K}^\phi_\alpha\)</span> related to phenomenon <span class="math inline">\(\phi\)</span> contained in a corpus <span class="math inline">\(\mathcal{C}^{\phi}_\alpha\)</span> that explicitly encodes some knowledge about <span class="math inline">\(\phi\)</span> is always larger than the amount of knowledge relative to <span class="math inline">\(\phi\)</span> contained in any corpus <span class="math inline">\(\mathcal{C}^{\phi&#39;}_\beta\)</span> which explicitly covers a different phenomenon <span class="math inline">\(\phi&#39;\)</span> by means of its annotations <span class="math inline">\(\beta\)</span>.</p>
+<p><span class="custompar">Assumption 4.4</span> (Knowledge-similarity transitivity) Given three corpora <span class="math inline">\(\mathcal{C}^\phi_\alpha, \mathcal{C}^\phi_\beta, \mathcal{C}^\phi_\gamma\)</span> providing different views over the same phenomenon <span class="math inline">\(\phi\)</span> and representations <span class="math inline">\(R^{M}_{\alpha}, R^{M}_{\beta}, R^{M}_{\gamma}\)</span> learned by a model <span class="math inline">\(M\)</span> trained on each one of them respectively, if a pair of those representations has higher <span class="math inline">\(\phi\)</span>-similarity than another, then the respective pair of corpora also have a larger amount of shared <span class="math inline">\(\phi\)</span>-related knowledge and vice versa.</p>
+<p>The experimental section of this chapter is aimed at testing whether those requirements are satisfied by ALBERT. Assumption 4.2 enables us to use representational similarity measures to evaluate our corpora’s latent knowledge related to linguistic complexity. In particular, RSA and PWCCA will be used respectively as naive and more advanced approximations of <span class="math inline">\(\varsigma\)</span> that evaluate representations’ distance in the <span class="math inline">\(n\)</span>-dimensional space across multiple linguistic structures.</p>
+<p>The first step in this verification process involves comparing representations learned by ALBERT models trained on PC, ET, and RA against those of Base. Since the base model was exposed to a general MLM pre-training, without having access to any complexity-related annotation, it can be hypothesized that <em>the three complexity-trained models had access to more complexity-related information during training</em> (Assumptions 4.1 and 4.3), <em>and thus learned representations that are closer together in similarity terms than those of Base</em> (Assumption 4.2). The other perspective involves evaluating how different views related to the same phenomenon are captured. While perceived complexity annotations and gaze metrics are at the antipodes of the processing spectrum (see Figure <a href="chap-ling-comp.html#fig:compass">1.1</a>), they should logically contain more complexity-related shared information than readability categories since they are both related to the reader’s viewpoint, while RA captures the writer’s perspective. If Assumption 4.4 is verified, then it can be hypothesized that <em>ALBERT-PC and ALBERT-ET learned representations closer together in similarity terms than those of the ALBERT-RA model</em>.</p>
+<p>Before moving to the experiments, two crucial aspects should be highlighted. First, corpus size was abstracted away from the verification process despite being commonly known to be an essential factor in shaping neural network training effectiveness. In particular, we should be aware that the size imbalance across available corpora can be a significant source of error in the evaluation process. Secondly, sentence-level training objectives are used for PC and RA tasks, while ALBERT-ET is trained on token-level annotations.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> If, on the one hand, this difference in training approaches can act as an additional confounder when evaluating requirements, from another perspective, it can provide us with some information relative to the generalization abilities of ALBERT beyond task setup.</p>
+</div>
+<div id="subchap:ex2-experiments" class="section level2">
+<h2><span class="header-section-number">4.2</span> Experimentsl Evaluation</h2>
+<p>This section describes the similarity experiments that have been carried out over model representations across multiple training setups. First, Section <a href="chap-ex2.html#subsubchap:ex2-data">4.2.1</a> presents the data used to train ALBERT models and evaluate their representational similarity. Then, Section <a href="chap-ex2.html#subsubchap:ex2-inter">4.2.2</a> focuses on validating the assumptions formulated at the beginning of this chapter by evaluating the intra-model similarity across all model pairs. Finally, Section <a href="chap-ex2.html#subsubchap:ex2-intra">4.2.3</a> employs the same similarity approach in an intra-model setting, providing us with some evidence on how linguistic knowledge is encoded hierarchically across ALBERT layers during the training process.</p>
+<div id="subsubchap:ex2-data" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Data</h3>
+<p>The experiments of this chapter leverage all corpora that were presented in Sections <a href="chap-ling-comp.html#subsubchap:readability">1.3.1</a>, <a href="chap-ling-comp.html#subsubchap:pc">1.3.2</a> and <a href="chap-ling-comp.html#subsubchap:eye-tracking">1.3.3</a> for fine-tuning the three complexity models whose representations were compared against each other and the Base pre-trained ALBERT. Specifically:</p>
+
+<p><span class="custompar">Readability Assessment</span> The OneStopEnglish corpus <span class="citation">(Vajjala and Lučić <a href="#ref-vajjala-lucic-2018-onestopenglish">2018</a>)</span> is leveraged by splitting each document into sentences and labeling those with the original reading level. A total of 7190 sentences equally distributed across the Elementary, Intermediate, and Advanced levels are used to fine-tune ALBERT-RA in a multiclass classification setting.</p>
+
+<p><span class="custompar">Perceived Complexity</span> The English portion of the corpus by <span class="citation">Brunato et al. (<a href="#ref-brunato-etal-2018-sentence">2018</a>)</span> was again used to fine-tune ALBERT-PC, following the same preprocessing steps detailed in Section <a href="chap-ex1.html#subchap:ex1-data">3.1</a> of the previous chapter.</p>
+
+<p><span class="custompar">Eye-tracking</span> The GECO <span class="citation">(Cop et al. <a href="#ref-cop-etal-2017-presenting">2017</a>)</span>, Dundee <span class="citation">(Kennedy, Hill, and Pynte <a href="#ref-kennedy-etal-2003-dundee">2003</a>)</span>, ZuCo <span class="citation">(Hollenstein et al. <a href="#ref-hollenstein-2018-zuco">2018</a>)</span> and ZuCo 2.0 <span class="citation">(Hollenstein, Troendle, et al. <a href="#ref-hollenstein-etal-2020-zuco">2020</a>)</span> corpora were merged (Total column of Table <a href="chap-ling-comp.html#tab:et-corpora">1.4</a>) and used to train the ALBERT-ET model. As opposed to the previous section’s sentence-level approach, ALBERT-ET is trained to predict gaze metrics <em>at token-level</em> to obtain a fine-grained perspective over the input’s complexity and fully exploit the information available through gaze recordings.<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a></p>
+
+<p><span class="custompar">Evaluation</span> All models are evaluated by measuring the similarity of their representations of the Stanford Sentiment Treebank (SST, <span class="citation">Socher et al. (<a href="#ref-socher-etal-2013-recursive">2013</a>)</span>). The version of the treebank leveraged for this study contained 11,855 sentences and was selected because the movie review genre is different from all textual genres encompassed by the available corpora (except ZuCo, which represent only a small fraction of the whole set of eye-tracking data used). Sentiment annotations were removed, and only sentences were considered.</p>
+</div>
+<div id="subsubchap:ex2-inter" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Inter-model Representational Similarity</h3>
+
+
+<div class="figure" style="text-align: center"><span id="fig:rsa-inter"></span>
+<img src="figures/4_rsa_inter_cls.png" alt="Inter-model RSA scores across layers for all ALBERT models’ combinations, using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher scores denote stronger inter-model similarity." width="50%" /><img src="figures/4_rsa_inter_mean.png" alt="Inter-model RSA scores across layers for all ALBERT models’ combinations, using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher scores denote stronger inter-model similarity." width="50%" /><img src="figures/4_rsa_inter_tokens.png" alt="Inter-model RSA scores across layers for all ALBERT models’ combinations, using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher scores denote stronger inter-model similarity." width="50%" />
+<p class="caption">
+Figure 4.1: Inter-model RSA scores across layers for all ALBERT models’ combinations, using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher scores denote stronger inter-model similarity.
+</p>
+</div>
+<p>The inter-model similarity is evaluated by comparing layer-wise representations of models trained on different tasks using the same ALBERT architecture. Given the representations produced by two ALBERT models trained on different complexity-related annotations for all the sentences in the SST corpus, their similarity is evaluated using both RSA and PWCCA in three settings:</p>
+<ul>
+<li><p><strong>[CLS] token</strong>: Only the sentence-level <code>[CLS]</code> initial embedding is considered when evaluating similarity at each layer for all sentences in the SST corpus.</p></li>
+<li><p><strong>Tokens’ average</strong>: A sentence-level embedding obtained by averaging all the individual subword embeddings produced by ALBERT is considered when evaluating similarity at each layer for all sentences in the SST corpus.</p></li>
+<li><p><strong>All tokens</strong>: The subword embeddings produced by ALBERT for all SST sentences are considered when evaluating similarity at each layer, including <code>[CLS]</code>, <code>[SEP]</code> and regular token embeddings, for all sentences in the SST corpus. In practice, the number of considered embedding was set to a maximum of 50,000 to limit such an approach’s computational costs.</p></li>
+</ul>
+<p>
+Figure <a href="chap-ex2.html#fig:rsa-inter">4.1</a> presents inter-model RSA scores for all model combinations and layers, going from the input layer after initial embeddings (-12) to the last layer before prediction heads (-1).</p>
+<p>Given the RSA similarity metric has range <span class="math inline">\([0,1]\)</span>, it can be observed that representational similarity varies greatly across layers, ranging from very high (<span class="math inline">\(\sim 0.9\)</span>) across bottom layers of the models to very low (<span class="math inline">\(&lt; 0.1\)</span>) for top layers. This observation supports the widely accepted claim that layers closer to the input in NLMs are almost unaffected by task-specific fine-tuning since they encode low-level properties, while layers closer to prediction heads represent task-related abstract knowledge and tend to diverge rapidly during training.</p>
+<p>In settings involving the PC-trained model (yellow, red, and green lines in Figure <a href="chap-ex2.html#fig:rsa-inter">4.1</a>) no sharp decrease in similarity is observed across the top layer for all three variations. Conversely, spikes of decreasing similarity are observed for top layers of all other model pairs. While in terms of <code>[CLS]</code> all models behave comparably, there is a marked dissimilarity between PC and ET-trained models for top layers when considering all token representations, both with and without averaging (green line in Figures <a href="chap-ex2.html#fig:rsa-inter">4.1</a> a,b). Conversely, RA’s <code>[CLS]</code> representations behave similarly to the ones of other models, but token representations stay very similar to Base even for top layers, i.e. are slightly affected by fine-tuning (purple line in Figures <a href="chap-ex2.html#fig:rsa-inter">4.1</a> b,c). It can be hypothesized that the RA-trained model cannot collect relevant token-level information since it misses the relative perspective that, as saw in Section <a href="chap-ling-comp.html#subsubchap:readability">1.3.1</a>, plays a key role for readability assessment. In this case, PC and ET-trained models are the only ones building relevant complexity-related knowledge, but they still tend to diverge in terms of representational similarity.</p>
+
+
+<div class="figure" style="text-align: center"><span id="fig:pwcca-inter"></span>
+<img src="figures/4_pwcca_inter_cls.png" alt="Inter-model PWCCA distances across layers for all ALBERT models’ combinations, using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote weaker inter-model similarity." width="50%" /><img src="figures/4_pwcca_inter_mean.png" alt="Inter-model PWCCA distances across layers for all ALBERT models’ combinations, using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote weaker inter-model similarity." width="50%" /><img src="figures/4_pwcca_inter_tokens.png" alt="Inter-model PWCCA distances across layers for all ALBERT models’ combinations, using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote weaker inter-model similarity." width="50%" />
+<p class="caption">
+Figure 4.2: Inter-model PWCCA distances across layers for all ALBERT models’ combinations, using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote weaker inter-model similarity.
+</p>
+</div>
+<p>Figure <a href="chap-ex2.html#fig:pwcca-inter">4.2</a> presents PWCCA scores in the exact same setup as Figure <a href="chap-ex2.html#fig:rsa-inter">4.1</a>. It does not come as a surprise that scores, in this case, tend to increase while moving towards prediction heads since the PWCCA distance on the <span class="math inline">\(y\)</span>-axis represents here a function of representational dissimilarity between different layers. Besides this difference, a sharp contrast in behavior is observed in relation to RSA scores, with generally smaller value ranges (<span class="math inline">\(\sim 0.0\)</span> to <span class="math inline">\(0.4\)</span>).</p>
+<p>In terms of <code>[CLS]</code> representations, (PC, Base) and (RA, Base) are the two closest pairs, while (PC, ET) and (RA, ET) are furthest. This relation can be rationalized if considering that PC and RA-trained models are trained using the <code>[CLS]</code> token representation for prediction and have relatively few annotations if compared to the token-level trained ET model. The contrast is even more pronounced when PWCCA distances are measured across token averages (Figure <a href="chap-ex2.html#fig:pwcca-inter">4.2</a> b). Here, pairs containing the ET model quickly diverge from the common trend and settle to a shared PWCCA distance for top layers. Finally, the comparison of all individual token representation contradicts previous RSA trends by showing a remarkably consistent divergence from Base representations at all layers for all the three complexity-trained models.</p>
+<p>All in all, both RSA and PWCCA suggest an abstraction hierarchy where the closeness of a representation layer to prediction heads is proportional to the magnitude of changes in parameter values during the training process. While RSA similarity highlights a markedly different behavior for the readability-trained model, the more advanced PWCCA method indicates that representations of models trained with similar objectives stay close in parameter space throughout training, regardless of the conceptual proximity phenomena modeled by their loss functions.</p>
+</div>
+<div id="subsubchap:ex2-intra" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Intra-model Representational Similarity</h3>
+<p>The intra-model similarity is evaluated in the same setting of the previous section. However, instead of comparing the same layer across two different models, the representations learned by all layer pairs inside the same model are compared using RSA and PWCCA. Again, the three perspectives of <code>[CLS]</code>, token’s average, and all tokens introduced in the previous chapter are evaluated to understand the shift in representations across layers at different levels of granularity (two sentence-level and one token-level).</p>
+
+
+<div class="figure" style="text-align: center"><span id="fig:rsa-intra-base"></span>
+<img src="figures/4_rsa_intra_cls_base.png" alt="Intra-model RSA scores across layers’ combinations for the pre-trained ALBERT model without fine-tuning (Base), using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote stronger inter-layer similarity." width="50%" /><img src="figures/4_rsa_intra_mean_base.png" alt="Intra-model RSA scores across layers’ combinations for the pre-trained ALBERT model without fine-tuning (Base), using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote stronger inter-layer similarity." width="50%" /><img src="figures/4_rsa_intra_tokens_base.png" alt="Intra-model RSA scores across layers’ combinations for the pre-trained ALBERT model without fine-tuning (Base), using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote stronger inter-layer similarity." width="50%" />
+<p class="caption">
+Figure 4.3: Intra-model RSA scores across layers’ combinations for the pre-trained ALBERT model without fine-tuning (<strong>Base</strong>), using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote stronger inter-layer similarity.
+</p>
+</div>
+<p>Figure <a href="chap-ex2.html#fig:rsa-intra-base">4.3</a> presents intra-model RSA similarity scores for all layer pairs of the Base model, going from the input layer after initial embeddings (-12) to the last layer before prediction heads (-1). Only the Base model results are presented in this chapter since they are very similar to those produced by fine-tuned models. The latter can be found in Appendix <a href="app-intra-sim.html#app:intra-sim">D</a>. The first insight relative to RSA intra-model results is that ALBERT layers tend to learn representations that are generally very similar to those of layers in their neighborhood, especially for layers found at the center and close to the input embeddings of the model. While in the case of <code>[CLS]</code> similarity scores fall sharply beyond the preceding/following layer for each layer, suggesting a significant variation in the information encoded across the model structure, the high-similarity range is much broader for tokens’ average and all tokens representations. It is interesting to note that the top two layers (-1 and -2) are almost always very dissimilar in relation to the rest of the model, which is coherent with the spiking behavior around inter-model scores highlighted in the previous section. Another interesting observation is that, while <code>[CLS]</code> and all tokens’ representations are consistently decreasing, the tokens’ average representation similarity follows an undulatory behavior across middle layers for all the tested models, with similarity scores dropping and raising while moving away from reference layer. This fact further supports the evidence that token’s sentence-level average may better integrate language information from lower layers into high-level representations, as highlighted by <span class="citation">Miaschi and Dell’Orletta (<a href="#ref-miaschi-dellorletta-2020-contextual">2020</a>)</span> in the context of morphosyntactic knowledge.</p>
+
+
+<div class="figure" style="text-align: center"><span id="fig:pwcca-intra-base"></span>
+<img src="figures/4_pwcca_intra_cls_base.png" alt="Intra-model PWCCA distances across layers’ combinations for the pre-trained ALBERT model without fine-tuning (Base), using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote weaker inter-layer similarity." width="50%" /><img src="figures/4_pwcca_intra_mean_base.png" alt="Intra-model PWCCA distances across layers’ combinations for the pre-trained ALBERT model without fine-tuning (Base), using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote weaker inter-layer similarity." width="50%" /><img src="figures/4_pwcca_intra_tokens_base.png" alt="Intra-model PWCCA distances across layers’ combinations for the pre-trained ALBERT model without fine-tuning (Base), using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote weaker inter-layer similarity." width="50%" />
+<p class="caption">
+Figure 4.4: Intra-model PWCCA distances across layers’ combinations for the pre-trained ALBERT model without fine-tuning (<strong>Base</strong>), using the [CLS] token (top-left), the all-token average (top-right), and all tokens (bottom) representations. Layer -1 corresponds to the last layer before prediction heads. Higher values denote weaker inter-layer similarity.
+</p>
+</div>
+<p>Figure <a href="chap-ex2.html#fig:pwcca-intra-base">4.4</a> presents PWCCA scores in the exact same setup as Figure <a href="chap-ex2.html#fig:rsa-intra-base">4.3</a>. As in the previous section, the inverse trend in scores here is due to PWCCA being a dissimilarity measure, and the range of result scores is smaller than the one of RSA. Conversely to the previous setting, <code>[CLS]</code> representations stay closer across layers when their similarity is measured using PWCCA, and there are no significant spikes in score values. The latter finding is coherent with the effect of cross-layer parameter sharing adopted by ALBERT authors. Quoting <span class="citation">Lan et al. (<a href="#ref-lan-etal-2020-albert">2020</a>)</span>: “We observe that the transition from layer to layer [in terms of L2 distances and cosine similarity] are much smoother for ALBERT than for BERT. These results show that weight-sharing affects stabilizing network parameters”. In the context of <code>[CLS]</code> representations, the lowest layer (-12) appears to be slightly closer to the top layers than the subsequent ones. This fact ultimately supports the intuition that ALBERT is heavily overparametrized, and first-level embeddings already capture much information.</p>
+<p>Again for intra-model similarity, PWCCA highlights an abstraction hierarchy inside ALBERT with smoother and generally more reasonable transitions than those showed by RSA. There is no reason to believe that ALBERT adapts its representation hierarchy as a function of its objective since intra-model similarity scores stay approximately the same before and after fine-tuning for all complexity corpora.</p>
+</div>
+</div>
+<div id="subchap:ex2-summary" class="section level2">
+<h2><span class="header-section-number">4.3</span> Summary</h2>
+<p>In this chapter, the representations learned by a neural language model fine-tuned on multiple complexity-related tasks were compared using two widely-used representational similarity approaches. Token and sentence-level representations were compared both considering the same layer across models exposed to different training corpora and different layer pairs contained in the same model. In the first case, the absence of a preponderant similarity between complexity-trained models when compared to the pre-trained one suggests that those models learn their objective by overfitting annotations and without being able to recognize useful primitives that could be recycled throughout complexity tasks. This fact is highlighted in the comparison between perceived complexity and eye-tracking-trained models, where similarity scores of layers close to prediction heads are very different despite the close relationship between the two complexity perspectives. In conclusion, this work strongly supports the claim that representation learning in ALBERT and other neural language models is mainly driven by training biases like task granularity (token-level vs. sentence-level) that are unrelated to the nature of the task itself. This fact hinders their generalization performances, suggesting that much work still needs to be done beyond language modeling to drive generalizable, hierarchical, and compositional representation learning in models of language.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-brunato-etal-2018-sentence">
+<p>Brunato, Dominique, Lorenzo De Mattei, Felice Dell’Orletta, Benedetta Iavarone, and Giulia Venturi. 2018. “Is This Sentence Difficult? Do You Agree?” In <em>Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing</em>, 2690–9. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D18-1289">https://doi.org/10.18653/v1/D18-1289</a>.</p>
+</div>
+<div id="ref-cop-etal-2017-presenting">
+<p>Cop, Uschi, Nicolas Dirix, Denis Drieghe, and Wouter Duyck. 2017. “Presenting Geco: An Eyetracking Corpus of Monolingual and Bilingual Sentence Reading.” <em>Behavior Research Methods</em> 49 (2). Springer: 602–15.</p>
+</div>
+<div id="ref-hollenstein-2018-zuco">
+<p>Hollenstein, Nora, Jonathan Rotsztejn, Marius Troendle, Andreas Pedroni, Ce Zhang, and Nicolas Langer. 2018. “ZuCo, a Simultaneous Eeg and Eye-Tracking Resource for Natural Sentence Reading.” <em>Scientific Data</em> 5 (1). Nature Publishing Group: 1–13.</p>
+</div>
+<div id="ref-hollenstein-etal-2020-zuco">
+<p>Hollenstein, Nora, Marius Troendle, Ce Zhang, and Nicolas Langer. 2020. “ZuCo 2.0: A Dataset of Physiological Recordings During Natural Reading and Annotation.” In <em>Proceedings of the 12th Language Resources and Evaluation Conference</em>, 138–46. Marseille, France: European Language Resources Association. <a href="https://www.aclweb.org/anthology/2020.lrec-1.18">https://www.aclweb.org/anthology/2020.lrec-1.18</a>.</p>
+</div>
+<div id="ref-kennedy-etal-2003-dundee">
+<p>Kennedy, Alan, Robin Hill, and Joël Pynte. 2003. “The Dundee Corpus.” In <em>Proceedings of the 12th European Conference on Eye Movement</em>.</p>
+</div>
+<div id="ref-lan-etal-2020-albert">
+<p>Lan, Zhenzhong, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. 2020. “ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations.” In <em>International Conference on Learning Representations</em>. <a href="https://openreview.net/forum?id=H1eA7AEtvS">https://openreview.net/forum?id=H1eA7AEtvS</a>.</p>
+</div>
+<div id="ref-miaschi-dellorletta-2020-contextual">
+<p>Miaschi, Alessio, and Felice Dell’Orletta. 2020. “Contextual and Non-Contextual Word Embeddings: An in-Depth Linguistic Investigation.” In <em>Proceedings of the 5th Workshop on Representation Learning for Nlp</em>, 110–19. Online: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/2020.repl4nlp-1.15">https://www.aclweb.org/anthology/2020.repl4nlp-1.15</a>.</p>
+</div>
+<div id="ref-socher-etal-2013-recursive">
+<p>Socher, Richard, Alex Perelygin, Jean Wu, Jason Chuang, Christopher D. Manning, Andrew Ng, and Christopher Potts. 2013. “Recursive Deep Models for Semantic Compositionality over a Sentiment Treebank.” In <em>Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing</em>, 1631–42. Seattle, Washington, USA: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/D13-1170">https://www.aclweb.org/anthology/D13-1170</a>.</p>
+</div>
+<div id="ref-vajjala-lucic-2018-onestopenglish">
+<p>Vajjala, Sowmya, and Ivana Lučić. 2018. “OneStopEnglish Corpus: A New Corpus for Automatic Readability Assessment and Text Simplification.” In <em>Proceedings of the Thirteenth Workshop on Innovative Use of NLP for Building Educational Applications</em>, 297–304. New Orleans, Louisiana: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W18-0535">https://doi.org/10.18653/v1/W18-0535</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="18">
+<li id="fn18"><p>The <code>albert-base-v2</code> checkpoint from 🤗 <code>transformers</code> <span class="citation">(Wolf et al. <a href="#ref-wolf-etal-2020-huggingface">2020</a>)</span> is used.<a href="chap-ex2.html#fnref18" class="footnote-back">↩</a></p></li>
+<li id="fn19"><p>Code available at <a href="https://github.com/gsarti/interpreting-complexity">https://github.com/gsarti/interpreting-complexity</a><a href="chap-ex2.html#fnref19" class="footnote-back">↩</a></p></li>
+<li id="fn20"><p>More details on this procedure are provided in Appendix <a href="app-et-modeling.html#app:et-modeling">C</a>.<a href="chap-ex2.html#fnref20" class="footnote-back">↩</a></p></li>
+<li id="fn21"><p>See Appendix <a href="app-et-metrics.html#app:et-metrics">B</a> for additional details on the preprocessing and merging of eye-tracking corpora.<a href="chap-ex2.html#fnref21" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap-ex1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap-ex3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gsarti/master-thesis/tree/master/04-Representation-Similarity.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Sarti_2020_Interpreting_NLMs_for_LCA.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

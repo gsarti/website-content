@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Complexity Phenomena in Linguistic Annotations and Language Models | Interpreting Neural Language Models for Linguistic Complexity Assessment</title>
+  <meta name="description" content="This is a test description" />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Complexity Phenomena in Linguistic Annotations and Language Models | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://gsarti.com/master-thesis" />
+  <meta property="og:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+  <meta property="og:description" content="This is a test description" />
+  <meta name="github-repo" content="gsarti/interpreting-complexity" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Complexity Phenomena in Linguistic Annotations and Language Models | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  
+  <meta name="twitter:description" content="This is a test description" />
+  <meta name="twitter:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+
+<meta name="author" content="Gabriele Sarti" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="figures/icons/apple-icon.png" />
+  <link rel="shortcut icon" href="figures/icons/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="chap-models.html"/>
+<link rel="next" href="chap-ex2.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="templates/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="introduction.html#introduction"><strong>Introduction</strong></a></li>
+<li class="chapter" data-level="1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html"><i class="fa fa-check"></i><b>1</b> <strong>Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="1.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:categorizing"><i class="fa fa-check"></i><b>1.1</b> Categorizing Linguistic Complexity Measures</a></li>
+<li class="chapter" data-level="1.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:intrinsic"><i class="fa fa-check"></i><b>1.2</b> Intrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:structural"><i class="fa fa-check"></i><b>1.2.1</b> Structural Linguistic Complexity</a></li>
+<li class="chapter" data-level="1.2.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:lm-surprisal"><i class="fa fa-check"></i><b>1.2.2</b> Language Modeling Surprisal</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:extrinsic"><i class="fa fa-check"></i><b>1.3</b> Extrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:readability"><i class="fa fa-check"></i><b>1.3.1</b> Automatic Readability Assessment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:pc"><i class="fa fa-check"></i><b>1.3.2</b> Perceived Complexity Prediction</a></li>
+<li class="chapter" data-level="1.3.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:eye-tracking"><i class="fa fa-check"></i><b>1.3.3</b> Gaze Metrics Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:garden-path"><i class="fa fa-check"></i><b>1.4</b> Garden-path Sentences</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chap-models.html"><a href="chap-models.html"><i class="fa fa-check"></i><b>2</b> <strong>Models of Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="2.1" data-path="chap-models.html"><a href="chap-models.html#subchap:desiderata"><i class="fa fa-check"></i><b>2.1</b> Desiderata for Models of Linguistic Complexity</a></li>
+<li class="chapter" data-level="2.2" data-path="chap-models.html"><a href="chap-models.html#subchap:nlm"><i class="fa fa-check"></i><b>2.2</b> Neural Language Models: Unsupervised Multitask Learners</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:syntax-nlm"><i class="fa fa-check"></i><b>2.2.1</b> Emergent Linguistic Structures in Neural Language Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chap-models.html"><a href="chap-models.html#subchap:analyzing-nlm"><i class="fa fa-check"></i><b>2.3</b> Analyzing Neural Models of Complexity</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:probe"><i class="fa fa-check"></i><b>2.3.1</b> Probing classifiers</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chap-models.html"><a href="chap-models.html#subsubchap:rsa"><i class="fa fa-check"></i><b>2.3.2</b> Representational Similarity Analysis</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chap-models.html"><a href="chap-models.html#subsubchap:pwcca"><i class="fa fa-check"></i><b>2.3.3</b> Projection-Weighted Canonical Correlation Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-ex1.html"><a href="chap-ex1.html"><i class="fa fa-check"></i><b>3</b> <strong>Complexity Phenomena in Linguistic Annotations and Language Models</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-data"><i class="fa fa-check"></i><b>3.1</b> Data and Preprocessing</a></li>
+<li class="chapter" data-level="3.2" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-analysis"><i class="fa fa-check"></i><b>3.2</b> Analysis of Linguistic Phenomena</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-analysis-bins"><i class="fa fa-check"></i><b>3.2.1</b> Linguistic Phenomena in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-modeling"><i class="fa fa-check"></i><b>3.3</b> Modeling Online and Offline Linguistic Complexity</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-modeling-bins"><i class="fa fa-check"></i><b>3.3.1</b> Modeling Complexity in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-probing"><i class="fa fa-check"></i><b>3.4</b> Probing Linguistic Phenomena in ALBERT Representations</a></li>
+<li class="chapter" data-level="3.5" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap-ex2.html"><a href="chap-ex2.html"><i class="fa fa-check"></i><b>4</b> <strong>Representational Similarity in Models of Complexity</strong></a><ul>
+<li class="chapter" data-level="4.1" data-path="chap-ex2.html"><a href="chap-ex2.html#knowledge-driven-requirements-for-learning-models"><i class="fa fa-check"></i><b>4.1</b> Knowledge-driven Requirements for Learning Models</a></li>
+<li class="chapter" data-level="4.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-experiments"><i class="fa fa-check"></i><b>4.2</b> Experimentsl Evaluation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-data"><i class="fa fa-check"></i><b>4.2.1</b> Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-inter"><i class="fa fa-check"></i><b>4.2.2</b> Inter-model Representational Similarity</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-intra"><i class="fa fa-check"></i><b>4.2.3</b> Intra-model Representational Similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-summary"><i class="fa fa-check"></i><b>4.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap-ex3.html"><a href="chap-ex3.html"><i class="fa fa-check"></i><b>5</b> <strong>Gaze-informed Models for Cognitive Processing Prediction</strong></a><ul>
+<li class="chapter" data-level="5.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-setup"><i class="fa fa-check"></i><b>5.1</b> Experimental Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-experiments"><i class="fa fa-check"></i><b>5.2</b> Experimental Evaluation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-magnitudes"><i class="fa fa-check"></i><b>5.2.1</b> Estimating Magnitudes of Garden-path Delays</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-predicting"><i class="fa fa-check"></i><b>5.2.2</b> Predicting Delays with Surprisal and Gaze Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-summary"><i class="fa fa-check"></i><b>5.3</b> Summary</a></li>
+</ul></li>
+<li><a href="conclusion.html#conclusion"><strong>Conclusion</strong></a><ul>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Broader Impact and Ethical Perspectives</a></li>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i>Future Directions</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app-ling-feats.html"><a href="app-ling-feats.html"><i class="fa fa-check"></i><b>A</b> Linguistic Features</a><ul>
+<li class="chapter" data-level="A.1" data-path="app-ling-feats.html"><a href="app-ling-feats.html#raw-text-properties-and-lexical-variety"><i class="fa fa-check"></i><b>A.1</b> Raw Text Properties and Lexical Variety</a></li>
+<li class="chapter" data-level="A.2" data-path="app-ling-feats.html"><a href="app-ling-feats.html#morpho-syntacting-information"><i class="fa fa-check"></i><b>A.2</b> Morpho-syntacting Information</a></li>
+<li class="chapter" data-level="A.3" data-path="app-ling-feats.html"><a href="app-ling-feats.html#verbal-predicate-structure"><i class="fa fa-check"></i><b>A.3</b> Verbal Predicate Structure</a></li>
+<li class="chapter" data-level="A.4" data-path="app-ling-feats.html"><a href="app-ling-feats.html#global-and-local-parsed-tree-structures"><i class="fa fa-check"></i><b>A.4</b> Global and Local Parsed Tree Structures</a></li>
+<li class="chapter" data-level="A.5" data-path="app-ling-feats.html"><a href="app-ling-feats.html#syntactic-relations"><i class="fa fa-check"></i><b>A.5</b> Syntactic Relations</a></li>
+<li class="chapter" data-level="A.6" data-path="app-ling-feats.html"><a href="app-ling-feats.html#subordination-phenomena"><i class="fa fa-check"></i><b>A.6</b> Subordination Phenomena</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="app-et-metrics.html"><a href="app-et-metrics.html"><i class="fa fa-check"></i><b>B</b> Precisions on Eye-tracking Metrics and Preprocessing</a></li>
+<li class="chapter" data-level="C" data-path="app-et-modeling.html"><a href="app-et-modeling.html"><i class="fa fa-check"></i><b>C</b> Multi-task Token-level Regression for Gaze Metrics Prediction</a></li>
+<li class="chapter" data-level="D" data-path="app-intra-sim.html"><a href="app-intra-sim.html"><i class="fa fa-check"></i><b>D</b> Intra-model Similarity for All Models</a></li>
+<li class="chapter" data-level="E" data-path="app-garden-paths-et.html"><a href="app-garden-paths-et.html"><i class="fa fa-check"></i><b>E</b> Gaze Metrics Predictions for Garden Path Sentences</a></li>
+<li class="chapter" data-level="F" data-path="app-params.html"><a href="app-params.html"><i class="fa fa-check"></i><b>F</b> Reproducibility and Environmental Impact</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://gsarti.com">Back to my website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interpreting Neural Language Models<br />
+for Linguistic Complexity Assessment</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap:ex1" class="section level1">
+<h1><span class="header-section-number">3</span> <strong>Complexity Phenomena in Linguistic Annotations and Language Models</strong></h1>
+<p><!-- this will include a mini table of contents--></p>
+
+<blockquote>
+<p>This chapter investigates the relationship between online gaze metrics and offline perceived complexity judgments by studying how the two viewpoints are represented by a neural language model trained on human-produced data. First, a preliminary analysis of linguistic phenomena associated with the two complexity viewpoints is performed, highlighting similarities and differences across metrics. The effectiveness of a regressor based on explicit linguistic features is then evaluated for sentence complexity prediction and compared to the results obtained by a fine-tuned neural language model with contextual representations. In conclusion, the linguistic competence inside the language model’s embeddings is probed before and after fine-tuning, showing how linguistic information encoded in representations changes as the model learns to predict complexity.</p>
+</blockquote>
+<p>Given the conceptual similarity between raw cognitive processing and human perception of complexity, this chapter investigates whether the relation between eye-tracking metrics and complexity judgments can be highlighted empirically in human annotations and language model representations. With this aim, linguistic features associated with various sentence-level structural phenomena are analyzed in terms of their correlation with offline and online complexity metrics. The performance of models using either complexity-related explicit features or contextualized word embeddings is evaluated, focusing mainly on the neural language model ALBERT <span class="citation">(Lan et al. <a href="#ref-lan-etal-2020-albert">2020</a>)</span> introduced in Section <a href="chap-models.html#subchap:nlm">2.2</a>. The results highlight how both explicit features and learned representations obtain comparable performances when predicting complexity scores. Finally, the focus is shifted to studying how complexity-related properties are encoded in the representations of ALBERT.</p>
+<p>This perspective goes in the direction of exploiting human processing data to address the interpretability issues of unsupervised language representations <span class="citation">(Hollenstein, Torre, et al. <a href="#ref-hollenstein-etal-2019-cognival">2019</a>; Gauthier and Levy <a href="#ref-gauthier-levy-2019-linking">2019</a>; Abnar et al. <a href="#ref-abnar-etal-2019-blackbox">2019</a>)</span>, leveraging the <em>probing task</em> approach introduced in Section <a href="chap-models.html#subsubchap:probe">2.3.1</a>. It is observed that online and offline complexity fine-tuning produces a consequent increase in probing performances for complexity-related features during probing experiments. This investigation has the specific purpose of studying whether and how learning a new task affects the linguistic properties encoded in pretrained representations. While pre-trained models have been widely studied using probing methods, the effect of fine-tuning on encoded information was seldom investigated. To my best knowledge, no previous work has taken into account sentence complexity assessment as a fine-tuning task for NLMs. Results suggest that the model’s abilities during training are interpretable from a linguistic perspective and are possibly related to its predictive capabilities for complexity assessment.</p>
+<p><span class="custompar">Contributions</span> This is the first work displaying the connection between online and offline complexity metrics and studying how a neural language model represents them. This work:</p>
+<ul>
+<li><p>Provides a comprehensive analysis of linguistic phenomena correlated with eye-tracking data and human perception of complexity, addressing similarities and differences from a linguistically-motivated perspective across metrics and at different levels of granularity;</p></li>
+<li><p>Compares the performance of models using both explicit features and unsupervised contextual representations when predicting online and offline sentence complexity; and</p></li>
+<li><p>Shows the natural emergence of complexity-related linguistic phenomena in the representations of language models trained on complexity metrics.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p></li>
+</ul>
+<div id="subchap:ex1-data" class="section level2">
+<h2><span class="header-section-number">3.1</span> Data and Preprocessing</h2>
+<p>The experiments of this chapter leverage two corpora, each capturing different aspects of linguistic complexity:</p>
+<p><span class="custompar">Eye-tracking</span> For online complexity metrics, only the monolingual English portion of GECO <span class="citation">(Cop et al. <a href="#ref-cop-etal-2017-presenting">2017</a>)</span>, presented in Section <a href="chap-ling-comp.html#subsubchap:eye-tracking">1.3.3</a>, was used. Four online metrics spanning multiple phases of cognitive processing are selected, respectively: <em>first pass duration</em> (FPD), <em>total fixation count</em> (FXC), <em>total fixation duration</em> (TFD) and <em>total regression duration</em> (TRD) (see Table <a href="chap-ling-comp.html#tab:et-metrics">1.3</a> for more details). Metrics are sum-aggregated at sentence-level and averaged across participants to obtain a single label for each metric-sentence pair. As a final step to make the corpus more suitable for linguistic complexity analysis, all utterances with fewer than five words, deemed uninteresting from a cognitive processing perspective, are removed.</p>
+<p><span class="custompar">Perceived Complexity</span> For the offline evaluation of sentence complexity, the English portion of the corpus by <span class="citation">Brunato et al. (<a href="#ref-brunato-etal-2018-sentence">2018</a>)</span> was used (Section <a href="chap-ling-comp.html#subsubchap:pc">1.3.2</a>). Sentences in the corpus have uniformly-distributed lengths ranging between 10 and 35 tokens. Each sentence is associated with 20 ratings of perceived-complexity on a 1-to-7 point scale. Duplicates and sentences for which less than half of the annotators agreed on a score in the range <span class="math inline">\(\mu_n \pm \sigma_n\)</span>, where <span class="math inline">\(\mu_n\)</span> and <span class="math inline">\(\sigma_n\)</span> are respectively the average and standard deviation of all annotators’ judgments for sentence <span class="math inline">\(n\)</span> were removed to reduce noise coming from the annotation procedure. Again, scores are averaged across annotators to obtain a single metric for each sentence.</p>
+<p>Table <a href="chap-ex1.html#tab:ex1-stats">3.1</a> presents an overview of the two corpora after preprocessing. The resulting eye-tracking (ET) corpus contains roughly four times more sentences than the perceived complexity (PC) one, with shorter words and sentences on average. The differences in sizes and domains between the two corpora account for multi-genre linguistic phenomena in the following analysis.</p>
+<table class="table" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:ex1-stats">Table 3.1: </span>Descriptive statistics of the two sentence-level corpora after the preprocessing procedure.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+</th>
+<th style="text-align:center;font-weight: bold;">
+Perceived Complexity
+</th>
+<th style="text-align:center;font-weight: bold;">
+Eye-tracking (GECO)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+labels
+</td>
+<td style="text-align:center;width: 10em; ">
+PC
+</td>
+<td style="text-align:center;width: 12em; ">
+FPD, FXC, TFD, TRD
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+domain(s)
+</td>
+<td style="text-align:center;width: 10em; ">
+financial news
+</td>
+<td style="text-align:center;width: 12em; ">
+literature
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+aggregation steps
+</td>
+<td style="text-align:center;width: 10em; ">
+avg. annotators
+</td>
+<td style="text-align:center;width: 12em; ">
+sentence sum-aggregation + avg. participants
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+filtering steps
+</td>
+<td style="text-align:center;width: 10em; ">
+filtering by agreement + remove duplicates
+</td>
+<td style="text-align:center;width: 12em; ">
+min. length &gt; 5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+# of sentences
+</td>
+<td style="text-align:center;width: 10em; ">
+1115
+</td>
+<td style="text-align:center;width: 12em; ">
+4041
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+# of tokens
+</td>
+<td style="text-align:center;width: 10em; ">
+21723
+</td>
+<td style="text-align:center;width: 12em; ">
+52131
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avg. sent. length
+</td>
+<td style="text-align:center;width: 10em; ">
+19.48
+</td>
+<td style="text-align:center;width: 12em; ">
+12.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avg. token length
+</td>
+<td style="text-align:center;width: 10em; ">
+4.95
+</td>
+<td style="text-align:center;width: 12em; ">
+4.6
+</td>
+</tr>
+<tr grouplength="6">
+<td colspan="3" style="border-bottom: 1px solid;">
+<strong>Length-binned subsets (# of sentences)</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Bin 10±1 size
+</td>
+<td style="text-align:center;width: 10em; ">
+173
+</td>
+<td style="text-align:center;width: 12em; ">
+899
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Bin 15±1 size
+</td>
+<td style="text-align:center;width: 10em; ">
+163
+</td>
+<td style="text-align:center;width: 12em; ">
+568
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Bin 20±1 size
+</td>
+<td style="text-align:center;width: 10em; ">
+164
+</td>
+<td style="text-align:center;width: 12em; ">
+341
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Bin 25±1 size
+</td>
+<td style="text-align:center;width: 10em; ">
+151
+</td>
+<td style="text-align:center;width: 12em; ">
+215
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Bin 30±1 size
+</td>
+<td style="text-align:center;width: 10em; ">
+165
+</td>
+<td style="text-align:center;width: 12em; ">
+131
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Bin 35±1 size
+</td>
+<td style="text-align:center;width: 10em; ">
+147
+</td>
+<td style="text-align:center;width: 12em; ">
+63
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="subchap:ex1-analysis" class="section level2">
+<h2><span class="header-section-number">3.2</span> Analysis of Linguistic Phenomena</h2>
+<p>As a first step to investigate the connection between the two complexity paradigms, the correlation of online and offline complexity labels with various linguistic phenomena is evaluated. The Profiling-UD tool <span class="citation">(Brunato et al. <a href="#ref-brunato-etal-2020-profiling">2020</a>)</span> introduced in Section <a href="chap-ling-comp.html#subsubchap:structural">1.2.1</a> is used to annotate each sentence in our corpora and extract from it ~100 features representing their linguistic structure according to the Universal Dependencies formalism <span class="citation">(Nivre et al. <a href="#ref-nivre-etal-2016-universal">2016</a>)</span>. These features capture a comprehensive set of phenomena, from basic information (e.g. sentence and word length) to more complex aspects of sentence structure (e.g. parse tree depth, verb arity), including properties related to sentence complexity at different levels of description. A summary of the most relevant features is presented in Appendix <a href="app-ling-feats.html#app:ling-feats">A</a>. Features are ranked using their Spearman’s correlation score with complexity metrics, and scores are leveraged to highlight the relation between linguistic phenomena and complexity paradigms.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:feat-heatmap"></span>
+<img src="figures/3_feat_heatmap.png" alt="Ranking of the most correlated linguistic features for selected metrics. All of Spearman’s correlation coefficients have \(p&lt;0.001\)." width="50%" />
+<p class="caption">
+Figure 3.1: Ranking of the most correlated linguistic features for selected metrics. All of Spearman’s correlation coefficients have <span class="math inline">\(p&lt;0.001\)</span>.
+</p>
+</div>
+<p>The correlation scores analysis highlights how features showing a significant correlation with eye-tracking metrics are twice as many as those correlating with PC scores and generally tend to have higher coefficients, except for the total regression duration (TRD) metric. Nevertheless, the most correlated features are the same across all metrics. Figure <a href="chap-ex1.html#fig:feat-heatmap">3.1</a> reports correlation scores for features showing a strong connection (<span class="math inline">\(|\rho|&gt;0.3\)</span>) with at least one of the evaluated metrics. As expected, sentence length (<em>n_tokens</em>) and other related features capturing structural complexity aspects occupy the top positions in the ranking. Among those, we can note the length of dependency links (<em>max_links_len, avg_links_len</em>) and the depth of the whole parse tree or selected sub-trees, i.e. nominal chains headed by a preposition (<em>parse_depth, n_prep_chains</em>).
+Similarly, the distribution of subordinate clauses (<em>sub_prop_dist, sub_post</em>) is positively correlated with all metrics but with a more substantial effect for eye-tracking ones, especially in the presence of longer embedded chains (<em>sub_chain_len</em>).
+Interestingly, the presence of numbers (<em>upos_NUM, dep_nummod</em>) affects only the offline perception of complexity, while it is never strongly correlated with all eye-tracking metrics. This finding is expected since numbers are very short tokens and, like other functional POS, were never found to be strongly correlated with online reading in our results. Conversely, numerical information has been identified as a factor hampering sentence readability and understanding <span class="citation">(Rello et al. <a href="#ref-rello-etal-2013-one">2013</a>)</span>.</p>
+<div id="subsubchap:ex1-analysis-bins" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Linguistic Phenomena in Length-controlled Bins</h3>
+<p>Unsurprisingly, sentence length is the most correlated predictor for all complexity metrics. Since many linguistic features highlighted in our analysis are strongly related to sentence length, we tested whether they maintain a relevant influence when this parameter is controlled. To this end, Spearman’s correlation was computed between features and complexity tasks, but this time considering bins of sentences having approximately the same length. Specifically, we split each corpus into six bins of sentences with 10, 15, 20, 25, 30, and 35 tokens, respectively, with a range of ±1 tokens per bin to select a reasonable number of sentences for our analysis. Resulting subsets have a relatively constant size for the PC corpus, which was constructed ad-hoc to have such uniform length distribution, but have a sharply decreasing size for the eye-tracking corpus (see Table <a href="chap-ex1.html#tab:ex1-stats">3.1</a>, bott. While deemed appropriate in the context of this correlation analysis, the disparity in bin sizes may play a significant role in hampering the performances of models trained on binned linguistic complexity data. This perspective is discussed in Section <a href="chap-ex1.html#subchap:ex1-modeling">3.3</a>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:feat-bin-heatmap"></span>
+<img src="figures/3_feat_bin_heatmap.png" alt="Rankings of the most correlated linguistic features for metrics within length-binned subsets of the two corpora. Squares show the correlation between features (left axis) and a complexity metric (top) at a specific bin of length (bottom). Coefficients \(\geq\) 0.2 or \(\leq\) -0.2 are highlighted, and have \(p&lt;0.001\)." width="95%" />
+<p class="caption">
+Figure 3.2: Rankings of the most correlated linguistic features for metrics within length-binned subsets of the two corpora. Squares show the correlation between features (left axis) and a complexity metric (top) at a specific bin of length (bottom). Coefficients <span class="math inline">\(\geq\)</span> 0.2 or <span class="math inline">\(\leq\)</span> -0.2 are highlighted, and have <span class="math inline">\(p&lt;0.001\)</span>.
+</p>
+</div>
+<p>Figure <a href="chap-ex1.html#fig:feat-bin-heatmap">3.2</a> reports the new rankings of the most correlated linguistic features within each bin across complexity metrics (<span class="math inline">\(|\rho| &gt; 0.2\)</span>). Again, we observe that features showing a significant correlation with complexity scores are fewer for PC bins than for eye-tracking ones. This fact depends on controlling for sentence length and the small size of bins for the whole dataset. As in the coarse-grained analysis, TRD is the eye-tracking metric less correlated to linguistic features, while the other three (FXC, FPD, TFD) show a homogeneous behavior across bins. For the latter, vocabulary-related features (token-type ratio, average word length, lexical density) are always positive and top-ranked in all bins, especially when considering shorter sentences (i.e. from 10 to 20 tokens). For PC, this is true only for some of them (word length and lexical density). On another note, features encoding numerical information are still highly correlated with the offline perception of complexity in almost all bins.</p>
+<p>Interestingly, features modeling subordination phenomena extracted from fixed-length sentences exhibit a reverse trend than when extracted from the whole corpus, i.e. they are negatively correlated with judgments. If, on the one hand, an increase in the presence of subordination for longer sentences (possibly making sentences more convoluted) was expected, on the other hand, when the length is controlled, findings suggest that subordinate structures are not necessarily perceived as a symptom of sentence complexity.</p>
+<p>The analysis also highlights how linguistic features relevant to online and offline complexity are different when controlling for sentence length. This aspect, in particular, was not evident from the previous coarse-grained analysis. Despite blocking sentence length, gaze measures are still significantly connected to length-related phenomena (high correlation with <em>n_tokens</em> at various length bins). This observation can be possibly due to the ±1 margin applied for sentence selection and the high sensitivity of behavioral metrics to small input changes.</p>
+</div>
+</div>
+<div id="subchap:ex1-modeling" class="section level2">
+<h2><span class="header-section-number">3.3</span> Modeling Online and Offline Linguistic Complexity</h2>
+<p>Given the high correlations reported above, the next step involves quantifying the importance of explicit linguistic features from a modeling standpoint. Table <a href="chap-ex1.html#tab:ex1-results">3.2</a> presents the RMSE and <span class="math inline">\(R^2\)</span> scores of predictions made by baselines and models for the selected complexity metrics. Performances are tested with a 5-fold cross-validation regression with a fixed random seed on each metric. Our baselines use average metric scores of all training sentences (<em>Avg. score</em>) and average scores of sentences binned by their length, expressed in number of tokens, as predictions (<em>Bin average</em>). The two linear SVM models leverage explicit linguistic features, using respectively only the <em>n_tokens</em> feature (<em>SVM length</em>) and the whole set of linguistic features presented above (<em>SVM feats</em>). Besides those, the performances of a state-of-the-art Transformer neural language model relying entirely on contextual word embeddings are equally tested. <em>ALBERT</em> (<span class="citation">Lan et al. (<a href="#ref-lan-etal-2020-albert">2020</a>)</span>; see Section <a href="chap-models.html#subchap:nlm">2.2</a>) as a lightweight yet effective alternative to BERT <span class="citation">(Devlin et al. <a href="#ref-devlin-etal-2019-bert">2019</a>)</span> for obtaining contextual word representations, using its last-layer <code>[CLS]</code> sentence embedding as input for a linear regressor during fine-tuning and testing. We selected the last layer representations, despite strong evidence on the importance of intermediate representation in encoding language properties, because we aim to investigate how superficial layers encode complexity-related competence. Given the availability of parallel eye-tracking annotations, we train ALBERT using multitask learning with hard parameter sharing <span class="citation">(Caruana <a href="#ref-caruana-1997-multitask">1997</a>)</span> on gaze metrics.<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a></p>
+<table class="table" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:ex1-results">Table 3.2: </span>Average Root-Mean-Square Error (<span class="math inline">\(\sqrt{E^2}\)</span>) and <span class="math inline">\(R^2\)</span> score values for sentence-level complexity predictions using 5-fold cross-validation. Lower <span class="math inline">\(\sqrt{E^2}\)</span> and higher <span class="math inline">\(R^2\)</span> are better.
+</caption>
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+PC
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+FXC
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+FPD
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+TFD
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+TRD
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="2">
+<td colspan="11" style="border-bottom: 1px solid;">
+<strong>Statistical baselines</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em;  padding-left: 2em;" indentlevel="1">
+Avg. score
+</td>
+<td style="text-align:center;">
+<span style="     ">0.87</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">6.17</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">1078</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">1297</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">540</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.03</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em;  padding-left: 2em;" indentlevel="1">
+Bin average
+</td>
+<td style="text-align:center;">
+<span style="     ">0.53</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.62</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">2.36</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.86</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">374</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.89</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">532</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.85</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">403</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.45</span>
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="11" style="border-bottom: 1px solid;">
+<strong>Explicit features</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em;  padding-left: 2em;" indentlevel="1">
+SVM length
+</td>
+<td style="text-align:center;">
+<span style="     ">0.54</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.62</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">2.19</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.88</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">343</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.9</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">494</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.86</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">405</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.45</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em;  padding-left: 2em;" indentlevel="1">
+SVM feats
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.44</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.74</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">1.77</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.92</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">287</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.93</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">435</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.92</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">400</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.46</span>
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="11" style="border-bottom: 1px solid;">
+<strong>Learned representations</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em;  padding-left: 2em;" indentlevel="1">
+ALBERT
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.44</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.75</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">1.98</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.92</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">302</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.93</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">435</span>
+</td>
+<td style="text-align:center;">
+<span style="     ">0.9</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">382</span>
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.49</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>From Table <a href="chap-ex1.html#tab:ex1-results">3.2</a> it can be noted that:</p>
+<ul>
+<li><p>The length-binned average baseline is very effective in predicting complexity scores and gaze metrics, which is unsurprising given the extreme correlation between length and complexity metrics presented in Figure <a href="chap-ex1.html#fig:feat-heatmap">3.1</a>;</p></li>
+<li><p>The <em>SVM feats</em> model shows considerable improvements if compared to the length-only SVM model for all complexity metrics, highlighting how length alone accounts for much but not for the entirety of variance in complexity scores;</p></li>
+<li><p>ALBERT performs on-par with the SVM feats model on all complexity metrics despite the small dimension of the fine-tuning corpora and the absence of explicit linguistic information.</p></li>
+</ul>
+<p>A possible interpretation of ALBERT’s strong performances is that the model implicitly develops competence related to phenomena encoded by linguistic features while training on online and offline complexity prediction. We explore this perspective in Section <a href="chap-ex1.html#subchap:ex1-probing">3.4</a>.</p>
+<div id="subsubchap:ex1-modeling-bins" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Modeling Complexity in Length-controlled Bins</h3>
+
+<div class="figure" style="text-align: center"><span id="fig:models-bin-scores"></span>
+<img src="figures/3_models_bin_scores.png" alt="Average Root-Mean-Square Error (RMSE) scores for models in Table 3.2, performing 5-fold cross-validation on the length-binned subsets used for Figure 3.2. Lower scores are better." width="100%" />
+<p class="caption">
+Figure 3.3: Average Root-Mean-Square Error (RMSE) scores for models in Table <a href="chap-ex1.html#tab:ex1-results">3.2</a>, performing 5-fold cross-validation on the length-binned subsets used for Figure <a href="chap-ex1.html#fig:feat-bin-heatmap">3.2</a>. Lower scores are better.
+</p>
+</div>
+<p>Similarly to the approach adopted in Section <a href="chap-ex1.html#subsubchap:ex1-analysis-bins">3.2.1</a>, the performances of models are tested on length-binned data to verify their consistency in the context of length-controlled sequences. Figure <a href="chap-ex1.html#fig:models-bin-scores">3.3</a> presents RMSE scores averaged with 5-fold cross-validation over the length-binned sentences subsets for all complexity metrics. It can be observed that ALBERT outperforms the SVM with linguistic features on nearly all bins and metrics, showing the largest gains on intermediate bins for PC and gaze durations (FPD, TFD, TRD). Interestingly, models’ overall performances follow a length-dependent increasing trend for eye-tracking metrics, but not for PC. This behavior can be possibly explained in terms of the high sensibility to length previously highlighted for online metrics, as well as the broad variability in bin dimensions. It can also be observed how the SVM model based on explicit linguistic features (<em>SVM feats</em>) performs poorly on larger bins for all tasks, sometimes being even worse than the bin-average baseline. While this behavior seems surprising given the positive influence of features highlighted in Table <a href="chap-ex1.html#tab:ex1-results">3.2</a>, this phenomenon can be attributed to the small dimension of longer bins, which negatively impacts the generalization capabilities of the regressor. The relatively better scores achieved by ALBERT in those, instead, support the effectiveness of information stored in pretrained language representations when a limited number of examples are available.</p>
+</div>
+</div>
+<div id="subchap:ex1-probing" class="section level2">
+<h2><span class="header-section-number">3.4</span> Probing Linguistic Phenomena in ALBERT Representations</h2>
+<p>As shown in the previous section, ALBERT performances in complexity predictions are comparable to those of an SVM relying on explicit linguistic features and even better than those when controlling for length. The <em>probing task</em> interpretability paradigm (Section <a href="chap-models.html#subsubchap:probe">2.3.1</a>) is adopted to investigate if ALBERT encodes the linguistic knowledge that we identified as strongly correlated with online and perceived sentence complexity during training and prediction. In particular, the aim of this investigation is two-fold:</p>
+<ul>
+<li><p>Probing ALBERT’s innate competence in relation to the broad spectrum of linguistic features described in Appendix <a href="app-ling-feats.html#app:ling-feats">A</a>; and</p></li>
+<li><p>Verifying whether, and in which respect, this competence is affected by a fine-tuning process on the complexity assessment metrics.</p></li>
+</ul>
+<p>Three UD English treebanks spanning different textual genres – <strong>EWT, GUM, and ParTUT</strong> respectively by <span class="citation">Silveira et al. (<a href="#ref-silveira-etal-2014-gold">2014</a>)</span>, <span class="citation">Zeldes (<a href="#ref-zeldes-2017-gum">2017</a>)</span>, and <span class="citation">Sanguinetti and Bosco (<a href="#ref-sanguinetti-etal-2015-partut">2015</a>)</span> – were aggregated, obtaining a final corpus of 18,079 sentences with gold linguistic information which was used to conduct probing experiments. The Profiling-UD tool was again leveraged to extract <span class="math inline">\(n\)</span> sentence-level linguistic features <span class="math inline">\(\mathcal{Z}=z_1, \dots, z_n\)</span> from gold linguistic annotations. Representations <span class="math inline">\(A(x)\)</span> were generated for all corpus sentences using the last-layer <code>[CLS]</code> embedding of a pretrained ALBERT base model without additional fine-tuning, and <span class="math inline">\(n\)</span> single-layer perceptron regressors <span class="math inline">\(g_i: A(x) \rightarrow z_i\)</span> are trained to map representations <span class="math inline">\(A(x)\)</span> to each linguistic feature <span class="math inline">\(z_i\)</span>. Finally, the error and <span class="math inline">\(R^2\)</span> scores of each <span class="math inline">\(g_i\)</span> were evaluated as proxies for the quality of representations <span class="math inline">\(A(x)\)</span> in encoding their respective linguistic feature <span class="math inline">\(z_i\)</span>. The same evaluation is repeated for ALBERTs fine-tuned respectively on perceived complexity labels (PC) and on all eye-tracking labels with multitask learning (ET), averaging scores with 5-fold cross-validation. A selected subset of results is shown on the left side of Table <a href="chap-ex1.html#tab:probes">3.3</a>.</p>
+<table class="table" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:probes">Table 3.3: </span>Root MSE (<span class="math inline">\(\sqrt{E^2}\)</span>) and <span class="math inline">\(R^2\)</span> scores for diagnostic regressors trained on ALBERT representations, respectively, without fine-tuning (Base), with PC and eye-tracking (ET) fine-tuning on all data (left) and on the <span class="math inline">\(10 \pm 1\)</span> length-binned subset (right).  values highlight relevant increases in <span class="math inline">\(R^2\)</span> from Base.
+</caption>
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Base
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+PC
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+ET
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+PC10±1
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+ET10±1
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sqrt{E^2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(R^2\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+n_tokens
+</td>
+<td style="text-align:center;">
+8.19
+</td>
+<td style="text-align:center;">
+0.26
+</td>
+<td style="text-align:center;">
+4.66
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.76</span>
+</td>
+<td style="text-align:center;">
+2.87
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.91</span>
+</td>
+<td style="text-align:center;">
+8.66
+</td>
+<td style="text-align:center;">
+<span style="     ">0.18</span>
+</td>
+<td style="text-align:center;">
+6.71
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.51</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+parse_depth
+</td>
+<td style="text-align:center;">
+1.47
+</td>
+<td style="text-align:center;">
+0.18
+</td>
+<td style="text-align:center;">
+1.18
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.48</span>
+</td>
+<td style="text-align:center;">
+1.04
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.6</span>
+</td>
+<td style="text-align:center;">
+1.50
+</td>
+<td style="text-align:center;">
+<span style="     ">0.16</span>
+</td>
+<td style="text-align:center;">
+1.22
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.43</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vb_head_per_sent
+</td>
+<td style="text-align:center;">
+1.38
+</td>
+<td style="text-align:center;">
+0.15
+</td>
+<td style="text-align:center;">
+1.26
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.3</span>
+</td>
+<td style="text-align:center;">
+1.14
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.42</span>
+</td>
+<td style="text-align:center;">
+1.44
+</td>
+<td style="text-align:center;">
+<span style="     ">0.09</span>
+</td>
+<td style="text-align:center;">
+1.30
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.25</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xpos_dist_.
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+0.13
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.41</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.42</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style="     ">0.18</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.38</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avg_links_len
+</td>
+<td style="text-align:center;">
+0.58
+</td>
+<td style="text-align:center;">
+0.12
+</td>
+<td style="text-align:center;">
+0.53
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.29</span>
+</td>
+<td style="text-align:center;">
+0.52
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.31</span>
+</td>
+<td style="text-align:center;">
+0.59
+</td>
+<td style="text-align:center;">
+<span style="     ">0.1</span>
+</td>
+<td style="text-align:center;">
+0.56
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.2</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+max_links_len
+</td>
+<td style="text-align:center;">
+5.20
+</td>
+<td style="text-align:center;">
+0.12
+</td>
+<td style="text-align:center;">
+4.08
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.46</span>
+</td>
+<td style="text-align:center;">
+3.75
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.54</span>
+</td>
+<td style="text-align:center;">
+5.24
+</td>
+<td style="text-align:center;">
+<span style="     ">0.11</span>
+</td>
+<td style="text-align:center;">
+4.73
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.28</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+n_prep_chains
+</td>
+<td style="text-align:center;">
+0.74
+</td>
+<td style="text-align:center;">
+0.11
+</td>
+<td style="text-align:center;">
+0.67
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.26</span>
+</td>
+<td style="text-align:center;">
+0.66
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.29</span>
+</td>
+<td style="text-align:center;">
+0.72
+</td>
+<td style="text-align:center;">
+<span style="     ">0.14</span>
+</td>
+<td style="text-align:center;">
+0.69
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.21</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub_prop_dist
+</td>
+<td style="text-align:center;">
+0.35
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+<td style="text-align:center;">
+0.33
+</td>
+<td style="text-align:center;">
+<span style="     ">0.13</span>
+</td>
+<td style="text-align:center;">
+0.31
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.22</span>
+</td>
+<td style="text-align:center;">
+0.34
+</td>
+<td style="text-align:center;">
+<span style="     ">0.05</span>
+</td>
+<td style="text-align:center;">
+0.32
+</td>
+<td style="text-align:center;">
+<span style="     ">0.15</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+upos_dist_PRON
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+<span style="     ">0.14</span>
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.07</span>
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.23</span>
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+<span style="     ">0.15</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pos_dist_NUM
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.02</span>
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.16</span>
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_dist_nsubj
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+<span style="     ">0.1</span>
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.05</span>
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.17</span>
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+<span style="     ">0.11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+char_per_tok
+</td>
+<td style="text-align:center;">
+0.89
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+0.87
+</td>
+<td style="text-align:center;">
+<span style="     ">0.12</span>
+</td>
+<td style="text-align:center;">
+0.90
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.05</span>
+</td>
+<td style="text-align:center;">
+0.82
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.22</span>
+</td>
+<td style="text-align:center;">
+0.86
+</td>
+<td style="text-align:center;">
+<span style="     ">0.14</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prep_chain_len
+</td>
+<td style="text-align:center;">
+0.60
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+0.57
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.17</span>
+</td>
+<td style="text-align:center;">
+0.56
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.19</span>
+</td>
+<td style="text-align:center;">
+0.59
+</td>
+<td style="text-align:center;">
+<span style="     ">0.12</span>
+</td>
+<td style="text-align:center;">
+0.56
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.18</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub_chain_len
+</td>
+<td style="text-align:center;">
+0.70
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+0.67
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.15</span>
+</td>
+<td style="text-align:center;">
+0.62
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.26</span>
+</td>
+<td style="text-align:center;">
+0.71
+</td>
+<td style="text-align:center;">
+<span style="     ">0.04</span>
+</td>
+<td style="text-align:center;">
+0.66
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.16</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_dist_punct
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.14</span>
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.14</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_dist_nmod
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     ">0.07</span>
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     ">0.09</span>
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     ">0.09</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub_post
+</td>
+<td style="text-align:center;">
+0.44
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+0.46
+</td>
+<td style="text-align:center;">
+<span style="     ">0.12</span>
+</td>
+<td style="text-align:center;">
+0.44
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style=" font-weight: bold;    ">0.18</span>
+</td>
+<td style="text-align:center;">
+0.47
+</td>
+<td style="text-align:center;">
+<span style="     ">0.05</span>
+</td>
+<td style="text-align:center;">
+0.45
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.14</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_dist_case
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.08</span>
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+<span style="     ">0.07</span>
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+<span style="     ">0.1</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lexical_density
+</td>
+<td style="text-align:center;">
+0.14
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+0.13
+</td>
+<td style="text-align:center;">
+<span style="     ">0.03</span>
+</td>
+<td style="text-align:center;">
+0.13
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.03</span>
+</td>
+<td style="text-align:center;">
+0.13
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.13</span>
+</td>
+<td style="text-align:center;">
+0.13
+</td>
+<td style="text-align:center;">
+<span style=" font-weight: bold;    ">0.13</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_dist_compound
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+<span style="     ">0.05</span>
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.03</span>
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+<span style="     ">0.1</span>
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+<span style="     ">0.07</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_dist_conj
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+0.03
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style="     ">0.04</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.04</span>
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     ">0.02</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style="     ">0.03</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ttr_form
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+0.03
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+<span style="     ">0.05</span>
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.05</span>
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+<span style="     ">0.05</span>
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+<span style="     ">0.05</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_dist_det
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+0.03
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+<span style="     ">0.02</span>
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.04</span>
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+<span style="     ">0.03</span>
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+<td style="text-align:center;">
+<span style="     ">0.03</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_dist_aux
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+0.02
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style="     ">0.01</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.01</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style="     ">0.04</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pos_dist_VBN
+</td>
+<td style="text-align:center;">
+0.03
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+<td style="text-align:center;">
+0.03
+</td>
+<td style="text-align:center;">
+<span style="     ">0</span>
+</td>
+<td style="text-align:center;">
+0.03
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0</span>
+</td>
+<td style="text-align:center;">
+0.03
+</td>
+<td style="text-align:center;">
+<span style="     ">0.01</span>
+</td>
+<td style="text-align:center;">
+0.03
+</td>
+<td style="text-align:center;">
+<span style="     ">0</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xpos_dist_VBZ
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style="     ">0.01</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.02</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style="     ">0.02</span>
+</td>
+<td style="text-align:center;">
+0.04
+</td>
+<td style="text-align:center;">
+<span style="     ">0.02</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ttr_lemma
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+<td style="text-align:center;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+<td style="text-align:center;border-right:1px solid;">
+<span style="     ">0.06</span>
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+<td style="text-align:center;">
+<span style="     ">0.04</span>
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+<td style="text-align:center;">
+<span style="     ">0.03</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>As it can be observed, ALBERT’s last-layer sentence representations have relatively low knowledge of complexity-related probes, but their performances highly increase after fine-tuning. Specifically, a noticeable improvement was obtained on features that were already better encoded in base pretrained representation, i.e. sentence length and related, suggesting that fine-tuning possibly accentuates only properties already well-known by the model, regardless of the target task. To verify that this isn’t the case, the same probing tests were repeated on ALBERT models fine-tuned on the smallest length-binned subset (i.e. <span class="math inline">\(10\pm1\)</span> tokens) presented in previous sections. The right side of Table <a href="chap-ex1.html#tab:probes">3.3</a> presents the resulting scores. From the length-binned correlation analysis of Section <a href="chap-ex1.html#fig:feat-bin-heatmap">3.2</a>, PC scores were observed to be mostly uncorrelated with length phenomena, while ET scores remain significantly affected despite our controlling of sequence size. This observation also holds for length-binned probing task results, where the PC model seems to neglect length-related properties in favor of task-specific ones that were also highlighted in our fine-grained correlation analysis (e.g. word length, numbers, explicit subjects). The ET-trained model follows the same behavior, retaining strong but lower performances for length-related features.</p>
+<p>In conclusion, although higher probing task performances after fine-tuning are not direct proof that the neural language model exploits newly-acquired morpho-syntactic and syntactic information, results suggest that training on tasks strongly connected with underlying linguistic structures triggers a change in model representations resulting in a better encoding of related linguistic properties.</p>
+</div>
+<div id="subchap:ex1-summary" class="section level2">
+<h2><span class="header-section-number">3.5</span> Summary</h2>
+<p>In this chapter, the connection between eye-tracking metrics and the offline perception of sentence complexity was investigated from an experimental standpoint. An in-depth correlation analysis was performed between complexity scores and sentence linguistic properties at different granularity levels, highlighting the strong relationship between metrics and length-affine properties and revealing different behaviors when controlling for sentence length. Models using explicit linguistic features and unsupervised word embeddings were evaluated on complexity prediction, showing comparable performances across metrics. Finally, the encoding of linguistic properties in a neural language model’s contextual representations was tested with probing tasks. This approach highlighted the natural emergence of task-related linguistic properties within the model’s representations after the fine-tuning process. Thus, it can be conjectured that a relation subsists between the model’s linguistic abilities during the training procedure and its downstream performances on morphosyntactically-related tasks and that linguistic probes may provide a reasonable estimate of the task-oriented quality of representations.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-abnar-etal-2019-blackbox">
+<p>Abnar, Samira, Lisa Beinborn, Rochelle Choenni, and Willem Zuidema. 2019. “Blackbox Meets Blackbox: Representational Similarity &amp; Stability Analysis of Neural Language Models and Brains.” In <em>Proceedings of the 2019 Acl Workshop Blackboxnlp: Analyzing and Interpreting Neural Networks for Nlp</em>, 191–203. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W19-4820">https://doi.org/10.18653/v1/W19-4820</a>.</p>
+</div>
+<div id="ref-brunato-etal-2020-profiling">
+<p>Brunato, Dominique, Andrea Cimino, Felice Dell’Orletta, Giulia Venturi, and Simonetta Montemagni. 2020. “Profiling-UD: A Tool for Linguistic Profiling of Texts.” In <em>Proceedings of the 12th Language Resources and Evaluation Conference</em>, 7145–51. Marseille, France: European Language Resources Association. <a href="https://www.aclweb.org/anthology/2020.lrec-1.883">https://www.aclweb.org/anthology/2020.lrec-1.883</a>.</p>
+</div>
+<div id="ref-brunato-etal-2018-sentence">
+<p>Brunato, Dominique, Lorenzo De Mattei, Felice Dell’Orletta, Benedetta Iavarone, and Giulia Venturi. 2018. “Is This Sentence Difficult? Do You Agree?” In <em>Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing</em>, 2690–9. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D18-1289">https://doi.org/10.18653/v1/D18-1289</a>.</p>
+</div>
+<div id="ref-caruana-1997-multitask">
+<p>Caruana, Rich. 1997. “Multitask Learning.” <em>Machine Learning</em> 28: 41–75. <a href="https://www.cs.utexas.edu/~kuipers/readings/Caruana-mlj-97.pdf">https://www.cs.utexas.edu/~kuipers/readings/Caruana-mlj-97.pdf</a>.</p>
+</div>
+<div id="ref-cop-etal-2017-presenting">
+<p>Cop, Uschi, Nicolas Dirix, Denis Drieghe, and Wouter Duyck. 2017. “Presenting Geco: An Eyetracking Corpus of Monolingual and Bilingual Sentence Reading.” <em>Behavior Research Methods</em> 49 (2). Springer: 602–15.</p>
+</div>
+<div id="ref-devlin-etal-2019-bert">
+<p>Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. “BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 4171–86. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1423">https://doi.org/10.18653/v1/N19-1423</a>.</p>
+</div>
+<div id="ref-gauthier-levy-2019-linking">
+<p>Gauthier, Jon, and Roger Levy. 2019. “Linking Artificial and Human Neural Representations of Language.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 529–39. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1050">https://doi.org/10.18653/v1/D19-1050</a>.</p>
+</div>
+<div id="ref-hollenstein-etal-2019-cognival">
+<p>Hollenstein, Nora, Antonio de la Torre, Nicolas Langer, and Ce Zhang. 2019. “CogniVal: A Framework for Cognitive Word Embedding Evaluation.” In <em>Proceedings of the 23rd Conference on Computational Natural Language Learning (Conll)</em>, 538–49. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/K19-1050">https://doi.org/10.18653/v1/K19-1050</a>.</p>
+</div>
+<div id="ref-lan-etal-2020-albert">
+<p>Lan, Zhenzhong, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. 2020. “ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations.” In <em>International Conference on Learning Representations</em>. <a href="https://openreview.net/forum?id=H1eA7AEtvS">https://openreview.net/forum?id=H1eA7AEtvS</a>.</p>
+</div>
+<div id="ref-nivre-etal-2016-universal">
+<p>Nivre, Joakim, Marie-Catherine de Marneffe, Filip Ginter, Yoav Goldberg, Jan Hajič, Christopher D. Manning, Ryan McDonald, et al. 2016. “Universal Dependencies V1: A Multilingual Treebank Collection.” In <em>Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC’16)</em>, 1659–66. Portorož, Slovenia: European Language Resources Association (ELRA). <a href="https://www.aclweb.org/anthology/L16-1262">https://www.aclweb.org/anthology/L16-1262</a>.</p>
+</div>
+<div id="ref-rello-etal-2013-one">
+<p>Rello, Luz, Susana Bautista, Ricardo Baeza-Yates, Pablo Gervás, Raquel Hervás, and Horacio Saggion. 2013. “One Half or 50%? An Eye-Tracking Study of Number Representation Readability.” In <em>Human-Computer Interaction – Interact 2013</em>, edited by Paula Kotzé, Gary Marsden, Gitte Lindgaard, Janet Wesson, and Marco Winckler, 229–45. Berlin, Heidelberg: Springer Berlin Heidelberg.</p>
+</div>
+<div id="ref-sanguinetti-etal-2015-partut">
+<p>Sanguinetti, Manuela, and Cristina Bosco. 2015. “PartTUT: The Turin University Parallel Treebank.” In <em>Harmonization and Development of Resources and Tools for Italian Natural Language Processing Within the Parli Project</em>, edited by Roberto Basili, Cristina Bosco, Rodolfo Delmonte, Alessandro Moschitti, and Maria Simi, 51–69. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-14206-7\_3">https://doi.org/10.1007/978-3-319-14206-7\_3</a>.</p>
+</div>
+<div id="ref-silveira-etal-2014-gold">
+<p>Silveira, Natalia, Timothy Dozat, Marie-Catherine de Marneffe, Samuel Bowman, Miriam Connor, John Bauer, and Chris Manning. 2014. “A Gold Standard Dependency Corpus for English.” In <em>Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC’14)</em>, 2897–2904. Reykjavik, Iceland: European Language Resources Association (ELRA). <a href="http://www.lrec-conf.org/proceedings/lrec2014/pdf/1089_Paper.pdf">http://www.lrec-conf.org/proceedings/lrec2014/pdf/1089_Paper.pdf</a>.</p>
+</div>
+<div id="ref-zeldes-2017-gum">
+<p>Zeldes, Amir. 2017. “The GUM Corpus: Creating Multilayer Resources in the Classroom.” <em>Language Resources and Evaluation</em> 51: 581–612.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="16">
+<li id="fn16"><p>Code available at <a href="https://github.com/gsarti/interpreting-complexity">https://github.com/gsarti/interpreting-complexity</a><a href="chap-ex1.html#fnref16" class="footnote-back">↩</a></p></li>
+<li id="fn17"><p>Training procedure and parameters are thoroughly described in Appendix <a href="app-params.html#app:params">F</a>.<a href="chap-ex1.html#fnref17" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap-ex2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gsarti/master-thesis/tree/master/03-Linguistic-Phenomena.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Sarti_2020_Interpreting_NLMs_for_LCA.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

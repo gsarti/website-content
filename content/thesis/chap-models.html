@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Models of Linguistic Complexity | Interpreting Neural Language Models for Linguistic Complexity Assessment</title>
+  <meta name="description" content="This is a test description" />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Models of Linguistic Complexity | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://gsarti.com/master-thesis" />
+  <meta property="og:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+  <meta property="og:description" content="This is a test description" />
+  <meta name="github-repo" content="gsarti/interpreting-complexity" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Models of Linguistic Complexity | Interpreting Neural Language Models for Linguistic Complexity Assessment" />
+  
+  <meta name="twitter:description" content="This is a test description" />
+  <meta name="twitter:image" content="https://gsarti.com/master-thesisfigures/cover.png" />
+
+<meta name="author" content="Gabriele Sarti" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="figures/icons/apple-icon.png" />
+  <link rel="shortcut icon" href="figures/icons/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="chap-ling-comp.html"/>
+<link rel="next" href="chap-ex1.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="templates/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="introduction.html#introduction"><strong>Introduction</strong></a></li>
+<li class="chapter" data-level="1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html"><i class="fa fa-check"></i><b>1</b> <strong>Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="1.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:categorizing"><i class="fa fa-check"></i><b>1.1</b> Categorizing Linguistic Complexity Measures</a></li>
+<li class="chapter" data-level="1.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:intrinsic"><i class="fa fa-check"></i><b>1.2</b> Intrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:structural"><i class="fa fa-check"></i><b>1.2.1</b> Structural Linguistic Complexity</a></li>
+<li class="chapter" data-level="1.2.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:lm-surprisal"><i class="fa fa-check"></i><b>1.2.2</b> Language Modeling Surprisal</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:extrinsic"><i class="fa fa-check"></i><b>1.3</b> Extrinsic Perspective</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:readability"><i class="fa fa-check"></i><b>1.3.1</b> Automatic Readability Assessment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:pc"><i class="fa fa-check"></i><b>1.3.2</b> Perceived Complexity Prediction</a></li>
+<li class="chapter" data-level="1.3.3" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subsubchap:eye-tracking"><i class="fa fa-check"></i><b>1.3.3</b> Gaze Metrics Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="chap-ling-comp.html"><a href="chap-ling-comp.html#subchap:garden-path"><i class="fa fa-check"></i><b>1.4</b> Garden-path Sentences</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chap-models.html"><a href="chap-models.html"><i class="fa fa-check"></i><b>2</b> <strong>Models of Linguistic Complexity</strong></a><ul>
+<li class="chapter" data-level="2.1" data-path="chap-models.html"><a href="chap-models.html#subchap:desiderata"><i class="fa fa-check"></i><b>2.1</b> Desiderata for Models of Linguistic Complexity</a></li>
+<li class="chapter" data-level="2.2" data-path="chap-models.html"><a href="chap-models.html#subchap:nlm"><i class="fa fa-check"></i><b>2.2</b> Neural Language Models: Unsupervised Multitask Learners</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:syntax-nlm"><i class="fa fa-check"></i><b>2.2.1</b> Emergent Linguistic Structures in Neural Language Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chap-models.html"><a href="chap-models.html#subchap:analyzing-nlm"><i class="fa fa-check"></i><b>2.3</b> Analyzing Neural Models of Complexity</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chap-models.html"><a href="chap-models.html#subsubchap:probe"><i class="fa fa-check"></i><b>2.3.1</b> Probing classifiers</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chap-models.html"><a href="chap-models.html#subsubchap:rsa"><i class="fa fa-check"></i><b>2.3.2</b> Representational Similarity Analysis</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chap-models.html"><a href="chap-models.html#subsubchap:pwcca"><i class="fa fa-check"></i><b>2.3.3</b> Projection-Weighted Canonical Correlation Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-ex1.html"><a href="chap-ex1.html"><i class="fa fa-check"></i><b>3</b> <strong>Complexity Phenomena in Linguistic Annotations and Language Models</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-data"><i class="fa fa-check"></i><b>3.1</b> Data and Preprocessing</a></li>
+<li class="chapter" data-level="3.2" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-analysis"><i class="fa fa-check"></i><b>3.2</b> Analysis of Linguistic Phenomena</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-analysis-bins"><i class="fa fa-check"></i><b>3.2.1</b> Linguistic Phenomena in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-modeling"><i class="fa fa-check"></i><b>3.3</b> Modeling Online and Offline Linguistic Complexity</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="chap-ex1.html"><a href="chap-ex1.html#subsubchap:ex1-modeling-bins"><i class="fa fa-check"></i><b>3.3.1</b> Modeling Complexity in Length-controlled Bins</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-probing"><i class="fa fa-check"></i><b>3.4</b> Probing Linguistic Phenomena in ALBERT Representations</a></li>
+<li class="chapter" data-level="3.5" data-path="chap-ex1.html"><a href="chap-ex1.html#subchap:ex1-summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap-ex2.html"><a href="chap-ex2.html"><i class="fa fa-check"></i><b>4</b> <strong>Representational Similarity in Models of Complexity</strong></a><ul>
+<li class="chapter" data-level="4.1" data-path="chap-ex2.html"><a href="chap-ex2.html#knowledge-driven-requirements-for-learning-models"><i class="fa fa-check"></i><b>4.1</b> Knowledge-driven Requirements for Learning Models</a></li>
+<li class="chapter" data-level="4.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-experiments"><i class="fa fa-check"></i><b>4.2</b> Experimentsl Evaluation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-data"><i class="fa fa-check"></i><b>4.2.1</b> Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-inter"><i class="fa fa-check"></i><b>4.2.2</b> Inter-model Representational Similarity</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subsubchap:ex2-intra"><i class="fa fa-check"></i><b>4.2.3</b> Intra-model Representational Similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap-ex2.html"><a href="chap-ex2.html#subchap:ex2-summary"><i class="fa fa-check"></i><b>4.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap-ex3.html"><a href="chap-ex3.html"><i class="fa fa-check"></i><b>5</b> <strong>Gaze-informed Models for Cognitive Processing Prediction</strong></a><ul>
+<li class="chapter" data-level="5.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-setup"><i class="fa fa-check"></i><b>5.1</b> Experimental Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-experiments"><i class="fa fa-check"></i><b>5.2</b> Experimental Evaluation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-magnitudes"><i class="fa fa-check"></i><b>5.2.1</b> Estimating Magnitudes of Garden-path Delays</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap-ex3.html"><a href="chap-ex3.html#subsubchap:ex3-predicting"><i class="fa fa-check"></i><b>5.2.2</b> Predicting Delays with Surprisal and Gaze Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap-ex3.html"><a href="chap-ex3.html#subchap:ex3-summary"><i class="fa fa-check"></i><b>5.3</b> Summary</a></li>
+</ul></li>
+<li><a href="conclusion.html#conclusion"><strong>Conclusion</strong></a><ul>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Broader Impact and Ethical Perspectives</a></li>
+<li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i>Future Directions</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app-ling-feats.html"><a href="app-ling-feats.html"><i class="fa fa-check"></i><b>A</b> Linguistic Features</a><ul>
+<li class="chapter" data-level="A.1" data-path="app-ling-feats.html"><a href="app-ling-feats.html#raw-text-properties-and-lexical-variety"><i class="fa fa-check"></i><b>A.1</b> Raw Text Properties and Lexical Variety</a></li>
+<li class="chapter" data-level="A.2" data-path="app-ling-feats.html"><a href="app-ling-feats.html#morpho-syntacting-information"><i class="fa fa-check"></i><b>A.2</b> Morpho-syntacting Information</a></li>
+<li class="chapter" data-level="A.3" data-path="app-ling-feats.html"><a href="app-ling-feats.html#verbal-predicate-structure"><i class="fa fa-check"></i><b>A.3</b> Verbal Predicate Structure</a></li>
+<li class="chapter" data-level="A.4" data-path="app-ling-feats.html"><a href="app-ling-feats.html#global-and-local-parsed-tree-structures"><i class="fa fa-check"></i><b>A.4</b> Global and Local Parsed Tree Structures</a></li>
+<li class="chapter" data-level="A.5" data-path="app-ling-feats.html"><a href="app-ling-feats.html#syntactic-relations"><i class="fa fa-check"></i><b>A.5</b> Syntactic Relations</a></li>
+<li class="chapter" data-level="A.6" data-path="app-ling-feats.html"><a href="app-ling-feats.html#subordination-phenomena"><i class="fa fa-check"></i><b>A.6</b> Subordination Phenomena</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="app-et-metrics.html"><a href="app-et-metrics.html"><i class="fa fa-check"></i><b>B</b> Precisions on Eye-tracking Metrics and Preprocessing</a></li>
+<li class="chapter" data-level="C" data-path="app-et-modeling.html"><a href="app-et-modeling.html"><i class="fa fa-check"></i><b>C</b> Multi-task Token-level Regression for Gaze Metrics Prediction</a></li>
+<li class="chapter" data-level="D" data-path="app-intra-sim.html"><a href="app-intra-sim.html"><i class="fa fa-check"></i><b>D</b> Intra-model Similarity for All Models</a></li>
+<li class="chapter" data-level="E" data-path="app-garden-paths-et.html"><a href="app-garden-paths-et.html"><i class="fa fa-check"></i><b>E</b> Gaze Metrics Predictions for Garden Path Sentences</a></li>
+<li class="chapter" data-level="F" data-path="app-params.html"><a href="app-params.html"><i class="fa fa-check"></i><b>F</b> Reproducibility and Environmental Impact</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://gsarti.com">Back to my website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interpreting Neural Language Models<br />
+for Linguistic Complexity Assessment</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap:models" class="section level1">
+<h1><span class="header-section-number">2</span> <strong>Models of Linguistic Complexity</strong></h1>
+<p><!-- this will include a mini table of contents--></p>
+
+<p>Standard linguistic complexity studies analyze complexity annotations produced by human subjects to evaluate how specific language structures influence our perception of complexity under various viewpoints. For example, one can derive insights about early cognitive processing by looking at early gaze metrics, like first pass duration and first fixation duration, or study language comprehension by evaluating perceived complexity annotations. These approaches rely on a single implicit assumption: that <em>complexity annotations contain enough information to reflect the input’s underlying complexity properties</em> appropriately. Without this premise, there would be a complete disconnect between human subjective perception, as reflected by annotations and linguistic structures. Given the ever-growing compelling evidence derived from carefully-planned complexity research, I argue that this is a relatively safe assumption to be made.</p>
+<p>This work instead adopts a modeling-driven approach for the study of linguistic complexity. Annotations produced by human subjects still play a fundamental role in this context. However, instead of acting as the main subject of analysis, they are used as a source of distant supervision to create computational models of linguistic complexity. More specifically, machine learning models are trained to predict complexity annotation from raw input text by minimizing a task-specific loss function. The <strong>learning step</strong> here is fundamental, given the connection mentioned above between linguistic complexity and knowledge acquisition. After the training process, human annotations are put aside, and the model itself is studied as a complexity-sensitive subject: in particular, this study focuses on how the information encoded in the parameters of complexity-trained models is related to structural linguistic properties (Chapter <a href="chap-ex1.html#chap:ex1">3</a>), how this information differs when models are exposed to different complexity perspectives during training (Chapter <a href="chap-ex2.html#chap:ex2">4</a>) and finally how the encoded knowledge affects models’ generalization capabilities over unseen constructs (Chapter <a href="chap-ex3.html#chap:ex3">5</a>).</p>
+<p>While this approach still relies on the <strong>annotation pertinence assumption</strong> stated above, it requires making a second, stronger hypothesis: that <em>models employed can grasp a significant portion of the relations subsisting between language structures and complexity perspectives</em>. This assumption can be further declined in two requirements. First, from a <strong>conceptual</strong> point-of-view, we must ensure that the model architecture is endowed with meaningful inductive biases concerning what is currently known about linguistic complexity. This includes having sufficient approximation capabilities to capture linguistic complexity phenomena, which are likely to be highly-nonlinear functions of the input. From a <strong>functional</strong> perspective, then, we should confirm that the quality of model predictions is sufficiently close to human-produced annotations to make their production mechanisms worth investigating.</p>
+<p>This chapter justifies the selected modeling approach and introduces models later employed in complexity assessment experiments. Section <a href="chap-models.html#subchap:desiderata">2.1</a> discusses the conceptual requirements for linguistic complexity modeling and motivates the choice of pretrained <strong>neural language models</strong> as primary subjects of this thesis work. Section <a href="chap-models.html#subchap:nlm">2.2</a> presents the architectures used in experimental sections and their desirable properties regarding the encoding of linguistic structures in latent representations. Finally, Section <a href="chap-models.html#subchap:analyzing-nlm">2.3</a> presents the challenge of interpreting NLM’s representations and behaviors and introduces various interpretability approaches used throughout this study.</p>
+<div id="subchap:desiderata" class="section level2">
+<h2><span class="header-section-number">2.1</span> Desiderata for Models of Linguistic Complexity</h2>
+<p>From the in-depth analysis of Chapter <a href="chap-ling-comp.html#chap:ling-comp">1</a>, we can distill some general desiderata for an idealized LCA model <span class="math inline">\(M^*\)</span>. From a linguistic perspective:</p>
+<ul>
+<li><p><span class="math inline">\(M^*\)</span> <em>should distinguish between lexical forms and be informed about their probability of occurrence.</em> This is a basic (although fundamental) step given the importance of words’ variety and frequency in determining our perception of complexity.</p></li>
+<li><p><span class="math inline">\(M^*\)</span> <em>should be aware of syntactic structures and sensitive to their properties.</em> As we saw with garden-path sentences, atypical or ambiguous syntax constructs are among the most prominent factors for determining the magnitude of processing difficulties. An ideal model should map complex syntactic constructs to higher complexity scores and discriminate potentially ambiguous or problematic structures from regular ones, even when changes in the form are minimal (e.g., when a single comma is missing).</p></li>
+<li><p><span class="math inline">\(M^*\)</span> <em>should capture semantic information and relations between entities.</em> Ideally, this means the ability to frame agents, patients, and actions in a semantic context and evaluate how likely or typical the latter is. For example, semantically unrelated entities occurring together in a sentence should produce an increase in processing difficulties. This includes the ability to disambiguate polysemic terms (e.g., “fly” verb vs. noun) given the surrounding context.</p></li>
+</ul>
+<p>Then, from a technical standpoint:</p>
+<ul>
+<li><p><span class="math inline">\(M^*\)</span> <em>should not rely on hand-crafted features to represent language</em>. This is an implicit requirement since this study aims to analyze how the model autonomously learns to represent language in its parameters while simultaneously encoding information about its complexity. Chapter <a href="chap-ex1.html#chap:ex1">3</a> presents how complexity models with hand-crafted features compare to those selected for the study.</p></li>
+<li><p><span class="math inline">\(M^*\)</span> <em>should not rely too heavily on labeled data.</em> Complexity datasets presented in Chapter <a href="chap-ling-comp.html#chap:ling-comp">1</a> are usually composed of a few thousand labeled examples. While this may seem a lot to our eyes, a language model may require a lot more information to achieve sufficient generalization capabilities. A viable option in this context, as we will see with NLMs, is to prime models with general linguistic knowledge through an unsupervised pretraining procedure before training them on complexity-related tasks.</p></li>
+<li><p><span class="math inline">\(M^*\)</span> <em>should be sufficiently interpretable.</em> Ideally, we would like to draw direct causal relations from input properties to complexity prediction in a consistent way across complexity perspectives. More realistically, we need at least to find coherent patterns between the model’s inputs and its predictive behaviors.</p></li>
+</ul>
+<p>Most standard modeling approaches fail to encompass even a small subset of those non-trivial requirements. For example, one can consider modeling complexity properties with static word representations <span class="citation">(Turian, Ratinov, and Bengio <a href="#ref-turian-etal-2010-word">2010</a>)</span> such as Word2Vec or GloVe embeddings <span class="citation">(Mikolov et al. <a href="#ref-mikolov-etal-2013-efficient">2013</a>; Pennington, Socher, and Manning <a href="#ref-pennington-etal-2014-glove">2014</a>)</span>. In these approaches, feature vectors representing words are learned by a neural network through a pretraining procedure to model word co-occurrences. While these approaches were shown to capture a significant amount of semantic information while reducing the dependence on labeled data thanks to pretraining, static word embeddings generally yield modest results when employed for syntactic predictions <span class="citation">(Andreas and Klein <a href="#ref-andreas-klein-2014-much">2014</a>)</span>. Moreover, since the model learns a direct mapping <span class="math inline">\(f: t_i \rightarrow \textbf{v}_i\)</span> from lexical forms to vectorial representations, polysemic terms are reduced to single context-independent representation, and contextual information that often plays a crucial role in determining complexity is mixed and diluted.</p>
+<p>Among more sophisticated modeling approaches for representing language, I argue that modern <strong>neural language models</strong> (NLMs) are the approaches that yield a better match for the requirements stated above. These models consist of multi-layer neural networks <span class="citation">(Goodfellow et al. <a href="#ref-goodfellow-etal-2016-deep">2016</a>)</span> pretrained using standard language modeling or masked language modeling training objectives to produce <strong>contextualized word embeddings</strong>, which were shown to be very effective in downstream syntactic and semantic tasks <span class="citation">(Peters et al. <a href="#ref-peters-etal-2018-deep">2018</a>)</span> even with relatively few labeled examples. Moreover, being language models, NLMs predict a probability distribution over their vocabulary at each step, enabling us to compute information-theoretic metrics such as surprisal that we saw being conceptually close to one-stage cognitive processing accounts. Finally, their high parameter counts and the presence of self-attention mechanisms <span class="citation">(Bahdanau, Cho, and Bengio <a href="#ref-bahdanau-etal-2015-neural">2015</a>; Vaswani et al. <a href="#ref-vaswani-etal-2017-attention">2017</a>)</span> as learned weighting functions suggests that NLMs might be capable of learning to approximate highly nonlinear functions effectively.</p>
+<p>The most significant downside of NLMs in the context of our analysis is their opaqueness. As for most neural networks, the nonlinear multi-layer structure that characterizes NLMs makes them incredibly valid function approximators. At the same time, though, it hinders our efforts in interpreting their behaviors <span class="citation">(Samek et al. <a href="#ref-samek-etal-2019-explainable">2019</a>)</span>. Because of this fact, in recent years, we witnessed a surge in approaches trying to “open the black box” of neural networks by using various techniques borrowed from information theory <span class="citation">(Shwartz-Ziv and Tishby <a href="#ref-shwartz-tishby-2017-opening">2017</a>)</span> and cognitive science <span class="citation">(Kriegeskorte, Mur, and Bandettini <a href="#ref-kriegeskorte-etal-2008-representational">2008</a>)</span>. Given the wide availability of these approaches, this work joins the choir of interpretability researchers and argues that studying how such performant models encode their knowledge about language complexity is still a matter of interest and worth exploring. In the next section, the architecture and training process of NLMs will be formalized, and their properties will be described in detail.</p>
+</div>
+<div id="subchap:nlm" class="section level2">
+<h2><span class="header-section-number">2.2</span> Neural Language Models: Unsupervised Multitask Learners</h2>
+<p>The objective of natural language processing applications such as <em>summarization</em>, <em>machine translation</em>, and <em>dialogue generation</em> is to produce text that is both <strong>fluent</strong> and contextually accurate. As we saw in Chapter <a href="chap-ling-comp.html#chap:ling-comp">1</a>, a text’s fluency can also be used as a significant factor in determining its complexity from a linguistic viewpoint. A possible approach to establishing a sentence’s fluency is to rely on <strong>relative frequency estimates</strong> for words in large corpora. Consider a sentence <span class="math inline">\(s\)</span> and a large corpus <span class="math inline">\(\mathcal{C}\)</span>. We can estimate its probability of occurrence in natural language as:</p>
+<p><span class="math display">\[\begin{equation}
+P(s) = \frac{\text{count}(s)}{|\mathcal{C}|}
+\end{equation}\]</span></p>
+<p>While this is an unbiased estimator since it converges to the actual frequency value when the corpus size is sufficiently large, it is both very data-reliant and highly unreliable. If a sentence happens to be absent in <span class="math inline">\(\mathcal{C}\)</span>, it will be assigned probability equal to zero. Therefore, we need to rely on other approaches, such as language models, to obtain reliable estimates from limited training datasets.</p>
+<p>As we saw in Chapter <a href="chap-ling-comp.html#subsubchap:lm-surprisal">1.2.2</a>, language models assign probabilities to sequences of tokens. Formally, this can be framed as learning words’ conditional probability distributions given their context, either <em>preceding</em> or <em>bidirectional</em> depending on the language modeling approach. I will here refer to sequential language models unless otherwise mentioned.</p>
+<p>Language models are trained on sequences <span class="math inline">\(\textbf{x} = \langle x_1, \dots, x_n \rangle\)</span> composed by <span class="math inline">\(n\)</span> tokens taken from a predefined vocabulary <span class="math inline">\(\mathcal{V}\)</span>. Each token <span class="math inline">\(x_i\)</span> can be represented as a one-hot encoded vector <span class="math inline">\(x_i \in \{0,1\}^{|\mathcal{V}|}\)</span>, and the probability of sequence <span class="math inline">\(\textbf{x}\)</span> is factored using the chain rule:</p>
+<p><span class="math display">\[\begin{equation}
+P(\textbf{x}) = \prod_{t=1}^{n}\,P(x_t\,|\,x_1,\dots,x_{t-1})
+\end{equation}\]</span></p>
+<p>After the training process, we can use the likelihood that the model assigns to <strong>held-out data</strong> <span class="math inline">\(\textbf{y}\)</span> treated as a single stream of <span class="math inline">\(m\)</span> tokens as an intrinsic evaluation metric for the quality of its predictions:</p>
+<p><span class="math display">\[\begin{equation}
+\ell(\textbf{y}) = \sum_{t=1}^m \log P(x_t|x_1,\dots,x_{t-1})
+\end{equation}\]</span></p>
+<p><span class="math inline">\(\ell(\textbf{y})\)</span> can be rephrased in terms of <strong>perplexity</strong>, an information-theoretic metric independent from the size of the held-out set:</p>
+<p><span class="math display">\[\begin{equation}
+\text{PPL}(\textbf{y}) = 2^{-\ell(\textbf{y})/m}
+\end{equation}\]</span></p>
+<p><span class="math inline">\(\text{PPL}\)</span> is equal to 1 if the language model is perfect (i.e., predicts all tokens in the held-out corpus with probability 1) and matches the vocabulary size <span class="math inline">\(|\mathcal{V}|\)</span> when the model assign a uniform probability to all tokens in the vocabulary (a “random” language model):</p>
+<p><span class="math display">\[\begin{align} 
+\log_2(\textbf{y}) = \sum_{t=1}^m \log_2 \frac{1}{|\mathcal{V}|} = - \sum_{t=1}^m \log_2 |\mathcal{V}| = -m \log_2 |\mathcal{V}| \\
+\text{PPL}(\textbf{y}) = 2^{\frac{1}{m}m\log_2 |\mathcal{V}|} = 2^{\log_2 |\mathcal{V}|} = |\mathcal{V}|
+\end{align}\]</span></p>
+<p>Perplexity represents the number of bits required to encode the average word in the corpora. For example, reporting a perplexity score of 10 over a held-out corpus means that the language model will predict on average words with the same accuracy as if it had to choose uniformly and independently across ten possibilities for each word.</p>
+<p>While tokens used by language models generally correspond to words in most NLP pipelines, recent language modeling work highlighted the effectiveness of using subword tokens <span class="citation">(Sennrich, Haddow, and Birch <a href="#ref-sennrich-etal-2016-neural">2016</a>; Wu et al. <a href="#ref-wu-etal-2016-google">2016</a>; Kudo and Richardson <a href="#ref-kudo-richardson-2018-sentencepiece">2018</a>)</span> or even single characters to further improve LM’s generalization performances. In particular, models used in this work rely on SentencePiece and Byte-Pair Encoding (BPE) subword tokenization <span class="citation">(Sennrich, Haddow, and Birch <a href="#ref-sennrich-etal-2016-neural">2016</a>; Kudo and Richardson <a href="#ref-kudo-richardson-2018-sentencepiece">2018</a>)</span>. The SentencePiece algorithm derives a fixed-size vocabulary from word co-occurrences in a large corpus and treats whitespace as a normal symbol by converting it to “<strong>_</strong>”, while BPE does the same using the “Ġ” character. For example:</p>
+<blockquote>
+<p><strong>Input sentence:</strong> Heteroscedasticity is hard to model!</p>
+</blockquote>
+<blockquote>
+<p><strong>SentencePiece tokenization:</strong> <strong>_</strong>Hetero s ced astic ity <strong>_</strong>is <strong>_</strong>hard <strong>_</strong>to <strong>_</strong>model !</p>
+</blockquote>
+<blockquote>
+<p><strong>BPE tokenization:</strong> H eter os ced astic ity Ġis Ġhard Ġto Ġmodel !</p>
+</blockquote>
+<p>where whitespaces correspond to separators after tokenization. From the example, we can observe that frequent words like <em>hard</em>, <em>to</em> and <em>model</em> are treated similarly by both tokenizers, while rare words like <em>heteroscedasticity</em> are split into subwords depending on their observed frequency inside the tokenizer’s training corpus.</p>
+<p>In recent years n-gram language models, which were the most common approach to estimate probabilities from relative frequencies, have been largely supplanted by neural networks. A significant advantage of neural approaches is the overcoming of context restrictions: relevant information can be incorporated from arbitrarily distant contexts while preserving the tractability of the problem from both a statistical and a computational viewpoint.</p>
+<p>Neural language models treat language modeling as a <em>discriminative</em> learning task aimed at maximizing the log conditional probability of a corpus. Formally, the probability distribution <span class="math inline">\(p(x|c)\)</span> is reparametrized as the dot product of two dense numeric vectors <span class="math inline">\(\boldsymbol\theta_x, \boldsymbol h_c \in \mathbb{R}^H\)</span> under a softmax transformation:</p>
+<p><span class="math display" id="eq:softmax-lm">\[\begin{equation}
+P(x|c) = \frac{\exp(\boldsymbol\theta_x \cdot \boldsymbol h_c)}{\sum_{x&#39;\in\mathcal{V}} \exp(\boldsymbol\theta_{x&#39;} \cdot \boldsymbol h_c)}
+\tag{2.1}
+\end{equation}\]</span></p>
+<p>In <a href="chap-models.html#eq:softmax-lm">(2.1)</a>, the denominator is present to ensure that the probability distribution is properly normalized over vocabulary <span class="math inline">\(\mathcal{V}\)</span>. <span class="math inline">\(\boldsymbol\theta_x\)</span> represent model parameters that can be learned through an iterative procedure, while <span class="math inline">\(\boldsymbol h_c\)</span> is the contextual information that can be computed in different ways depending on the model. For example, a neural language model based on the <strong>recurrent neural network</strong> architecture (RNN; <span class="citation">Mikolov et al. (<a href="#ref-mikolov-etal-2010-recurrent">2010</a>)</span>) recurrently updates context vectors initialized at random with relevant information that needs to be preserved while moving through the sequence.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+<p>This work leverages models belonging to the most recent and influential family of neural language models at the time of writing, that is, the one based on the <strong>Transformer</strong> architecture <span class="citation">(Vaswani et al. <a href="#ref-vaswani-etal-2017-attention">2017</a>)</span>. Transformers are deep learning models designed to handle sequential data and were conceived to compensate for a significant downside of recurrent models: the need to process data in an orderly manner to perform backpropagation through time. By replacing recurrent computations with attention mechanisms to maintain contextual information throughout the model, Transformers’ operations are entirely parallelizable on dedicated hardware and <em>therefore lead to reduced training times</em>. This fact is especially relevant considering the massive corpora size used to pretrain neural language models to obtain contextual representations. <strong>Self-attention</strong> was also shown to behave better than other approaches at learning long-range dependencies, avoiding the <em>vanishing gradient</em> problem that plagued non-gated recurrent NLMs altogether <span class="citation">(Pascanu, Mikolov, and Bengio <a href="#ref-pascanu-etal-2013-difficulty">2013</a>)</span>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:transformer"></span>
+<img src="figures/2_transformer.png" alt="The original Transformer model architecture by Vaswani et al. (2017)." width="50%" />
+<p class="caption">
+Figure 2.1: The original Transformer model architecture by <span class="citation">Vaswani et al. (<a href="#ref-vaswani-etal-2017-attention">2017</a>)</span>.
+</p>
+</div>
+<p>The original Transformer architecture comprises an encoder and a decoder, each composed of a stacked sequence of identical layers that transform input embeddings in outputs with the same dimension (hence the name). First, the encoder maps the sequence <span class="math inline">\((x_1, \dots, x_n)\)</span> to a sequence of embeddings <span class="math inline">\(\boldsymbol z = (z_1, \dots, z_n)\)</span>. Given <span class="math inline">\(\boldsymbol z\)</span>, the decoder then autoregressively produces an output token sequence <span class="math inline">\((y_1, \dots, y_m)\)</span>. Each layer of the Transformer encoder comprises two sublayers, a <strong>multi-head self-attention mechanism</strong> and a <strong>feed-forward network</strong>, surrounded by residual connections and followed by layer normalization. The decoder includes a third layer that performs multi-head self-attention over the encoder output and modifies the original self-attention sublayer to prevent attending to future context, as required by the language modeling objective. Figure <a href="chap-models.html#fig:transformer">2.1</a> presents the original architecture for a <span class="math inline">\(N\)</span>-layer Transformer. I will now proceed to describe the main components of the Transformer model.</p>
+<p><span class="custompar">Positional Encodings</span> The original Transformer relies on two sets of embeddings to represent the input sequence: learned <strong>word embeddings</strong>, used as vector representations for each token in the vocabulary, and fixed <strong>positional encodings</strong> (PEs) used to inject information about the position of tokens in the sequence. Those are needed since no information about the sequential nature of the input would otherwise be preserved. For position <span class="math inline">\(pos\)</span> and dimension <span class="math inline">\(i\)</span>, PEs correspond to sinusoidal periodic functions that were empirically shown to perform on par with learned embeddings, and were chosen to enable extrapolation for longer sequences:</p>
+<p><span class="math display">\[\begin{align} 
+PE_{pos, 2i} = \sin(\text{pos}/10000^{2i/|h|}) \\
+PE_{pos, 2i + 1} = \cos(\text{pos}/10000^{2i/|h|})
+\end{align}\]</span></p>
+<p>where <span class="math inline">\(|h|\)</span> is the model’s hidden layer size. Embeddings and PEs are summed and passed to the attention layer.</p>
+<p><span class="custompar">Self-Attention</span> The <em>scaled dot-product self-attention</em> mechanisms is the driving force of the Transformer architecture. Given an input embedding matrix <span class="math inline">\(X\)</span>, we multiply it by three weight matrices <span class="math inline">\(W^Q, W^K, W^V\)</span> obtaining the projections <span class="math inline">\(Q\)</span> (<strong>queries</strong>), <span class="math inline">\(K\)</span> (<strong>keys</strong>) and <span class="math inline">\(V\)</span> (<strong>values</strong>). Those are then combined by the self-attention function as follows:</p>
+<p><span class="math display">\[\begin{equation}
+\text{Attention(Q,K,V)} = \text{softmax}\Big ( \frac{QK^T}{\sqrt{d_k}}\Big)V
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(d_k\)</span> is the size of individual query and key vectors. The output of this operation is a matrix <span class="math inline">\(Z\)</span> which will be passed to the feed-forward layer. The self attention mechanism is further extended to <strong>multi-head self-attention</strong> in Transformer architectures. In the multi-head variant, the attention function is applied in parallel to <span class="math inline">\(n\)</span> version of queries, keys and values projected with learned parameter matrices, and outputs are finally concatenated and projected again to obtain final values:</p>
+<p><span class="math display">\[\begin{align}
+\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1,\dots, \text{head}_n)W^O \\
+\text{where } \text{head}_i = \text{Attention}(QW_i^Q,KW_i^K,VW_i^V)
+\end{align}\]</span></p>
+<p>Where <span class="math inline">\(W_i^Q \in \mathbb{R}^{|h| \times d_k}\)</span>, <span class="math inline">\(W_i^K \in \mathbb{R}^{|h| \times d_k}\)</span>, <span class="math inline">\(W_i^V \in \mathbb{R}^{|h| \times d_v}\)</span> and <span class="math inline">\(W^O \in \mathbb{R}^{nd_v \times |h|}\)</span>. In multi-head attention layers of Figure <a href="chap-models.html#fig:transformer">2.1</a>, each position can attend to all position from the previous layer, while in the <strong>masked multi-head attention</strong> layer only previous positions in the sequence can be attended by applying a triangular mask to attention matrices. This additional step is needed to preserve the autoregressive property during decoding.</p>
+<p><span class="custompar">Feed-forward Layer</span> Each block in the encoder and the decoder contains an independent fully connected 2-layer feed-forward network with a ReLU nonlinearity applied separately to each position of the sequence:</p>
+<p><span class="math display">\[\begin{equation}
+\text{FFN}(Z) = \max(0,Z\,\Theta_1 + b_1)\Theta_2 + b_2
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(Z\)</span> are the representations passed forward from the attention sublayer, <span class="math inline">\(\Theta_1, \Theta_2\)</span> are two learned independent parameter matrices for each layer and <span class="math inline">\(b_1, b_2\)</span> are their respective bias vectors.</p>
+<p>Now that the main concepts regarding the Transformer architecture have been introduced, the two Transformer-based models used in this study will be presented.</p>
+<p><span class="custompar">GPT-2</span> GPT-2 <span class="citation">(Radford et al. <a href="#ref-radford-etal-2019-language">2019</a>)</span> is a transformer model built using only the decoder blocks with masked self-attention, alongside BPE tokenization. The latter’s autoregressive capabilities, i.e. being able to iteratively add a newly predicted token to the existing sequence in the next steps, make it especially suitable for text generation and related tasks. The learning of model parameters is performed in two stages. First, an <strong>unsupervised pretraining</strong> is carried out to learn a high capacity language model on a large corpus: in particular, here the model is trained to maximize the likelihood of sequential language modeling over <strong>WebText</strong>, a corpus containing roughly 8 million documents (40GB of text), by adapting its parameters using stochastic gradient descent. The purpose of this step is to learn contextual word embeddings encoding both low and high-level information that can be recycled in downstream tasks, following the <strong>transfer learning</strong> approach inspired by the field of computer vision and initially proposed by <span class="citation">Howard and Ruder (<a href="#ref-howard-ruder-2018-universal">2018</a>)</span> for NLP. The second step is a <strong>supervised fine-tuning</strong>, where the language modeling softmax layer is replaced by a task-specific layer (called <strong>head</strong>) with parameters <span class="math inline">\(W_y\)</span> receiving final transformer activations <span class="math inline">\(h_l\)</span> and predicting a label <span class="math inline">\(y\)</span> (e.g. in a classification task) as:</p>
+<p><span class="math display">\[\begin{equation}
+P(y|x_1,\dots, x_m) = \text{softmax}(h^{sent}_lW_y)
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(h_l^{sent}\)</span> is the sentence-level representation for <span class="math inline">\((x_1, \dots, x_m)\)</span>. The parameters of the whole model, including transformer blocks and task-specific heads, can then be tuned by minimizing the loss <span class="math inline">\(\mathcal{L}\)</span> over the whole supervised corpus <span class="math inline">\(\mathcal{C}\)</span>:</p>
+<p><span class="math display">\[\begin{equation}
+\mathcal{L}(\mathcal{C}) = - \sum_{(x,y)} \log P(y|x_1, \dots, x_m) 
+\end{equation}\]</span></p>
+<p>Figure <a href="chap-models.html#fig:gpt2">2.2</a> visualizes the forward pass through the GPT-2 architecture. We see from the figure that attention patterns learned during pre-trained are often interpretable. Here, the token <em>it</em> is correctly identified as the pronoun referring to the subject <em>a robot</em>. Authors show how large NLMs such as GPT-2 become strong unsupervised multitask learners when trained on sufficiently large corpora, providing the initial motivation for choosing pretrained Transformer models for experiments throughout this study. GPT-2 will be specifically be employed in the experiments of Chapter <a href="chap-ex3.html#chap:ex3">5</a>, where its autoregressive nature is ideal for replicating human surprisal estimates during sequential reading on garden-path sentences.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:gpt2"></span>
+<img src="figures/2_gpt2.png" alt="An overview of the forward pass in GPT-2. Adapted from Alammar (2018b)." width="100%" />
+<p class="caption">
+Figure 2.2: An overview of the forward pass in GPT-2. Adapted from <span class="citation">Alammar (<a href="#ref-alammar-2018-illustratedgpt2">2018</a><a href="#ref-alammar-2018-illustratedgpt2">b</a>)</span>.
+</p>
+</div>
+<p><span class="custompar">ALBERT</span> ALBERT <span class="citation">(Lan et al. <a href="#ref-lan-etal-2020-albert">2020</a>)</span> is an efficient variant of the Bidirectional Encoder Representations from Transformers (<strong>BERT</strong>) approach by <span class="citation">Devlin et al. (<a href="#ref-devlin-etal-2019-bert">2019</a>)</span>. BERT was built following the intuition that many sentence-level tasks would greatly benefit from an approach capable of incorporating bidirectional context inside language representations. This is not the case for decoder-based approaches like GPT-2 that, being aimed at generation-oriented tasks, could only leverage the previous context using masked self-attention. BERT tackles the unidirectional constraint by introducing <strong>masked language modeling</strong> (MLM, see Equation <a href="chap-ling-comp.html#eq:sent-surprisal-cases">(1.2)</a>) and using a stack of transformer encoder layers with GELU nonlinearities <span class="citation">(Hendrycks and Gimpel <a href="#ref-hendrycks-gimpel-2016-gaussian">2016</a>)</span>.</p>
+<p>As for GPT-2, the pretraining and fine-tuning steps are taken to provide the model with general language knowledge and subsequently adapt it to specific downstream tasks. At each pretraining step, a fixed portion of input tokens get masked, and the model predicts the original vocabulary id of masked tokens. Moreover, a sentence-level task is used to improve discourse coherence. For BERT, the <strong>next sentence prediction</strong> (NSP) task is adopted, i.e. determining whether, given two sentences, they are consecutive or not in the original text using both positive and negative pairs. NSP was found unreliable by subsequent studies and was replaced in ALBERT by a <strong>sentence ordering prediction</strong> loss that is more challenging for the model. A third set of <strong>segment embeddings</strong> is added to initial representations to distinguish input sentences in multi-sentence tasks. Special tokens <code>[CLS]</code> and <code>[SEP]</code> are added as sentence-level representations.</p>
+<p>ALBERT introduces two main contributions aimed at reducing the final number of model parameters inside BERT:</p>
+<ul>
+<li><p><strong>Factorized embedding parametrization</strong>: a projection layer is introduced between the embedding matrix <span class="math inline">\(E\)</span> and the hidden layer <span class="math inline">\(H\)</span> of the model so that the dimensions of the two are untied. This approach modifies embedding parameter count from <span class="math inline">\(O(|V| \times |E|)\)</span> to <span class="math inline">\(O(|\mathcal{V}| \times |E| + |E| \times |h|)\)</span>, with <span class="math inline">\(|\mathcal{V}|, |E|, |h|\)</span> being respectively the sizes of vocabulary, embedding vectors and hidden layers. A significant reduction in model parameters is therefore produce when <span class="math inline">\(|h| \gg |E|\)</span>, which is desirable since <span class="math inline">\(H\)</span> contains <em>context-dependent representations</em> that encode more information than the <em>context-independent</em> ones of <span class="math inline">\(E\)</span>.</p></li>
+<li><p><strong>Cross-layer parameter sharing</strong>: All layers of ALBERT share the same set of feed-forward and self-attention parameters. Therefore, we can see ALBERT as an iterated function <span class="math inline">\(f_A^n: h \rightarrow h&#39;\)</span>, where <span class="math inline">\(n\)</span> is the number of encoder layers present in the model (in this study <span class="math inline">\(n=12\)</span>), with parameters trained using end-to-end stochastic gradient descent.</p></li>
+</ul>
+<p>Both factors significantly contribute to reducing the computational complexity of the model without affecting too much its performances: the ALBERT base used in all experimental chapters of this study have 9x fewer parameters than a regular BERT base model (12M vs. 108M) while performing comparably well on many natural language understanding benchmarks such as GLUE <span class="citation">(Wang et al. <a href="#ref-wang-etal-2018-glue">2018</a>)</span> and SQuAD <span class="citation">(Rajpurkar et al. <a href="#ref-rajpurkar-etal-2016-squad">2016</a>)</span>.</p>
+<p>Figure <a href="chap-models.html#fig:albert">2.3</a> presents how a pretrained ALBERT model can be leveraged for sentence classification, using the ARA task as an example. We note that the procedure is the same as for GPT-2: a task-specific classification head is initialized with random weights, and the whole model-head architecture is fine-tuned on the target task end-to-end. The figure also shows how the common choice for BERT-based models is to use their <code>[CLS]</code> token <span class="math inline">\(h_{12}^{1}\)</span> as the full-sentence representation equivalent <span class="math inline">\(h_{12}^{sent}\)</span>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:albert"></span>
+<img src="figures/2_albert.png" alt="Using a pretrained ALBERT model for the ARA task. Adapted from Alammar (2018a)." width="85%" />
+<p class="caption">
+Figure 2.3: Using a pretrained ALBERT model for the ARA task. Adapted from <span class="citation">Alammar (<a href="#ref-alammar-2018-illustratedbert">2018</a><a href="#ref-alammar-2018-illustratedbert">a</a>)</span>.
+</p>
+</div>
+<p>To conclude, the fine-tuning approach relying on a pretrained model “body” and a task-specific head adopted in both GPT-2 and ALBERT can be extended out-of-the-box to a <strong>multitask learning</strong> scenario. A multitask approach can prove useful when considering parallel annotations on the same corpus that provide similar but complementary information about a studied phenomenon’s nature. We can interpret this as an inductive bias that encourages finding knowledge representations to explain multiple sets of annotations at once.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> More specifically, multitask learning with <strong>hard parameter sharing</strong> <span class="citation">(Caruana <a href="#ref-caruana-1997-multitask">1997</a>)</span> is performed in all experimental sections over eye-tracking scores to produce representations encompassing the whole set of phenomena related to natural reading. For doing so, each metric was associated with a task-specific head, and the whole set of heads was trained while sharing the same underlying model.</p>
+<div id="subsubchap:syntax-nlm" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Emergent Linguistic Structures in Neural Language Models</h3>
+<p>This section presents evidence in support of the ability of pretrained language models to effectively encode language-related properties in their learned representations.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<p><span class="citation">Lin, Tan, and Frank (<a href="#ref-lin-etal-2019-open">2019</a>)</span> were among the first to highlight how BERT representations encode hierarchical structures akin to syntax trees, despite the absence of syntactic information or recurrent biases during pretraining. <span class="citation">Liu et al. (<a href="#ref-liu-etal-2019-linguistic">2019</a>)</span> and <span class="citation">Tenney, Das, and Pavlick (<a href="#ref-tenney-etal-2019-bert">2019</a>)</span> further showed that contextualized embeddings produced by BERT encode information about part-of-speech, entity roles, and partial syntactic structures.</p>
+<p><span class="citation">Hewitt and Manning (<a href="#ref-hewitt-manning-2019-structural">2019</a>)</span> formulate the <strong>syntax distance hypothesis</strong>, assuming that there exists a linear transformation <span class="math inline">\(B\)</span> of the word representation space under which vector distance encodes parse trees. They proceed to test this assumption equating L2 distance in the 2-dimensional space of representations projected by <span class="math inline">\(B \in \mathbb{R}^{2 \times |h|}\)</span> and tree distances in parse trees, finding a close match between BERT representational space and Penn Treebank formalisms. The approach is visualized in Figure <a href="chap-models.html#fig:struct-probe">2.4</a>. <span class="citation">Jawahar, Sagot, and Seddah (<a href="#ref-jawahar-etal-2019-bert">2019</a>)</span> work support these findings, highlighting a close match between BERT representation and dependency trees after testing multiple decomposition schemes. The syntax distance hypothesis’s validity is especially relevant to this work, given the aforementioned importance of syntactic properties in driving human subjects’ perception of complexity.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:struct-probe"></span>
+<img src="figures/2_struct_probe.png" alt="The mapping from 2D representation space to syntax tree distances adopted in Hewitt and Manning (2019)." width="85%" />
+<p class="caption">
+Figure 2.4: The mapping from 2D representation space to syntax tree distances adopted in <span class="citation">Hewitt and Manning (<a href="#ref-hewitt-manning-2019-structural">2019</a>)</span>.
+</p>
+</div>
+<p>Despite the evidence of syntactic knowledge in contextual word representations, recent results suggest that the model may not leverage this for its predictions. <span class="citation">Ettinger (<a href="#ref-ettinger-2020-bert">2020</a>)</span> highlights the insensitivity of BERT to negation and malformed inputs using psycholinguistic diagnostics commonly used with human subjects, while <span class="citation">Wallace et al. (<a href="#ref-wallace-etal-2019-nlp">2019</a>)</span> show that nonsensical inputs do not affect the prediction quality of BERT, despite having a clear input on underlying syntactic structures. These results are coherent with the experimental findings of this study and will be further discussed in later sections.</p>
+</div>
+</div>
+<div id="subchap:analyzing-nlm" class="section level2">
+<h2><span class="header-section-number">2.3</span> Analyzing Neural Models of Complexity</h2>
+<p>Having introduced the model architectures that will be used throughout this study, we will now focus on the interpretability approaches allowing us to analyze and compare neural network representations.</p>
+<p>When training deep neural networks, we would like to go beyond predictive performance and understand how different design choices and training objectives affect learned representations from a qualitative viewpoint. This fact is especially crucial in the model-driven approach adopted in this work, as stated at the end of Section <a href="chap-models.html#subchap:desiderata">2.1</a>. While for linear models, the direct correspondence between the magnitude of feature coefficients and feature importance provides us with some out-of-the-box insights about decision boundaries and feature importance, the hierarchical and nonlinear structure that characterizes neural networks produce model weights that are relatively uninformative when taken in isolation.</p>
+<p>This work focuses on two interpretability perspectives: highlighting linguistic knowledge encoded in model representations (Chapter <a href="chap-ex1.html#chap:ex1">3</a>) and comparing representations across models trained on different complexity-related tasks (Chapter <a href="chap-ex2.html#chap:ex2">4</a>). For the first objective, <em>probing classifiers</em>, which have become the de-facto standard in the interpretability literature, are used to evaluate the amount of information encoded in each layer of the model.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> In the second case, two multivariate statistical analysis methods, namely <em>representational similarity analysis</em> and <em>canonical correlation analysis</em>, are leveraged to quantify the relation between model embeddings by evaluating their second-order similarity and learning a mapping to a shared low-dimensional space, respectively. The following sections conclude the chapter by presenting the three approaches in detail.</p>
+<div id="subsubchap:probe" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Probing classifiers</h3>
+<p>The <strong>probing task approach</strong> is a natural way to estimate the mutual information shared by a neural network’s parameters and some latent property that the model could have implicitly learned during training. During probing experiments, a supervised model (<em>probe</em>) is trained to predict the latent information from the network’s learned representations. If the probe does well, we may conclude that the network effectively encodes some knowledge related to the selected property.</p>
+<p>Formally speaking, let <span class="math inline">\(f: x_i \rightarrow y_i\)</span> be a neural network model mapping a corpus of input sentences <span class="math inline">\(X = (x_1, \dots, x_n)\)</span> to a set of outputs <span class="math inline">\(Y = (y_1, \dots, y_n)\)</span>. Assume that each sentence <span class="math inline">\(x_i\)</span> is also labeled with some linguistic annotations <span class="math inline">\(z_i\)</span>, reflecting the underlying properties we aim to detect. Let also <span class="math inline">\(h_l(x_i)\)</span> be the network’s output at the <span class="math inline">\(l\)</span>-th layer given the sentence <span class="math inline">\(x_i\)</span> as input. To estimate the quality of representations <span class="math inline">\(h_l\)</span> with respect to property <span class="math inline">\(z\)</span>, a supervised model <span class="math inline">\(g: h_l(x_i) \rightarrow z_i\)</span> mapping representations to property values is trained. We take such model’s performances as a proxy of <span class="math inline">\(H(h_l(x),z)\)</span>. In information theoretic terms, the probe is trained to minimize entropy <span class="math inline">\(H(z|h_l(x))\)</span>, and by doing that it maximizes mutual information between the two quantities.</p>
+<p>The probe <span class="math inline">\(g\)</span> does not need to be a linear model. While historically simple linear probes were used to minimize the risk of memorization, recent results show that more complex probes produce tighter estimates for the actual underlying information <span class="citation">(Pimentel et al. <a href="#ref-pimentel-etal-2020-information">2020</a>)</span>. To account for the probe’s ability to learn the task through sheer memorization, <span class="citation">Hewitt and Liang (<a href="#ref-hewitt-liang-2019-designing">2019</a>)</span> introduce <em>control tasks</em> using the performances of a probe exposed to random labels as baselines.</p>
+<p><span class="citation">Alain and Bengio (<a href="#ref-alain-bengio-2016-understanding">2016</a>)</span> were among the first to use linear probing classifiers as tools to evaluate the presence of task-specific information inside neural networks’ layers. The approach was later extended to the field of NLP by <span class="citation">Conneau et al. (<a href="#ref-conneau-etal-2018-cram">2018</a>)</span> and <span class="citation">Zhang and Bowman (<a href="#ref-zhang-bowman-2018-language">2018</a>)</span> <em>inter alia</em>, which evaluated the presence of semantic and syntactic information inside sentence embeddings generated by LSTM encoders <span class="citation">(Hochreiter and Schmidhuber <a href="#ref-hochreiter-1997-long">1997</a>)</span> pretrained on different objectives using probing task suites. Recently, <span class="citation">Miaschi and Dell’Orletta (<a href="#ref-miaschi-dellorletta-2020-contextual">2020</a>)</span> showed how contextual representations produced by pretrained Transformer models could encode sentence-level properties within single-word embeddings. Moreover, <span class="citation">Miaschi et al. (<a href="#ref-miaschi-etal-2020-linguistic">2020</a>)</span> highlighted the tendency of pretrained NLMs to lose general linguistic information during the fine-tuning process and found a positive relation between encoded linguistic information and the downstream performances of the model.</p>
+</div>
+<div id="subsubchap:rsa" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Representational Similarity Analysis</h3>
+
+<div class="figure" style="text-align: center"><span id="fig:rsa"></span>
+<img src="figures/2_rsa.png" alt="The Representational Similarity Analysis (RSA) algorithm applied to the representations of three models. Image taken from Abnar (2020)." width="100%" />
+<p class="caption">
+Figure 2.5: The Representational Similarity Analysis (RSA) algorithm applied to the representations of three models. Image taken from <span class="citation">Abnar (<a href="#ref-abnar-2020-visualization">2020</a>)</span>.
+</p>
+</div>
+<p><strong>Representational similarity analysis</strong> (RSA, <span class="citation">Laakso and Cottrell (<a href="#ref-laakso-2000-content">2000</a>)</span>) is a technique developed in the field of cognitive science to evaluate the similarity of fMRI responses in selected regions of the brain after a stimulus <span class="citation">(Kriegeskorte, Mur, and Bandettini <a href="#ref-kriegeskorte-etal-2008-representational">2008</a>)</span>. The technique can be extended to compare the heterogeneous representational spaces formed by a set of computational models <span class="math inline">\(m\)</span> exposed to a shared set of observations. Figure <a href="chap-models.html#fig:rsa">2.5</a> visualizes the approach. First, each model is fed with a shared corpus of <span class="math inline">\(n\)</span> sentences to produce a set of matrix embeddings <span class="math inline">\((E^1, \dots, E^m)\)</span>, where <span class="math inline">\(E^i_j\)</span> represents the embedding produced by the last layer of the <span class="math inline">\(i\)</span>-th model on the <span class="math inline">\(j\)</span>-th sentence of the corpus.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> Next, for each matrix <span class="math inline">\(E^i\)</span> a representational distance matrix <span class="math inline">\(S^i\)</span> is produced such that <span class="math inline">\(S^i_{j,k} = \text{sim}(E^i_j, E^i_k),\;S^i \in \mathbb{R}^{n \times n}\)</span> where <span class="math inline">\(\text{sim}_1\)</span> is a similarity function (here, <em>dot product</em>). <span class="math inline">\(S_i\)</span> encodes information on the similarity subsisting between model activations across different observations. Finally, a second-level <em>representational similarity matrix</em> <span class="math inline">\(S&#39;\)</span> is computed, where for each pair of matrices <span class="math inline">\((S^i, S^j)\)</span> the corresponding <span class="math inline">\(S&#39;_{i,j}\)</span> entry has value:</p>
+<p><span class="math display">\[\begin{equation}
+S&#39;_{i,j} = S&#39;_{j,i} = \frac{1}{n}\sum_{k=1}^n \text{sim}_2\big(\,\eta\,(S^i_k),\eta\,(S^j_k)\big)
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\eta\)</span> is the L1 normalization function and <span class="math inline">\(\text{sim}_2\)</span> is a similarity function (here, <em>Pearson’s correlation coefficient</em>). Each entry <span class="math inline">\(S&#39;_{i,j}\)</span> corresponds to a similarity score between activity patterns of model <span class="math inline">\(i\)</span> and model <span class="math inline">\(j\)</span> across the entire set of <span class="math inline">\(n\)</span> observations.</p>
+<p>In the context of NLP, <span class="citation">Abnar et al. (<a href="#ref-abnar-etal-2019-blackbox">2019</a>)</span> recently used RSA to compare the activations of multiple neural language models and evaluated the impact of parameter values on the representations formed by a single model. Interestingly, they also use RSA to compare fMRI imaging data collected from human subjects and NLMs activations. <span class="citation">Abdou et al. (<a href="#ref-abdou-etal-2019-higher">2019</a>)</span> use RSA to highlight the connection between processing difficulties (measured by high gaze metrics values) and the representational divergence, both inter and intra-encoder. <span class="citation">Abnar, Dehghani, and Zuidema (<a href="#ref-abnar-etal-2020-transferring">2020</a>)</span> visualize training paths of various neural network architectures as 2D projections of RSA and show how different inductive biases can be transferred across network categories using knowledge distillation <span class="citation">(Hinton, Vinyals, and Dean <a href="#ref-hinton-etal-2015-distilling">2015</a>)</span>.</p>
+</div>
+<div id="subsubchap:pwcca" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Projection-Weighted Canonical Correlation Analysis</h3>
+<p><strong>Canonical correlation analysis</strong> (CCA, <span class="citation">Thompson (<a href="#ref-thompson-1984-canonical">1984</a>)</span>) is a statistical technique for relating two sets of observations arising from an underlying unknown process. In the context of this work, the underlying process is represented by NLMs being trained on complexity-related tasks. Given a corpus of sentences <span class="math inline">\(X = (x_1, \dots, x_m)\)</span> annotated with complexity labels, we have that <span class="math inline">\(\boldsymbol z^l_ = (z_i^l(x_1), \dots z_i^l(x_m))\)</span> corresponds to all activations of neuron <span class="math inline">\(z_i\)</span> at layer <span class="math inline">\(l\)</span> stacked to form a vector.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> If we consider all activations of all neurons in a layer <span class="math inline">\(L_i = (z^i_1, \dots, z^i_n)\)</span> for all inputs, we can represent them as a matrix <span class="math inline">\(A_i \in \mathbb{R}^{m \times n}\)</span>, i.e. a set of multidimensional variates where <span class="math inline">\(n\)</span> is the number of neurons in the layer. The CCA algorithm aims to <em>identify the best</em> (i.e. most correlated) <em>linear relationship under mutual orthogonality and norm constraints between two sets of multidimensional variates</em>, which in this case are activation matrices like <span class="math inline">\(L_1\)</span>. This approach was used, among other things, to study the coherence between modeled and real brain activations <span class="citation">(Sussillo et al. <a href="#ref-sussillo-etal-2015-neural">2015</a>)</span>.</p>
+<p>Formally, if we have two activation matrices <span class="math inline">\(A_1, A_2 \in \mathbb{R}^{m \times n}\)</span> we aim to find vectors <span class="math inline">\(w, v \in \mathbb{R}^m\)</span> such that the correlation:</p>
+<p><span class="math display">\[\begin{equation}
+\rho = \frac{\langle w^TA_1, v^TA_2 \rangle}{\|w^TA_1\| \cdot \| v^T A_2\|}
+\end{equation}\]</span></p>
+<p>is maximized. The formula can be solved by changing the basis and recurring to singular value decomposition. The output of CCA is a set of singular pairwise orthogonal vectors <span class="math inline">\(u, v\)</span> and their canonical correlation coefficients <span class="math inline">\(\rho \in [0,1]\)</span> representing the correlation of vectors <span class="math inline">\(w^TA_1\)</span> and <span class="math inline">\(v^TA_2\)</span>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:pwcca"></span>
+<img src="figures/2_pwcca.png" alt="Projection-Weighted Canonical Correlation Analysis (PWCCA) applied to last-layer representations of two language models." width="85%" />
+<p class="caption">
+Figure 2.6: Projection-Weighted Canonical Correlation Analysis (PWCCA) applied to last-layer representations of two language models.
+</p>
+</div>
+<p>The SVCCA method <span class="citation">(Raghu et al. <a href="#ref-guyon-etal-2017-svcca">2017</a>)</span> extends the CCA approach for deep learning research by pruning neurons through a singular value decomposition step before computing canonical correlation coefficients. As the authors mention, “This is especially important in neural network representations, where as we will show many low variance directions (neurons) are primarily noise”. Then, the similarity between two layers <span class="math inline">\(L_1, L_2\)</span> is computed as the mean correlation coefficient produce by SVCCA, and adapted to a distance measure for evaluation:
+<span class="math display">\[\begin{equation}
+d_{\text{SVCCA}}(A_1, A_2) = 1 - \frac{1}{|\rho|} \sum_{i=1}^{|\rho|} \rho^{(i)}
+\end{equation}\]</span>
+<span class="citation">Morcos, Raghu, and Bengio (<a href="#ref-morcos-etal-2018-insights">2018</a>)</span> suggest that the equal importance given to all the <span class="math inline">\(|\rho|\)</span> SVCCA vectors during the final averaging step may be problematic since it has been extensively shown that overparametrized neural networks often do not recur to their full dimensionality for representing solutions <span class="citation">(Frankle and Carbin <a href="#ref-frankle-carbin-2018-lottery">2018</a>)</span>. They suggest replacing the mean with a weighted mean:
+<span class="math display">\[\begin{equation}
+d_{\text{PWCCA}}(A_1, A_2) = 1 - \sum_{i=1}^{|\rho|} \alpha \rho^{(i)} \;\;\text{with} \;\; \tilde \alpha_i = \sum_j |\langle h_i, x_j \rangle|
+\end{equation}\]</span>
+where weights <span class="math inline">\(\alpha\)</span> corresponds to the portion of inputs <span class="math inline">\(x\)</span> accounted for by CCA vectors <span class="math inline">\(h\)</span> and <span class="math inline">\(\tilde \alpha_i\)</span> values are normalized such that <span class="math inline">\(\sum_i \alpha_i = 1\)</span>. The resulting approach, <em>projection-weighted canonical correlation analysis</em> (PWCCA), is used in this study and was shown to be much more robust than SVCCA to filter noise in activations. Figure <a href="chap-models.html#fig:pwcca">2.6</a> visualizes the selected approach.</p>
+<p>Notable applications of CCA-related methods in NLP are <span class="citation">Saphra and Lopez (<a href="#ref-saphra-lopez-2019-understanding">2019</a>)</span>, where SVCCA is used to study the evolution of LSTM language models’ representations during training, and <span class="citation">Voita, Sennrich, and Titov (<a href="#ref-voita-etal-2019-bottom">2019</a>)</span>, where PWCCA is used to compare Transformer language models across layers and pretraining objectives.</p>
+
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-abdou-etal-2019-higher">
+<p>Abdou, Mostafa, Artur Kulmizev, Felix Hill, Daniel M. Low, and Anders Søgaard. 2019. “Higher-Order Comparisons of Sentence Encoder Representations.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 5838–45. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1593">https://doi.org/10.18653/v1/D19-1593</a>.</p>
+</div>
+<div id="ref-abnar-2020-visualization">
+<p>Abnar, Samira. 2020. “Visualizing Model Comparison.” <em>Blog Post</em>. <a href="https://samiraabnar.github.io/articles/2020-05/vizualization">https://samiraabnar.github.io/articles/2020-05/vizualization</a>.</p>
+</div>
+<div id="ref-abnar-etal-2019-blackbox">
+<p>Abnar, Samira, Lisa Beinborn, Rochelle Choenni, and Willem Zuidema. 2019. “Blackbox Meets Blackbox: Representational Similarity &amp; Stability Analysis of Neural Language Models and Brains.” In <em>Proceedings of the 2019 Acl Workshop Blackboxnlp: Analyzing and Interpreting Neural Networks for Nlp</em>, 191–203. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W19-4820">https://doi.org/10.18653/v1/W19-4820</a>.</p>
+</div>
+<div id="ref-abnar-etal-2020-transferring">
+<p>Abnar, Samira, Mostafa Dehghani, and Willem Zuidema. 2020. “Transferring Inductive Biases Through Knowledge Distillation.” <em>ArXiv Pre-Print</em> 2006.00555. <a href="https://arxiv.org/abs/2006.00555">https://arxiv.org/abs/2006.00555</a>.</p>
+</div>
+<div id="ref-alain-bengio-2016-understanding">
+<p>Alain, Guillaume, and Yoshua Bengio. 2016. “Understanding Intermediate Layers Using Linear Classifier Probes.” <em>ArXiv Pre-Print</em> 1610.01644. <a href="https://arxiv.org/abs/1610.01644">https://arxiv.org/abs/1610.01644</a>.</p>
+</div>
+<div id="ref-alammar-2018-illustratedbert">
+<p>Alammar, Jay. 2018a. “The Illustrated Bert, Elmo, and Co. (How NLP Cracked Transfer Learning).” <em>Blog Post</em>. <a href="https://jalammar.github.io/illustrated-bert/">https://jalammar.github.io/illustrated-bert/</a>.</p>
+</div>
+<div id="ref-alammar-2018-illustratedgpt2">
+<p>Alammar, Jay. 2018b. “The Illustrated Gpt-2.” <em>Blog Post</em>. <a href="https://http://jalammar.github.io/illustrated-gpt2/">https://http://jalammar.github.io/illustrated-gpt2/</a>.</p>
+</div>
+<div id="ref-andreas-klein-2014-much">
+<p>Andreas, Jacob, and Dan Klein. 2014. “How Much Do Word Embeddings Encode About Syntax?” In <em>Proceedings of the 52nd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</em>, 822–27. Baltimore, Maryland: Association for Computational Linguistics. <a href="https://doi.org/10.3115/v1/P14-2133">https://doi.org/10.3115/v1/P14-2133</a>.</p>
+</div>
+<div id="ref-bahdanau-etal-2015-neural">
+<p>Bahdanau, Dzmitry, Kyunghyun Cho, and Yoshua Bengio. 2015. “Neural Machine Translation by Jointly Learning to Align and Translate.” In <em>Proceeding of the 3rd International Conference on Learning Representations (ICLR’15)</em>.</p>
+</div>
+<div id="ref-caruana-1997-multitask">
+<p>Caruana, Rich. 1997. “Multitask Learning.” <em>Machine Learning</em> 28: 41–75. <a href="https://www.cs.utexas.edu/~kuipers/readings/Caruana-mlj-97.pdf">https://www.cs.utexas.edu/~kuipers/readings/Caruana-mlj-97.pdf</a>.</p>
+</div>
+<div id="ref-conneau-etal-2018-cram">
+<p>Conneau, Alexis, German Kruszewski, Guillaume Lample, Loı̈c Barrault, and Marco Baroni. 2018. “What You Can Cram into a Single $&amp;!#* Vector: Probing Sentence Embeddings for Linguistic Properties.” In <em>Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</em>, 2126–36. Melbourne, Australia: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P18-1198">https://doi.org/10.18653/v1/P18-1198</a>.</p>
+</div>
+<div id="ref-devlin-etal-2019-bert">
+<p>Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. “BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 4171–86. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1423">https://doi.org/10.18653/v1/N19-1423</a>.</p>
+</div>
+<div id="ref-ettinger-2020-bert">
+<p>Ettinger, Allyson. 2020. “What BERT Is Not: Lessons from a New Suite of Psycholinguistic Diagnostics for Language Models.” <em>Transactions of the Association for Computational Linguistics</em> 8: 34–48. <a href="https://doi.org/10.1162/tacl_a_00298">https://doi.org/10.1162/tacl_a_00298</a>.</p>
+</div>
+<div id="ref-frankle-carbin-2018-lottery">
+<p>Frankle, Jonathan, and Michael Carbin. 2018. “The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks.” In <em>Proceedings of the 8th International Conference on Learning Representations (Iclr’18)</em>.</p>
+</div>
+<div id="ref-goodfellow-etal-2016-deep">
+<p>Goodfellow, Ian, Yoshua Bengio, Aaron Courville, and Yoshua Bengio. 2016. <em>Deep Learning</em>. MIT Press Cambridge.</p>
+</div>
+<div id="ref-hendrycks-gimpel-2016-gaussian">
+<p>Hendrycks, Dan, and Kevin Gimpel. 2016. “Gaussian Error Linear Units (Gelus).” <em>ArXiv Pre-Print</em> 1606.08415. <a href="https://arxiv.org/abs/1606.08415">https://arxiv.org/abs/1606.08415</a>.</p>
+</div>
+<div id="ref-hewitt-liang-2019-designing">
+<p>Hewitt, John, and Percy Liang. 2019. “Designing and Interpreting Probes with Control Tasks.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 2733–43. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1275">https://doi.org/10.18653/v1/D19-1275</a>.</p>
+</div>
+<div id="ref-hewitt-manning-2019-structural">
+<p>Hewitt, John, and Christopher D. Manning. 2019. “A Structural Probe for Finding Syntax in Word Representations.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 4129–38. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1419">https://doi.org/10.18653/v1/N19-1419</a>.</p>
+</div>
+<div id="ref-hinton-etal-2015-distilling">
+<p>Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. 2015. “Distilling the Knowledge in a Neural Network.” <em>ArXiv Pre-Print</em> 1503.02531. <a href="https://arxiv.org/abs/1503.02531">https://arxiv.org/abs/1503.02531</a>.</p>
+</div>
+<div id="ref-hochreiter-1997-long">
+<p>Hochreiter, Sepp, and Jürgen Schmidhuber. 1997. “Long Short-Term Memory.” <em>Neural Computation</em> 9 (8). MIT Press: 1735–80.</p>
+</div>
+<div id="ref-howard-ruder-2018-universal">
+<p>Howard, Jeremy, and Sebastian Ruder. 2018. “Universal Language Model Fine-Tuning for Text Classification.” In <em>Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</em>, 328–39. Melbourne, Australia: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P18-1031">https://doi.org/10.18653/v1/P18-1031</a>.</p>
+</div>
+<div id="ref-jawahar-etal-2019-bert">
+<p>Jawahar, Ganesh, Benoit Sagot, and Djamé Seddah. 2019. “What Does BERT Learn About the Structure of Language?” In <em>Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics</em>, 3651–7. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P19-1356">https://doi.org/10.18653/v1/P19-1356</a>.</p>
+</div>
+<div id="ref-kriegeskorte-etal-2008-representational">
+<p>Kriegeskorte, N., M. Mur, and P. Bandettini. 2008. “Representational Similarity Analysis – Connecting the Branches of Systems Neuroscience.” <em>Frontiers in Systems Neuroscience</em> 2. <a href="https://doi.org/10.3389/neuro.06.004.2008">https://doi.org/10.3389/neuro.06.004.2008</a>.</p>
+</div>
+<div id="ref-kudo-richardson-2018-sentencepiece">
+<p>Kudo, Taku, and John Richardson. 2018. “SentencePiece: A Simple and Language Independent Subword Tokenizer and Detokenizer for Neural Text Processing.” In <em>Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing: System Demonstrations</em>, 66–71. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D18-2012">https://doi.org/10.18653/v1/D18-2012</a>.</p>
+</div>
+<div id="ref-laakso-2000-content">
+<p>Laakso, Aarre, and Garrison Cottrell. 2000. “Content and Cluster Analysis: Assessing Representational Similarity in Neural Systems.” <em>Philosophical Psychology</em> 13 (1). Taylor &amp; Francis: 47–76.</p>
+</div>
+<div id="ref-lan-etal-2020-albert">
+<p>Lan, Zhenzhong, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. 2020. “ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations.” In <em>International Conference on Learning Representations</em>. <a href="https://openreview.net/forum?id=H1eA7AEtvS">https://openreview.net/forum?id=H1eA7AEtvS</a>.</p>
+</div>
+<div id="ref-lin-etal-2019-open">
+<p>Lin, Yongjie, Yi Chern Tan, and Robert Frank. 2019. “Open Sesame: Getting Inside BERT’s Linguistic Knowledge.” In <em>Proceedings of the 2019 Acl Workshop Blackboxnlp: Analyzing and Interpreting Neural Networks for Nlp</em>, 241–53. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W19-4825">https://doi.org/10.18653/v1/W19-4825</a>.</p>
+</div>
+<div id="ref-liu-etal-2019-linguistic">
+<p>Liu, Nelson F., Matt Gardner, Yonatan Belinkov, Matthew E. Peters, and Noah A. Smith. 2019. “Linguistic Knowledge and Transferability of Contextual Representations.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 1073–94. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1112">https://doi.org/10.18653/v1/N19-1112</a>.</p>
+</div>
+<div id="ref-miaschi-etal-2020-linguistic">
+<p>Miaschi, Alessio, Dominique Brunato, Felice Dell’Orletta, and Giulia Venturi. 2020. “Linguistic Profiling of a Neural Language Model.” In <em>Proceedings of the 28th Conference on Computational Linguistics (Coling)</em>. Online: Association for Computational Linguistics. <a href="https://arxiv.org/abs/2010.01869">https://arxiv.org/abs/2010.01869</a>.</p>
+</div>
+<div id="ref-miaschi-dellorletta-2020-contextual">
+<p>Miaschi, Alessio, and Felice Dell’Orletta. 2020. “Contextual and Non-Contextual Word Embeddings: An in-Depth Linguistic Investigation.” In <em>Proceedings of the 5th Workshop on Representation Learning for Nlp</em>, 110–19. Online: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/2020.repl4nlp-1.15">https://www.aclweb.org/anthology/2020.repl4nlp-1.15</a>.</p>
+</div>
+<div id="ref-mikolov-etal-2013-efficient">
+<p>Mikolov, Tomas, Kai Chen, G. S. Corrado, and J. Dean. 2013. “Efficient Estimation of Word Representations in Vector Space.” <em>CoRR</em> abs/1301.3781.</p>
+</div>
+<div id="ref-mikolov-etal-2010-recurrent">
+<p>Mikolov, Tomas, M. Karafiát, L. Burget, J. Cernocký, and S. Khudanpur. 2010. “Recurrent Neural Network Based Language Model.” In <em>INTERSPEECH</em>.</p>
+</div>
+<div id="ref-morcos-etal-2018-insights">
+<p>Morcos, Ari, Maithra Raghu, and Samy Bengio. 2018. “Insights on Representational Similarity in Neural Networks with Canonical Correlation.” In <em>Advances in Neural Information Processing Systems 31</em>, edited by S. Bengio, H. Wallach, H. Larochelle, K. Grauman, N. Cesa-Bianchi, and R. Garnett, 5727–36. Curran Associates, Inc. <a href="http://papers.nips.cc/paper/7815-insights-on-representational-similarity-in-neural-networks-with-canonical-correlation.pdf">http://papers.nips.cc/paper/7815-insights-on-representational-similarity-in-neural-networks-with-canonical-correlation.pdf</a>.</p>
+</div>
+<div id="ref-pascanu-etal-2013-difficulty">
+<p>Pascanu, R., Tomas Mikolov, and Yoshua Bengio. 2013. “On the Difficulty of Training Recurrent Neural Networks.” In <em>Proceedings of the 30th International Conference on Machine Learning (Icml’13)</em>.</p>
+</div>
+<div id="ref-pennington-etal-2014-glove">
+<p>Pennington, Jeffrey, Richard Socher, and Christopher Manning. 2014. “GloVe: Global Vectors for Word Representation.” In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em>, 1532–43. Doha, Qatar: Association for Computational Linguistics. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>.</p>
+</div>
+<div id="ref-peters-etal-2018-deep">
+<p>Peters, Matthew, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, and Luke Zettlemoyer. 2018. “Deep Contextualized Word Representations.” In <em>Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers)</em>, 2227–37. New Orleans, Louisiana: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N18-1202">https://doi.org/10.18653/v1/N18-1202</a>.</p>
+</div>
+<div id="ref-pimentel-etal-2020-information">
+<p>Pimentel, Tiago, Josef Valvoda, Rowan Hall Maudslay, Ran Zmigrod, Adina Williams, and Ryan Cotterell. 2020. “Information-Theoretic Probing for Linguistic Structure.” In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</em>, 4609–22. Online: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.acl-main.420">https://doi.org/10.18653/v1/2020.acl-main.420</a>.</p>
+</div>
+<div id="ref-radford-etal-2019-language">
+<p>Radford, A., Jeffrey Wu, R. Child, David Luan, Dario Amodei, and Ilya Sutskever. 2019. “Language Models Are Unsupervised Multitask Learners.” <em>OpenAI Blog</em>. OpenAI.</p>
+</div>
+<div id="ref-guyon-etal-2017-svcca">
+<p>Raghu, Maithra, Justin Gilmer, Jason Yosinski, and Jascha Sohl-Dickstein. 2017. “SVCCA: Singular Vector Canonical Correlation Analysis for Deep Learning Dynamics and Interpretability.” In <em>Advances in Neural Information Processing Systems 30</em>, edited by I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, 6076–85. Curran Associates, Inc. <a href="http://papers.nips.cc/paper/7188-svcca-singular-vector-canonical-correlation-analysis-for-deep-learning-dynamics-and-interpretability.pdf">http://papers.nips.cc/paper/7188-svcca-singular-vector-canonical-correlation-analysis-for-deep-learning-dynamics-and-interpretability.pdf</a>.</p>
+</div>
+<div id="ref-rajpurkar-etal-2016-squad">
+<p>Rajpurkar, Pranav, Jian Zhang, Konstantin Lopyrev, and Percy Liang. 2016. “SQuAD: 100,000+ Questions for Machine Comprehension of Text.” In <em>Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing</em>, 2383–92. Austin, Texas: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D16-1264">https://doi.org/10.18653/v1/D16-1264</a>.</p>
+</div>
+<div id="ref-samek-etal-2019-explainable">
+<p>Samek, W., Grégoire Montavon, A. Vedaldi, L. Hansen, and K. Müller. 2019. “Explainable Ai: Interpreting, Explaining and Visualizing Deep Learning.” <em>Explainable AI: Interpreting, Explaining and Visualizing Deep Learning</em>.</p>
+</div>
+<div id="ref-saphra-lopez-2019-understanding">
+<p>Saphra, Naomi, and Adam Lopez. 2019. “Understanding Learning Dynamics of Language Models with SVCCA.” In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 3257–67. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1329">https://doi.org/10.18653/v1/N19-1329</a>.</p>
+</div>
+<div id="ref-sennrich-etal-2016-neural">
+<p>Sennrich, Rico, Barry Haddow, and Alexandra Birch. 2016. “Neural Machine Translation of Rare Words with Subword Units.” In <em>Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</em>, 1715–25. Berlin, Germany: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P16-1162">https://doi.org/10.18653/v1/P16-1162</a>.</p>
+</div>
+<div id="ref-shwartz-tishby-2017-opening">
+<p>Shwartz-Ziv, Ravid, and Naftali Tishby. 2017. “Opening the Black Box of Deep Neural Networks via Information.” <em>ArXiv Pre-Print</em> 1703.00810. <a href="https://arxiv.org/abs/1703.00810">https://arxiv.org/abs/1703.00810</a>.</p>
+</div>
+<div id="ref-sussillo-etal-2015-neural">
+<p>Sussillo, David, Mark M Churchland, Matthew T Kaufman, and Krishna V Shenoy. 2015. “A Neural Network That Finds a Naturalistic Solution for the Production of Muscle Activity.” <em>Nature Neuroscience</em> 18 (7). Nature Publishing Group: 1025–33.</p>
+</div>
+<div id="ref-tenney-etal-2019-bert">
+<p>Tenney, Ian, Dipanjan Das, and Ellie Pavlick. 2019. “BERT Rediscovers the Classical NLP Pipeline.” In <em>Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics</em>, 4593–4601. Florence, Italy: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/P19-1452">https://doi.org/10.18653/v1/P19-1452</a>.</p>
+</div>
+<div id="ref-thompson-1984-canonical">
+<p>Thompson, Bruce. 1984. <em>Canonical Correlation Analysis: Uses and Interpretation</em>. 47. Sage.</p>
+</div>
+<div id="ref-turian-etal-2010-word">
+<p>Turian, Joseph, Lev-Arie Ratinov, and Yoshua Bengio. 2010. “Word Representations: A Simple and General Method for Semi-Supervised Learning.” In <em>Proceedings of the 48th Annual Meeting of the Association for Computational Linguistics</em>, 384–94. Uppsala, Sweden: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/P10-1040">https://www.aclweb.org/anthology/P10-1040</a>.</p>
+</div>
+<div id="ref-vaswani-etal-2017-attention">
+<p>Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. “Attention Is All You Need.” In <em>Advances in Neural Information Processing Systems 30</em>, edited by I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, 5998–6008. Curran Associates, Inc. <a href="http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf">http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf</a>.</p>
+</div>
+<div id="ref-voita-etal-2019-bottom">
+<p>Voita, Elena, Rico Sennrich, and Ivan Titov. 2019. “The Bottom-up Evolution of Representations in the Transformer: A Study with Machine Translation and Language Modeling Objectives.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 4396–4406. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1448">https://doi.org/10.18653/v1/D19-1448</a>.</p>
+</div>
+<div id="ref-wallace-etal-2019-nlp">
+<p>Wallace, Eric, Yizhong Wang, Sujian Li, Sameer Singh, and Matt Gardner. 2019. “Do NLP Models Know Numbers? Probing Numeracy in Embeddings.” In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (Emnlp-Ijcnlp)</em>, 5307–15. Hong Kong, China: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/D19-1534">https://doi.org/10.18653/v1/D19-1534</a>.</p>
+</div>
+<div id="ref-wang-etal-2018-glue">
+<p>Wang, Alex, Amanpreet Singh, Julian Michael, Felix Hill, Omer Levy, and Samuel Bowman. 2018. “GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding.” In <em>Proceedings of the 2018 EMNLP Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP</em>, 353–55. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W18-5446">https://doi.org/10.18653/v1/W18-5446</a>.</p>
+</div>
+<div id="ref-wu-etal-2016-google">
+<p>Wu, Y., Mike Schuster, Z. Chen, Quoc V. Le, Mohammad Norouzi, Wolfgang Macherey, M. Krikun, et al. 2016. “Google’s Neural Machine Translation System: Bridging the Gap Between Human and Machine Translation.” <em>ArXiv Pre-Print</em> 1609.08144. <a href="https://arxiv.org/abs/1609.08144">https://arxiv.org/abs/1609.08144</a>.</p>
+</div>
+<div id="ref-zhang-bowman-2018-language">
+<p>Zhang, Kelly, and Samuel Bowman. 2018. “Language Modeling Teaches You More Than Translation Does: Lessons Learned Through Auxiliary Syntactic Task Analysis.” In <em>Proceedings of the 2018 EMNLP Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP</em>, 359–61. Brussels, Belgium: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W18-5448">https://doi.org/10.18653/v1/W18-5448</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="10">
+<li id="fn10"><p>Refer to Chapter 6.3 of <span class="citation">Eisenstein (<a href="#ref-eisenstein-2019-introduction">2019</a>)</span> for additional details about recurrent language models.<a href="chap-models.html#fnref10" class="footnote-back">↩</a></p></li>
+<li id="fn11"><p>See <span class="citation">Ruder (<a href="#ref-ruder-2017-overview">2017</a>)</span> for a comprehensive overview<a href="chap-models.html#fnref11" class="footnote-back">↩</a></p></li>
+<li id="fn12"><p><span class="citation">Rogers, Kovaleva, and Rumshisky (<a href="#ref-rogers-etal-2020-primer">2020</a>)</span> and <span class="citation">Linzen and Baroni (<a href="#ref-linzen-baroni-2021-syntactic">2021</a>)</span> are surveys covering this topic.<a href="chap-models.html#fnref12" class="footnote-back">↩</a></p></li>
+<li id="fn13"><p>See <span class="citation">Belinkov and Glass (<a href="#ref-belinkov-glass-2019-analysis">2019</a>)</span> survey and <span class="citation">Belinkov, Gehrmann, and Pavlick (<a href="#ref-belinkov-etal-2020-interpretability">2020</a>)</span> tutorial.<a href="chap-models.html#fnref13" class="footnote-back">↩</a></p></li>
+<li id="fn14"><p>This can be any layer; embeddings can be produced by different layers of the same model.<a href="chap-models.html#fnref14" class="footnote-back">↩</a></p></li>
+<li id="fn15"><p>Different from the activation vector, i.e. all neurons’ activations for a single input <span class="math inline">\((z^l_1(x_1),\dots,z^l_n(x_1))\)</span><a href="chap-models.html#fnref15" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap-ling-comp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap-ex1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gsarti/master-thesis/tree/master/02-Models.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["Sarti_2020_Interpreting_NLMs_for_LCA.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
