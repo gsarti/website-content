@@ -10,7 +10,7 @@
 
 [[main]]
   name = "Publications"
-  url = "#publication"
+  url = "#publications"
   weight = 2
 
 [[main]]
@@ -29,9 +29,15 @@
   weight = 5
 
 [[main]]
+  name = "Activities"  # Title of the link.
+  url = "activities/"  # Widget Page folder name.
+  weight = 6  # Position of the link in the navigation bar.
+  identifier = "activities"
+
+[[main]]
   name = "AI2S"
   url = "https://www.ai2s.it"
-  weight = 6
+  weight = 7
 
 # [[main]]
 #   name = "CV"

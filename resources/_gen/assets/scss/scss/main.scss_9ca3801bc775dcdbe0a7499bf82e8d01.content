@@ -8190,7 +8190,7 @@ ul.share li:hover i {
 
 .home-section {
   background-color: white;
-  padding: 110px 0 110px 0;
+  padding: 50px 0 50px 0;
   animation: intro 0.3s both;
   animation-delay: 0.15s; }
 

@@ -10,24 +10,27 @@ authors:
 superuser: true
 
 # Role/position
-role: MSc Data Science
+role: PhD in Natural Language Processing
 
 # Organizations/Affiliations
 organizations:
-- name: University of Trieste & SISSA
-  url: "https://dssc.units.it/"
+- name: CLCG, University of Groningen
+  url: "https://www.rug.nl/research/clcg/?lang=en"
 
 # Short bio (displayed in user profile at end of posts)
 bio: I have recently graduated from the Master's in Data Science at University of Trieste and the International School of Advanced Studies (SISSA). My research interests focus on interpreting deep models and understanding their learning dynamics, in particular when dealing with natural language.
 
 interests:
-- Natural Language Understanding
-- Interpretability in Deep Learning
-- Representation Learning
-- Psycholinguistics
+- Conditional Text Generation
+- Interpretability for Deep Learning
+- Representation Learning for NLP
+- Computational Psycholinguistics
 
 education:
   courses:
+  - course: PhD in NLP
+    institution: University of Groningen, NL
+    year: 2021 - Ongoing
   - course: MSc in Data Science
     institution: University of Trieste & SISSA, IT
     year: 2020
@@ -49,6 +52,9 @@ social:
 - icon: google-scholar
   icon_pack: ai
   link: https://scholar.google.com/citations?user=sK0B_08AAAAJ
+- icon: codepen
+  icon_pack: fab
+  link:  https://huggingface.co/gsarti
 #- icon: semantic-scholar
 #  icon_pack: ai
 #  link: https://semanticscholar.com/
@@ -74,8 +80,12 @@ user_groups:
 - Visitors
 ---
 
-Hey there! I have recently graduated from the Data Science MSc program at the University of Trieste and SISSA. For my thesis project, I worked with the [ItaliaNLP Lab](http://www.italianlp.it/) and the [L2R Lab](https://lrlac.sissa.it/) under the joint supervision of Felice Dell'Orletta and Davide Crepaldi on NLP and psycholinguistics perspectives for linguistic complexity assessment. 
+Welcome to my website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen. I am part of the NWO-funded project [InDeep: Interpreting Deep Learning Models for Text and Sound](https://interpretingdl.github.io), focusing on interpretability for neural machine translation. I am supervised by [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/) and [Malvina Nissim](https://malvinanissim.github.io/).
 
 <br>
 
-My research interests focus on interpreting deep models and understanding their learning dynamics, in particular when dealing with natural language. I am also interested in positive social applications of machine learning and ethical AI.
+Previously, I was a research scientist at [Aindo](https://www.aindo.com), a student in the [Data Science MSc](https://dssc.units.it/) at University of Trieste & SISSA and a founding member of the [AI Student Society](https://www.ai2s.it). My [master's thesis](http://gsarti.com/thesis/introduction.html) with the [ItaliaNLP Lab](http://www.italianlp.it/) in Pisa was about the study of linguistic complexity using gaze recordings and neural language models.
+
+<br>
+
+My research focuses on interpretability for NLP models, in particular to the benefit of end-users and by leveraging human behavioral signals. I am also passionate about social applications of machine learning, ethical AI, and open source collaboration.

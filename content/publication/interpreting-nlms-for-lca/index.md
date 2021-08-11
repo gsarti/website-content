@@ -24,7 +24,7 @@ abstract: "The study of linguistic complexity is a deeply multidisciplinary area
 # Summary. An optional shortened abstract.
 summary: "This thesis presents a model-driven study of multiple phenomena associated with linguistic complexity, and how those get encoded by neural language models' learned representations."
 
-tags: [Natural Language Processing, Deep Learning, Interpretability, Language Modeling, Transformers, Canonical Correlation Analysis, Garden-path Sentences, Probing Tasks, Representational Similarity Analysis, SyntaxGym, Surprisal]
+tags: [Natural Language Processing, Deep Learning, Interpretability, Language Modeling, Transformers, Canonical Correlation Analysis, Garden-path Sentences, Probing Tasks, Representational Similarity Analysis, SyntaxGym, Surprisal, Eye-tracking]
 categories: []
 featured: false
 

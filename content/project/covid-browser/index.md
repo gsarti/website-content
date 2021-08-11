@@ -20,8 +20,6 @@ image:
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
 links:
-- name: Website
-  url: http://covidbrowser.areasciencepark.it
 - name: Code
   url: https://github.com/gsarti/covid-papers-browser
   icon_pack: fab
@@ -46,4 +44,4 @@ In 2020, more than 3,000 scientific studies have been published on the SARS-CoV-
 
 To make up for this shortcoming, we propose an artificial intelligence system associated with a web application to perform natural language semantic querying inside the [COVID-19 Open Research Dataset](https://pages.semanticscholar.org/coronavirus-research) published by the American nonprofit [AllenAI](https://allenai.org/). The system leverages state-of-the-art neural language models trained on scientific publications in the biomedical domain for optimal retrieval performances. The adoption of the system aims to facilitate knowledge sharing across the scientific community and to accelerate the development of adequate drugs and vaccines to counter the ongoing pandemic.
 
-The project is led by Gabriele Sarti in collaboration with [Area Science Park](en.areasciencepark.it) and the [Italian Association of Computational Linguistics](ai-lc.it). The project is currently being tested and publicly available at [covidbrowser.areasciencepark.it](covidbrowser.areasciencepark.it).
+The project is led by Gabriele Sarti in collaboration with [Area Science Park](en.areasciencepark.it) and the [Italian Association of Computational Linguistics](ai-lc.it). The project used to be publicly available at covidbrowser.areasciencepark.it. You can now refer to the code implementation on [GitHub](https://github.com/gsarti/covid-papers-browser).

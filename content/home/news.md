@@ -50,11 +50,15 @@ title = "News"
 
 &nbsp;
 
+- Starting a PhD on interpretability for NMT at the University of Groningen in September 2021. I will be part of the [NWO InDeep nework](https://interpretingdl.github.io/), working with [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/) and [Malvina Nissim](https://malvinanissim.github.io/)
+
+- Our paper [*"That Looks Hard: Characterizing Linguistic Complexity in Humans and Language Models"*](https://aclanthology.org/2021.cmcl-1.5/) was selected among the [best papers](https://cmclorg.github.io/awards) for CMCL 2021! Code is available [here](https://github.com/gsarti/interpreting-complexity).
+
 - My master's thesis *"Interpreting Neural Language Models for Linguistic Complexity Assessment"* is available in PDF/Gitbook formats [here](../../thesis/introduction.html). Feedback and comments are welcome! 🙂
 
-- **18/12/2020**: My system [UmBERTo-MTSA](../publication/umberto-mtsa) received a special mention at the 7th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian ([EVALITA 2020](http://www.evalita.it/2020/bestsystemawars)).
+<!--- My system [UmBERTo-MTSA](../publication/umberto-mtsa) received a special mention at the 7th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian ([EVALITA 2020](http://www.evalita.it/2020/bestsystemawars)).-->
 
-- **11/12/2020**: Graduated from the Data Science MSc: 110 Cum Laude! 🎉
+<!--- Graduated from the Data Science MSc: 110 Cum Laude! 🎉-->
 
 <!--- Our **COVID-19 Semantic Browser** to facilitate the work of biomedical researchers working on countering the ongoing pandemic is available [here](http://covidbrowser.areasciencepark.it)!-->
 
