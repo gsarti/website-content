@@ -3,7 +3,7 @@
 
 title: "ETC-NLG: End-to-end Topic-Conditioned Natural Language Generation"
 authors: [Ginevra Carbone, Gabriele Sarti]
-date: 2020-11-11T09:47:38+02:00
+date: 2020-12-01T09:47:38+02:00
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
@@ -13,13 +13,13 @@ publishDate: 2020-08-26T09:47:38+02:00
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["1"]
+publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: "In Proceedings of the 4th Workshop on Natural Language for Artificial Intelligence (NL4AI 2020)"
-publication_short: "In NL4AI 2020"
+publication: "Italian Journal of Computational Linguistics (IJCoL)"
+publication_short: "IJCoL"
 
-abstract: "Plug-and-play language models (PPLMs) enable topic-conditioned natural language generation by pairing large pre-trained generators with attribute models used to steer the predicted token distribution towards the selected topic. Despite their computational efficiency, PPLMs require large amounts of labeled texts to effectively balance generation fluency and proper conditioning, making them unsuitable for low-resource settings. We present ETC-NLG, an approach leveraging topic modeling annotations to enable fully-unsupervised End-to-end Topic-Conditioned Natural Language Generation over emergent topics in unlabeled document collections. We first test the effectiveness of our approach in a low-resource setting for Italian, evaluating the conditioning for both topic models and gold annotations. We then perform a comparative evaluation of ETC-NLG for Italian and English using a parallel corpus. Finally, we propose an automatic approach to estimate the effectiveness of conditioning on generated utterances."
+abstract: "Plug-and-play language models (PPLMs) enable topic-conditioned natural language generation by combining large pre-trained generators with attribute models to steer the predicted token distribution towards selected topics. Despite their efficiency, the large amounts of labeled texts required by PPLMs to effectively balance generation fluency and proper conditioning make them unsuitable to low-resource scenarios. We present ETC-NLG, an approach leveraging topic modeling annotations to produce End-to-end Topic-Conditioned Natural Language Generations over emergent topics in unlabeled document collections. We test our method’s effectiveness in a low-resource setting for Italian and perform a comparative evaluation of ETC-NLG for Italian and English using a parallel corpus. Finally, we propose an evaluation method to automatically estimate the conditioning effectiveness from generated utterances."
 
 # Summary. An optional shortened abstract.
 summary: "We present ETC-NLG, an approach leveraging topic modeling annotations to enable fully-unsupervised End-to-end Topic-Conditioned Natural Language Generation over emergent topics in unlabeled document collections."
@@ -40,8 +40,12 @@ links:
   url: https://arxiv.org/abs/2008.10875
   icon_pack: fas
   icon: file-contract
+- name: Journal
+  url: https://journals.openedition.org/ijcol/728
+  icon_pack: fas
+  icon: file-contract
 
-url_pdf: http://ceur-ws.org/Vol-2735/paper22.pdf
+url_pdf: https://arxiv.org/pdf/2008.10875.pdf
 url_code: https://github.com/gsarti/ETC-NLG
 url_dataset:
 url_poster:
