@@ -12,7 +12,7 @@ address:
   postcode:
   country:
 summary: "Discussing the potential applications of interpretability research to the field of neural machine translation."
-abstract: "The latest advances in the field of the Natural Language Processing have produced artificial intelligence systems which were used as co-authors of narrative works, essays and theatre pieces. Three scientists and a humanist discuss about the applications of AI in literature."
+abstract: "Recent advances in neural machine translation (NMT) led to the integration of deep learning-based systems as essential components of most professional translation workflows. As a consequence, human translators are increasingly working as post-editors for machine-translated content. This project aims to empower NMT users by improving their ability to interact with NMT models and interpret their behaviors. In this context, new tools and methodologies will be developed and adapted from other domains to improve prediction attribution, error analysis, and controllable generation for NMT systems. These components will drive the development of an interactive CAT tool conceived to improve post-editing efficiency, and their effectiveness will then be validated through a field study with professional translators. The project will be conducted under the supervision of Arianna Bisazza, Malvina Nissim and Grzegorz Chrupala as part of the network \"InDeep: Interpreting Deep Learning Models for Text and Sound.\""
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
