@@ -59,7 +59,7 @@ subtitle = "A summary of my professional activities"
 
 **Nov 5, 2021**: Presenting virtually my master's thesis work [Characterizing Linguistic Complexity in Humans and Language Models](https://gsarti.com/talk/aperitivo-bocconi) at the Coding Aperitivo of the MilaNLP group at Bocconi University, Italy.
 
-**Sep 1, 2021**: Starting a PhD in interpretable neural machine translation at the worderful [GroNLP](https://www.rug.nl/research/clcg/research/cl/) group under the supervision of [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/) and [Malvina Nissim](https://malvinanissim.github.io/), as a part of the NWO-funded consortium [InDeep: Interpreting Deep Learning Models for Text and Sound](https://interpretingdl.github.io).
+**Sep 1, 2021**: Starting a PhD in interpretable neural machine translation at the worderful [GroNLP](https://www.rug.nl/research/clcg/research/cl/) group under the supervision of [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me), as a part of the NWO-funded consortium [InDeep: Interpreting Deep Learning Models for Text and Sound](https://interpretingdl.github.io).
 
 **Jul 31, 2021**: Last day of work at [Aindo](https://www.aindo.com). In the last months I worked on structured prediction from clinical reports, few-shot cross-lingual transfer for neural QA models, GNN for molecular properties prediction, neural recommender systems and sketch-to-image generation with GANs.
 

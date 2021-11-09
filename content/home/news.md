@@ -50,7 +50,7 @@ title = "News"
 
 &nbsp;
 
-- Starting a PhD on interpretability for NMT at the University of Groningen in September 2021. I will be part of the [NWO InDeep nework](https://interpretingdl.github.io/), working with [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/) and [Malvina Nissim](https://malvinanissim.github.io/)
+- Starting a PhD on interpretability for NMT at the University of Groningen in September 2021. I will be part of the [NWO InDeep nework](https://interpretingdl.github.io/), working with [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
 
 - Our paper [*"That Looks Hard: Characterizing Linguistic Complexity in Humans and Language Models"*](https://aclanthology.org/2021.cmcl-1.5/) was selected among the [best papers](https://cmclorg.github.io/awards) for CMCL 2021! Code is available [here](https://github.com/gsarti/interpreting-complexity).
 
