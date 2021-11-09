@@ -47,6 +47,18 @@ subtitle = "A summary of my professional activities"
  css_class = ""
 +++
 
+***
+
+# 2021
+
+&nbsp;
+
+**Dec 14, 2021**: Attending [NeurIPS 2021](https://neurips.cc/Conferences/2021) and presenting my PhD project [Empowering Human Translators via Interpretable Interactive Neural Machine Translation](https://gsarti.com/talk/xai4debugging21) at the [XAI4Debugging Workshop](https://xai4debugging.github.io/), co-located with NeurIPS.
+
+**Nov 8-12, 2021**: Attending [EMNLP 2021](https://2021.emnlp.org/) virtually.
+
+**Nov 5, 2021**: Presenting virtually my master's thesis work [Characterizing Linguistic Complexity in Humans and Language Models](https://gsarti.com/talk/aperitivo-bocconi) at the Coding Aperitivo of the MilaNLP group at Bocconi University, Italy.
+
 **Sep 1, 2021**: Starting a PhD in interpretable neural machine translation at the worderful [GroNLP](https://www.rug.nl/research/clcg/research/cl/) group under the supervision of [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/) and [Malvina Nissim](https://malvinanissim.github.io/), as a part of the NWO-funded consortium [InDeep: Interpreting Deep Learning Models for Text and Sound](https://interpretingdl.github.io).
 
 **Jul 31, 2021**: Last day of work at [Aindo](https://www.aindo.com). In the last months I worked on structured prediction from clinical reports, few-shot cross-lingual transfer for neural QA models, GNN for molecular properties prediction, neural recommender systems and sketch-to-image generation with GANs.
@@ -58,6 +70,12 @@ subtitle = "A summary of my professional activities"
 **Mar 1-3, 2021**: Attended [CLiC-it 2020](http://clic2020.ilc.cnr.it/it/home/) online. [Alessio](http://pages.di.unipi.it/miaschi/) presented our work [Italian Transformers Under the Linguistic Lens](https://gsarti.com/publication/italian-transformers/), that received a special mention for best student paper.
 
 **Jan 1, 2021**: Started working full-time as ML research scientist for [Aindo](https://www.aindo.com/).
+
+***
+
+# 2020
+
+&nbsp;
 
 **Dec 18, 2020**: Attended [EVALITA 2020](http://www.evalita.it/2020) online, participating in the [DANKMEMES](https://dankmemes2020.fileli.unipi.it/) and [AcCompl-it](https://sites.google.com/view/accompl-it/home-page) tasks. My solo work [UmBERTo-MTSA](https://gsarti.com/publication/umberto-mtsa/) won a special mention among student papers!
 
@@ -84,6 +102,12 @@ subtitle = "A summary of my professional activities"
 **Feb 13, 2020**: Presented the *"Hey Siri, what's computational linguistics"* interactive talk at [SISSA Student Day 2020](https://www.ai-lc.it/en/ailc-sissa-student-day-2020-2/).
 
 **Feb 10-14, 2020**: Attended the course "Eye-tracking Methods for Cognitive Science" by Elizabeth Schotter at SISSA.
+
+***
+
+# 2019
+
+&nbsp;
 
 **Nov 12-15, 2019**: Attending the Sixth Italian Conference on Computational Linguistics ([CLiC-it 2019](http://clic2019.di.uniba.it/index_en.html)), in Bari, Italy.
 
