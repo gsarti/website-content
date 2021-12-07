@@ -50,7 +50,7 @@ image:
 url_slides: https://drive.google.com/file/d/11t2Fa_QPkWnE9HFFUxewS1EQbC_PdKtX/view?usp=sharing
 
 url_code:
-url_pdf:
+url_pdf: https://drive.google.com/file/d/15ckqvAgRezLVmEbEaj34_7FKwV4S_AuH/view?usp=sharing
 url_video: https://recorder-v3.slideslive.com/?share=53196&s=d859ffde-cf97-4797-8605-a2f5c72f24f6
 
 # Markdown Slides (optional).
