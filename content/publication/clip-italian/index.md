@@ -45,7 +45,7 @@ links:
   icon: codepen
   icon_pack: fab
 - name: Code
-  url: https://github.com/gsarti/cancer-detection
+  url: https://github.com/clip-italian/clip-italian
   icon_pack: fab
   icon: github
 - name: Demo

@@ -47,6 +47,18 @@ subtitle = "A summary of my professional activities"
  css_class = ""
 +++
 
+# 2022
+
+&nbsp;
+
+**Mar 9, 2022**: My paper [IT5: : Large-scale Text-to-text Pretraining for Italian Language Understanding and Generation](https://arxiv.org/TBD) is out on arXiv, alongside all [data, checkpoints and code](https://github.com/gsarti/it5) used for the experiments.
+
+**Feb 2022**: Reviewer for the Statistical Methods and Machine Learning for Language Technologies track at the [13th Conference on Language Resources and Evaluation](https://lrec2022.lrec-conf.org/en/) (LREC 2022).
+
+**Feb-Mar 2022**: Teaching assistant for the [MSc Natural Language Processing course](https://github.com/gsarti/ik-nlp-tutorials) at the University of Groningen.
+
+**Jan 17-21, 2022**: Attended the [Advanced Language Processing Winter School (ALPS)](http://lig-alps.imag.fr).
+
 ***
 
 # 2021
