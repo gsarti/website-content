@@ -37,7 +37,7 @@ featured: false
 #   icon: twitter
 links:
 - name: ArXiv
-  url: https://arxiv.org/abs/TBD
+  url: https://arxiv.org/abs/2203.03759
   icon_pack: fas
   icon: file-contract
 - name: Models
@@ -48,12 +48,12 @@ links:
   url: https://github.com/gsarti/it5
   icon_pack: fab
   icon: github
-- name: Demo
-  url: https://huggingface.co/spaces/it5/it5-demo
-  icon_pack: fas
-  icon: rocket
+#- name: Demo
+#  url: https://huggingface.co/spaces/it5/it5-demo
+#  icon_pack: fas
+#  icon: rocket
 
-url_pdf: https://arxiv.org/pdf/TBD
+url_pdf: https://arxiv.org/pdf/2203.03759.pdf
 url_code:
 url_dataset:
 url_poster:
