@@ -48,10 +48,10 @@ links:
   url: https://github.com/gsarti/it5
   icon_pack: fab
   icon: github
-#- name: Demo
-#  url: https://huggingface.co/spaces/it5/it5-demo
-#  icon_pack: fas
-#  icon: rocket
+- name: Demo
+  url: https://huggingface.co/spaces/it5/it5-demo
+  icon_pack: fas
+  icon: rocket
 
 url_pdf: https://arxiv.org/pdf/2203.03759.pdf
 url_code:
