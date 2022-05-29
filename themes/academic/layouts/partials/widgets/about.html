@@ -72,37 +72,53 @@
     {{ if and $page.Params.widget $page.Title }}<h1>{{ $page.Title | markdownify | emojify }}</h1>{{ end }}
 
     {{ $person_page.Content }}
-
-    <div class="row">
-
-      {{ with $person.interests }}
-      <div class="col-md-5">
-        <h3>{{ i18n "interests" | markdownify }}</h3>
-        <ul class="ul-interests">
-          {{ range . }}
-          <li>{{ . | markdownify | emojify }}</li>
-          {{ end }}
-        </ul>
-      </div>
-      {{ end }}
-
-      {{ with $person.education }}
-      <div class="col-md-7">
-        <h3>{{ i18n "education" | markdownify }}</h3>
-        <ul class="ul-edu fa-ul">
-          {{ range .courses }}
-          <li>
-            <i class="fa-li fas fa-graduation-cap"></i>
-            <div class="description">
-              <p class="course">{{ .course }}{{ with .year }}, {{ . }}{{ end }}</p>
-              <p class="institution">{{ .institution }}</p>
-            </div>
-          </li>
-          {{ end }}
-        </ul>
-      </div>
-      {{ end }}
-
-    </div>
   </div>
+</div>
+<div class="row">
+  {{ with $person.interests }}
+  <div class="col-12 col-lg-4">
+    <h3>{{ i18n "interests" | markdownify }}</h3>
+    <ul class="ul-interests fa-ul">
+      {{ range . }}
+      <li class="interest-list-item">{{ with .icon }}<i class="fa-li fas fa-{{ . }}">{{ end }}</i>{{ .name | markdownify | emojify }}</li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+  {{ with $person.education }}
+  <div class="col-12 col-lg-5">
+    <h3>{{ i18n "education" | markdownify }}</h3>
+    <ul class="ul-edu fa-ul">
+      {{ range .courses }}
+      <li>
+        <i class="fa-li fas fa-graduation-cap"></i>
+        <div class="description">
+          <p class="course">{{ .course }}</p>
+          <p class="institution">
+            {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-weight:bold">{{ end }}{{ .institution }}</a> ({{ .country }}), {{ .year }}
+          </p>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+  {{ with $person.work_experience }}
+  <div class="col-12 col-lg-3">
+    <h3>{{ i18n "work_experience" | markdownify }}</h3>
+    <ul class="ul-edu fa-ul">
+      {{ range .positions }}
+      <li>
+        {{ with .icon }}<i class="fa-li fas fa-{{ . }}"></i>{{ end }}
+        <div class="description">
+          <p class="course">{{ .denomination }}</p>
+          <p class="institution">
+            {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-weight:bold">{{ end }}{{ .company }}</a>, {{ with .year }} {{ . }}{{ end }}
+          </p>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
 </div>

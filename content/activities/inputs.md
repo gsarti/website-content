@@ -51,6 +51,16 @@ subtitle = "A summary of my professional activities"
 
 &nbsp;
 
+**May 25th, 2022**: Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is out on arXiv. [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are also available.
+
+**May 23-30th, 2022**: Hosted [Michael Carl](https://www.researchgate.net/profile/Michael-Carl) at the University of Groningen, with talks about translation processes and interpretability for machine translation.
+
+**May 20th, 2022**: Attended the InDeep consortium launch event in Amsterdam.
+
+**May 13th, 2022**: Attended the [NITS 2022](https://nits2022.github.io/) conference in Groningen, with a poster on my PhD project.
+
+**April 11, 2022**: Started supervising [Ludwig Sickert](https://www.linkedin.com/in/lsickert) for his master's thesis in artificial intelligence at the University of Groningen. He will work on visualizing and explaining lexical choices of NMT models across languages with different formality levels.
+
 **Mar 9, 2022**: My paper [IT5: : Large-scale Text-to-text Pretraining for Italian Language Understanding and Generation](https://arxiv.org/TBD) is out on arXiv, alongside all [data, checkpoints and code](https://github.com/gsarti/it5) used for the experiments.
 
 **Feb 2022**: Reviewer for the Statistical Methods and Machine Learning for Language Technologies track at the [13th Conference on Language Resources and Evaluation](https://lrec2022.lrec-conf.org/en/) (LREC 2022).
@@ -99,7 +109,7 @@ subtitle = "A summary of my professional activities"
 
 **Nov 16-20, 2020**: Attended [EMNLP 2020](https://2020.emnlp.org/) and [CoNLL 2020](https://conll.org/2020).
 
-**Oct 19, 2020**: Developed and open-sourced[LambdaBert](https://github.com/gsarti/lambda-bert), a BERT implementation based on [lambda layers](https://openreview.net/forum?id=xTJEN-ggl1b) instead of self-attention. Viral on [Made with ML](https://twitter.com/madewithml/status/1318533780630499332).
+**Oct 19, 2020**: Developed and open-sourced [LambdaBert](https://github.com/gsarti/lambda-bert), a BERT implementation based on [lambda layers](https://openreview.net/forum?id=xTJEN-ggl1b) instead of self-attention. Viral on [Made with ML](https://twitter.com/madewithml/status/1318533780630499332).
 
 **Sep 28, 2020**: Attended the "Deep Learning Theories in Neuroscience" session at the Oxford Virtual Autumn School in Neuroscience.
 

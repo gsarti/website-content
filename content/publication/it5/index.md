@@ -26,7 +26,7 @@ summary: "We present IT5, the first family of encoder-decoder transformer models
 
 tags: [Natural Language Processing, Pre-training, Italian, HuggingFace, Deep Learning, T5, Conditional Language Generation, Multilingual]
 categories: [Natural Language Processing]
-featured: false
+featured: true
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.

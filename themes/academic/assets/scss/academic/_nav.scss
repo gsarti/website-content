@@ -26,7 +26,13 @@
 
 .dropdown-menu,
 nav#navbar-main li.nav-item {
-  font-size: #{$sta-font-size-small}px;
+  font-size: #{$sta-font-size}px;
+  font-weight: bold;
+  padding-right: 15px;
+}
+
+#navbar {
+  justify-content: center;
 }
 
 .navbar-light .navbar-nav>.nav-item>.nav-link,

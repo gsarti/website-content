@@ -14,7 +14,7 @@
   weight = 2
 
 [[main]]
-  name = "Posts"
+  name = "Blog"
   url = "#posts"
   weight = 3
 
@@ -35,19 +35,20 @@
   identifier = "activities"
 
 [[main]]
+  name = "Teaching"
+  url = "teaching/"
+  weight = 7
+  identifier = "teaching"
+
+[[main]]
+  name = "Curriculum"
+  url = "files/cv.pdf"
+  weight = 8
+
+[[main]]
   name = "AI2S"
   url = "https://www.ai2s.it"
-  weight = 7
-
-# [[main]]
-#   name = "CV"
-#   url = "#cv"
-#   weight = 6
-
-# [[main]]
-#   name = "Teaching"
-#   url = "#teaching"
-#   weight = 7
+  weight = 9
 
 # [[main]]
 #   name = "Contact"

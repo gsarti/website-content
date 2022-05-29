@@ -24,9 +24,9 @@ abstract: "This paper investigates the relationship between two complementary pe
 # Summary. An optional shortened abstract.
 summary: "This paper investigates the relationship between two complementary perspectives in the human assessment of sentence complexity and how they are modeled in a neural language model (NLM), highlighting how linguistic information encoded in representations changes when the model learns to predict complexity."
 
-tags: [Natural Language Processing, Eye-tracking, Deep Learning, Interpretability, Probing Tasks]
+tags: [Natural Language Processing, Eye-tracking, Deep Learning, Interpretability, Probing Tasks, Behavioral Data]
 categories: []
-featured: false
+featured: true
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.

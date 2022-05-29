@@ -37,11 +37,11 @@ featured: false
 #   icon: twitter
 links:
 - name: Gitbook
-  url: ../thesis/introduction.html
+  url: ../msc-thesis/introduction.html
   icon_pack: fas
   icon: file-contract
 
-url_pdf: ../thesis/Sarti_2020_Interpreting_NLMs_for_LCA.pdf
+url_pdf: ../msc-thesis/Sarti_2020_Interpreting_NLMs_for_LCA.pdf
 url_code: https://github.com/gsarti/interpreting-complexity
 url_dataset:
 url_poster:
