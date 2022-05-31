@@ -52,11 +52,15 @@ title = "🗞️ News"
 
 <!--- - I will spend the summer at Amazon AWS New York working as an Applied Scientist Intern with the [Amazon Translate](https://aws.amazon.com/translate/) team, under the supervision of [Georgiana Dinu](https://www.linkedin.com/in/georgiana-dinu-b7b1695/). -->
 
+- Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is out on arXiv. [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are also available.
+
+- My paper [IT5: : Large-scale Text-to-text Pretraining for Italian Language Understanding and Generation](https://arxiv.org/abs/2203.03759) is out on arXiv, alongside all [data, checkpoints and code](https://github.com/gsarti/it5) used for the experiments.
+
 - Starting a PhD on interpretability for NMT at the University of Groningen in September 2021. I will be part of the [NWO InDeep nework](https://interpretingdl.github.io/), working with [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
 
-- Our paper [*"That Looks Hard: Characterizing Linguistic Complexity in Humans and Language Models"*](https://aclanthology.org/2021.cmcl-1.5/) was selected among the [best papers](https://cmclorg.github.io/awards) for CMCL 2021! Code is available [here](https://github.com/gsarti/interpreting-complexity).
+<!-- - Our paper [*"That Looks Hard: Characterizing Linguistic Complexity in Humans and Language Models"*](https://aclanthology.org/2021.cmcl-1.5/) was selected among the [best papers](https://cmclorg.github.io/awards) for CMCL 2021! Code is available [here](https://github.com/gsarti/interpreting-complexity). -->
 
-- My master's thesis *"Interpreting Neural Language Models for Linguistic Complexity Assessment"* is available in PDF/Gitbook formats [here](../../msc-thesis/introduction.html). Feedback and comments are welcome! 🙂
+<!-- - My master's thesis *"Interpreting Neural Language Models for Linguistic Complexity Assessment"* is available in PDF/Gitbook formats [here](../../msc-thesis/introduction.html). Feedback and comments are welcome! 🙂 -->
 
 <!--- My system [UmBERTo-MTSA](../publication/umberto-mtsa) received a special mention at the 7th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian ([EVALITA 2020](http://www.evalita.it/2020/bestsystemawars)).-->
 
