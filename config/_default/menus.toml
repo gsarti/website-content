@@ -35,13 +35,7 @@
   identifier = "activities"
 
 [[main]]
-  name = "Teaching"
-  url = "teaching/"
-  weight = 7
-  identifier = "teaching"
-
-[[main]]
-  name = "Curriculum"
+  name = "CV"
   url = "files/cv.pdf"
   weight = 8
 

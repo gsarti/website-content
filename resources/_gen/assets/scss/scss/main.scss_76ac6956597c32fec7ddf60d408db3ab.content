@@ -3167,6 +3167,10 @@ input[type="button"].btn-block {
   flex: 1 1 auto;
   padding: 1.25rem; }
 
+.my-container {
+  flex: 1 1 auto;
+  padding: 0.5rem 0rem 0.5rem 1.25rem; }
+
 .card-title {
   margin-bottom: 0.75rem; }
 

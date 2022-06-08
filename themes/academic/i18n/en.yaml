@@ -226,3 +226,23 @@
 
 - id: cookie_learn
   translation: Learn more
+
+# Activities
+
+- id: attended_events
+  translation: 🗓️ Attended Events
+
+- id: supervision
+  translation: 🎓 Supervision
+
+- id: academic_service
+  translation: 🤝 Academic Service
+
+- id: teaching
+  translation: 👨‍🏫 Teaching
+
+- id: other_happenings
+  translation: 🎉 Other Happenings
+
+- id: project
+  translation: Project

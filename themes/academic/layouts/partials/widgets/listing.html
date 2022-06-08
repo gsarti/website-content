@@ -1,0 +1,134 @@
+{{ $page := .page }}
+
+<div class="row">
+    <div class="col-12 col-lg-4 section-heading">
+        <h2>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+        {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-lg-6">
+        <!-- Teaching -->
+        {{ if $page.Params.teaching }}
+            <h3 style="padding-bottom: 0.5rem">{{ i18n "teaching" | markdownify | emojify }}</h3>
+            {{ range $idx, $key := $page.Params.teaching }}
+            <div class="row activities-teaching">
+                <div class="my-container">
+                    <h4 class="card-title exp-company text-muted my-0">
+                        <i class="fa-solid fa-chalkboard" style="padding-right:0.5rem; padding-bottom:0.5rem"></i>
+                        {{.name}} 
+                    </h4>
+                    <div class="text-muted exp-meta">
+                    {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{ if .date_end}} –
+                        {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{end}}
+                    {{ if .instructor}}
+                        , with {{.instructor}}
+                    {{end}}
+                    </div>
+                    <div class="text-muted exp-meta">
+                    {{.degree}}<span class="middot-divider"></span>{{.university}}
+                    </div>
+                    <div class="text-muted exp-meta">
+                    {{ if .website}}
+                        {{with .website}}<a href="{{.}}">Course website</a>{{end}}
+                        {{ if .repository}}
+                            <span class="middot-divider"></span>
+                            {{with .repository}}<a href="{{.}}">Materials</a>{{end}}
+                        {{end}}
+                    {{end}}
+                </div>
+                </div>
+                {{end}}
+            </div>
+        {{end}}
+
+        <!-- Supervision -->
+        {{ if $page.Params.supervision }}
+        <h3 style="padding-bottom: 0.5rem">{{ i18n "supervision" | markdownify | emojify }}</h3>
+        {{ range $idx, $key := sort $page.Params.supervision ".date" "desc" }}
+        <div class="row activities-supervision">
+            <div class="my-container">
+                <h4 class="card-title exp-company text-muted my-0">
+                    <i class="fa-solid fa-graduation-cap" style="padding-right:0.5rem"></i> 
+                    {{with .website_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.name | markdownify | emojify}}</a>
+                    </h4>
+                    <div class="text-muted exp-meta">
+                    {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{ if .date_end}} –
+                        {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{ else}}
+                        – Ongoing
+                    {{end}}
+                    {{with .program}}
+                    <span class="middot-divider"></span>
+                    <span>{{.}}</span>
+                    {{end}}
+                    </div>
+                    {{with .project}}<div class="card-text text-muted exp-meta">{{ i18n "project" | markdownify | emojify }}: {{. | markdownify | emojify}}</div>{{end}}
+    
+            </div>
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+    <div class="col-12 col-lg-6">
+        <!-- Academic Service -->
+        {{ if $page.Params.academic_service }}
+            <h3 style="padding-bottom: 0.5rem">{{ i18n "academic_service" | markdownify | emojify }}</h3>
+            {{ range $idx, $key := $page.Params.academic_service }}
+            <div class="row activities-academic-service">
+                <div class="my-container">
+                    <h4 class="card-title exp-company text-muted my-0">
+                        {{with .icon}}<i class="fa-solid fa-{{.}}" style="padding-right:0.5rem"></i>{{end}}
+                        {{.task | markdownify | emojify}}
+                    </h4>
+                    {{with .venues}}
+                    <div class="text-muted exp-meta" style="padding-top: 0.5rem">
+                        {{. | markdownify | emojify}}
+                    </div>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+        {{end}}
+        <!-- Events -->
+        {{ if $page.Params.events }}
+        <h3 style="padding-bottom: 0.5rem">{{ i18n "attended_events" | markdownify | emojify }}</h3>
+        {{ range $idx, $key := sort $page.Params.events ".date" "desc" }}
+        <div class="row activities-events">
+            <div class="my-container">
+            <h4 class="card-title exp-company text-muted my-0">
+            <i class="fa-solid fa-calendar" style="padding-right:0.5rem"></i> 
+            {{with .url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.shortname | markdownify | emojify}}</a>
+            </h4>
+            <div class="text-muted exp-meta">
+            {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
+            {{ if .date_end}} –
+                {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
+            {{end}}
+            {{with .location}}
+            <span class="middot-divider"></span>
+            <span>{{.}}</span>
+            {{end}}
+            {{ if .paperlink}}
+            <span class="middot-divider"></span>
+            {{range .paperlink}}
+                <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+            {{end}}
+            {{end}}
+            </div>
+            {{with .description}}<div class="card-text text-muted exp-meta">{{. | markdownify | emojify}}</div>{{end}}
+        </div>
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-lg-12">
+        <h3>{{ i18n "other_happenings" | markdownify }}</h3>
+        {{ with $page.Content }}{{ . }}{{ end }}
+    </div>
+</div>
