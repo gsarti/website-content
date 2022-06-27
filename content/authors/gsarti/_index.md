@@ -49,16 +49,27 @@ education:
 
 work_experience:
   positions:
+  - denomination: Applied Scientist Intern
+    company: Amazon Web Services
+    url: https://aws.amazon.com/translate/
+    location: US
+    year: 2022
+    icon: aws
+    icon_type: fa-brands
   - denomination: Research Scientist
     company: Aindo
     url: "https://www.aindo.com/"
     year: 2020 - 2021
     icon: flask
+    icon_type: fas
+    location: IT
   - denomination: Visiting Research Assistant
     company: ILC-CNR ItaliaNLP Lab
     url: "http://www.italianlp.it"
     year: 2019
     icon: flask
+    icon_type: fas
+    location: IT
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons

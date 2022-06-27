@@ -50,7 +50,7 @@ title = "🗞️ News"
 
 &nbsp;
 
-<!--- - I will spend the summer at Amazon AWS New York working as an Applied Scientist Intern with the [Amazon Translate](https://aws.amazon.com/translate/) team, under the supervision of [Georgiana Dinu](https://www.linkedin.com/in/georgiana-dinu-b7b1695/). -->
+- I will spend the summer at Amazon AWS New York working as an Applied Scientist Intern with the [Amazon Translate](https://aws.amazon.com/translate/) team, under the supervision of [Georgiana Dinu](https://www.linkedin.com/in/georgiana-dinu-b7b1695/).
 
 - Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is out on arXiv. [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are also available.
 

@@ -109,11 +109,12 @@
     <ul class="ul-edu fa-ul">
       {{ range .positions }}
       <li>
-        {{ with .icon }}<i class="fa-li fas fa-{{ . }}"></i>{{ end }}
+        {{ $icon_type := .icon_type }}
+        {{ with .icon }}<i class="fa-li {{ $icon_type }} fa-{{ . }}"></i>{{ end }}
         <div class="description">
           <p class="course">{{ .denomination }}</p>
           <p class="institution">
-            {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-weight:bold">{{ end }}{{ .company }}</a>, {{ with .year }} {{ . }}{{ end }}
+            {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-weight:bold">{{ end }}{{ .company }}</a> ({{ .location }}), {{ .year }}
           </p>
         </div>
       </li>
