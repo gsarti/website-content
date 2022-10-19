@@ -1,25 +1,25 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Italian Transformers Under the Linguistic Lens"
+title: "Probing Linguistic Knowledge in Italian Neural Language Models across Language Varieties"
 authors: [Alessio Miaschi, Gabriele Sarti, Dominique Brunato, Felice Dell’Orletta, Giulia Venturi]
-date: 2021-03-1T09:47:38+02:00
+date: 2022-07-1T09:47:38+02:00
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: 2020-12-19T09:47:38+02:00
+publishDate: 2022-07-1T09:47:38+02:00
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["1"]
+publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: "In Proceedings of the Seventh Italian Conference on Computational Linguistics (CLiC-it 2020)"
-publication_short: "In CLiC-it 2020"
+publication: "In Proceedings of the Seventh Italian Conference on Computational Linguistics (CLiC-it 2020) and the Italian Journal of Computational Linguistics (IJCoL)"
+publication_short: "In CLiC-it 2020 & IJCoL"
 
-abstract: "In this paper we present an in-depth investigation of the linguistic knowledge encoded by the transformer models currently available for the Italian language. In particular, we investigate whether and how using different architectures of probing models affects the performance of Italian transformers in encoding a wide spectrum of linguistic features. Moreover, we explore how this implicit knowledge varies according to different textual genres."
+abstract: "In this paper, we present an in-depth investigation of the linguistic knowledge encoded by the transformer models currently available for the Italian language. In particular, we investigate how the complexity of two different architectures of probing models affects the performance of the Transformers in encoding a wide spectrum of linguistic features. Moreover, we explore how this implicit knowledge varies according to different textual genres and language varieties."
 
 # Summary. An optional shortened abstract.
 summary: "We investigate whether and how using different architectures of probing models affects the performance of Italian transformers in encoding a wide spectrum of linguistic features."
@@ -37,7 +37,17 @@ featured: false
 #   icon: twitter
 links:
 
-url_pdf: http://ceur-ws.org/Vol-2769/paper_56.pdf
+links:
+- name: CLiC-it 2020
+  url: http://ceur-ws.org/Vol-2769/paper_56.pdf
+  icon_pack: fas
+  icon: file-contract
+- name: IJCoL 2022
+  url: https://journals.openedition.org/ijcol/965
+  icon_pack: fas
+  icon: file-contract
+
+url_pdf: 
 url_code: 
 url_dataset:
 url_poster:

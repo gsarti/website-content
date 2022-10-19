@@ -18,7 +18,7 @@ organizations:
   url: "https://www.rug.nl/research/clcg/?lang=en"
 
 # Short bio (displayed in user profile at end of posts)
-bio: I have recently graduated from the Master's in Data Science at University of Trieste and the International School of Advanced Studies (SISSA). My research interests focus on interpreting deep models and understanding their learning dynamics, in particular when dealing with natural language.
+bio: I am PhD student in interpretable neural machine translation at the University of Groningen. My research focuses on interpretability for NLP models, in particular to the benefit of end-users and by leveraging human behavioral signals.
 
 interests:
 - name: Conditional Text Generation
@@ -113,11 +113,11 @@ user_groups:
 - Visitors
 ---
 
-Welcome to my website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen. I am part of the NWO-funded project [InDeep: Interpreting Deep Learning Models for Text and Sound](https://interpretingdl.github.io), focusing on interpretability for neural machine translation. I am supervised by [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
+Welcome to my website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen and member of the NWO-funded consortium [InDeep: Interpreting Deep Learning Models for Text and Sound](https://interpretingdl.github.io), focusing on interpretability for neural machine translation. I am supervised by [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
 
 <br>
 
-Previously, I was a research scientist at [Aindo](https://www.aindo.com), a student in the [Data Science MSc](https://dssc.units.it/) at University of Trieste & SISSA and a founding member of the [AI Student Society](https://www.ai2s.it). My [master's thesis](content/../../../msc-thesis/introduction.html) with the [ItaliaNLP Lab](http://www.italianlp.it/) in Pisa was about the study of linguistic complexity using gaze recordings and neural language models.
+Previously, I was a research intern at [Amazon Translate](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), a student in the [Data Science MSc](https://dssc.units.it/) at University of Trieste & SISSA and a founding member of the [AI Student Society](https://www.ai2s.it). My [master's thesis](content/../../../msc-thesis/introduction.html) with the [ItaliaNLP Lab](http://www.italianlp.it/) concerned the study of linguistic complexity using gaze recordings and neural language models.
 
 <br>
 
