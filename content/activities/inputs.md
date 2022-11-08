@@ -24,7 +24,7 @@ lsickert.project_url = ""
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022"
 
 [teaching]
 
