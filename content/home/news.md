@@ -50,13 +50,15 @@ title = "🗞️ News"
 
 &nbsp;
 
+- [Inseq](https://inseq.readthedocs.io), our open-source toolkit for post-hoc interpretability of generative language models, is now available on [Github](https://github.com/inseq-team/inseq)! 🐛
+
 - Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is accepted at [EMNLP 2022](https://2022.emnlp.org)! [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are available.
 
 - I will spend the summer at Amazon AWS New York working as an Applied Scientist Intern with the [Amazon Translate](https://aws.amazon.com/translate/) team, working with [Georgiana Dinu](https://www.linkedin.com/in/georgiana-dinu-b7b1695/), [Maria Nădejde](http://maria.nadejde.com/), [Xing Niu](https://www.linkedin.com/in/xing-niu/) and [Benjamin Hsu](https://www.linkedin.com/in/benjamin-h-77451966/).
 
 <!-- - Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is out on arXiv. [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are also available. -->
 
-- Our paper [IT5: : Large-scale Text-to-text Pretraining for Italian Language Understanding and Generation](https://arxiv.org/abs/2203.03759) is out on arXiv, alongside all [data, checkpoints and code](https://github.com/gsarti/it5) used for the experiments.
+<!-- - Our paper [IT5: : Large-scale Text-to-text Pretraining for Italian Language Understanding and Generation](https://arxiv.org/abs/2203.03759) is out on arXiv, alongside all [data, checkpoints and code](https://github.com/gsarti/it5) used for the experiments. -->
 
 <!-- - Starting a PhD on interpretability for NMT at the University of Groningen in September 2021. I will be part of the [NWO InDeep nework](https://interpretingdl.github.io/), working with [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me). -->
 

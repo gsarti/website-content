@@ -42,9 +42,15 @@
       {{ . | truncate 135 }}
     </div>
     {{ end }}
-
     <div class="stream-meta article-metadata">
 
+      <div class="article-conference">
+        {{ if eq $item.Type "publication" }}
+          {{ with $item.Params.publication_short }}
+            <span>Published in: {{ . }}</span>
+          {{ end }}
+        {{ end }}
+      </div>
       {{ if eq $item.Type "talk" }}
       <div>
         <span>

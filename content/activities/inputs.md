@@ -20,11 +20,17 @@ lsickert.website_url = "https://www.linkedin.com/in/lsickert"
 lsickert.project = "TBD"
 lsickert.project_url = ""
 
+qzheng.name = "Qiankun Zheng"
+qzheng.date = "2022-10-30"
+qzheng.program = "MSc in LCT, RUG & Saarland University"
+qzheng.project = "TBD"
+qzheng.project_url = ""
+
 [academic_service]
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023"
 
 [teaching]
 
@@ -37,15 +43,29 @@ iknlp22.university = "University of Groningen"
 iknlp22.website = "https://sites.google.com/rug.nl/ik-nlp-2022"
 iknlp22.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
+iknlp23.name = "Natural Language Processing"
+iknlp23.date = "2023-02-07"
+iknlp23.date_end = "2023-04-12"
+iknlp23.instructor = "Arianna Bisazza"
+iknlp23.degree = "MSc Information Science"
+iknlp23.university = "University of Groningen"
+iknlp23.website = "https://sites.google.com/rug.nl/ik-nlp-2023"
+iknlp23.repository = "https://github.com/gsarti/ik-nlp-tutorials"
+
 
 [events]
+
+emnlp22.shortname = "EMNLP 2022"
+emnlp22.date = "2022-12-06"
+emnlp22.url = "https://2022.emnlp.org/"
+emnlp22.location = "Abu Dhabi, UAE"
+emnlp22.paperlink = ["https://arxiv.org/abs/2205.12215"]
 
 eamt22.shortname = "EAMT 2022"
 eamt22.date = "2022-06-01"
 eamt22.url = "https://eamt2022.com/"
 eamt22.location = "Ghent, Belgium"
 eamt22.paperlink = ["https://aclanthology.org/2022.eamt-1.46/"]
-eamt22.description = "Presented my PhD project poster in the Project Track"
 
 
 indeeplaunch22.shortname = "InDeep Launch Event"
@@ -179,6 +199,8 @@ lcl19.paperlink = ["https://github.com/gsarti/svevo-letters-analysis"]
 +++
 
 ### 2022
+
+**July to Sep, 2022**: Spent the summer at Amazon AWS New York working as an Applied Scientist Intern with the [Amazon Translate](https://aws.amazon.com/translate/) team, working with [Georgiana Dinu](https://www.linkedin.com/in/georgiana-dinu-b7b1695/), [Maria Nădejde](http://maria.nadejde.com/), [Xing Niu](https://www.linkedin.com/in/xing-niu/) and [Benjamin Hsu](https://www.linkedin.com/in/benjamin-h-77451966/).
 
 **May 23-30, 2022**: Hosted [Michael Carl](https://www.researchgate.net/profile/Michael-Carl) at the University of Groningen, with talks about translation processes and interpretability for machine translation.
 

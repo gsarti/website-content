@@ -11,8 +11,8 @@
         <!-- Teaching -->
         {{ if $page.Params.teaching }}
             <h3 style="padding-bottom: 0.5rem">{{ i18n "teaching" | markdownify | emojify }}</h3>
-            {{ range $idx, $key := $page.Params.teaching }}
             <div class="row activities-teaching">
+            {{ range $idx, $key := $page.Params.teaching }}
                 <div class="my-container">
                     <h4 class="card-title exp-company text-muted my-0">
                         <i class="fa-solid fa-chalkboard" style="padding-right:0.5rem; padding-bottom:0.5rem"></i>
@@ -96,34 +96,37 @@
         <!-- Events -->
         {{ if $page.Params.events }}
         <h3 style="padding-bottom: 0.5rem">{{ i18n "attended_events" | markdownify | emojify }}</h3>
-        {{ range $idx, $key := sort $page.Params.events ".date" "desc" }}
-        <div class="row activities-events">
-            <div class="my-container">
-            <h4 class="card-title exp-company text-muted my-0">
-            <i class="fa-solid fa-calendar" style="padding-right:0.5rem"></i> 
-            {{with .url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.shortname | markdownify | emojify}}</a>
-            </h4>
-            <div class="text-muted exp-meta">
-            {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
-            {{ if .date_end}} –
-                {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
-            {{end}}
-            {{with .location}}
-            <span class="middot-divider"></span>
-            <span>{{.}}</span>
-            {{end}}
-            {{ if .paperlink}}
-            <span class="middot-divider"></span>
-            {{range .paperlink}}
-                <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
-            {{end}}
-            {{end}}
+        <details>
+            <summary>See all events</summary>
+            {{ range $idx, $key := sort $page.Params.events ".date" "desc" }}
+            <div class="row activities-events">
+                <div class="my-container">
+                <h4 class="card-title exp-company text-muted my-0">
+                <i class="fa-solid fa-calendar" style="padding-right:0.5rem"></i> 
+                {{with .url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.shortname | markdownify | emojify}}</a>
+                </h4>
+                <div class="text-muted exp-meta">
+                {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
+                {{ if .date_end}} –
+                    {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                {{end}}
+                {{with .location}}
+                <span class="middot-divider"></span>
+                <span>{{.}}</span>
+                {{end}}
+                {{ if .paperlink}}
+                <span class="middot-divider"></span>
+                {{range .paperlink}}
+                    <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+                {{end}}
+                {{end}}
+                </div>
+                {{with .description}}<div class="card-text text-muted exp-meta">{{. | markdownify | emojify}}</div>{{end}}
             </div>
-            {{with .description}}<div class="card-text text-muted exp-meta">{{. | markdownify | emojify}}</div>{{end}}
-        </div>
-        </div>
-        {{end}}
-        {{end}}
+            </div>
+            {{end}}
+            {{end}}
+        </details>
     </div>
 </div>
 <div class="row">

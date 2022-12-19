@@ -17,7 +17,7 @@ publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
 publication: "In Proceedings of the Seventh Italian Conference on Computational Linguistics (CLiC-it 2020) and the Italian Journal of Computational Linguistics (IJCoL)"
-publication_short: "In CLiC-it 2020 & IJCoL"
+publication_short: "CLiC-it 2020 & IJCoL"
 
 abstract: "In this paper, we present an in-depth investigation of the linguistic knowledge encoded by the transformer models currently available for the Italian language. In particular, we investigate how the complexity of two different architectures of probing models affects the performance of the Transformers in encoding a wide spectrum of linguistic features. Moreover, we explore how this implicit knowledge varies according to different textual genres and language varieties."
 

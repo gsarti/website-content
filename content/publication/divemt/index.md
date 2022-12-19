@@ -13,13 +13,13 @@ publishDate: 2022-05-24T01:00:00+02:00
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["3"]
+publication_types: ["1"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Arxiv Preprint"
-publication_short: "Arxiv"
+publication: "In Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing"
+publication_short: "EMNLP 2022"
 
-abstract: "We introduce DivEMT, the first publicly available post-editing study of Neural Machine Translation (NMT) over a typologically diverse set of target languages. Using a strictly controlled setup, 18 professional translators were instructed to translate or post-edit the same set of English documents into Arabic, Dutch, Italian, Turkish, Ukrainian, and Vietnamese. During the process, their edits, keystrokes, editing times, pauses, and perceived effort were recorded, enabling an in-depth, cross-lingual evaluation of NMT quality and its post-editing process. Using this new dataset, we assess the impact on translation productivity of two state-of-the-art NMT systems, namely: Google Translate and the open-source multilingual model mBART50. We find that, while post-editing is consistently faster than translation from scratch, the magnitude of its contribution varies largely across systems and languages, ranging from doubled productivity in Dutch and Italian to marginal gains in Arabic, Turkish and Ukrainian, for some of the evaluated modalities. Moreover, the observed cross-language variability appears to partly reflect source-target relatedness and type of target morphology, while remaining hard to predict even based on state-of-the-art automatic MT quality metrics. We publicly release the complete dataset, including all collected behavioural data, to foster new research on the ability of state-of-the-art NMT systems to generate text in typologically diverse languages."
+abstract: "We introduce DivEMT, the first publicly available post-editing study of Neural Machine Translation (NMT) over a typologically diverse set of target languages. Using a strictly controlled setup, 18 professional translators were instructed to translate or post-edit the same set of English documents into Arabic, Dutch, Italian, Turkish, Ukrainian, and Vietnamese. During the process, their edits, keystrokes, editing times and pauses were recorded, enabling an in-depth, cross-lingual evaluation of NMT quality and post-editing effectiveness. Using this new dataset, we assess the impact of two state-of-the-art NMT systems, Google Translate and the multilingual mBART-50 model, on translation productivity. We find that post-editing is consistently faster than translation from scratch. However, the magnitude of productivity gains varies widely across systems and languages, highlighting major disparities in post-editing effectiveness for languages at different degrees of typological relatedness to English, even when controlling for system architecture and training data size. We publicly release the complete dataset including all collected behavioral data, to foster new research on the translation capabilities of NMT systems for typologically diverse languages."
 
 # Summary. An optional shortened abstract.
 summary: "We introduce DivEMT, the first publicly available post-editing study of Neural Machine Translation over a typologically diverse set of target languages."

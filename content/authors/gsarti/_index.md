@@ -27,7 +27,7 @@ interests:
   icon: magnifying-glass
 - name: Behavioral Data for NLP
   icon: eye
-- name: Uncertainty Estimation in NLP
+- name: Causality and Uncertainty Estimation
   icon: circle-question
 
 education:
@@ -116,12 +116,12 @@ user_groups:
 - Visitors
 ---
 
-Welcome to my website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen and member of the NWO-funded consortium [InDeep: Interpreting Deep Learning Models for Text and Sound](https://interpretingdl.github.io), focusing on interpretability for neural machine translation. I am supervised by [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
+Welcome to my website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen and member of the [InDeep](https://interpretingdl.github.io) consortium, working on user-centric interpretability for neural machine translation. I am also the main developer of the [Inseq](https://github.com/inseq-team/inseq) library. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
 
 <br>
 
-Previously, I was a research intern at [Amazon Translate](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), a student in the [Data Science MSc](https://dssc.units.it/) at University of Trieste & SISSA and a founding member of the [AI Student Society](https://www.ai2s.it). My [master's thesis](content/../../../msc-thesis/introduction.html) with the [ItaliaNLP Lab](http://www.italianlp.it/) concerned the study of linguistic complexity using gaze recordings and neural language models.
+Previously, I was a research intern at [Amazon Translate](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), a student in the [Data Science MSc](https://dssc.units.it/) at the University of Trieste and a co-founder of the [AI Student Society](https://www.ai2s.it). My [master's thesis](content/../../../msc-thesis/introduction.html) with the [ItaliaNLP Lab](http://www.italianlp.it/) discussed the study of linguistic complexity using gaze recordings and neural language models.
 
 <br>
 
-My research focuses on interpretability for NLP models, in particular to the benefit of end-users and by leveraging human behavioral signals. I am also passionate about social applications of machine learning, ethical AI, and open source collaboration.
+My research currently focuses on interpretability for NLP models, in particular to the benefit of end-users and by leveraging human behavioral signals. I am also passionate about social applications of machine learning, causality topics, and open source collaboration.
