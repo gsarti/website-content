@@ -17,13 +17,13 @@ lsickert.name = "Ludwig Sickert"
 lsickert.date = "2022-04-11"
 lsickert.program = "MSc in AI, RUG"
 lsickert.website_url = "https://www.linkedin.com/in/lsickert"
-lsickert.project = "TBD"
+lsickert.project = "How do you stop a computer from being rude? Interpretability of Formality levels in Machine Translation"
 lsickert.project_url = ""
 
 qzheng.name = "Qiankun Zheng"
 qzheng.date = "2022-10-30"
 qzheng.program = "MSc in LCT, RUG & Saarland University"
-qzheng.project = "TBD"
+qzheng.project = "Cross-lingual Analysis of Neural Machine Translation"
 qzheng.project_url = ""
 
 [academic_service]

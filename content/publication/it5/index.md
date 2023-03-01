@@ -22,7 +22,7 @@ publication_short: "Arxiv"
 abstract: "The T5 model and its unified text-to-text paradigm contributed in advancing the state-of-the-art for many natural language processing tasks. While some multilingual variants of the T5 model have recently been introduced, their performances were found to provide suboptimal performances for languages other than English if compared to monolingual variants. We are motivated by these findings to introduce IT5, the first family of encoder-decoder transformer models pretrained specifically on Italian. We perform a thorough cleaning of a web-crawled Italian corpus including more than 40 billion words and use it to pretrain three IT5 models of different sizes. The performance of IT5 models and their multilingual counterparts is then evaluated on a broad range of natural language understanding and generation benchmarks for Italian. We find the monolingual IT5 models to provide the best scale-to-performance ratio across tested models, consistently outperforming their multilingual counterparts and setting a new state-of-the-art for most Italian conditional language generation tasks."
 
 # Summary. An optional shortened abstract.
-summary: "We present IT5, the first family of encoder-decoder transformer models pretrained specifically on Italian on more than 40 billion words, reaching state-of-the-art performance for most Italian conditional language generation tasks."
+summary: "IT5s are the first encoder-decoder transformers pretrained on more than 40 billion Italian words."
 
 tags: [Natural Language Processing, Pre-training, Italian, HuggingFace, Deep Learning, T5, Conditional Language Generation, Multilingual]
 categories: [Natural Language Processing]

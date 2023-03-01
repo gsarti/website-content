@@ -50,7 +50,7 @@ title = "🗞️ News"
 
 &nbsp;
 
-- [Inseq](https://inseq.readthedocs.io), our open-source toolkit for post-hoc interpretability of generative language models, is now available on [Github](https://github.com/inseq-team/inseq)! 🐛
+- [Inseq](https://inseq.readthedocs.io), our open-source toolkit for post-hoc interpretability of generative language models, is now available on [Github](https://github.com/inseq-team/inseq)! 🐛 Here is the [demo paper](https://arxiv.org/abs/2302.13942) describing the toolkit, with some examples of how to use it.
 
 - Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is accepted at [EMNLP 2022](https://2022.emnlp.org)! [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are available.
 
