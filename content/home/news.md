@@ -50,11 +50,11 @@ title = "🗞️ News"
 
 &nbsp;
 
-- [Inseq](https://inseq.readthedocs.io), our open-source toolkit for post-hoc interpretability of generative language models, is now available on [Github](https://github.com/inseq-team/inseq)! 🐛 Here is the [demo paper](https://arxiv.org/abs/2302.13942) describing the toolkit, with some examples of how to use it.
+- [Inseq](https://inseq.readthedocs.io), our open-source toolkit for post-hoc interpretability of generative language models, is now available on [Github](https://github.com/inseq-team/inseq)! 🐛 We also have a [demo paper](https://arxiv.org/abs/2302.13942) with some usage examples.
 
 - Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is accepted at [EMNLP 2022](https://2022.emnlp.org)! [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are available.
 
-- I will spend the summer at Amazon AWS New York working as an Applied Scientist Intern with the [Amazon Translate](https://aws.amazon.com/translate/) team, working with [Georgiana Dinu](https://www.linkedin.com/in/georgiana-dinu-b7b1695/), [Maria Nădejde](http://maria.nadejde.com/), [Xing Niu](https://www.linkedin.com/in/xing-niu/) and [Benjamin Hsu](https://www.linkedin.com/in/benjamin-h-77451966/).
+- I spent summer 2022 interning at Amazon AWS in New York, interning with the [Amazon Translate](https://aws.amazon.com/translate/) team, supervised by [Georgiana Dinu](https://www.linkedin.com/in/georgiana-dinu-b7b1695/), [Maria Nădejde](http://maria.nadejde.com/), [Xing Niu](https://www.linkedin.com/in/xing-niu/) and [Benjamin Hsu](https://www.linkedin.com/in/benjamin-h-77451966/).
 
 <!-- - Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is out on arXiv. [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are also available. -->
 

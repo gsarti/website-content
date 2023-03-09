@@ -116,12 +116,14 @@ user_groups:
 - Visitors
 ---
 
-Welcome to my website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen and member of the [InDeep](https://interpretingdl.github.io) consortium, working on user-centric interpretability for neural machine translation. I am also the main developer of the [Inseq](https://github.com/inseq-team/inseq) library. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
+Welcome to my humble website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen and member of the [InDeep](https://interpretingdl.github.io) consortium, working on user-centric interpretability for neural machine translation. I am also the main developer of the [Inseq](https://github.com/inseq-team/inseq) library. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
 
 <br>
 
-Previously, I was a research intern at [Amazon Translate](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), a student in the [Data Science MSc](https://dssc.units.it/) at the University of Trieste and a co-founder of the [AI Student Society](https://www.ai2s.it). My [master's thesis](content/../../../msc-thesis/introduction.html) with the [ItaliaNLP Lab](http://www.italianlp.it/) discussed the study of linguistic complexity using gaze recordings and neural language models.
+Previously, I was a research intern at [Amazon Translate NYC](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), a [Data Science MSc](https://dssc.units.it/) student at the University of Trieste and a co-founder of the [AI Student Society](https://www.ai2s.it).
 
 <br>
 
-My research currently focuses on interpretability for NLP models, in particular to the benefit of end-users and by leveraging human behavioral signals. I am also passionate about social applications of machine learning, causality topics, and open source collaboration.
+My research focuses on interpretability for generative language models, with a particular interest to end-users' benefits and the usage of [human behavioral signals](../../msc-thesis/introduction.html). I am also into causality topics and open source collaboration.
+
+Your [(anonymous) feedback](https://www.admonymous.co/gsarti) is always welcome! 🙂
