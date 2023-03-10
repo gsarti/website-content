@@ -22,7 +22,7 @@ image:
 #   Uncomment and edit lines below to show custom links.
 links:
 - name: Docs
-  url: https://inseq.readthedocs.io/en/latest/
+  url: https://inseq.readthedocs.io
   icon_pack: fas
   icon: book
 - name: Repository

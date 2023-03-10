@@ -41,7 +41,7 @@ links:
   icon_pack: fas
   icon: file-contract
 - name: Docs
-  url: https://inseq.readthedocs.io/en/latest/
+  url: https://inseq.readthedocs.io
   icon_pack: fas
   icon: book
 - name: Repository
