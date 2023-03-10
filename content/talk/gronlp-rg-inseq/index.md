@@ -17,7 +17,7 @@ in machine translation and locating factual knowledge withing GPT-2 representati
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-date: 2022-10-20
+date: 2023-03-10T13:00:00+01:00
 #date_end: 2019-10-27T17:59:41+01:00
 all_day: true
 
