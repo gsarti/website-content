@@ -5,27 +5,37 @@
 
 [[main]]
   name = "Home"
+  weight = 1
+  identifier = "home"
+
+[[main]]
+  name = "About me"
   url = "#about"
+  parent = "home"
   weight = 1
 
 [[main]]
   name = "Publications"
   url = "#publications"
+  parent = "home"
   weight = 2
 
 [[main]]
   name = "Blog"
   url = "#posts"
+  parent = "home"
   weight = 3
 
 [[main]]
   name = "Talks"
   url = "#talks"
+  parent = "home"
   weight = 4
 
 [[main]]
   name = "Projects"
   url = "#projects"
+  parent = "home"
   weight = 5
 
 [[main]]
@@ -40,9 +50,21 @@
   weight = 8
 
 [[main]]
+  name = "Communities"
+  weight = 9
+  identifier = "communities"
+
+[[main]]
   name = "AI2S"
   url = "https://www.ai2s.it"
-  weight = 9
+  parent = "communities"
+  weight = 1
+
+[[main]]
+  name = "AISIG"
+  url = "https://www.aisig.org"
+  parent = "communities"
+  weight = 2
 
 # [[main]]
 #   name = "Contact"
