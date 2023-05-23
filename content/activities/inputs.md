@@ -17,14 +17,33 @@ lsickert.name = "Ludwig Sickert"
 lsickert.date = "2022-04-11"
 lsickert.program = "MSc in AI, RUG"
 lsickert.website_url = "https://www.linkedin.com/in/lsickert"
-lsickert.project = "How do you stop a computer from being rude? Interpretability of Formality levels in Machine Translation"
+lsickert.project_type = "MSc Thesis"
+lsickert.project = "Interpretability of Formality levels in Machine Translation"
 lsickert.project_url = ""
 
 qzheng.name = "Qiankun Zheng"
 qzheng.date = "2022-10-30"
+qzheng.date_end = "2023-04-30"
 qzheng.program = "MSc in LCT, RUG & Saarland University"
+qzheng.project_type = "MSc Project"
 qzheng.project = "Cross-lingual Analysis of Neural Machine Translation"
 qzheng.project_url = ""
+
+kchernyshev.name = "Konstantin Chernyshev"
+kchernyshev.date = "2023-04-17"
+kchernyshev.program = "MSc in LCT, RUG & Saarland University"
+kchernyshev.website_url = "https://www.linkedin.com/in/konstantin-chernyshev"
+kchernyshev.project_type = "MSc Project"
+kchernyshev.project = "TBD"
+kchernyshev.project_url = ""
+
+dscalena.name = "Daniel Scalena"
+dscalena.date = "2023-04-01"
+dscalena.program = "MSc in Computer Science, University Milano-Bicocca"
+dscalena.website_url = "https://www.linkedin.com/in/daniel-scalena"
+dscalena.project_type = "MSc Project"
+dscalena.project = "TBD"
+dscalena.project_url = ""
 
 [academic_service]
 
@@ -54,6 +73,13 @@ iknlp23.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
 
 [events]
+
+lcl23.shortname = "Lectures on Computational Linguistics 2023"
+lcl23.date = "2023-05-29"
+lcl23.url = "https://www.ai-lc.it/en/lectures-2/lectures-2023/"
+lcl23.location = "Pisa, Italy"
+lcl23.paperlink = ["https://github.com/gsarti/lcl23-xnlm-lab"]
+lcl23.description = "Hosted a lab session on interpretability for neural language models"
 
 emnlp22.shortname = "EMNLP 2022"
 emnlp22.date = "2022-12-06"
