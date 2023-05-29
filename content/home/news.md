@@ -50,7 +50,9 @@ title = "🗞️ News"
 
 &nbsp;
 
-- I will present my internship paper "RAMP: Retrieval and Attribute-Marking Enhanced Prompting for Attribute-Controlled Translation" and [Inseq](https://arxiv.org/abs/2302.13942) at [ACL 2023](https://2023.aclweb.org/) in Toronto! 🎉
+- I will present my internship paper [RAMP: Retrieval and Attribute-Marking Enhanced Prompting for Attribute-Controlled Translation](https://arxiv.org/abs/2305.17131) and [Inseq](https://arxiv.org/abs/2302.13942) at [ACL 2023](https://2023.aclweb.org/) in Toronto! 🎉
+
+- New preprint out studying character-level MT models with attribution techniques: [Are Character-level Translations Worth the Wait? Comparing Character- and Subword-level Models for Machine Translation](https://arxiv.org/abs/2302.14220)
 
 - [Inseq](https://inseq.readthedocs.io), our open-source toolkit for post-hoc interpretability of generative language models, is now available on [Github](https://github.com/inseq-team/inseq)! 🐛 We also have a [demo paper](https://arxiv.org/abs/2302.13942) with some usage examples.
 
