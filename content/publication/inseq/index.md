@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Inseq: An Interpretability Toolkit for Sequence Generation Models"
-authors: [Gabriele Sarti, Nils Feldhus, Ludwig Sickert, Oskar van der Wal]
+authors: [Gabriele Sarti, Nils Feldhus, Ludwig Sickert, Oskar van der Wal, Malvina Nissim, Arianna Bisazza]
 date: 2023-02-27T09:47:38+02:00
 doi: ""
 
@@ -36,6 +36,10 @@ featured: false
 #   icon_pack: fab
 #   icon: twitter
 links:
+- name: Paper
+  url: https://aclanthology.org/2023.acl-demo.40/
+  icon_pack: fas
+  icon: file-alt
 - name: ArXiv
   url: https://arxiv.org/abs/2302.13942
   icon_pack: fas
@@ -56,20 +60,20 @@ links:
   icon: twitter
   icon_pack: fab
   url: https://twitter.com/InseqDev
-- name: Mastodon
-  icon: mastodon
+- name: Discord
+  icon: discord
   icon_pack: fab
-  link: https://sigmoid.social/@inseq
+  link: https://discord.gg/V5VgwwFPbu
 - name: Hugging Face
   url: https://huggingface.co/inseq
   icon: codepen
   icon_pack: fab
-- name: Demo
-  url: https://huggingface.co/spaces/oskarvanderwal/MT-bias-demo
+- name: Tutorial
+  url: https://github.com/inseq-team/inseq/blob/main/examples/inseq_tutorial.ipynb
   icon_pack: fas
   icon: rocket
 
-url_pdf: https://arxiv.org/pdf/2302.13942
+url_pdf: https://aclanthology.org/2023.acl-demo.40.pdf
 url_code:
 url_dataset:
 url_poster:

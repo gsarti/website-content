@@ -36,12 +36,16 @@ featured: false
 #   icon_pack: fab
 #   icon: twitter
 links:
+- name: Paper
+  url: https://aclanthology.org/2023.acl-short.126/
+  icon_pack: fas
+  icon: file-alt
 - name: ArXiv
   url: https://arxiv.org/abs/2305.17131
   icon_pack: fas
   icon: file-contract
 
-url_pdf: https://arxiv.org/pdf/2305.17131.pdf
+url_pdf: https://aclanthology.org/2023.acl-short.126.pdf
 url_code:
 url_dataset:
 url_poster:
