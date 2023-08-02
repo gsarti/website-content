@@ -18,7 +18,7 @@ lsickert.date = "2022-04-11"
 lsickert.program = "MSc in AI, RUG"
 lsickert.website_url = "https://www.linkedin.com/in/lsickert"
 lsickert.project_type = "MSc Thesis"
-lsickert.project = "Interpretability of Formality levels in Machine Translation"
+lsickert.project = "Assessing Formality in Machine Translation through Interpretability Methods"
 lsickert.project_url = ""
 
 qzheng.name = "Qiankun Zheng"
@@ -26,7 +26,7 @@ qzheng.date = "2022-10-30"
 qzheng.date_end = "2023-04-30"
 qzheng.program = "MSc in LCT, RUG & Saarland University"
 qzheng.project_type = "MSc Project"
-qzheng.project = "Cross-lingual Analysis of Neural Machine Translation"
+qzheng.project = "Cross-lingual Analysis of Neural Machine Translation Post-Edits"
 qzheng.project_url = ""
 
 kchernyshev.name = "Konstantin Chernyshev"
@@ -40,16 +40,16 @@ kchernyshev.project_url = ""
 dscalena.name = "Daniel Scalena"
 dscalena.date = "2023-04-01"
 dscalena.program = "MSc in Computer Science, University Milano-Bicocca"
-dscalena.website_url = "https://www.linkedin.com/in/daniel-scalena"
+dscalena.website_url = "https://www.danielsc4.it/"
 dscalena.project_type = "MSc Project"
-dscalena.project = "TBD"
-dscalena.project_url = ""
+dscalena.project = "Let the Models Respond: Interpreting the Detoxification process of LMs"
+dscalena.project_url = "https://www.danielsc4.it/blog/2023/interpreting-detox-LM"
 
 [academic_service]
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023"
 
 [teaching]
 
@@ -73,6 +73,19 @@ iknlp23.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
 
 [events]
+
+acl23.shortname = "ACL 2023"
+acl23.date = "2023-07-09"
+acl23.url = "https://2023.aclweb.org/"
+acl23.location = "Toronto, ON, Canada"
+acl23.paperlink = ["https://aclanthology.org/2023.acl-short.126/", "https://aclanthology.org/2023.acl-demo.40/"]
+
+restcl23.shortname = "REST-CL 2023"
+restcl23.date = "2023-06-30"
+restcl23.url = "https://sites.google.com/view/rest-cl-2023/home?authuser=0"
+restcl23.location = "Sant Jaume dels Domenys, Spain"
+restcl23.paperlink = ["https://gsarti.com/talk/restcl-2023/"]
+restcl23.description = "Hosted a tutorial on interpretability for generative language models"
 
 lcl23.shortname = "Lectures on Computational Linguistics 2023"
 lcl23.date = "2023-05-29"
@@ -115,7 +128,7 @@ alps22.location = "Online"
 
 xai4debugging21.shortname = "XAI4Debugging WS @ NeurIPS 2021"
 xai4debugging21.date = "2022-01-17"
-xai4debugging21.url = "http://lig-alps.imag.fr/"
+xai4debugging21.url = "https://xai4debugging.github.io/"
 xai4debugging21.location = "Online"
 xai4debugging21.paperlink = ["https://gsarti.com/talk/xai4debugging21"]
 

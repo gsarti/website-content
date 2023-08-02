@@ -63,16 +63,12 @@
                         {{ else}}
                             – Ongoing
                         {{end}}
-                        {{with .program}}
                         <span class="middot-divider"></span>
-                        <span>{{.}}</span>
-                        {{end}}
+                        <span>{{.program}}</span>
                         </div>
-                        {{with .project_type}}
                         <div class="card-text text-muted exp-meta">
-                            {{ . | markdownify | emojify }}{{end}}: {{with .project}}{{. | markdownify | emojify}}
+                            {{ .project_type | markdownify | emojify }}: {{with .project_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.project | markdownify | emojify}}</a>
                         </div>
-                        {{end}}
                 </div>
             </div>
         {{end}}
