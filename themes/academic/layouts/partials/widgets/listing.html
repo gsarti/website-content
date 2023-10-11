@@ -43,37 +43,75 @@
                 {{end}}
             </div>
         {{end}}
-
+        <hr/>
         <!-- Supervision -->
         {{ if $page.Params.supervision }}
         <h3 style="padding-bottom: 0.5rem">{{ i18n "supervision" | markdownify | emojify }}</h3>
+        {{ range $idx, $key := sort $page.Params.supervision ".date" "desc" }}
+            {{ if .date_end }}
+                {{continue}}
+            {{end}}
+            <div class="row activities-supervision">
+                <div class="my-container">
+                    <h4 class="card-title exp-company text-muted my-0">
+                        <i class="fa-solid fa-graduation-cap" style="padding-right:0.5rem"></i> 
+                        {{with .website_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.name | markdownify | emojify}}</a>
+                    </h4>
+                    <div class="text-muted exp-meta">
+                    {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{ if .date_end}} –
+                        {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{ else}}
+                        – Ongoing
+                    {{end}}
+                    <span class="middot-divider"></span>
+                    <span>{{.program}}</span>
+                    </div>
+                    <div class="card-text text-muted exp-meta">
+                        {{ .project_type | markdownify | emojify }}: {{with .project_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.project | markdownify | emojify}}</a>
+                        {{ if .paperlink}}
+                            <span class="middot-divider"></span>
+                            {{range .paperlink}}
+                                <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+                            {{end}}
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        {{end}}
         <details>
-            <summary>See all supervised students</summary>
+            <summary>See previously supervised students</summary>
             {{ range $idx, $key := sort $page.Params.supervision ".date" "desc" }}
             <div class="row activities-supervision">
                 <div class="my-container">
                     <h4 class="card-title exp-company text-muted my-0">
                         <i class="fa-solid fa-graduation-cap" style="padding-right:0.5rem"></i> 
                         {{with .website_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.name | markdownify | emojify}}</a>
-                        </h4>
-                        <div class="text-muted exp-meta">
-                        {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
-                        {{ if .date_end}} –
-                            {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
-                        {{ else}}
-                            – Ongoing
+                    </h4>
+                    <div class="text-muted exp-meta">
+                    {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{ if .date_end}} –
+                        {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{ else}}
+                        – Ongoing
+                    {{end}}
+                    <span class="middot-divider"></span>
+                    <span>{{.program}}</span>
+                    </div>
+                    <div class="card-text text-muted exp-meta">
+                        {{ .project_type | markdownify | emojify }}: {{with .project_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.project | markdownify | emojify}}</a>
+                        {{ if .paperlink}}
+                            <span class="middot-divider"></span>
+                            {{range .paperlink}}
+                                <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+                            {{end}}
                         {{end}}
-                        <span class="middot-divider"></span>
-                        <span>{{.program}}</span>
-                        </div>
-                        <div class="card-text text-muted exp-meta">
-                            {{ .project_type | markdownify | emojify }}: {{with .project_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.project | markdownify | emojify}}</a>
-                        </div>
+                    </div>
                 </div>
             </div>
-        {{end}}
-        {{end}}
+            {{end}}
         </details>
+        {{end}}
     </div>
     <div class="col-12 col-lg-6">
         <!-- Academic Service -->
@@ -95,42 +133,77 @@
             </div>
             {{end}}
         {{end}}
+        <hr/>
         <!-- Events -->
         {{ if $page.Params.events }}
         <h3 style="padding-bottom: 0.5rem">{{ i18n "attended_events" | markdownify | emojify }}</h3>
-        <details>
-            <summary>See all events</summary>
-            {{ range $idx, $key := sort $page.Params.events ".date" "desc" }}
+        {{ range $idx, $key := sort $page.Params.events ".date" "desc" }}
+            {{ if eq $idx  3 }}
+                {{break}}
+            {{end}}
             <div class="row activities-events">
                 <div class="my-container">
-                <h4 class="card-title exp-company text-muted my-0">
-                <i class="fa-solid fa-calendar" style="padding-right:0.5rem"></i> 
-                {{with .url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.shortname | markdownify | emojify}}</a>
-                </h4>
-                <div class="text-muted exp-meta">
-                {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
-                {{ if .date_end}} –
-                    {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
-                {{end}}
-                {{with .location}}
-                <span class="middot-divider"></span>
-                <span>{{.}}</span>
-                {{end}}
-                {{ if .paperlink}}
-                <span class="middot-divider"></span>
-                {{range .paperlink}}
-                    <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
-                {{end}}
-                {{end}}
+                    <h4 class="card-title exp-company text-muted my-0">
+                    <i class="fa-solid fa-calendar" style="padding-right:0.5rem"></i> 
+                    {{with .url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.shortname | markdownify | emojify}}</a>
+                    </h4>
+                    <div class="text-muted exp-meta">
+                    {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{ if .date_end}} –
+                        {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{end}}
+                    {{with .location}}
+                    <span class="middot-divider"></span>
+                    <span>{{.}}</span>
+                    {{end}}
+                    {{ if .paperlink}}
+                    <span class="middot-divider"></span>
+                    {{range .paperlink}}
+                        <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+                    {{end}}
+                    {{end}}
+                    </div>
+                    {{with .description}}<div class="card-text text-muted exp-meta">{{. | markdownify | emojify}}</div>{{end}}
                 </div>
-                {{with .description}}<div class="card-text text-muted exp-meta">{{. | markdownify | emojify}}</div>{{end}}
             </div>
-            </div>
+        {{end}}
+        <details>
+            <summary>See previous events</summary>
+            {{ range $idx, $key := sort $page.Params.events ".date" "desc" }}
+            {{ if lt $idx  3 }}
+                {{continue}}
             {{end}}
+            <div class="row activities-events">
+                <div class="my-container">
+                    <h4 class="card-title exp-company text-muted my-0">
+                    <i class="fa-solid fa-calendar" style="padding-right:0.5rem"></i> 
+                    {{with .url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.shortname | markdownify | emojify}}</a>
+                    </h4>
+                    <div class="text-muted exp-meta">
+                    {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{ if .date_end}} –
+                        {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                    {{end}}
+                    {{with .location}}
+                    <span class="middot-divider"></span>
+                    <span>{{.}}</span>
+                    {{end}}
+                    {{ if .paperlink}}
+                    <span class="middot-divider"></span>
+                    {{range .paperlink}}
+                        <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+                    {{end}}
+                    {{end}}
+                    </div>
+                    {{with .description}}<div class="card-text text-muted exp-meta">{{. | markdownify | emojify}}</div>{{end}}
+                </div>
+            </div>
             {{end}}
         </details>
+        {{end}}
     </div>
 </div>
+<hr/>
 <div class="row">
     <div class="col-12 col-lg-12">
         <h3>{{ i18n "other_happenings" | markdownify }}</h3>

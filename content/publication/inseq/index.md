@@ -26,7 +26,7 @@ summary: "We present Inseq, a Python library to democratize access to interpreta
 
 tags: [Natural Language Processing, HuggingFace, Deep Learning, Interpretability, Machine Translation, Transformers, Feature Attribution, Natural Language Generation, Library]
 categories: [Natural Language Processing]
-featured: false
+featured: true
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.

@@ -26,7 +26,7 @@ summary: "We introduce Retrieval and Attribute-Marking enhanced Prompting (RAMP)
 
 tags: [Natural Language Processing, Deep Learning, Machine Translation, Style Transfer, Multilingual, Prompting, Large Language Models]
 categories: [Natural Language Processing]
-featured: false
+featured: true
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.

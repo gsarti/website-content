@@ -15,6 +15,7 @@ subtitle = "A summary of my professional activities"
 
 lsickert.name = "Ludwig Sickert"
 lsickert.date = "2022-04-11"
+lsickert.date_end = "2023-07-01"
 lsickert.program = "MSc in AI, RUG"
 lsickert.website_url = "https://www.linkedin.com/in/lsickert"
 lsickert.project_type = "MSc Thesis"
@@ -31,25 +32,28 @@ qzheng.project_url = ""
 
 kchernyshev.name = "Konstantin Chernyshev"
 kchernyshev.date = "2023-04-17"
+kchernyshev.date_end = "2023-10-01"
 kchernyshev.program = "MSc in LCT, RUG & Saarland University"
 kchernyshev.website_url = "https://www.linkedin.com/in/konstantin-chernyshev"
 kchernyshev.project_type = "MSc Project"
-kchernyshev.project = "TBD"
+kchernyshev.project = "Improving the Identification and Categorization of Word-level QE for MT"
 kchernyshev.project_url = ""
 
 dscalena.name = "Daniel Scalena"
 dscalena.date = "2023-04-01"
+dscalena.date_end = "2023-10-01"
 dscalena.program = "MSc in Computer Science, University Milano-Bicocca"
 dscalena.website_url = "https://www.danielsc4.it/"
 dscalena.project_type = "MSc Project"
-dscalena.project = "Let the Models Respond: Interpreting the Detoxification process of LMs"
+dscalena.project = "Interpreting the Detoxification process of Language Models"
 dscalena.project_url = "https://www.danielsc4.it/blog/2023/interpreting-detox-LM"
+dscalena.paperlink = ["https://arxiv.org/abs/2309.00751"]
 
 [academic_service]
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023"
 
 [teaching]
 

@@ -26,7 +26,7 @@ summary: "IT5s are the first encoder-decoder transformers pretrained on more tha
 
 tags: [Natural Language Processing, Pre-training, Italian, HuggingFace, Deep Learning, T5, Conditional Language Generation, Multilingual]
 categories: [Natural Language Processing]
-featured: true
+featured: false
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.

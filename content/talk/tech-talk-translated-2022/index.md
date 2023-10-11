@@ -24,7 +24,7 @@ publishDate: 2022-05-18
 
 authors: [Gabriele Sarti]
 tags: [Natural Language Processing, Neural Machine Translation, Interpretability, Sequence-to-sequence, Behavioral Data, Linguistic Complexity]
-categories: ["Natural Language Processing", "Academic"]
+categories: ["Natural Language Processing", "Industry-oriented"]
 
 # Is this a featured talk? (true/false)
 featured: false
