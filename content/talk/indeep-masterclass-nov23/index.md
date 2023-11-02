@@ -45,9 +45,9 @@ image:
 #   icon: twitter
 
 # Optional filename of your slides within your talk's folder or a URL.
-url_slides: 
+url_slides: https://docs.google.com/presentation/d/1hWsb679XMt02aDc0YoPsSJ98WNRxLcmSHALuUY5LyfE/edit?usp=sharing
 
-url_code: https://github.com/inseq-team/inseq
+url_code: https://colab.research.google.com/drive/1pWhAS-S9_pbSqJYNUXkbszX8XbB0qPN0?usp=sharing
 url_pdf:
 url_video:
 
