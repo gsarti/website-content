@@ -50,13 +50,17 @@ title = "🗞️ News"
 
 &nbsp;
 
-- I will present my internship paper [RAMP: Retrieval and Attribute-Marking Enhanced Prompting for Attribute-Controlled Translation](https://arxiv.org/abs/2305.17131) and [Inseq](https://arxiv.org/abs/2302.13942) at [ACL 2023](https://2023.aclweb.org/) in Toronto! 🎉
+- I presented the [PECoRe framwork](../publication/pecore) at the [BlackboxNLP workshop](https://blackboxnlp.github.io/) co-located with EMNLP 2023 in Singapore.
 
-- New preprint out studying character-level MT models with attribution techniques: [Are Character-level Translations Worth the Wait? Comparing Character- and Subword-level Models for Machine Translation](https://arxiv.org/abs/2302.14220)
+- I was awarded two research grants from the [Imminent Research Center](https://imminent.translated.com/) and the [Amsterdam eScience Center](https://www.esciencecenter.nl/) to fund the development of the Inseq library and my future research on machine translation.
+
+- I presented my internship paper [RAMP: Retrieval and Attribute-Marking Enhanced Prompting for Attribute-Controlled Translation](https://arxiv.org/abs/2305.17131) and [Inseq](https://arxiv.org/abs/2302.13942) at [ACL 2023](https://2023.aclweb.org/) in Toronto! 🎉
+
+<!-- - New preprint out studying character-level MT models with attribution techniques: [Are Character-level Translations Worth the Wait? Comparing Character- and Subword-level Models for Machine Translation](https://arxiv.org/abs/2302.14220)-->
 
 - [Inseq](https://inseq.readthedocs.io), our open-source toolkit for post-hoc interpretability of generative language models, is now available on [Github](https://github.com/inseq-team/inseq)! 🐛 We also have a [demo paper](https://arxiv.org/abs/2302.13942) with some usage examples.
 
-- Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is accepted at [EMNLP 2022](https://2022.emnlp.org)! [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are available.
+<!-- - Our paper [DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages](https://arxiv.org/abs/2205.12215) is accepted at [EMNLP 2022](https://2022.emnlp.org)! [Code](https://github.com/gsarti/divemt/blob/main/README.md), [🤗 Dataset](https://huggingface.co/datasets/GroNLP/divemt) and [demo](https://huggingface.co/spaces/GroNLP/divemt_explorer) are available. -->
 
 - I spent summer 2022 interning at Amazon AWS in New York, interning with the [Amazon Translate](https://aws.amazon.com/translate/) team, supervised by [Georgiana Dinu](https://www.linkedin.com/in/georgiana-dinu-b7b1695/), [Maria Nădejde](http://maria.nadejde.com/), [Xing Niu](https://www.linkedin.com/in/xing-niu/) and [Benjamin Hsu](https://www.linkedin.com/in/benjamin-h-77451966/).
 

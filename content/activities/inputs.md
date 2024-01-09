@@ -53,7 +53,7 @@ dscalena.paperlink = ["https://arxiv.org/abs/2309.00751"]
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024"
 
 [teaching]
 
@@ -77,6 +77,13 @@ iknlp23.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
 
 [events]
+
+emnlp23.shortname = "EMNLP 2023"
+emnlp23.date = "2023-12-05"
+emnlp23.url = "https://2023.emnlp.org/"
+emnlp23.location = "Singapore"
+emnlp23.paperlink = ["https://arxiv.org/abs/2310.01188", "https://arxiv.org/abs/2309.00751"]
+emnlp23.description = "Two long abstracts at the BlackboxNLP workshop"
 
 acl23.shortname = "ACL 2023"
 acl23.date = "2023-07-09"

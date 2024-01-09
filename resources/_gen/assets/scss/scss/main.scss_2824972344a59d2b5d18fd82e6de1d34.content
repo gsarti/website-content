@@ -6990,13 +6990,13 @@ a.text-dark:hover, a.text-dark:focus {
  **************************************************/
 html {
   font-family: Roboto, sans-serif;
-  font-size: 13.86px;
+  font-size: 12.32px;
   color: rgba(0, 0, 0, 0.8);
   line-height: 1.65; }
 
 @media screen and (min-width: 58em) {
   html {
-    font-size: 18px; } }
+    font-size: 16px; } }
 
 body {
   font-family: inherit;
@@ -7505,7 +7505,7 @@ div.alert a {
 
 .dropdown-menu,
 nav#navbar-main li.nav-item {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   padding-right: 15px; }
 

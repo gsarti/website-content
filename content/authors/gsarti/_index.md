@@ -116,7 +116,7 @@ user_groups:
 - Visitors
 ---
 
-Welcome to my website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen and member of the [InDeep](https://interpretingdl.github.io) consortium, working on user-centric interpretability for neural machine translation. I am also the main developer of the [Inseq](https://github.com/inseq-team/inseq) library. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
+Welcome to my website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen and member of the [InDeep consortium](https://projects.illc.uva.nl/indeep/), working on user-centric interpretability for neural machine translation. I am also the main developer of the [Inseq](https://github.com/inseq-team/inseq) library. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
 
 <br>
 
