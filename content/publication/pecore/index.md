@@ -13,13 +13,13 @@ publishDate: 2023-10-02T00:00:00+02:00
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["3"]
+publication_types: ["1"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Arxiv Preprint"
-publication_short: "Arxiv"
+publication: "In Proceedings of the 2024 International Conference on Learning Representations (ICLR 2024)"
+publication_short: "ICLR 2024"
 
-abstract: "Establishing whether language models can use contextual information in a human-plausible way is important to ensure their safe adoption in real-world settings. However, the questions of when and which parts of the context affect model generations are typically tackled separately, and current plausibility evaluations are practically limited to a handful of artificial benchmarks. To address this, we introduce Plausibility Evaluation of Context Reliance (PECoRe), an end-to-end interpretability framework designed to quantify context usage in language models' generations. Our approach leverages model internals to (i) contrastively identify context-sensitive target tokens in generated texts and (ii) link them to contextual cues justifying their prediction. We use PECoRe to quantify the plausibility of context-aware machine translation models, comparing model rationales with human annotations across several discourse-level phenomena. Finally, we apply our method to unannotated generations to identify context-mediated predictions and highlight instances of (im)plausible context usage in model translations. "
+abstract: "Establishing whether language models can use contextual information in a human-plausible way is important to ensure their safe adoption in real-world settings. However, the questions of when and which parts of the context affect model generations are typically tackled separately, and current plausibility evaluations are practically limited to a handful of artificial benchmarks. To address this, we introduce Plausibility Evaluation of Context Reliance (PECoRe), an end-to-end interpretability framework designed to quantify context usage in language models' generations. Our approach leverages model internals to (i) contrastively identify context-sensitive target tokens in generated texts and (ii) link them to contextual cues justifying their prediction. We use PECoRe to quantify the plausibility of context-aware machine translation models, comparing model rationales with human annotations across several discourse-level phenomena. Finally, we apply our method to unannotated generations to identify context-mediated predictions and highlight instances of (im)plausible context usage in model translations."
 
 # Summary. An optional shortened abstract.
 summary: "We introduce PECoRe, an interpretability framework for identifying context dependence in language model generations."
@@ -36,6 +36,10 @@ featured: true
 #   icon_pack: fab
 #   icon: twitter
 links:
+- name: ICLR Proceedings
+  url: https://openreview.net/forum?id=XTHfNGI3zT
+  icon_pack: fas
+  icon: file-contract
 - name: ArXiv
   url: https://arxiv.org/abs/2310.01188
   icon_pack: fas

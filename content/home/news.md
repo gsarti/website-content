@@ -50,6 +50,8 @@ title = "🗞️ News"
 
 &nbsp;
 
+- [PECoRe](../publication/pecore) is accepted to [ICLR 2024](https://iclr.cc/)! 🎉
+
 - I presented the [PECoRe framwork](../publication/pecore) at the [BlackboxNLP workshop](https://blackboxnlp.github.io/) co-located with EMNLP 2023 in Singapore.
 
 - I was awarded two research grants from the [Imminent Research Center](https://imminent.translated.com/) and the [Amsterdam eScience Center](https://www.esciencecenter.nl/) to fund the development of the Inseq library and my future research on machine translation.
