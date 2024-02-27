@@ -5,7 +5,7 @@ title: "Inseq: An Interpretability Toolkit for Sequence Generation Models"
 summary: "An open-source library to democratize access to model interpretability for sequence generation models"
 
 authors: [Gabriele Sarti, Nils Feldhus, Oskar van der Waals, Ludwig Sickert]
-tags: [Natural Language Processing, Interpretability, HuggingFace, Deep Learning]
+tags: [Natural Language Processing, Interpretability, HuggingFace, Deep Learning, Natural Language Generation]
 categories: ["Interpretability"]
 
 date: 2022-12-13

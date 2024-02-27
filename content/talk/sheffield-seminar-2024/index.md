@@ -1,10 +1,10 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Post-hoc Interpretability for Language Models"
-event: eScience Center SIG-NLP Seminar
+title: "Post-hoc Interpretability for Generative Language Models: Explaining Context Usage in Transformers"
+event: SheffieldNLP Invited Talk
 event_url:
-location: eScience Center, Amsterdam
+location: Online
 address:
   street:
   city: 
@@ -15,12 +15,12 @@ summary: "This talk discusses the challenges of interpreting generative language
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-date: 2023-10-26T13:30:00+02:00
+date: 2024-03-01T17:00:00+01:00
 #date_end: 2019-10-27T17:59:41+01:00
 all_day: true
 
 # Schedule page publish date (NOT talk date).
-publishDate: 2023-10-11T00:00:00+02:00
+publishDate: 2024-02-26
 
 authors: [Gabriele Sarti]
 tags: [Natural Language Processing, Interpretability, Sequence-to-sequence, Language Modeling, Feature Attribution]
@@ -46,7 +46,7 @@ image:
 #   icon: twitter
 
 # Optional filename of your slides within your talk's folder or a URL.
-url_slides: https://docs.google.com/presentation/d/1odm8--A5CCjof_gTiYV6WuYs6T1EXHURGCcqcpxBQq0/edit?usp=sharing
+url_slides: https://docs.google.com/presentation/d/1gTmQpFeonVOCSDM9uh0bQlabCvslxwdK-D32twj3lo0/edit?usp=sharing
 
 url_code: https://github.com/inseq-team/inseq
 url_pdf:
