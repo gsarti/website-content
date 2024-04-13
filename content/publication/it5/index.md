@@ -41,7 +41,7 @@ links:
   icon_pack: fas
   icon: file-contract
 - name: Models
-  url: https://huggingface.co/it5
+  url: https://huggingface.co/collections/gsarti/it5-lrec-coling-2024-6600468041d8fee2c42021c8
   icon: codepen
   icon_pack: fab
 - name: Code
@@ -49,7 +49,7 @@ links:
   icon_pack: fab
   icon: github
 - name: Demo
-  url: https://huggingface.co/spaces/it5/it5-demo
+  url: https://huggingface.co/spaces/gsarti/it5-demo
   icon_pack: fas
   icon: rocket
 

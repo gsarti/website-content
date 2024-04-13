@@ -53,7 +53,7 @@ dscalena.paperlink = ["https://arxiv.org/abs/2309.00751"]
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024"
 
 [teaching]
 
@@ -75,8 +75,31 @@ iknlp23.university = "University of Groningen"
 iknlp23.website = "https://sites.google.com/rug.nl/ik-nlp-2023"
 iknlp23.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
+iknlp24.name = "Natural Language Processing"
+iknlp24.date = "2024-02-07"
+iknlp24.date_end = "2023-04-11"
+iknlp24.instructor = "Arianna Bisazza, Jirui Qi, Leonidas Zotos"
+iknlp24.degree = "MSc Information Science"
+iknlp24.university = "University of Groningen"
+iknlp24.website = "https://sites.google.com/rug.nl/ik-nlp-2024"
+iknlp24.repository = "https://github.com/gsarti/ik-nlp-tutorials"
+
 
 [events]
+
+coling24.shortname = "LREC-COLING 2024"
+coling24.date = "2024-05-20"
+coling24.url = "https://lrec-coling-2024.org/"
+coling24.location = "Turin, Italy"
+coling24.paperlink = ["https://arxiv.org/abs/2203.03759"]
+coling24.description = "Main conference short paper"
+
+iclr24.shortname = "ICLR 2024"
+iclr24.date = "2024-05-06"
+iclr24.url = "https://iclr.cc/"
+iclr24.location = "Vienna, Austria"
+iclr24.paperlink = ["https://openreview.net/forum?id=XTHfNGI3zT"]
+iclr24.description = "Main conference paper"
 
 emnlp23.shortname = "EMNLP 2023"
 emnlp23.date = "2023-12-05"

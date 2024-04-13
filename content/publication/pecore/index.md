@@ -44,10 +44,18 @@ links:
   url: https://arxiv.org/abs/2310.01188
   icon_pack: fas
   icon: file-contract
-- name: Hugging Face
-  url: https://huggingface.co/papers/2310.01188
+- name: Artifacts
+  url: https://huggingface.co/collections/gsarti/pecore-iclr-2024-65edab42e28439e21b612c2e
   icon: codepen
   icon_pack: fab
+- name: Demo
+  url: https://huggingface.co/spaces/gsarti/pecore
+  icon_pack: fas
+  icon: rocket
+- name: Repository
+  url: https://github.com/gsarti/pecore
+  icon_pack: fab
+  icon: github
 
 url_pdf: https://arxiv.org/pdf/2310.01188.pdf
 url_code:

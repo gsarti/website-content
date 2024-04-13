@@ -21,14 +21,22 @@ image:
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
 links:
+- name: Demo
+  url: https://huggingface.co/spaces/gsarti/pecore
+  icon_pack: fas
+  icon: rocket
 - name: Repository
   url: https://github.com/gsarti/pecore
   icon_pack: fab
   icon: github
-- name: Hugging Face
-  url: https://huggingface.co/papers/2310.01188
+- name: Artifacts
+  url: https://huggingface.co/collections/gsarti/pecore-iclr-2024-65edab42e28439e21b612c2e
   icon: codepen
   icon_pack: fab
+- name: Paper
+  url: https://openreview.net/forum?id=XTHfNGI3zT
+  icon_pack: fas
+  icon: file-pdf
 
 # Optional filename of your slides within your talk's folder or a URL.
 url_slides:
