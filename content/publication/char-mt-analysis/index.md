@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Are Character-level Translations Worth the Wait? Comparing Character- and Subword-level Models for Machine Translation"
+title: "Are Character-level Translations Worth the Wait? Comparing ByT5 and mT5 for Machine Translation"
 authors: [Lukas Edman, Gabriele Sarti, Antonio Toral, Gertjan van Noord, Arianna Bisazza]
 date: 2023-02-28T09:47:38+02:00
 doi: ""
@@ -13,13 +13,13 @@ publishDate: 2023-02-28T09:47:38+02:00
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["3"]
+publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Arxiv Preprint"
-publication_short: "Arxiv"
+publication: "Transactions of the Association for Computational Linguistics (2024) 12: 392–410"
+publication_short: "TACL"
 
-abstract: "Pretrained character-level language models were recently shown to be competitive with popular subword models across a range of NLP tasks. However, there has been little research on their effectiveness for neural machine translation (NMT). This work performs an extensive comparison across multiple languages and experimental conditions of state-of-the-art character- and subword-level pre-trained models (ByT5 and mT5, respectively) on NMT, showing the effectiveness of character-level modeling in translation, particularly in cases where training data is limited. In our analysis, we show how character models' performance gains are reflected in better translations of orthographically similar words and rare words. While evaluating the importance of source texts in driving model predictions, we highlight ByT5 word-level patterns suggesting an ability to modulate word and character-level information during the translation, providing insights into a potential weakness of character-level modeling. We conclude by assessing the efficiency tradeoff of character models, suggesting their usage in non-time-critical scenarios to boost translation quality."
+abstract: "Pretrained character-level and byte-level language models have been shown to be competitive with popular subword models across a range of Natural Language Processing tasks. However, there has been little research on their effectiveness for neural machine translation (NMT), particularly within the popular pretrain-then-finetune paradigm. This work performs an extensive comparison across multiple languages and experimental conditions of character- and subword-level pretrained models (ByT5 and mT5, respectively) on NMT. We show the effectiveness of character-level modeling in translation, particularly in cases where fine-tuning data is limited. In our analysis, we show how character models’ gains in translation quality are reflected in better translations of orthographically similar words and rare words. While evaluating the importance of source texts in driving model predictions, we highlight word-level patterns within ByT5, suggesting an ability to modulate word-level and character-level information during generation. We conclude by assessing the efficiency tradeoff of byte models, suggesting their usage in non-time-critical scenarios to boost translation quality."
 
 # Summary. An optional shortened abstract.
 summary: "We analyze input contributions of char-level MT models and show how they modulate word and character-level information."

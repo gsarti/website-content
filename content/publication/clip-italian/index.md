@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Contrastive Language-Image Pre-training for the Italian Language"
-authors: [Federico Bianchi, Giuseppe Attanasio, Raphael Pisoni, Silvia Terragni, Gabriele Sarti, Sri Lakshmi]
+authors: [Federico Bianchi, Giuseppe Attanasio, Raphael Pisoni, Silvia Terragni, Gabriele Sarti]
 date: 2021-08-19T09:47:38+02:00
 doi: ""
 
@@ -13,11 +13,11 @@ publishDate: 2021-08-19T09:47:38+02:00
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["3"]
+publication_types: ["1"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Arxiv Preprint"
-publication_short: "Arxiv"
+publication: "In Proceedings of the 9th Italian Conference on Computational Linguistics (CLiC-it 2023)"
+publication_short: "CLiC-it 2023"
 
 abstract: "CLIP (Contrastive Language-Image Pre-training) is a very recent multi-modal model that jointly learns representations of images and texts. The model is trained on a massive amount of English data and shows impressive performance on zero-shot classification tasks. Training the same model on a different language is not trivial, since data in other languages might be not enough and the model needs high-quality translations of the texts to guarantee a good performance. In this paper, we present the first CLIP model for the Italian Language (CLIP-Italian), trained on more than 1.4 million image-text pairs. Results show that CLIP-Italian outperforms the multilingual CLIP model on the tasks of image retrieval and zero-shot classification."
 
@@ -36,6 +36,10 @@ featured: false
 #   icon_pack: fab
 #   icon: twitter
 links:
+- name: Paper
+  url: https://ceur-ws.org/Vol-3596/paper9.pdf
+  icon_pack: fas
+  icon: file-contract
 - name: ArXiv
   url: https://arxiv.org/abs/2108.08688v1
   icon_pack: fas
