@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="PECoRe: An interpretability framework to detect and attribute context usage in language models' generations">
+  <meta property="og:title" content="Quantifying the Plausibility of Context Reliance in Neural Machine Translation"/>
+  <meta property="og:description" content="PECoRe: An interpretability framework to detect and attribute context usage in language models' generations"/>
+  <meta property="og:url" content="https://gsarti.com/pecore"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/pecore_banner.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="Quantifying the Plausibility of Context Reliance in Neural Machine Translation">
+  <meta name="twitter:description" content="PECoRe: An interpretability framework to detect and attribute context usage in language models' generations">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/pecore_banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="interpretability, machine translation, language models, explainable AI, language generation, context usage, feature attribution">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Quantifying the Plausibility of Context Reliance in Neural Machine Translation</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Quantifying the Plausibility of Context Reliance in Neural Machine Translation</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://gsarti.com" target="_blank">Gabriele Sarti</a><sup>1,3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://grzegorz.chrupala.me/" target="_blank">Grzegorz Chrupała</a><sup>2,3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://malvinanissim.github.io/" target="_blank">Malvina Nissim</a><sup>1</sup>,
+              </span>
+              <span>
+                <a href="https://www.cs.rug.nl/~bisazza/" target="_blank">Arianna Bisazza</a><sup>1,3</sup>
+              </span>
+            </div>
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><sup>1</sup> University of Groningen, <sup>2</sup>Tilburg University, <sup>3</sup> <a href="https://iclr.cc/Conferences/2024" target="_blank">InDeep Consortium</a></span>
+              </div>
+              <div class="column has-text-centered">
+                <span class="eql-cntrb">12<sup>th</sup>International Conference on Learning Representations (<a href="https://projects.illc.uva.nl/indeep/" target="_blank">ICLR 2024</a>)<br>Inquiries to: <a href="mailto:g.sarti@rug.nl">g.sarti@rug.nl</a></span>
+              </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <a href="https://openreview.net/forum?id=XTHfNGI3zT" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                  <span class="link-block">
+                    <a href="https://github.com/gsarti/pecore" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/spaces/gsarti/pecore" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    🤗
+                  </span>
+                  <span>Demo</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/inseq/scat" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  🤗
+                </span>
+                <span>Datasets</span>
+              </a>
+            </span>
+
+            <span class="link-block">
+              <a href="https://huggingface.co/context-mt" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                🤗
+              </span>
+              <span>Models</span>
+            </a>
+          </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper abstract -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Establishing whether language models can use contextual information in a human-plausible way is important
+              to ensure their safe adoption in real-world settings. However, the questions of <i>when</i> and 
+              <i>which parts</i> of the context affect model generations are typically tackled separately, and current 
+              plausibility evaluations are practically limited to a handful of artificial benchmarks. To address this, 
+              we introduce <b>P</b>lausibility <b>E</b>valuation of <b>Co</b>ntext <b>Re</b>liance (PECoRe), an end-to-end 
+              interpretability framework designed to quantify context usage in language models' generations. Our approach 
+              leverages model internals to (i) contrastively identify context-sensitive target tokens in generated texts 
+              and (ii) link them to contextual cues justifying their prediction. We use PECoRe to quantify the plausibility 
+              of context-aware machine translation models, comparing model rationales with human annotations across several 
+              discourse-level phenomena. Finally, we apply our method to unannotated generations to identify 
+              context-mediated predictions and highlight instances of (im)plausible context usage in model translations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- What is wrong with plausibility evaluation for LMs? -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-3">What is Wrong with Plausibility Evaluation for LMs?</h2>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths has-text-centered">
+          <div class="content has-text-justified">
+            <img src="static/images/plausibility.png" alt="Plausibility evaluation for generative LMs">
+            <p>An example of plausibility</p>
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column has-text-justified">
+          <p>Establishing whether language models can use contextual information in a human-plausible way is important
+            to ensure their safe adoption in real-world settings. However, the questions of <i>when</i> and 
+            <i>which parts</i> of the context affect model generations are typically tackled separately, and current 
+            plausibility evaluations are practically limited to a handful of artificial benchmarks. To address this, 
+            we introduce <b>P</b>lausibility <b>E</b>valuation of <b>Co</b>ntext <b>Re</b>liance (PECoRe), an end-to-end 
+            interpretability framework designed to quantify context usage in language models' generations. Our approach 
+            leverages model internals to (i) contrastively identify context-sensitive target tokens in generated texts 
+            and (ii) link them to contextual cues justifying their prediction. We use PECoRe to quantify the plausibility 
+            of context-aware machine translation models, comparing model rationales with human annotations across several 
+            discourse-level phenomena. Finally, we apply our method to unannotated generations to identify 
+            context-mediated predictions and highlight instances of (im)plausible context usage in model translations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End first section -->
+
+<!-- PECoRe description -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-3">PECoRe: Plausibility Evaulation of Context Reliance for LMs</h2>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column has-text-centered">
+          <div class="content has-text-justified">
+            <img src="static/images/cti.png" alt="Plausibility evaluation for generative LMs">
+            <p>An example of plausibility</p>
+          </div>
+        </div>
+        <div class="column has-text-centered">
+          <div class="content has-text-justified">
+            <p>Establishing whether language models can use contextual information in a human-plausible way is important
+              to ensure their safe adoption in real-world settings. However, the questions of <i>when</i> and 
+              <i>which parts</i> of the context affect model generations are typically tackled separately, and current 
+              plausibility evaluations are practically limited to a handful of artificial benchmarks. To address this, 
+              we introduce <b>P</b>lausibility <b>E</b>valuation of <b>Co</b>ntext <b>Re</b>liance (PECoRe), an end-to-end 
+              interpretability framework designed to quantify context usage </p>
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column has-text-centered">
+          <div class="content has-text-justified">
+            <p>Establishing whether language models can use contextual information in a human-plausible way is important
+              to ensure their safe adoption in real-world settings. However, the questions of <i>when</i> and 
+              <i>which parts</i> of the context affect model generations are typically tackled separately, and current 
+              plausibility evaluations are practically limited to a handful of artificial benchmarks. To address this, 
+              we introduce <b>P</b>lausibility <b>E</b>valuation of <b>Co</b>ntext <b>Re</b>liance (PECoRe), an end-to-end 
+              interpretability framework designed to quantify context usage </p>
+          </div>
+        </div>
+        <div class="column has-text-centered">
+          <div class="content has-text-justified">
+            <img src="static/images/cci.png" alt="Plausibility evaluation for generative LMs">
+            <p>An example of plausibility</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-3">PECoRe Demo</h2>
+        </div>
+      </div>
+      <iframe
+        src="https://gsarti-gradio-highlightedtextbox.hf.space"
+        frameborder="2"
+        width="100%"
+        height="800"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          First image description.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          Second image description.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+         Third image description.
+       </h2>
+     </div>
+     <div class="item">
+      <!-- Your image here -->
+      <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        Fourth image description.
+      </h2>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+
+
+
+<!-- Youtube video -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video">
+            <!-- Youtube embed code here -->
+            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Another Carousel</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="video1" autoplay controls muted loop height="100%">
+            <!-- Your video file here -->
+            <source src="static/videos/carousel1.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="video2" autoplay controls muted loop height="100%">
+            <!-- Your video file here -->
+            <source src="static/videos/carousel2.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="video3" autoplay controls muted loop height="100%">\
+            <!-- Your video file here -->
+            <source src="static/videos/carousel3.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End video carousel -->
+
+
+
+
+
+
+<!-- Paper poster -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Poster</h2>
+
+      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
+          </iframe>
+        
+      </div>
+    </div>
+  </section>
+<!--End paper poster -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>BibTex Code Here</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
