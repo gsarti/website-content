@@ -4,7 +4,7 @@
 title: "Interpreting Context Usage in Generative Language Models with Inseq and PECoRe"
 event: Politecnico di Torino Invited Talk
 event_url:
-location: Online
+location: Politecnico di Torino, Piedmont, Italy
 address:
   street:
   city: Turin

@@ -4,7 +4,7 @@
 title: "Quantifying the Plausibility of Context Reliance in Neural Machine Translation"
 event: GroNLP Reading Group
 event_url:
-location: Harmonie Building, University of Groningen
+location: Harmonie Building, University of Groningen, The Netherlands
 address:
   street:
   city: 
