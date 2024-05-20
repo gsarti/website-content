@@ -36,6 +36,10 @@ featured: false
 #   icon_pack: fab
 #   icon: twitter
 links:
+- name: Journal
+  url: https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00651/120650/Are-Character-level-Translations-Worth-the-Wait
+  icon_pack: fas
+  icon: file-contract
 - name: ArXiv
   url: https://arxiv.org/abs/2302.14220
   icon_pack: fas

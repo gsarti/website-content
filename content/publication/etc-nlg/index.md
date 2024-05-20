@@ -40,7 +40,7 @@ links:
   url: https://arxiv.org/abs/2008.10875
   icon_pack: fas
   icon: file-contract
-- name: IJCoL
+- name: Journal
   url: https://journals.openedition.org/ijcol/728
   icon_pack: fas
   icon: file-contract

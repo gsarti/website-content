@@ -1,25 +1,25 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "IT5: Large-scale Text-to-text Pretraining for Italian Language Understanding and Generation"
+title: "IT5: Text-to-text Pretraining for Italian Language Understanding and Generation"
 authors: [Gabriele Sarti, Malvina Nissim]
-date: 2022-03-09T01:00:00+02:00
+date: 2024-05-20T01:00:00+02:00
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: 2022-03-08T01:00:00+02:00
+publishDate: 2024-05-20T01:00:00+02:00
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["3"]
+publication_types: ["1"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Arxiv Preprint"
-publication_short: "Arxiv"
+publication: "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)"
+publication_short: "LREC-COLING 2024"
 
-abstract: "The T5 model and its unified text-to-text paradigm contributed in advancing the state-of-the-art for many natural language processing tasks. While some multilingual variants of the T5 model have recently been introduced, their performances were found to provide suboptimal performances for languages other than English if compared to monolingual variants. We are motivated by these findings to introduce IT5, the first family of encoder-decoder transformer models pretrained specifically on Italian. We perform a thorough cleaning of a web-crawled Italian corpus including more than 40 billion words and use it to pretrain three IT5 models of different sizes. The performance of IT5 models and their multilingual counterparts is then evaluated on a broad range of natural language understanding and generation benchmarks for Italian. We find the monolingual IT5 models to provide the best scale-to-performance ratio across tested models, consistently outperforming their multilingual counterparts and setting a new state-of-the-art for most Italian conditional language generation tasks."
+abstract: "We introduce IT5, the first family of encoder-decoder transformer models pretrained specifically on Italian. We document and perform a thorough cleaning procedure for a large Italian corpus and use it to pretrain four IT5 model sizes. We then introduce the ItaGen benchmark, which includes a broad range of natural language understanding and generation tasks for Italian, and use it to evaluate the performance of IT5 models and multilingual baselines. We find monolingual IT5 models to provide the best scale-to-performance ratio across tested models, consistently outperforming their multilingual counterparts and setting a new state-of-the-art for Italian language generation."
 
 # Summary. An optional shortened abstract.
 summary: "IT5s are the first encoder-decoder transformers pretrained on more than 40 billion Italian words."
@@ -44,18 +44,14 @@ links:
   url: https://huggingface.co/collections/gsarti/it5-lrec-coling-2024-6600468041d8fee2c42021c8
   icon: codepen
   icon_pack: fab
-- name: Code
-  url: https://github.com/gsarti/it5
-  icon_pack: fab
-  icon: github
 - name: Demo
   url: https://huggingface.co/spaces/gsarti/it5-demo
   icon_pack: fas
   icon: rocket
 
 url_pdf: https://arxiv.org/pdf/2203.03759.pdf
-url_code:
-url_dataset:
+url_code: https://github.com/gsarti/it5
+url_dataset: https://huggingface.co/datasets/gsarti/clean_mc4_it
 url_poster:
 url_project:
 url_slides:

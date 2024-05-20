@@ -36,7 +36,7 @@ featured: true
 #   icon_pack: fab
 #   icon: twitter
 links:
-- name: Paper
+- name: Proceedings
   url: https://aclanthology.org/2023.acl-demo.40/
   icon_pack: fas
   icon: file-alt

@@ -37,11 +37,11 @@ featured: true
 #   icon: twitter
 links:
 - name: ArXiv
-  url: https://arxiv.org/abs/2302.14220
+  url: https://arxiv.org/abs/2405.00208
   icon_pack: fas
   icon: file-contract
 
-url_pdf: https://arxiv.org/pdf/2302.14220
+url_pdf: https://arxiv.org/pdf/2405.00208
 url_code:
 url_dataset:
 url_poster:

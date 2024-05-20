@@ -36,6 +36,10 @@ featured: false
 #   icon_pack: fab
 #   icon: twitter
 links:
+- name: Proceedings
+  url: https://aclanthology.org/2021.teachingnlp-1.26
+  icon_pack: fas
+  icon: file-contract
 - name: Annex
   url: https://aclanthology.org/2021.teachingnlp-1.7/
   icon_pack: fas

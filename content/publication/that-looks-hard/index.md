@@ -30,11 +30,11 @@ featured: true
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
-# links:
-# - name: Follow
-#   url: https://twitter.com
-#   icon_pack: fab
-#   icon: twitter
+links:
+- name: Proceedings
+  url: https://aclanthology.org/2021.cmcl-1.5/
+  icon_pack: fas
+  icon: file-alt
 
 url_pdf: https://aclanthology.org/2021.cmcl-1.5.pdf
 url_code: https://github.com/gsarti/interpreting-complexity

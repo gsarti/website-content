@@ -36,26 +36,22 @@ featured: true
 #   icon_pack: fab
 #   icon: twitter
 links:
+- name: Proceedings
+  url: https://aclanthology.org/2022.emnlp-main.532/
+  icon_pack: fas
+  icon: file-contract
 - name: ArXiv
   url: https://arxiv.org/abs/2205.12215
   icon_pack: fas
   icon: file-contract
-- name: Dataset
-  url: https://huggingface.co/datasets/GroNLP/divemt
-  icon: codepen
-  icon_pack: fab
-- name: Code
-  url: https://github.com/gsarti/divemt
-  icon_pack: fab
-  icon: github
 - name: Demo
   url: https://huggingface.co/spaces/GroNLP/divemt_explorer
   icon_pack: fas
   icon: rocket
 
 url_pdf: https://arxiv.org/pdf/2205.12215.pdf
-url_code:
-url_dataset:
+url_code: https://github.com/gsarti/divemt
+url_dataset: https://huggingface.co/datasets/GroNLP/divemt
 url_poster:
 url_project:
 url_slides:

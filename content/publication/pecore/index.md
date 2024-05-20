@@ -52,13 +52,9 @@ links:
   url: https://huggingface.co/spaces/gsarti/pecore
   icon_pack: fas
   icon: rocket
-- name: Repository
-  url: https://github.com/gsarti/pecore
-  icon_pack: fab
-  icon: github
 
 url_pdf: https://arxiv.org/pdf/2310.01188.pdf
-url_code:
+url_code: https://github.com/gsarti/pecore
 url_dataset:
 url_poster:
 url_project:
