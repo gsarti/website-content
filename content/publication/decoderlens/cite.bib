@@ -1,9 +1,19 @@
-@article{langedijk-etal-2023-decoderlens,
-    author = {Anna Langedijk and Hosein Mohebbi and Gabriele Sarti and Willem Zuidema and Jaap Jumelet},
-    title = {DecoderLens: Layerwise Interpretation of Encoder-Decoder Transformers},
-    month = oct,
-    year = 2023,
-    journal = {ArXiv},
-    volume = {abs/2310.03686},
-    url = {https://arxiv.org/abs/2310.03686}
+@inproceedings{langedijk-etal-2024-decoderlens,
+    title = "{D}ecoder{L}ens: Layerwise Interpretation of Encoder-Decoder Transformers",
+    author = "Langedijk, Anna  and
+      Mohebbi, Hosein  and
+      Sarti, Gabriele  and
+      Zuidema, Willem  and
+      Jumelet, Jaap",
+    editor = "Duh, Kevin  and
+      Gomez, Helena  and
+      Bethard, Steven",
+    booktitle = "Findings of the Association for Computational Linguistics: NAACL 2024",
+    month = jun,
+    year = "2024",
+    address = "Mexico City, Mexico",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.findings-naacl.296",
+    pages = "4764--4780",
+    abstract = "In recent years, several interpretability methods have been proposed to interpret the inner workings of Transformer models at different levels of precision and complexity.In this work, we propose a simple but effective technique to analyze encoder-decoder Transformers. Our method, which we name DecoderLens, allows the decoder to cross-attend representations of intermediate encoder activations instead of using the default final encoder output.The method thus maps uninterpretable intermediate vector representations to human-interpretable sequences of words or symbols, shedding new light on the information flow in this popular but understudied class of models.We apply DecoderLens to question answering, logical reasoning, speech recognition and machine translation models, finding that simpler subtasks are solved with high precision by low and intermediate encoder layers.",
 }

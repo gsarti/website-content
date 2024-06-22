@@ -44,7 +44,7 @@ dscalena.date = "2023-04-01"
 dscalena.date_end = "2023-10-01"
 dscalena.program = "MSc in Computer Science, University Milano-Bicocca"
 dscalena.website_url = "https://www.danielsc4.it/"
-dscalena.project_type = "MSc Project"
+dscalena.project_type = "MSc Thesis"
 dscalena.project = "Interpreting the Detoxification process of Language Models"
 dscalena.project_url = "https://www.danielsc4.it/blog/2023/interpreting-detox-LM"
 dscalena.paperlink = ["https://arxiv.org/abs/2309.00751"]
@@ -53,7 +53,7 @@ dscalena.paperlink = ["https://arxiv.org/abs/2309.00751"]
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024"
 
 [teaching]
 
@@ -86,6 +86,12 @@ iknlp24.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
 
 [events]
+
+xai24.shortname = "XAI 2024"
+xai24.date = "2024-07-16"
+xai24.url = "https://xaiworldconference.com/2024/"
+xai24.location = "Valletta, Malta"
+xai24.paperlink = []
 
 coling24.shortname = "LREC-COLING 2024"
 coling24.date = "2024-05-20"
@@ -270,6 +276,13 @@ lcl19.paperlink = ["https://github.com/gsarti/svevo-letters-analysis"]
  # CSS class.
  css_class = ""
 +++
+### 2023
+
+**May 2023**: I was awarded two research grants from the [Imminent Research Center](https://imminent.translated.com/) and the [Amsterdam eScience Center](https://www.esciencecenter.nl/fellowship-programme/gabriele-sarti/) to fund the development of the Inseq library and my future research on machine translation.
+
+**February 2023**: [Inseq](https://inseq.readthedocs.io), our open-source toolkit for post-hoc interpretability of generative language models, is now available on [Github](https://github.com/inseq-team/inseq)! 🐛 We also have a [demo paper](https://arxiv.org/abs/2302.13942) with some usage examples.
+
+***
 
 ### 2022
 

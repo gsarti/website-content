@@ -49,6 +49,10 @@
           {{ with $item.Params.publication_short }}
             <span>Published in: {{ . }}</span>
           {{ end }}
+          {{ with $item.Params.comment }}
+            <span class="middot-divider"></span>
+            <span>{{ . }}</span>
+          {{ end }}
         {{ end }}
       </div>
       {{ if eq $item.Type "talk" }}
