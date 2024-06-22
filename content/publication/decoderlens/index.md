@@ -13,18 +13,18 @@ publishDate: 2023-10-05T00:00:00+02:00
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["3"]
+publication_types: ["1"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Arxiv Preprint"
-publication_short: "Arxiv"
+publication: "Findings of the Association for Computational Linguistics: NAACL 2024"
+publication_short: "Findings of NAACL 2024"
 
-abstract: "In recent years, many interpretability methods have been proposed to help interpret the internal states of Transformer-models, at different levels of precision and complexity. Here, to analyze encoder-decoder Transformers, we propose a simple, new method: DecoderLens. Inspired by the LogitLens (for decoder-only Transformers), this method involves allowing the decoder to cross-attend representations of intermediate encoder layers instead of using the final encoder output, as is normally done in encoder-decoder models. The method thus maps previously uninterpretable vector representations to human-interpretable sequences of words or symbols. We report results from the DecoderLens applied to models trained on question answering, logical reasoning, speech recognition and machine translation. The DecoderLens reveals several specific subtasks that are solved at low or intermediate layers, shedding new light on the information flow inside the encoder component of this important class of models. "
+abstract: "In recent years, several interpretability methods have been proposed to interpret the inner workings of Transformer models at different levels of precision and complexity.In this work, we propose a simple but effective technique to analyze encoder-decoder Transformers. Our method, which we name DecoderLens, allows the decoder to cross-attend representations of intermediate encoder activations instead of using the default final encoder output.The method thus maps uninterpretable intermediate vector representations to human-interpretable sequences of words or symbols, shedding new light on the information flow in this popular but understudied class of models.We apply DecoderLens to question answering, logical reasoning, speech recognition and machine translation models, finding that simpler subtasks are solved with high precision by low and intermediate encoder layers."
 
 # Summary. An optional shortened abstract.
-summary: "We propose DecoderLens, a method to evaluate the iterative refinement of representations in encoder-decoder Transformer models."
+summary: "We propose DecoderLens, a method to interpret the iterative refinement of representations in encoder-decoder Transformer models."
 
-tags: [Natural Language Processing, Deep Learning, Interpretability, Machine Translation, Automatic Speech Recognition, Question Answering, Logical Reasoning]
+tags: [Natural Language Processing, Deep Learning, Interpretability, Machine Translation, Automatic Speech Recognition, Factual Knowledge, Logical Reasoning]
 categories: [Natural Language Processing]
 featured: false
 
@@ -36,6 +36,10 @@ featured: false
 #   icon_pack: fab
 #   icon: twitter
 links:
+- name: Paper
+  url: https://aclanthology.org/2024.findings-naacl.296/
+  icon_pack: fas
+  icon: file-alt
 - name: ArXiv
   url: https://arxiv.org/abs/2310.03686
   icon_pack: fas
