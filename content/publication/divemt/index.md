@@ -36,18 +36,10 @@ featured: true
 #   icon_pack: fab
 #   icon: twitter
 links:
-<<<<<<< Updated upstream
-- name: Proceedings
-  url: https://aclanthology.org/2022.emnlp-main.532/
-  icon_pack: fas
-  icon: file-contract
-||||||| Stash base
-=======
 - name: Paper
   url: https://aclanthology.org/2022.emnlp-main.532/
   icon_pack: fas
   icon: file-alt
->>>>>>> Stashed changes
 - name: ArXiv
   url: https://arxiv.org/abs/2205.12215
   icon_pack: fas
