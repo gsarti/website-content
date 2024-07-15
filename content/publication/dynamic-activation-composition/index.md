@@ -26,7 +26,7 @@ summary: "We propose Dynamic Activation Composition, an adaptive approach for mu
 
 tags: [Natural Language Processing, Deep Learning, Interpretability, Style Transfer, Multilingual, Prompting, Large Language Models]
 categories: [Natural Language Processing]
-featured: false
+featured: true
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
