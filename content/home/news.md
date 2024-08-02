@@ -50,6 +50,8 @@ title = "🗞️ News"
 
 &nbsp;
 
+- Our new work [Non Verbis, Sed Rebus: Large Language Models are Weak Solvers of Italian Rebuses](../publication/verbalized-rebus) is out on ArXiv!
+
 - Our new works [Model Internals-based Answer Attribution for Trustworthy Retrieval-Augmented Generation](../publication/mirage) and [Multi-property Steering of Large Language Models with Dynamic Activation Composition](../publication/dynamic-activation-composition/) are out on ArXiv!
 
 - [PECoRe](../publication/pecore) is accepted to [ICLR 2024](https://iclr.cc/), and I presented it in Vienna! 🎉
