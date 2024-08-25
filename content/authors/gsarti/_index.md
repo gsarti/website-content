@@ -124,6 +124,6 @@ Previously, I was a research intern at [Amazon Translate NYC](https://www.amazon
 
 <br>
 
-My research focuses on interpretability for generative language models, with a particular interest to end-users' benefits and the usage of [human behavioral signals](../../msc-thesis/introduction.html). I am also into causality topics and open source collaboration.
+My research focuses on interpretability for generative language models, with a particular interest to end-users' benefits and the usage of [human behavioral signals](https://gsarti.com/msc-thesis/introduction.html). I am also into causality topics and open source collaboration.
 
 Your [(anonymous) feedback](https://www.admonymous.co/gsarti) is always welcome! 🙂
