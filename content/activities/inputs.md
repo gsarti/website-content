@@ -53,7 +53,7 @@ dscalena.paperlink = ["https://arxiv.org/abs/2309.00751"]
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024"
 
 [teaching]
 
@@ -83,6 +83,14 @@ iknlp24.degree = "MSc Information Science"
 iknlp24.university = "University of Groningen"
 iknlp24.website = "https://sites.google.com/rug.nl/ik-nlp-2024"
 iknlp24.repository = "https://github.com/gsarti/ik-nlp-tutorials"
+
+somwind0724.name = "Fundamentals of Machine Learning: Theory and Practice"
+somwind0724.date = "2024-09-10"
+somwind0724.date_end = "2024-10-24"
+somwind0724.degree = "Data Wise: Data Science in Society Minor"
+somwind0724.university = "University of Groningen"
+somwind0724.website = "https://www.rug.nl/gmw/bachelors/minor/minor-datawise?lang=en"
+
 
 
 [events]
