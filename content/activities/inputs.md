@@ -49,6 +49,15 @@ dscalena.project = "Interpreting the Detoxification process of Language Models"
 dscalena.project_url = "https://www.danielsc4.it/blog/2023/interpreting-detox-LM"
 dscalena.paperlink = ["https://arxiv.org/abs/2309.00751"]
 
+scandussio.name = "Sara Candussio"
+scandussio.date = "2024-04-01"
+scandussio.date_end = "2024-09-20"
+scandussio.program = "MSc in Data Science and Scientific Computing, University of Trieste"
+scandussio.website_url = "https://www.linkedin.com/in/sara-candussio-830772283/"
+scandussio.project_type = "MSc Thesis"
+scandussio.project = "A Dialectic Pipeline for Improving LLM Robustness"
+scandussio.project_url = ""
+
 [academic_service]
 
 reviewing.icon = "pen"
