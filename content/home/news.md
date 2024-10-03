@@ -50,11 +50,11 @@ title = "🗞️ News"
 
 &nbsp;
 
-- [Model Internals-based Answer Attribution for Trustworthy Retrieval-Augmented Generation](../publication/mirage) is accepted to [EMNLP 2024](https://2024.emnlp.org/), and [Non Verbis, Sed Rebus: Large Language Models are Weak Solvers of Italian Rebuses](../publication/verbalized-rebus) is accepted to [CLiC-it 2024](https://clic2024.ilc.cnr.it/)! See you in Miami and Pisa! 🎉
+- [Model Internals-based Answer Attribution for Trustworthy Retrieval-Augmented Generation](../publication/mirage) is accepted to [EMNLP 2024](https://2024.emnlp.org/), and [Multi-property Steering of Large Language Models with Dynamic Activation Composition](../publication/dynamic-activation-composition/) is accepted to [BlackboxNLP 2024]! See you in Miami! 🌴
 
-- [Multi-property Steering of Large Language Models with Dynamic Activation Composition](../publication/dynamic-activation-composition/) is out on ArXiv!
+- [Non Verbis, Sed Rebus: Large Language Models are Weak Solvers of Italian Rebuses](../publication/verbalized-rebus) is accepted to [CLiC-it 2024](https://clic2024.ilc.cnr.it/)! See you in Pisa! 🎉
 
-- [PECoRe](../publication/pecore) is accepted to [ICLR 2024](https://iclr.cc/), and I presented it in Vienna! 🎉
+- [PECoRe](../publication/pecore) is accepted to [ICLR 2024](https://iclr.cc/), and I presented it in Vienna! 🎉 I also co-organized the first Mechanistic Interpretability social at ICLR togehter with [Nikhil Prakash](https://nix07.github.io/), and we had more than 100 attendees!
 
 - I was awarded two research grants from the [Imminent Research Center](https://imminent.translated.com/) and the [Amsterdam eScience Center](https://www.esciencecenter.nl/) to fund the development of the Inseq library and my future research on machine translation.
 

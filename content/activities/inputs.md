@@ -13,50 +13,64 @@ subtitle = "A summary of my professional activities"
 
 [supervision]
 
-lsickert.name = "Ludwig Sickert"
-lsickert.date = "2022-04-11"
-lsickert.date_end = "2023-07-01"
-lsickert.program = "MSc in AI, RUG"
-lsickert.website_url = "https://www.linkedin.com/in/lsickert"
-lsickert.project_type = "MSc Thesis"
-lsickert.project = "Assessing Formality in Machine Translation through Interpretability Methods"
-lsickert.project_url = ""
+[supervision.lsickert]
 
-qzheng.name = "Qiankun Zheng"
-qzheng.date = "2022-10-30"
-qzheng.date_end = "2023-04-30"
-qzheng.program = "MSc in LCT, RUG & Saarland University"
-qzheng.project_type = "MSc Project"
-qzheng.project = "Cross-lingual Analysis of Neural Machine Translation Post-Edits"
-qzheng.project_url = ""
+name = "Ludwig Sickert"
+date = "2022-04-11"
+date_end = "2023-07-01"
+program = "MSc in AI, RUG"
+website_url = "https://www.linkedin.com/in/lsickert"
+image_url = "https://prompters.io/media/job-manager-uploads/candidate_photo/2023/11/prompters_profile-150x150.jpg"
+projects = [
+  {date = "2022-04-11", date_end = "2023-07-01", project_type = "MSc Thesis", project = "Assessing Formality in Machine Translation through Interpretability Methods", project_url = ""}
+]
 
-kchernyshev.name = "Konstantin Chernyshev"
-kchernyshev.date = "2023-04-17"
-kchernyshev.date_end = "2023-10-01"
-kchernyshev.program = "MSc in LCT, RUG & Saarland University"
-kchernyshev.website_url = "https://www.linkedin.com/in/konstantin-chernyshev"
-kchernyshev.project_type = "MSc Project"
-kchernyshev.project = "Improving the Identification and Categorization of Word-level QE for MT"
-kchernyshev.project_url = ""
+[supervision.qzheng]
 
-dscalena.name = "Daniel Scalena"
-dscalena.date = "2023-04-01"
-dscalena.date_end = "2023-10-01"
-dscalena.program = "MSc in Computer Science, University Milano-Bicocca"
-dscalena.website_url = "https://www.danielsc4.it/"
-dscalena.project_type = "MSc Thesis"
-dscalena.project = "Interpreting the Detoxification process of Language Models"
-dscalena.project_url = "https://www.danielsc4.it/blog/2023/interpreting-detox-LM"
-dscalena.paperlink = ["https://arxiv.org/abs/2309.00751"]
+name = "Qiankun Zheng"
+date = "2022-10-30"
+date_end = "2023-04-30"
+program = "MSc in LCT, RUG & Saarland University"
+projects = [
+  {date = "2022-10-30", date_end = "2023-04-30", project_type = "MSc Project", project = "Cross-lingual Analysis of Neural Machine Translation Post-Edits", project_url = ""}
+]
 
-scandussio.name = "Sara Candussio"
-scandussio.date = "2024-04-01"
-scandussio.date_end = "2024-09-20"
-scandussio.program = "MSc in Data Science and Scientific Computing, University of Trieste"
-scandussio.website_url = "https://www.linkedin.com/in/sara-candussio-830772283/"
-scandussio.project_type = "MSc Thesis"
-scandussio.project = "A Dialectic Pipeline for Improving LLM Robustness"
-scandussio.project_url = ""
+[supervision.kchernyshev]
+
+name = "Konstantin Chernyshev"
+date = "2023-04-17"
+date_end = "2024-11-01"
+program = "MSc in LCT, RUG & Saarland University"
+website_url = "https://www.linkedin.com/in/kdchernyshev"
+image_url = "https://scholar.googleusercontent.com/citations?view_op=view_photo&user=yLrJBmIAAAAJ&citpid=2"
+projects = [
+  {date = "2023-04-17", date_end = "2023-10-01", project_type = "MSc Project", project = "Improving the Identification and Categorization of Word-level QE for MT", project_url = ""},
+  {date = "2024-04-19", date_end = "2024-11-01", project_type = "MSc Thesis", project = "Fast and Efficient Structured Pruning of LLMs with Gradient-Based Meta-Mask", project_url = ""},
+]
+
+[supervision.dscalena]
+
+name = "Daniel Scalena"
+date = "2023-04-01"
+date_end = "2023-10-01"
+program = "MSc in Computer Science, University Milano-Bicocca"
+website_url = "https://www.danielsc4.it/"
+image_url = "https://scholar.googleusercontent.com/citations?view_op=view_photo&user=5Q89Yd8AAAAJ&citpid=3"
+projects = [
+  {date = "2023-04-01", date_end = "2023-10-01", project_type = "MSc Project", project = "Interpreting the Detoxification process of Language Models", project_url = "https://www.danielsc4.it/blog/2023/interpreting-detox-LM", paperlink = ["https://arxiv.org/abs/2309.00751"]}
+]
+
+[supervision.scandussio]
+
+name = "Sara Candussio"
+date = "2024-04-01"
+date_end = "2024-09-20"
+program = "MSc in Data Science and Scientific Computing, University of Trieste"
+website_url = "https://www.linkedin.com/in/sara-candussio-830772283/"
+image_url = "https://media.licdn.com/dms/image/v2/D5603AQHfLAqdb7zZGg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1689350451259?e=1733356800&v=beta&t=echPESdTwrjdwAfhXi4OVPTNh2OaMQQ-uZscnGVuH8w"
+projects = [
+  {date = "2024-04-01", date_end = "2024-09-20", project_type = "MSc Thesis", project = "A Dialectic Pipeline for Improving LLM Robustness", project_url = ""}
+]
 
 [academic_service]
 

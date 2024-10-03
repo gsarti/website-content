@@ -12,7 +12,11 @@
         {{ if $page.Params.teaching }}
             <h3 style="padding-bottom: 0.5rem">{{ i18n "teaching" | markdownify | emojify }}</h3>
             <div class="row activities-teaching">
-            {{ range $idx, $key := $page.Params.teaching }}
+            {{ range $idx, $key := sort $page.Params.teaching ".date" "desc" }}
+                {{ $end_date := time .date_end }}
+                {{ if $end_date.Before now }}
+                    {{continue}}
+                {{end}}
                 <div class="my-container">
                     <h4 class="card-title exp-company text-muted my-0">
                         <i class="fa-solid fa-chalkboard" style="padding-right:0.5rem; padding-bottom:0.5rem"></i>
@@ -42,71 +46,143 @@
                 </div>
                 {{end}}
             </div>
+            <details>
+                <summary>See previous courses</summary>
+                <div class="row activities-teaching">
+                    {{ range $idx, $key := $page.Params.teaching }}
+                        {{ $end_date := time .date_end }}
+                        {{ if $end_date.After now }}
+                            {{continue}}
+                        {{end}}
+                        <div class="my-container">
+                            <h4 class="card-title exp-company text-muted my-0">
+                                <i class="fa-solid fa-chalkboard" style="padding-right:0.5rem; padding-bottom:0.5rem"></i>
+                                {{.name}} 
+                            </h4>
+                            <div class="text-muted exp-meta">
+                            {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
+                            {{ if .date_end}} –
+                                {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                            {{end}}
+                            {{ if .instructor}}
+                                , with {{.instructor}}
+                            {{end}}
+                            </div>
+                            <div class="text-muted exp-meta">
+                            {{.degree}}<span class="middot-divider"></span>{{.university}}
+                            </div>
+                            <div class="text-muted exp-meta">
+                            {{ if .website}}
+                                {{with .website}}<a href="{{.}}">Course website</a>{{end}}
+                                {{ if .repository}}
+                                    <span class="middot-divider"></span>
+                                    {{with .repository}}<a href="{{.}}">Materials</a>{{end}}
+                                {{end}}
+                            {{end}}
+                        </div>
+                        </div>
+                        {{end}}
+                    </div>
+                </details>
         {{end}}
         <hr/>
         <!-- Supervision -->
         {{ if $page.Params.supervision }}
         <h3 style="padding-bottom: 0.5rem">{{ i18n "supervision" | markdownify | emojify }}</h3>
-        {{ range $idx, $key := sort $page.Params.supervision ".date" "desc" }}
-            {{ if .date_end }}
-                {{continue}}
+        {{ range $idx, $supervisee := sort $page.Params.supervision ".date" "desc" }}
+            {{ if .date_end}}
+                {{ $end_date := time .date_end }}
+                {{ if $end_date.Before now }}
+                    {{continue}}
+                {{end}}
             {{end}}
             <div class="row activities-supervision">
                 <div class="my-container">
-                    <h4 class="card-title exp-company text-muted my-0">
-                        <i class="fa-solid fa-graduation-cap" style="padding-right:0.5rem"></i> 
-                        {{with .website_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.name | markdownify | emojify}}</a>
-                    </h4>
-                    <div class="text-muted exp-meta">
-                    {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
-                    {{ if .date_end}} –
-                        {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
-                    {{ else}}
-                        – Ongoing
-                    {{end}}
-                    <span class="middot-divider"></span>
-                    <span>{{.program}}</span>
+                    <div class="d-flex align-items-center" style="margin-bottom: 5px">
+                        {{ if $supervisee.image_url }}
+                            <img src="{{ $supervisee.image_url }}" alt="{{ $supervisee.name }}" class="rounded-circle mr-3" style="width: 50px; height: 50px; object-fit: cover;">
+                        {{ else }}
+                            <i class="fa-solid fa-graduation-cap mr-3" style="font-size: 24px;"></i>
+                        {{ end }}
+                        <div>
+                            <h4 class="card-title exp-company text-muted my-0">
+                                {{with $supervisee.website_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{$supervisee.name | markdownify | emojify}}{{if $supervisee.website_url}}</a>{{end}}
+                            </h4>
+                            <div class="text-muted exp-meta">
+                                {{ (time $supervisee.date).Format ($page.Params.date_format | default "January, 2006") }}
+                                {{ if $supervisee.date_end}} –
+                                    {{ (time $supervisee.date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                                {{ else}}
+                                    – Ongoing
+                                {{end}}
+                                <span class="middot-divider"></span>
+                                <span>{{$supervisee.program}}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-text text-muted exp-meta">
-                        {{ .project_type | markdownify | emojify }}: {{with .project_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.project | markdownify | emojify}}</a>
-                        {{ if .paperlink}}
-                            <span class="middot-divider"></span>
-                            {{range .paperlink}}
-                                <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+
+                    {{ range $idx, $project := sort $supervisee.projects ".date" "asc" }}
+                        <div class="card-text text-muted exp-meta">
+                            {{ .project_type | markdownify | emojify }}: {{with .project_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.project | markdownify | emojify}}{{if .project_url}}</a>{{end}}
+                            {{ if .paperlink}}
+                                <span class="middot-divider"></span>
+                                {{range .paperlink}}
+                                    <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+                                {{end}}
                             {{end}}
-                        {{end}}
-                    </div>
+                        </div>
+                    {{ end }}
                 </div>
             </div>
-        {{end}}
+        {{ end }}
         <details>
             <summary>See previously supervised students</summary>
-            {{ range $idx, $key := sort $page.Params.supervision ".date" "desc" }}
+            {{ range $idx, $supervisee := sort $page.Params.supervision ".date" "desc" }}
+            {{ if not .date_end }}
+                {{continue}}
+            {{ end }}
+            {{ if .date_end }}
+                {{ $end_date := time .date_end }}
+                {{ if $end_date.After now }}
+                    {{continue}}
+                {{end}}
+            {{end}}
             <div class="row activities-supervision">
                 <div class="my-container">
-                    <h4 class="card-title exp-company text-muted my-0">
-                        <i class="fa-solid fa-graduation-cap" style="padding-right:0.5rem"></i> 
-                        {{with .website_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.name | markdownify | emojify}}</a>
-                    </h4>
-                    <div class="text-muted exp-meta">
-                    {{ (time .date).Format ($page.Params.date_format | default "January, 2006") }}
-                    {{ if .date_end}} –
-                        {{ (time .date_end).Format ($page.Params.date_format | default "January, 2006") }}
-                    {{ else}}
-                        – Ongoing
-                    {{end}}
-                    <span class="middot-divider"></span>
-                    <span>{{.program}}</span>
+                    <div class="d-flex align-items-center" style="margin-bottom: 5px">
+                        {{ if $supervisee.image_url }}
+                            <img src="{{ $supervisee.image_url }}" alt="{{ $supervisee.name }}" class="rounded-circle mr-3" style="width: 50px; height: 50px; object-fit: cover;">
+                        {{ else }}
+                            <i class="fa-solid fa-graduation-cap mr-3" style="font-size: 24px;"></i>
+                        {{ end }}
+                        <div>
+                            <h4 class="card-title exp-company text-muted my-0">
+                                {{with $supervisee.website_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{$supervisee.name | markdownify | emojify}}{{if $supervisee.website_url}}</a>{{end}}
+                            </h4>
+                            <div class="text-muted exp-meta">
+                                {{ (time $supervisee.date).Format ($page.Params.date_format | default "January, 2006") }}
+                                {{ if $supervisee.date_end}} –
+                                    {{ (time $supervisee.date_end).Format ($page.Params.date_format | default "January, 2006") }}
+                                {{ else}}
+                                    – Ongoing
+                                {{end}}
+                                <span class="middot-divider"></span>
+                                <span>{{$supervisee.program}}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-text text-muted exp-meta">
-                        {{ .project_type | markdownify | emojify }}: {{with .project_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.project | markdownify | emojify}}</a>
-                        {{ if .paperlink}}
-                            <span class="middot-divider"></span>
-                            {{range .paperlink}}
-                                <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+
+                    {{ range $idx, $project := sort $supervisee.projects ".date" "asc" }}
+                        <div class="card-text text-muted exp-meta">
+                            {{ .project_type | markdownify | emojify }}: {{with .project_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.project | markdownify | emojify}}{{if .project_url}}</a>{{end}}
+                            {{ if .paperlink}}
+                                <span class="middot-divider"></span>
+                                {{range .paperlink}}
+                                    <a href="{{.}}"><i class="fa-solid fa-file-lines" style="padding-right:0.5rem"></i></a>
+                                {{end}}
                             {{end}}
-                        {{end}}
-                    </div>
+                        </div>
+                    {{ end }}
                 </div>
             </div>
             {{end}}

@@ -42,7 +42,7 @@ links:
   icon_pack: fas
   icon: file-contract
 - name: Demo
-  url: https://huggingface.co/spaces/gsarti/pecore
+  url: https://huggingface.co/spaces/gsarti/mirage
   icon_pack: fas
   icon: rocket
 - name: Repository
