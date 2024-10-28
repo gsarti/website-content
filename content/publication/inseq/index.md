@@ -72,6 +72,10 @@ links:
   url: https://github.com/inseq-team/inseq/blob/main/examples/inseq_tutorial.ipynb
   icon_pack: fas
   icon: rocket
+- name: v0.6 Paper
+  url: https://ceur-ws.org/Vol-3793/paper_37.pdf
+  icon_pack: fas
+  icon: file-pdf
 
 url_pdf: https://aclanthology.org/2023.acl-demo.40.pdf
 url_code:

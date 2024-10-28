@@ -3,11 +3,11 @@
 
 title: "Probing Linguistic Knowledge in Italian Neural Language Models across Language Varieties"
 authors: [Alessio Miaschi, Gabriele Sarti, Dominique Brunato, Felice Dell’Orletta, Giulia Venturi]
-date: 2022-07-1T09:47:38+02:00
+date: 2022-07-01T01:00:00+02:00
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: 2022-07-1T09:47:38+02:00
+publishDate: 2022-07-01T01:00:00+02:00
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
