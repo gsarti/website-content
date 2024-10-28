@@ -19,6 +19,7 @@ name = "Ludwig Sickert"
 date = "2022-04-11"
 date_end = "2023-07-01"
 program = "MSc in AI, RUG"
+program_url = "https://www.rug.nl/masters/artificial-intelligence"
 website_url = "https://www.linkedin.com/in/lsickert"
 image_url = "https://prompters.io/media/job-manager-uploads/candidate_photo/2023/11/prompters_profile-150x150.jpg"
 projects = [
@@ -31,6 +32,7 @@ name = "Qiankun Zheng"
 date = "2022-10-30"
 date_end = "2023-04-30"
 program = "MSc in LCT, RUG & Saarland University"
+program_url = "https://lct-master.org/"
 projects = [
   {date = "2022-10-30", date_end = "2023-04-30", project_type = "MSc Project", project = "Cross-lingual Analysis of Neural Machine Translation Post-Edits", project_url = ""}
 ]
@@ -39,8 +41,9 @@ projects = [
 
 name = "Konstantin Chernyshev"
 date = "2023-04-17"
-date_end = "2024-11-01"
+date_end = "2024-10-10"
 program = "MSc in LCT, RUG & Saarland University"
+program_url = "https://lct-master.org/"
 website_url = "https://www.linkedin.com/in/kdchernyshev"
 image_url = "https://scholar.googleusercontent.com/citations?view_op=view_photo&user=yLrJBmIAAAAJ&citpid=2"
 projects = [
@@ -53,7 +56,8 @@ projects = [
 name = "Daniel Scalena"
 date = "2023-04-01"
 date_end = "2023-10-01"
-program = "MSc in Computer Science, University Milano-Bicocca"
+program = "MSc in CS, University Milano-Bicocca"
+program_url = "https://www.disco.unimib.it/en/teaching/educational-offer/master-degree-computer-science"
 website_url = "https://www.danielsc4.it/"
 image_url = "https://scholar.googleusercontent.com/citations?view_op=view_photo&user=5Q89Yd8AAAAJ&citpid=3"
 projects = [
@@ -65,18 +69,32 @@ projects = [
 name = "Sara Candussio"
 date = "2024-04-01"
 date_end = "2024-09-20"
-program = "MSc in Data Science and Scientific Computing, University of Trieste"
+program = "MSc in Data Science, University of Trieste"
+program_url = "https://dssc.units.it/"
 website_url = "https://www.linkedin.com/in/sara-candussio-830772283/"
 image_url = "https://media.licdn.com/dms/image/v2/D5603AQHfLAqdb7zZGg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1689350451259?e=1733356800&v=beta&t=echPESdTwrjdwAfhXi4OVPTNh2OaMQQ-uZscnGVuH8w"
 projects = [
   {date = "2024-04-01", date_end = "2024-09-20", project_type = "MSc Thesis", project = "A Dialectic Pipeline for Improving LLM Robustness", project_url = ""}
 ]
 
+[supervision.sdavenia]
+
+name = "Samuele D'Avenia"
+date = "2024-04-20"
+date_end = "2024-10-21"
+program = "MSc in Data Science, University of Trieste"
+program_url = "https://dssc.units.it/"
+website_url = "https://www.linkedin.com/in/samuele-d-avenia-537a2b229"
+image_url = "https://media.licdn.com/dms/image/v2/D4D03AQELygRo0Bogpg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1665005557870?e=1735776000&v=beta&t=hlHBguvIGywMKStz6DaAcW5_kmnJy00jYYeITkOnHbQ"
+projects = [
+  {date = "2024-04-20", date_end = "2024-10-21", project_type = "MSc Thesis", project = "Interpretability in VLMs: Extending the PECoRe Framework to Image Context", project_url = ""}
+]
+
 [academic_service]
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024, ICLR 2025"
 
 [teaching]
 
@@ -118,38 +136,52 @@ somwind0724.website = "https://www.rug.nl/gmw/bachelors/minor/minor-datawise?lan
 
 [events]
 
+clic24.shortname = "CLiC-it 2024"
+clic24.date = "2024-12-04"
+clic24.url = "https://clic2024.ilc.cnr.it/"
+clic24.location = "Pisa, Italy"
+clic24.paperlink = ["https://gsarti.com/publication/verbalized-rebus"]
+clic24.description = "Poster + 2 Research Communications + CALAMITA Task"
+
+emnlp24.shortname = "EMNLP 2024"
+emnlp24.date = "2024-11-11"
+emnlp24.url = "https://2024.emnlp.org/"
+emnlp24.location = "Miami, FL, USA"
+emnlp24.paperlink = ["https://gsarti.com/publication/mirage", "https://gsarti.com/publication/dynamic-activation-composition"]
+emnlp24.description = "Main + BlackboxNLP WS"
+
 xai24.shortname = "XAI 2024"
 xai24.date = "2024-07-16"
 xai24.url = "https://xaiworldconference.com/2024/"
 xai24.location = "Valletta, Malta"
-xai24.paperlink = []
+xai24.paperlink = ["https://ceur-ws.org/Vol-3793/paper_37.pdf"]
 
 coling24.shortname = "LREC-COLING 2024"
 coling24.date = "2024-05-20"
 coling24.url = "https://lrec-coling-2024.org/"
 coling24.location = "Turin, Italy"
-coling24.paperlink = ["https://arxiv.org/abs/2203.03759"]
+coling24.paperlink = ["https://gsarti.com/publication/it5"]
 coling24.description = "Main conference short paper"
 
 iclr24.shortname = "ICLR 2024"
 iclr24.date = "2024-05-06"
 iclr24.url = "https://iclr.cc/"
 iclr24.location = "Vienna, Austria"
-iclr24.paperlink = ["https://openreview.net/forum?id=XTHfNGI3zT"]
+iclr24.paperlink = ["https://gsarti.com/publication/pecore"]
 iclr24.description = "Main conference paper"
 
 emnlp23.shortname = "EMNLP 2023"
 emnlp23.date = "2023-12-05"
 emnlp23.url = "https://2023.emnlp.org/"
 emnlp23.location = "Singapore"
-emnlp23.paperlink = ["https://arxiv.org/abs/2310.01188", "https://arxiv.org/abs/2309.00751"]
+emnlp23.paperlink = ["https://gsarti.com/publication/pecore", "https://arxiv.org/abs/2309.00751"]
 emnlp23.description = "Two long abstracts at the BlackboxNLP workshop"
 
 acl23.shortname = "ACL 2023"
 acl23.date = "2023-07-09"
 acl23.url = "https://2023.aclweb.org/"
 acl23.location = "Toronto, ON, Canada"
-acl23.paperlink = ["https://aclanthology.org/2023.acl-short.126/", "https://aclanthology.org/2023.acl-demo.40/"]
+acl23.paperlink = ["https://gsarti.com/publication/ramp", "https://gsarti.com/publication/inseq"]
 
 restcl23.shortname = "REST-CL 2023"
 restcl23.date = "2023-06-30"
@@ -169,7 +201,7 @@ emnlp22.shortname = "EMNLP 2022"
 emnlp22.date = "2022-12-06"
 emnlp22.url = "https://2022.emnlp.org/"
 emnlp22.location = "Abu Dhabi, UAE"
-emnlp22.paperlink = ["https://arxiv.org/abs/2205.12215"]
+emnlp22.paperlink = ["https://gsarti.com/publication/divemt/"]
 
 eamt22.shortname = "EAMT 2022"
 eamt22.date = "2022-06-01"

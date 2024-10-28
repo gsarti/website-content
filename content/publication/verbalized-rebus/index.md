@@ -13,11 +13,11 @@ publishDate: 2024-08-02T01:00:00+02:00
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["3"]
+publication_types: ["1"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Arxiv Preprint"
-publication_short: "Arxiv"
+publication: "Proceedings of the 10th Italian Conference on Computational Linguistics"
+publication_short: "CLiC-it 2024"
 
 abstract: "Rebuses are puzzles requiring constrained multi-step reasoning to identify a hidden phrase from a set of images and letters. In this work, we introduce a large collection of verbalized rebuses for the Italian language and use it to assess the rebus-solving capabilities of state-of-the-art large language models. While general-purpose systems such as LLaMA-3 and GPT-4o perform poorly on this task, ad-hoc fine-tuning seems to improve models' performance. However, we find that performance gains from training are largely motivated by memorization. Our results suggest that rebus solving remains a challenging test bed to evaluate large language models' linguistic proficiency and sequential instruction-following skills."
 
@@ -44,13 +44,17 @@ links:
   url: https://huggingface.co/collections/gsarti/verbalized-rebus-clic-it-2024-66ab8f11cb04e68bdf4fb028
   icon: codepen
   icon_pack: fab
+- name: Repository
+  url: https://github.com/gsarti/verbalized-rebus
+  icon_pack: fab
+  icon: github
 - name: Demo
   url: https://huggingface.co/spaces/gsarti/verbalized-rebus-solver
   icon_pack: fas
   icon: rocket
 
 url_pdf: https://arxiv.org/pdf/2408.00584.pdf
-url_code: https://github.com/gsarti/verbalized-rebus
+url_code: 
 url_dataset: https://huggingface.co/datasets/gsarti/eureka-rebus
 url_poster:
 url_project:

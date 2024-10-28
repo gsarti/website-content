@@ -11,6 +11,21 @@
         <!-- Teaching -->
         {{ if $page.Params.teaching }}
             <h3 style="padding-bottom: 0.5rem">{{ i18n "teaching" | markdownify | emojify }}</h3>
+
+            {{ $has_current_courses := false }}
+                {{ range $idx, $key := sort $page.Params.teaching ".date" "desc" }}
+                {{ if .date_end}}
+                    {{ $end_date := time .date_end }}
+                    {{ if $end_date.Before now }}
+                        {{continue}}
+                    {{end}}
+                {{end}}
+                {{ $has_current_courses = true }}
+            {{end}}
+
+            {{ if not $has_current_courses }}
+                <p><em>I'm not currently teaching any course.</em></p>
+            {{ else }}
             <div class="row activities-teaching">
             {{ range $idx, $key := sort $page.Params.teaching ".date" "desc" }}
                 {{ $end_date := time .date_end }}
@@ -46,6 +61,7 @@
                 </div>
                 {{end}}
             </div>
+            {{ end }}
             <details>
                 <summary>See previous courses</summary>
                 <div class="row activities-teaching">
@@ -89,6 +105,34 @@
         <!-- Supervision -->
         {{ if $page.Params.supervision }}
         <h3 style="padding-bottom: 0.5rem">{{ i18n "supervision" | markdownify | emojify }}</h3>
+
+        {{ $has_current_students := false }}
+        {{ range $idx, $supervisee := sort $page.Params.supervision ".date" "desc" }}
+        {{ if .date_end}}
+            {{ $end_date := time .date_end }}
+            {{ if $end_date.Before now }}
+            {{continue}}
+            {{end}}
+        {{end}}
+        {{ $has_current_students = true }}
+        {{end}}
+
+        {{ if not $has_current_students }}
+            <div class="d-flex align-items-center" style="margin-bottom: 5px">
+                <i class="fa-solid fa-graduation-cap mr-3" style="font-size: 24px;"></i>
+                <div>
+                    <h4 class="card-title exp-company text-muted my-0">
+                        You?
+                    </h4>
+                    <div class="text-muted exp-meta">
+                        I am often looking for motivated students to work with.
+                    </div>
+                    <div class="text-muted exp-meta">
+                        If you are interested in working with me, please feel free to reach out! :)
+                    </div>
+                </div>
+            </div>
+        {{ else }}
         {{ range $idx, $supervisee := sort $page.Params.supervision ".date" "desc" }}
             {{ if .date_end}}
                 {{ $end_date := time .date_end }}
@@ -117,6 +161,9 @@
                                 {{end}}
                                 <span class="middot-divider"></span>
                                 <span>{{$supervisee.program}}</span>
+                                {{if $supervisee.program_url}}
+                                    <a href="{{$supervisee.program_url}}"><i class="fa-solid fa-graduation-cap" style="padding-left:0.2rem;padding-right:0.5rem"></i></a>
+                                {{end}}
                             </div>
                         </div>
                     </div>
@@ -134,6 +181,7 @@
                     {{ end }}
                 </div>
             </div>
+        {{ end }}
         {{ end }}
         <details>
             <summary>See previously supervised students</summary>
@@ -168,6 +216,9 @@
                                 {{end}}
                                 <span class="middot-divider"></span>
                                 <span>{{$supervisee.program}}</span>
+                                {{if $supervisee.program_url}}
+                                    <a href="{{$supervisee.program_url}}"><i class="fa-solid fa-graduation-cap" style="padding-left:0.2rem;padding-right:0.5rem"></i></a>
+                                {{end}}
                             </div>
                         </div>
                     </div>
