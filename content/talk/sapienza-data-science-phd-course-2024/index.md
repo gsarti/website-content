@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Interpretability for Language Models: Current Trends and Applications"
-event: Seminar at the PhD Course on Explainable and Interpretable AI
+event: Seminar, PhD Course on XAI, Sapienza University of Rome
 event_url:
 location: Online
 address:
