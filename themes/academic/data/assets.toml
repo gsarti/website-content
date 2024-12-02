@@ -48,9 +48,9 @@
   sri = "sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U="
   url = "https://cdnjs.cloudflare.com/ajax/libs/mark.js/%s/jquery.mark.min.js"
 [js.instantsearch]
-  version = "2.10.2"
-  sri = "sha256-gFCtPk/sonctyfwYOgjrPoWApQ0rqB6ezBBZ7p32yGc="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.js"
+  version = "4.75.5"
+  sri = "sha256-ZtmLe16p4jS4/2wPwwH6NzJt460SJzgLmhKrYo5yn7g="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.production.min.js"
 [js.anchor]
   version = "4.1.1"
   sri = "sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck="
@@ -63,25 +63,25 @@
 # CSS
 
 [css.fontAwesome]
-  version = "6.1.1"
-  sri = "sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+  version = "6.7.1"
+  sri = "sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/%s/css/all.min.css"
 [css.academicons]
   version = "1.9.2"
   sri = "sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/academicons/%s/css/academicons.min.css"
 [css.leaflet]
-  version = "1.5.1"
-  sri = "sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM="
+  version = "1.9.4"
+  sri = "sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.css"
 [css.fancybox]
   version = "3.5.7"
   sri = "sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA="
   url = "https://cdnjs.cloudflare.com/ajax/libs/fancybox/%s/jquery.fancybox.min.css"
 [css.instantsearch]
-  version = "2.9.0"
+  version = "4.75.5"
   sri = "sha256-ZtmLe16p4jS4/2wPwwH6NzJt460SJzgLmhKrYo5yn7g="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.css"
+  url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.production.min.js"
 [css.instantsearchTheme]
   version = "2.10.2"
   sri = "sha256-uL8LUd3zkI/lXvc/Hv/oOu8ld6RJcOZiUY/8c+I+3/o="
