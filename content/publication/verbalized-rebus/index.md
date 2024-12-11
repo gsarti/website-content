@@ -40,7 +40,11 @@ links:
   url: https://arxiv.org/abs/2408.00584
   icon_pack: fas
   icon: file-contract
-- name: Models
+- name: CALAMITA Challenge
+  url: https://clic2024.ilc.cnr.it/wp-content/uploads/2024/12/132_calamita_long.pdf
+  icon_pack: fas
+  icon: magnet
+- name: Models & Dataset
   url: https://huggingface.co/collections/gsarti/verbalized-rebus-clic-it-2024-66ab8f11cb04e68bdf4fb028
   icon: codepen
   icon_pack: fab
