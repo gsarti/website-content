@@ -41,7 +41,7 @@ links:
   icon_pack: fas
   icon: file-contract
 - name: CALAMITA Challenge
-  url: https://clic2024.ilc.cnr.it/wp-content/uploads/2024/12/132_calamita_long.pdf
+  url: https://ceur-ws.org/Vol-3878/132_calamita_long.pdf
   icon_pack: fas
   icon: magnet
 - name: Models & Dataset
