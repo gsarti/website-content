@@ -118,7 +118,7 @@ iknlp23.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
 iknlp24.name = "Natural Language Processing"
 iknlp24.date = "2024-02-07"
-iknlp24.date_end = "2023-04-11"
+iknlp24.date_end = "2024-04-11"
 iknlp24.instructor = "Arianna Bisazza, Jirui Qi, Leonidas Zotos"
 iknlp24.degree = "MSc Information Science"
 iknlp24.university = "University of Groningen"
