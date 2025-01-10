@@ -21,7 +21,7 @@ date_end = "2023-07-01"
 program = "MSc in AI, RUG"
 program_url = "https://www.rug.nl/masters/artificial-intelligence"
 website_url = "https://www.linkedin.com/in/lsickert"
-image_url = "https://prompters.io/media/job-manager-uploads/candidate_photo/2023/11/prompters_profile-150x150.jpg"
+image_url = "https://media.licdn.com/dms/image/v2/C4D03AQHC30RRdIjJhQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1594219499683?e=1741824000&v=beta&t=BZU61yn84aZ7xZ1bXEnFFMAytWooxP_FpHXsZsmx2Ls"
 projects = [
   {date = "2022-04-11", date_end = "2023-07-01", project_type = "MSc Thesis", project = "Assessing Formality in Machine Translation through Interpretability Methods", project_url = ""}
 ]
@@ -72,7 +72,7 @@ date_end = "2024-09-20"
 program = "MSc in Data Science, University of Trieste"
 program_url = "https://dssc.units.it/"
 website_url = "https://www.linkedin.com/in/sara-candussio-830772283/"
-image_url = "https://media.licdn.com/dms/image/v2/D5603AQHfLAqdb7zZGg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1689350451259?e=1733356800&v=beta&t=echPESdTwrjdwAfhXi4OVPTNh2OaMQQ-uZscnGVuH8w"
+image_url = "https://media.licdn.com/dms/image/v2/D5603AQHfLAqdb7zZGg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1689350451259?e=1741824000&v=beta&t=vw-vWdk1zNZgrmKznkPVLu_XggfBFC03-fOqqca7fQU"
 projects = [
   {date = "2024-04-01", date_end = "2024-09-20", project_type = "MSc Thesis", project = "A Dialectic Pipeline for Improving LLM Robustness", project_url = ""}
 ]
@@ -85,7 +85,7 @@ date_end = "2024-10-21"
 program = "MSc in Data Science, University of Trieste"
 program_url = "https://dssc.units.it/"
 website_url = "https://www.linkedin.com/in/samuele-d-avenia-537a2b229"
-image_url = "https://media.licdn.com/dms/image/v2/D4D03AQELygRo0Bogpg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1665005557870?e=1735776000&v=beta&t=hlHBguvIGywMKStz6DaAcW5_kmnJy00jYYeITkOnHbQ"
+image_url = "https://media.licdn.com/dms/image/v2/D4D03AQELygRo0Bogpg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1665005557870?e=1741824000&v=beta&t=9XCrAXQU8ioWr5TztO7573vSJByQ7btIlh0KSwGRFC0"
 projects = [
   {date = "2024-04-20", date_end = "2024-10-21", project_type = "MSc Thesis", project = "Interpretability in VLMs: Extending the PECoRe Framework to Image Context", project_url = ""}
 ]
