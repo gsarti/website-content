@@ -132,7 +132,14 @@ somwind0724.degree = "Data Wise: Data Science in Society Minor"
 somwind0724.university = "University of Groningen"
 somwind0724.website = "https://www.rug.nl/gmw/bachelors/minor/minor-datawise?lang=en"
 
-
+iknlp25.name = "Advanced Topics in Natural Language Processing"
+iknlp25.date = "2025-02-07"
+iknlp25.date_end = "2025-04-11"
+iknlp25.instructor = "Arianna Bisazza, Jirui Qi, Leonidas Zotos"
+iknlp25.degree = "MSc Information Science"
+iknlp25.university = "University of Groningen"
+iknlp25.website = "https://sites.google.com/rug.nl/ik-nlp-2025"
+iknlp25.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
 [events]
 
@@ -339,6 +346,11 @@ lcl19.paperlink = ["https://github.com/gsarti/svevo-letters-analysis"]
  # CSS class.
  css_class = ""
 +++
+
+### 2025
+
+**February 2025**: I am visiting the [IRT Saint-Exupéry](https://www.irt-saintexupery.com/) in Toulouse, France, to collaborate on an interpretability project with the [DEEL team](https://www.irt-saintexupery.com/deel-le-programme-en-intelligence-artificielle-robuste-et-explicable-entre-dans-sa-phase-2/).
+
 ### 2023
 
 **May 2023**: I was awarded two research grants from the [Imminent Research Center](https://imminent.translated.com/) and the [Amsterdam eScience Center](https://www.esciencecenter.nl/fellowship-programme/gabriele-sarti/) to fund the development of the Inseq library and my future research on machine translation.
