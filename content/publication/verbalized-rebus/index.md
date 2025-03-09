@@ -36,12 +36,12 @@ featured: true
 #   icon_pack: fab
 #   icon: twitter
 links:
-- name: ArXiv
-  url: https://arxiv.org/abs/2408.00584
+- name: Paper
+  url: https://aclanthology.org/2024.clicit-1.96/
   icon_pack: fas
   icon: file-contract
 - name: CALAMITA Challenge
-  url: https://ceur-ws.org/Vol-3878/132_calamita_long.pdf
+  url: https://aclanthology.org/2024.clicit-1.132/
   icon_pack: fas
   icon: magnet
 - name: Models & Dataset
