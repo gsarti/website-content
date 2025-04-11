@@ -117,22 +117,20 @@
         {{ $has_current_students = true }}
         {{end}}
 
-        {{ if not $has_current_students }}
-            <div class="d-flex align-items-center" style="margin-bottom: 5px">
-                <i class="fa-solid fa-graduation-cap mr-3" style="font-size: 24px;"></i>
-                <div>
-                    <h4 class="card-title exp-company text-muted my-0">
-                        You?
-                    </h4>
-                    <div class="text-muted exp-meta">
-                        I am often looking for motivated students to work with.
-                    </div>
-                    <div class="text-muted exp-meta">
-                        If you are interested in working with me, please feel free to reach out! :)
-                    </div>
+        <div class="d-flex align-items-center" style="margin-bottom: 5px">
+            <i class="fa-solid fa-graduation-cap mr-3" style="font-size: 24px;padding-right: 12px; padding-left: 15px;"></i>
+            <div>
+                <h4 class="card-title exp-company text-muted my-0">
+                    You?
+                </h4>
+                <div class="text-muted exp-meta">
+                    I am often looking for motivated students to work with.
+                </div>
+                <div class="text-muted exp-meta">
+                    If you are interested in working with me, please feel free to reach out! :)
                 </div>
             </div>
-        {{ else }}
+        </div>
         {{ range $idx, $supervisee := sort $page.Params.supervision ".date" "desc" }}
             {{ if .date_end}}
                 {{ $end_date := time .date_end }}
@@ -146,7 +144,7 @@
                         {{ if $supervisee.image_url }}
                             <img src="{{ $supervisee.image_url }}" alt="{{ $supervisee.name }}" class="rounded-circle mr-3" style="width: 50px; height: 50px; object-fit: cover;">
                         {{ else }}
-                            <i class="fa-solid fa-graduation-cap mr-3" style="font-size: 24px;"></i>
+                            <i class="fa-solid fa-graduation-cap mr-3" style="font-size: 24px;padding-right: 12px;padding-left: 15px;"></i>
                         {{ end }}
                         <div>
                             <h4 class="card-title exp-company text-muted my-0">
@@ -181,7 +179,6 @@
                     {{ end }}
                 </div>
             </div>
-        {{ end }}
         {{ end }}
         <details>
             <summary>See previously supervised students</summary>

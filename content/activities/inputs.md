@@ -21,7 +21,7 @@ date_end = "2023-07-01"
 program = "MSc in AI, RUG"
 program_url = "https://www.rug.nl/masters/artificial-intelligence"
 website_url = "https://www.linkedin.com/in/lsickert"
-image_url = "https://media.licdn.com/dms/image/v2/C4D03AQHC30RRdIjJhQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1594219499683?e=1741824000&v=beta&t=BZU61yn84aZ7xZ1bXEnFFMAytWooxP_FpHXsZsmx2Ls"
+image_url = "https://media.licdn.com/dms/image/v2/C4D03AQHC30RRdIjJhQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1594219499683?e=1749686400&v=beta&t=pC6z_omu2bONjrpDITawuG18Ts6d6t4z-p_Af14HzA8"
 projects = [
   {date = "2022-04-11", date_end = "2023-07-01", project_type = "MSc Thesis", project = "Assessing Formality in Machine Translation through Interpretability Methods", project_url = ""}
 ]
@@ -72,7 +72,7 @@ date_end = "2024-09-20"
 program = "MSc in Data Science, University of Trieste"
 program_url = "https://dssc.units.it/"
 website_url = "https://www.linkedin.com/in/sara-candussio-830772283/"
-image_url = "https://media.licdn.com/dms/image/v2/D5603AQHfLAqdb7zZGg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1689350451259?e=1741824000&v=beta&t=vw-vWdk1zNZgrmKznkPVLu_XggfBFC03-fOqqca7fQU"
+image_url = "https://media.licdn.com/dms/image/v2/D5603AQHfLAqdb7zZGg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1689350451259?e=1749686400&v=beta&t=pM5ky-eUH4Lhh-jeGjdwoip7-QLBcZwPLG7WDyrEKc8"
 projects = [
   {date = "2024-04-01", date_end = "2024-09-20", project_type = "MSc Thesis", project = "A Dialectic Pipeline for Improving LLM Robustness", project_url = ""}
 ]
@@ -85,9 +85,22 @@ date_end = "2024-10-21"
 program = "MSc in Data Science, University of Trieste"
 program_url = "https://dssc.units.it/"
 website_url = "https://www.linkedin.com/in/samuele-d-avenia-537a2b229"
-image_url = "https://media.licdn.com/dms/image/v2/D4D03AQELygRo0Bogpg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1665005557870?e=1741824000&v=beta&t=9XCrAXQU8ioWr5TztO7573vSJByQ7btIlh0KSwGRFC0"
+image_url = "https://media.licdn.com/dms/image/v2/D4D03AQELygRo0Bogpg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1665005557870?e=1749686400&v=beta&t=cfCj0WfiEB4r_J6fc-XfI1VJfNZAsm5gsGX6rDbSJWI"
 projects = [
   {date = "2024-04-20", date_end = "2024-10-21", project_type = "MSc Thesis", project = "Interpretability in VLMs: Extending the PECoRe Framework to Image Context", project_url = ""}
+]
+
+[supervision.kislam]
+
+name = "Khondoker Islam"
+date = "2024-11-01"
+date_end = "2025-05-01"
+program = "MSc in LCT, RUG & Saarland University"
+program_url = "https://lct-master.org/"
+website_url = "https://scholar.google.com/citations?user=UsCFAAcAAAAJ"
+image_url = "https://scholar.googleusercontent.com/citations?view_op=view_photo&user=UsCFAAcAAAAJ&citpid=15"
+projects = [
+  {date = "2024-11-01", date_end = "2025-05-01", project_type = "MSc Project", project = "Evaluating and Attributing Reasoning in LLMs for the Bangla Language", project_url = ""}
 ]
 
 [academic_service]
@@ -95,6 +108,14 @@ projects = [
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
 reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024, ICLR 2025"
+
+area_chair.icon = "chair"
+area_chair.task = "Area Chair"
+area_chair.venues = "ACL 2025, CLiC-it 2025"
+
+workshop_organizer.icon = "users"
+workshop_organizer.task = "Workshop Organizer"
+workshop_organizer.venues = "BlackboxNLP 2025"
 
 [teaching]
 
