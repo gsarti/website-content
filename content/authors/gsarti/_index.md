@@ -21,13 +21,13 @@ organizations:
 bio: I am PhD student in interpretable neural machine translation at the University of Groningen. My research focuses on interpretability for NLP models, in particular to the benefit of end-users and by leveraging human behavioral signals.
 
 interests:
-- name: Conditional Text Generation
+- name: Conditional Language Generation
   icon: comment-dots
-- name: Interpretability for Deep Learning
+- name: Deep Learning Interpretability
   icon: magnifying-glass
-- name: Behavioral Data for NLP
-  icon: eye
-- name: Causality and Uncertainty Estimation
+- name: Human-AI Collaboration
+  icon: handshake
+- name: Uncertainty Estimation
   icon: circle-question
 
 education:
@@ -116,7 +116,7 @@ user_groups:
 - Visitors
 ---
 
-Welcome to my website! 👋 I am a PhD student at the [Computational Linguistics Group](https://www.rug.nl/research/clcg/research/cl/) of the University of Groningen and member of the [InDeep consortium](https://projects.illc.uva.nl/indeep/), working on user-centric interpretability for neural machine translation. I am also the main developer of the [Inseq](https://github.com/inseq-team/inseq) library. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
+Welcome to my website! 👋 I am a PhD student at the [Natural Language Processing group](https://www.rug.nl/research/clcg/research/cl/) (GroNLP 🐮) & the [InCLoW research team](https://inclow-lm.github.io/) at the University of Groningen. I'm also a member of the [InDeep consortium](https://projects.illc.uva.nl/indeep/), working on user-centric interpretability for multilingual generation and machine translation. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
 
 <br>
 
@@ -124,6 +124,6 @@ Previously, I was a research intern at [Amazon Translate NYC](https://www.amazon
 
 <br>
 
-My research focuses on interpretability for generative language models, with a particular interest to end-users' benefits and the usage of [human behavioral signals](https://gsarti.com/msc-thesis/introduction.html). I am also into causality topics and open source collaboration.
+My research focuses on interpretability for generative language models, with a particular interest on operationalizing advances in model understanding for the benefit of users. For this reason, I lead the development of robust [open-source interpretability software](https://github.com/inseq-team/inseq) to enable reproducible analyses of model behaviors. I am also excited about human-computer interaction, and in particular how [human behavioral signals](https://gsarti.com/msc-thesis/introduction.html) can improve human-AI collaboration.
 
-Your [(anonymous) feedback](https://www.admonymous.co/gsarti) is always welcome! 🙂
+Your [(anonymous) constructive feedback](https://www.admonymous.co/gsarti) is always welcome! 🙂
