@@ -46,8 +46,20 @@
 
 [[main]]
   name = "CV"
-  url = "files/cv.pdf"
   weight = 8
+  identifier = "cv"
+
+[[main]]
+  name = "Short CV"
+  url = "files/gabriele_sarti_cv.pdf"
+  parent = "cv"
+  weight = 1
+
+[[main]]
+  name = "Academic CV"
+  url = "files/gabriele_sarti_academic_cv.pdf"
+  parent = "cv"
+  weight = 1
 
 [[main]]
   name = "Communities"
