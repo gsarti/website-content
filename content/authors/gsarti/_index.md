@@ -21,14 +21,14 @@ organizations:
 bio: I am PhD student in interpretable neural machine translation at the University of Groningen. My research focuses on interpretability for NLP models, in particular to the benefit of end-users and by leveraging human behavioral signals.
 
 interests:
-- name: Conditional Language Generation
+- name: Generative Language Models
   icon: comment-dots
 - name: Deep Learning Interpretability
   icon: magnifying-glass
-- name: Human-AI Collaboration
+- name: Human-AI Interaction
   icon: handshake
-- name: Uncertainty Estimation
-  icon: circle-question
+- name: User Modeling and Personalization
+  icon: eye
 
 education:
   courses:
@@ -116,14 +116,10 @@ user_groups:
 - Visitors
 ---
 
-Welcome to my website! 👋 I am a PhD student at the [Natural Language Processing group](https://www.rug.nl/research/clcg/research/cl/) (GroNLP 🐮) & the [InCLoW research team](https://inclow-lm.github.io/) at the University of Groningen. I'm also a member of the [InDeep consortium](https://projects.illc.uva.nl/indeep/), working on user-centric interpretability for multilingual generation and machine translation. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
+Welcome to my website! 👋 I am a PhD student in the [InCLoW team](https://inclow-lm.github.io/) within the [Natural Language Processing group](https://www.rug.nl/research/clcg/research/cl/) (GroNLP 🐮) at the University of Groningen. I'm also a member of the [InDeep consortium](https://projects.illc.uva.nl/indeep/), working on user-centric interpretability for generative language models. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
 
-<br>
+Previously, I was a applied scientist intern at [Amazon Translate NYC](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), and a [Data Science MSc](https://dssc.units.it/) student at the University of Trieste, where I helped found the [AI Student Society](https://www.ai2s.it).
 
-Previously, I was a research intern at [Amazon Translate NYC](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), a [Data Science MSc](https://dssc.units.it/) student at the University of Trieste and a co-founder of the [AI Student Society](https://www.ai2s.it).
-
-<br>
-
-My research focuses on interpretability for generative language models, with a particular interest on operationalizing advances in model understanding for the benefit of users. For this reason, I lead the development of robust [open-source interpretability software](https://github.com/inseq-team/inseq) to enable reproducible analyses of model behaviors. I am also excited about human-computer interaction, and in particular how [human behavioral signals](https://gsarti.com/msc-thesis/introduction.html) can improve human-AI collaboration.
+My research aims to translate theoretical advances in language models interpretability into actionable insights for improving trustworthiness and human-AI collaboration. To this end, I lead the development of [open-source interpretability software](https://github.com/inseq-team/inseq) projects to enable reproducible analyses of model behaviors. I am also excited about the potential of [human behavioral signals](https://gsarti.com/msc-thesis/introduction.html) such as keylogging, gaze and brain recordings to improve the usability and personalization of AI solutions.
 
 Your [(anonymous) constructive feedback](https://www.admonymous.co/gsarti) is always welcome! 🙂

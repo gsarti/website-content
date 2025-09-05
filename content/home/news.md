@@ -50,13 +50,17 @@ title = "🗞️ News"
 
 &nbsp;
 
+- Our paper [QE4PE: Word-level Quality Estimation for Human Post-Editing](https://arxiv.org/abs/2503.03044) was accepted by [TACL](https://transacl.org/index.php/tacl), and [Unsupervised Word-level Quality Estimation for Machine Translation Through the Lens of Annotators (Dis)agreement](https://arxiv.org/abs/2505.23183) was accepted to [EMNLP Main](https://2025.emnlp.org/)! I will present both at EMNLP in Suzhou, China 🇨🇳
+
+- I am co-organizing the [BlackboxNLP Workshop](https://blackboxnlp.github.io/2025/) at EMNLP 2025! Test your localization methods in our [shared task](https://blackboxnlp.github.io/2025/task/)! 🔍
+
 - I am visiting the [IRT Saint-Exupéry](https://www.irt-saintexupery.com/) in Toulouse, France, to collaborate on an interpretability project with the [DEEL team](https://www.irt-saintexupery.com/deel-le-programme-en-intelligence-artificielle-robuste-et-explicable-entre-dans-sa-phase-2/)! 🇫🇷
 
 - [Model Internals-based Answer Attribution for Trustworthy Retrieval-Augmented Generation](../publication/mirage) is accepted to [EMNLP 2024](https://2024.emnlp.org/), and [Multi-property Steering of Large Language Models with Dynamic Activation Composition](../publication/dynamic-activation-composition/) is accepted to [BlackboxNLP 2024](https://blackboxnlp.github.io/)! See you in Miami! 🌴
 
-<!-- - [Non Verbis, Sed Rebus: Large Language Models are Weak Solvers of Italian Rebuses](../publication/verbalized-rebus) is accepted to [CLiC-it 2024](https://clic2024.ilc.cnr.it/)! See you in Pisa! 🎉 -->
-
 - [PECoRe](../publication/pecore) is accepted to [ICLR 2024](https://iclr.cc/), and I presented it in Vienna! 🎉 I also co-organized the first Mechanistic Interpretability social at ICLR togehter with [Nikhil Prakash](https://nix07.github.io/), and we had more than 100 attendees!
+
+<!-- - [Non Verbis, Sed Rebus: Large Language Models are Weak Solvers of Italian Rebuses](../publication/verbalized-rebus) is accepted to [CLiC-it 2024](https://clic2024.ilc.cnr.it/)! See you in Pisa! 🎉 -->
 
 <!-- - I was awarded two research grants from the [Imminent Research Center](https://imminent.translated.com/) and the [Amsterdam eScience Center](https://www.esciencecenter.nl/) to fund the development of the Inseq library and my future research on machine translation. -->
 

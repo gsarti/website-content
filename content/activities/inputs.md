@@ -59,7 +59,7 @@ date_end = "2023-10-01"
 program = "MSc in CS, University Milano-Bicocca"
 program_url = "https://www.disco.unimib.it/en/teaching/educational-offer/master-degree-computer-science"
 website_url = "https://www.danielsc4.it/"
-image_url = "https://scholar.googleusercontent.com/citations?view_op=view_photo&user=5Q89Yd8AAAAJ&citpid=3"
+image_url = "https://www.danielsc4.it/assets/img/prof_pic.jpg"
 projects = [
   {date = "2023-04-01", date_end = "2023-10-01", project_type = "MSc Project", project = "Interpreting the Detoxification process of Language Models", project_url = "https://www.danielsc4.it/blog/2023/interpreting-detox-LM", paperlink = ["https://arxiv.org/abs/2309.00751"]}
 ]
@@ -107,15 +107,15 @@ projects = [
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024, ICLR 2025"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024, ICLR 2025, ICLR 2026"
 
 area_chair.icon = "chair"
 area_chair.task = "Area Chair"
-area_chair.venues = "ACL 2025, CLiC-it 2025"
+area_chair.venues = "ACL 2025, CLiC-it 2025, EMNLP 2025"
 
 workshop_organizer.icon = "users"
 workshop_organizer.task = "Workshop Organizer"
-workshop_organizer.venues = "BlackboxNLP 2025"
+workshop_organizer.venues = "BlackboxNLP 2025, EVALITA 2026 Cruciverb-IT Task"
 
 [teaching]
 
@@ -163,6 +163,13 @@ iknlp25.website = "https://sites.google.com/rug.nl/ik-nlp-2025"
 iknlp25.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
 [events]
+
+nemi25.shortname = "NEMI 2025"
+nemi25.date = "2025-08-22"
+nemi25.url = "https://nemiconf.github.io/summer25/"
+nemi25.location = "Boston, MA, USA"
+nemi25.paperlink = ["https://gsarti.com/publication/qe4pe", "https://gsarti.com/publication/steer-litmt"]
+nemi25.description = "Poster combining our 2 QE papers"
 
 clic24.shortname = "CLiC-it 2024"
 clic24.date = "2024-12-04"

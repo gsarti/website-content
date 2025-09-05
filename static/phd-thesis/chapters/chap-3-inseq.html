@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Ph.D.&nbsp;Thesis, Center for Language and Cognition (CLCG), University of Groningen">
+
+<title>3&nbsp; Attributing Language Model Generations with the Inseq Toolkit – From Insights to Impact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/chap-4-pecore.html" rel="next">
+<link href="../figures/logos/rug_crest_icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df7dc7f297c6c2c740a551c3cb7e1581.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../html/custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-3-inseq.html">Attributing Context Usage in Multilingual NLP</a></li><li class="breadcrumb-item"><a href="../chapters/chap-3-inseq.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../figures/logos/rug_eng_red_hat_line.png" alt="RUG Coat of Arms" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Insights to Impact</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gsarti/phd-thesis" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://gsarti.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-person-circle"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-2-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Attributing Context Usage in Multilingual NLP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-3-inseq.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-4-pecore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-5-mirage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conditioning Generation for Personalized Machine Translation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-6-ramp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-7-sae-litmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Interpretability in Human Translation Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-8-divemt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-9-qe4pe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-10-unsup-wqe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-11-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#related-work" id="toc-related-work" class="nav-link active" data-scroll-target="#related-work"><span class="header-section-number">3.1</span> Related Work</a></li>
+  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design"><span class="header-section-number">3.2</span> Design</a>
+  <ul class="collapse">
+  <li><a href="#guiding-principles" id="toc-guiding-principles" class="nav-link" data-scroll-target="#guiding-principles"><span class="header-section-number">3.2.1</span> Guiding Principles</a></li>
+  <li><a href="#sec-chap3-feat-attr" id="toc-sec-chap3-feat-attr" class="nav-link" data-scroll-target="#sec-chap3-feat-attr"><span class="header-section-number">3.2.2</span> Input Attribution and Post-processing</a></li>
+  <li><a href="#sec-chap3-customize" id="toc-sec-chap3-customize" class="nav-link" data-scroll-target="#sec-chap3-customize"><span class="header-section-number">3.2.3</span> Customizing generation and attribution</a></li>
+  <li><a href="#sec-chap3-usability" id="toc-sec-chap3-usability" class="nav-link" data-scroll-target="#sec-chap3-usability"><span class="header-section-number">3.2.4</span> Usability Features</a></li>
+  </ul></li>
+  <li><a href="#sec-chap3-case-studies" id="toc-sec-chap3-case-studies" class="nav-link" data-scroll-target="#sec-chap3-case-studies"><span class="header-section-number">3.3</span> Case Studies</a>
+  <ul class="collapse">
+  <li><a href="#sec-chap3-gender-bias" id="toc-sec-chap3-gender-bias" class="nav-link" data-scroll-target="#sec-chap3-gender-bias"><span class="header-section-number">3.3.1</span> Gender Bias in Machine Translation</a></li>
+  <li><a href="#sec-chap3-rome-repro" id="toc-sec-chap3-rome-repro" class="nav-link" data-scroll-target="#sec-chap3-rome-repro"><span class="header-section-number">3.3.2</span> Locating Factual Knowledge inside GPT-2</a></li>
+  </ul></li>
+  <li><a href="#sec-conclusion" id="toc-sec-conclusion" class="nav-link" data-scroll-target="#sec-conclusion"><span class="header-section-number">3.4</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-3-inseq.html">Attributing Context Usage in Multilingual NLP</a></li><li class="breadcrumb-item"><a href="../chapters/chap-3-inseq.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chap-3-inseq" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chapter Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This first experimental chapter presents the Inseq interpretability toolkit, which is employed for multiple analyses throughout this thesis. Inseq is a Python library that democratizes access to interpretability analyses of language models by enabling intuitive extraction of models’ internal information and saliency scores throughout the generation process. After introducing Inseq design and features, we demonstrate its capabilities through applications that highlight gender biases in machine translation models and factual knowledge localization within the GPT-2 language model. Thanks to its extensible interface, which supports cutting-edge techniques, Inseq can drive future advances in explainable natural language generation, centralizing best practices and enabling reproducible model evaluations.</p>
+<p></p>
+<p>This chapter is adapted from the papers <em>Inseq: An Interpretability Toolkit for Sequence Generation Models</em> <span class="citation" data-cites="sarti-etal-2023-inseq-fixed">(<a href="references.html#ref-sarti-etal-2023-inseq-fixed" role="doc-biblioref">Sarti et al., 2023</a>)</span> and <em>Democratizing Advanced Attribution Analyses of Generative Language Models with the Inseq Toolkit</em> <span class="citation" data-cites="sarti-etal-2024-democratizing">(<a href="references.html#ref-sarti-etal-2024-democratizing" role="doc-biblioref">Sarti et al., 2024</a>)</span>.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>As in manufacture so in science, retooling is an extravagance to be reserved for the occasion that demands it. The significance of crises is the indication they provide that an occasion for retooling has arrived.</em></p>
+<p><em>– Thomas S. Kuhn, The Structure of Scientific Revolutions (1970)</em></p>
+</blockquote>
+<p>Recent years saw an increase in studies and tools aimed at improving our behavioral or mechanistic understanding of neural language models <span class="citation" data-cites="belinkov-glass-2019-analysis">(<a href="references.html#ref-belinkov-glass-2019-analysis" role="doc-biblioref">Belinkov and Glass, 2019</a>)</span>.</p>
+<p>Many studies applied such techniques to modern deep learning architectures, including transformers <span class="citation" data-cites="vaswani-etal-2017-attention">(<a href="references.html#ref-vaswani-etal-2017-attention" role="doc-biblioref">Vaswani et al., 2017</a>)</span>, leveraging gradients <span class="citation" data-cites="baherens-etal-2010-explain sundararajan-etal-2017-ig">(<a href="references.html#ref-baherens-etal-2010-explain" role="doc-biblioref">Baehrens et al., 2010</a>; <a href="references.html#ref-sundararajan-etal-2017-ig" role="doc-biblioref">Sundararajan et al., 2017</a>)</span>, attention patterns <span class="citation" data-cites="xu-etal-2015-show clark-etal-2019-bert">(<a href="references.html#ref-xu-etal-2015-show" role="doc-biblioref">Xu et al., 2015</a>; <a href="references.html#ref-clark-etal-2019-bert" role="doc-biblioref">Clark et al., 2019</a>)</span> and input perturbations <span class="citation" data-cites="zeiler-fergus-2014-visualizing feng-etal-2018-pathologies">(<a href="references.html#ref-zeiler-fergus-2014-visualizing" role="doc-biblioref">Zeiler and Fergus, 2014</a>; <a href="references.html#ref-feng-etal-2018-pathologies" role="doc-biblioref">Feng et al., 2018</a>)</span> to quantify input importance, often leading to controversial outcomes in terms of faithfulness, plausibility and overall usefulness of such explanations <span class="citation" data-cites="adebayo-etal-2018-sanity jain-wallace-2019-attention jacovi-goldberg-2020-towards zafar-etal-2021-lack">(<a href="references.html#ref-adebayo-etal-2018-sanity" role="doc-biblioref">Adebayo et al., 2018</a>; <a href="references.html#ref-jain-wallace-2019-attention" role="doc-biblioref">Jain and Wallace, 2019</a>; <a href="references.html#ref-jacovi-goldberg-2020-towards" role="doc-biblioref">Jacovi and Goldberg, 2020</a>; <a href="references.html#ref-zafar-etal-2021-lack" role="doc-biblioref">Zafar et al., 2021</a>)</span>.</p>
+<p>However, input attribution techniques have mainly been applied to classification settings <span class="citation" data-cites="atanasova-etal-2020-diagnostic wallace-etal-2020-interpreting madsen-etal-2022-evaluating chrysostomou-aletras-2022-empirical">(<a href="references.html#ref-atanasova-etal-2020-diagnostic" role="doc-biblioref">Atanasova et al., 2020</a>; <a href="references.html#ref-wallace-etal-2020-interpreting" role="doc-biblioref">Wallace et al., 2020</a>; <a href="references.html#ref-madsen-etal-2022-evaluating" role="doc-biblioref">Madsen et al., 2022</a>; <a href="references.html#ref-chrysostomou-aletras-2022-empirical" role="doc-biblioref">Chrysostomou and Aletras, 2022</a>)</span>, with relatively little interest in the more convoluted mechanisms underlying generation. Classification attribution is a single-step process resulting in one importance score per input token, often allowing for intuitive interpretations in relation to the predicted class. Sequential attribution<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> instead involves a computationally expensive multi-step iteration producing a matrix <span class="math inline">\(A_{ij}\)</span> representing the importance of every input <span class="math inline">\(i\)</span> in the prediction of every generation outcome <span class="math inline">\(j\)</span> (<a href="#fig-inseq-teaser" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>).</p>
+<div id="fig-inseq-teaser" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-inseq-teaser-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-3-inseq/teaser_horizontal.webp" class="img-fluid figure-img" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-inseq-teaser-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: Example of Inseq usage with a 🤗 <code>transformers</code> causal language model. Given a prompt, attribution scores and next-step probabilities are extracted from the model at every generation step, with a final visualization aggregating values at the token level. Output attribution scores indicate that the model relies on the keyword “innovate” to initiate the idiomatic expression “think outside the box” with relatively low confidence (<span class="math inline">\(p = 0.5\)</span>). However, importance shifts to previous tokens in the idiom and confidence progressively grows throughout the generation.
+</figcaption>
+</figure>
+</div>
+<p>Moreover, since previous generation steps causally influence following predictions, they must be dynamically incorporated into the set of attributed inputs throughout the process. Lastly, while classification typically involves a limited set of classes and simple output selection (e.g., argmax after softmax), generation often operates with large vocabularies and non-trivial decoding strategies <span class="citation" data-cites="eikema-aziz-2020-map">(<a href="references.html#ref-eikema-aziz-2020-map" role="doc-biblioref">Eikema and Aziz, 2020</a>)</span>. These differences limited the use of input attribution methods for generation settings, with relatively few works improving attribution efficiency <span class="citation" data-cites="vafa-etal-2021-rationales ferrando-etal-2022-towards">(<a href="references.html#ref-vafa-etal-2021-rationales" role="doc-biblioref">Vafa et al., 2021</a>; <a href="references.html#ref-ferrando-etal-2022-towards" role="doc-biblioref">Ferrando et al., 2022</a>)</span> and the informativeness of explanations <span class="citation" data-cites="yin-neubig-2022-interpreting">(<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">Yin and Neubig, 2022</a>)</span>.</p>
+<p>Having established a theoretical background on input attribution methods in <a href="chap-2-background.html#sec-chap2-attrib" class="quarto-xref"><span>Section 2.2</span></a>, we introduce <strong>Inseq</strong>, a Python library that democratizes access to interpretability analyses of generative language models. Inseq centralizes access to a broad set of input attribution methods, sourced in part from the Captum <span class="citation" data-cites="kokhlikyan-etal-2020-captum">(<a href="references.html#ref-kokhlikyan-etal-2020-captum" role="doc-biblioref">Kokhlikyan et al., 2020</a>)</span> framework, enabling a fair comparison of different techniques for all sequence-to-sequence and decoder-only models in the popular 🤗 <code>transformers</code> library <span class="citation" data-cites="wolf-etal-2020-transformers">(<a href="references.html#ref-wolf-etal-2020-transformers" role="doc-biblioref">Wolf et al., 2020</a>)</span>. Thanks to its intuitive interface, users can easily integrate interpretability analyses into sequence generation experiments with just 3 lines of code (<a href="#fig-chap3-code-short" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>). Nevertheless, Inseq is also highly flexible, including cutting-edge attribution methods with built-in post-processing features (<a href="#sec-chap3-feat-attr" class="quarto-xref"><span>Section 3.2.2</span></a>), supporting customizable attribution targets and enabling constrained decoding of arbitrary sequences (<a href="#sec-chap3-customize" class="quarto-xref"><span>Section 3.2.3</span></a>).</p>
+<div id="fig-chap3-code-short" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap3-code-short-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> inseq</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load model and attrib. method</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> inseq.load_model(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"google/flan-t5-base"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"integrated_gradients"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Answer and attribute generation</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>attr_out <span class="op">=</span> model.attribute(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Does 3 + 3 equal 6?"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    attribute_target<span class="op">=</span><span class="va">True</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the attribution,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># apply token-level aggregation</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>attr_out.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 45.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/chap-3-inseq/flant5_math_attribution_example.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap3-code-short-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: Computing and visualizing attributions for Flan-T5 <span class="citation" data-cites="chung-etal-2022-scaling">(<a href="references.html#ref-chung-etal-2022-scaling" role="doc-biblioref">Chung et al., 2024</a>)</span>.
+</figcaption>
+</figure>
+</div>
+<p>In terms of usability, Inseq greatly simplifies access to local and global explanations, offering built-in support for a command-line interface (CLI), optimized batching that enables dataset-wide attribution, and various methods for visualizing, serializing, and reloading attribution outcomes and generated sequences (<a href="#sec-chap3-usability" class="quarto-xref"><span>Section 3.2.4</span></a>). Ultimately, Inseq aims to make sequence models first-class citizens in interpretability research and drive future advances in interpretability for generative applications.</p>
+<section id="related-work" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="related-work"><span class="header-section-number">3.1</span> Related Work</h2>
+<p><span class="paragraph">Tools for NLP Interpretability</span> Although many post-hoc interpretability libraries were released recently, only a few support sequential input attribution. Notably, LIT <span class="citation" data-cites="tenney-etal-2020-language">(<a href="references.html#ref-tenney-etal-2020-language" role="doc-biblioref">Tenney et al., 2020</a>)</span>, a structured framework for analyzing models across modalities, and Ecco <span class="citation" data-cites="alammar-2021-ecco">(<a href="references.html#ref-alammar-2021-ecco" role="doc-biblioref">Alammar, 2021</a>)</span>, a library specialized in interactive visualizations of model internals. LIT is an all-in-one, GUI-based tool for analyzing model behaviors across entire datasets. However, the library does not provide out-of-the-box support for 🤗 <code>transformers</code> models, requiring the definition of custom wrappers to ensure compatibility. Moreover, it has a steep learning curve due to its advanced UI, which can be inconvenient when working with a small number of examples. All these factors limit LIT usability for researchers working with custom models, needing access to extracted scores, or being less familiar with interpretability research. On the other hand, Ecco is closer to our work, being based on 🤗 <code>transformers</code> and having started to support encoder-decoder models concurrently with Inseq development. Despite a marginal overlap in their functionalities, the two libraries provide orthogonal benefits: Inseq’s flexible interface makes it especially suitable for methodical quantitative analyses involving repeated evaluations, while Ecco excels in qualitative analyses aimed at visualizing model internals. Other popular tools such as ERASER <span class="citation" data-cites="deyoung-etal-2020-eraser">(<a href="references.html#ref-deyoung-etal-2020-eraser" role="doc-biblioref">DeYoung et al., 2020</a>)</span>, Thermostat <span class="citation" data-cites="feldhus-etal-2021-thermostat">(<a href="references.html#ref-feldhus-etal-2021-thermostat" role="doc-biblioref">Feldhus et al., 2021</a>)</span>, transformers-interpret <span class="citation" data-cites="pierse-2021-transformers">(<a href="references.html#ref-pierse-2021-transformers" role="doc-biblioref">Pierse, 2021</a>)</span> and ferret <span class="citation" data-cites="attanasio-etal-2023-ferret">(<a href="references.html#ref-attanasio-etal-2023-ferret" role="doc-biblioref">Attanasio et al., 2023</a>)</span> do not support sequence models.</p>
+</section>
+<section id="design" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="design"><span class="header-section-number">3.2</span> Design</h2>
+<p>Inseq combines sequence models sourced from 🤗 <code>transformers</code> <span class="citation" data-cites="wolf-etal-2020-transformers">(<a href="references.html#ref-wolf-etal-2020-transformers" role="doc-biblioref">Wolf et al., 2020</a>)</span> and attribution methods mainly sourced from Captum <span class="citation" data-cites="kokhlikyan-etal-2020-captum">(<a href="references.html#ref-kokhlikyan-etal-2020-captum" role="doc-biblioref">Kokhlikyan et al., 2020</a>)</span>. While only text-based tasks are currently supported, the library’s modular design would enable the inclusion of other modeling frameworks, e.g.&nbsp;<code>fairseq</code> <span class="citation" data-cites="ott-etal-2019-fairseq">(<a href="references.html#ref-ott-etal-2019-fairseq" role="doc-biblioref">Ott et al., 2019</a>)</span>, and modalities (e.g.&nbsp;speech) without requiring substantial redesign. Optional dependencies include 🤗 <code>datasets</code> <span class="citation" data-cites="lhoest-etal-2021-datasets">(<a href="references.html#ref-lhoest-etal-2021-datasets" role="doc-biblioref">Lhoest et al., 2021</a>)</span> and Rich.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <a href="#fig-chap3-class-structure" class="quarto-xref">Figure&nbsp;<span>3.3</span></a> presents the Inseq hierarchy of models and attribution methods. The model-method connection enables out-of-the-box attribution using the selected method. Framework-specific and architecture-specific classes enable the extension of Inseq to new modeling architectures and frameworks.</p>
+<div id="fig-chap3-class-structure" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap3-class-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-3-inseq/class_structure.webp" class="img-fluid figure-img" style="width:100.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap3-class-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.3: Inseq models and attribution methods. <span class="light-content" style="color: #ffffff;border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #e06666;">Concrete</span> <span class="light-content" style="color: #ffffff;border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #6fa8dc;">classes</span> combine abstract <span class="light-content" style="color: #ffffff;border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">framework</span> and <span class="light-content" style="color: #ffffff;border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">architecture</span> attribution models classes, and are derived from abstract attribution methods’ <span class="light-content" style="color: #ffffff;border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">categories</span>.
+</figcaption>
+</figure>
+</div>
+<section id="guiding-principles" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="guiding-principles"><span class="header-section-number">3.2.1</span> Guiding Principles</h3>
+<ul>
+<li><p><strong>Research and Generation-oriented:</strong> Inseq should support interpretability analyses of a broad set of sequence generation models without focusing narrowly on specific architectures or tasks. Moreover, the inclusion of new, cutting-edge methods should be prioritized to enable fair comparisons with well-established ones.</p></li>
+<li><p><strong>Scalable:</strong> The library should provide an optimized interface to a wide range of use cases, models and setups, ranging from interactive attributions of individual examples using toy models to compiling statistics of large language models’ predictions for entire datasets.</p></li>
+<li><p><strong>Beginner-friendly:</strong> Inseq should provide built-in access to popular frameworks for sequence generation modeling and be fully usable by non-experts at a high level of abstraction, providing sensible defaults for supported attribution methods.</p></li>
+<li><p><strong>Extensible:</strong> Inseq should support a high degree of customization for experienced users, with out-of-the-box support for user-defined solutions to enable future investigations into models’ behaviors.</p></li>
+</ul>
+</section>
+<section id="sec-chap3-feat-attr" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-chap3-feat-attr"><span class="header-section-number">3.2.2</span> Input Attribution and Post-processing</h3>
+<div id="tbl-methods" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"><strong>Method</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Source</strong></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(f(l)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="6"><strong>G</strong></td>
+<td>(Input ×) Gradient</td>
+<td><span class="citation" data-cites="simonyan-etal-2014-saliency">Simonyan et al. (<a href="references.html#ref-simonyan-etal-2014-saliency" role="doc-biblioref">2014</a>)</span></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>DeepLIFT</td>
+<td><span class="citation" data-cites="shrikumar-etal-2017-deeplift">Shrikumar et al. (<a href="references.html#ref-shrikumar-etal-2017-deeplift" role="doc-biblioref">2017</a>)</span></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>GradientSHAP</td>
+<td><span class="citation" data-cites="lundberg-lee-2017-shap">Lundberg and Lee (<a href="references.html#ref-lundberg-lee-2017-shap" role="doc-biblioref">2017</a>)</span></td>
+<td>❌</td>
+</tr>
+<tr class="even">
+<td>Integrated Gradients</td>
+<td><span class="citation" data-cites="sundararajan-etal-2017-ig">Sundararajan et al. (<a href="references.html#ref-sundararajan-etal-2017-ig" role="doc-biblioref">2017</a>)</span></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>Discretized IG</td>
+<td><span class="citation" data-cites="sanyal-ren-2021-discretized">Sanyal and Ren (<a href="references.html#ref-sanyal-ren-2021-discretized" role="doc-biblioref">2021</a>)</span></td>
+<td>❌</td>
+</tr>
+<tr class="midrule even">
+<td><strong>Sequential IG</strong></td>
+<td><span class="citation" data-cites="enguehard-2023-sequential">Enguehard (<a href="references.html#ref-enguehard-2023-sequential" role="doc-biblioref">2023</a>)</span></td>
+<td>❌</td>
+</tr>
+<tr class="midrule odd">
+<td><strong>I</strong></td>
+<td>Attention Weights</td>
+<td><span class="citation" data-cites="bahdanau-etal-2015-neural">Bahdanau et al. (<a href="references.html#ref-bahdanau-etal-2015-neural" role="doc-biblioref">2015</a>)</span></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td rowspan="4"><strong>P</strong></td>
+<td>Occlusion (Blank-out)</td>
+<td><span class="citation" data-cites="zeiler-fergus-2014-visualizing">Zeiler and Fergus (<a href="references.html#ref-zeiler-fergus-2014-visualizing" role="doc-biblioref">2014</a>)</span></td>
+<td>❌</td>
+</tr>
+<tr class="odd">
+<td>LIME</td>
+<td><span class="citation" data-cites="ribeiro-etal-2016-lime">Ribeiro et al. (<a href="references.html#ref-ribeiro-etal-2016-lime" role="doc-biblioref">2016</a>)</span></td>
+<td>❌</td>
+</tr>
+<tr class="even">
+<td><strong>Value Zeroing</strong></td>
+<td><span class="citation" data-cites="mohebbi-etal-2023-quantifying">Mohebbi et al. (<a href="references.html#ref-mohebbi-etal-2023-quantifying" role="doc-biblioref">2023</a>)</span></td>
+<td>✅</td>
+</tr>
+<tr class="midrule odd">
+<td><strong>ReAGent</strong></td>
+<td><span class="citation" data-cites="zhao-shan-2024-reagent">Zhao and Shan (<a href="references.html#ref-zhao-shan-2024-reagent" role="doc-biblioref">2024</a>)</span></td>
+<td>❌</td>
+</tr>
+<tr class="even">
+<td rowspan="9"><strong>S</strong></td>
+<td>(Log) Probability</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Softmax Entropy</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Target Cross-entropy</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Perplexity</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>KL Divergence</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Contrastive Logits/Prob. <span class="math inline">\(\Delta\)</span></td>
+<td><span class="citation" data-cites="yin-neubig-2022-interpreting">Yin and Neubig (<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">2022</a>)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mu\)</span> MC Dropout Prob.</td>
+<td><span class="citation" data-cites="gal-ghahramani-2016-dropout">Gal and Ghahramani (<a href="references.html#ref-gal-ghahramani-2016-dropout" role="doc-biblioref">2016</a>)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>PCXMI</strong></td>
+<td><span class="citation" data-cites="fernandes-etal-2023-translation">Fernandes et al. (<a href="references.html#ref-fernandes-etal-2023-translation" role="doc-biblioref">2023</a>)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>In-context PVI</strong></td>
+<td><span class="citation" data-cites="lu-etal-2023-measuring">Lu et al. (<a href="references.html#ref-lu-etal-2023-measuring" role="doc-biblioref">2023</a>)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.1: Overview of gradient-based (<strong>G</strong>), internals-based (<strong>I</strong>) and perturbation-based (<strong>P</strong>) attribution methods and built-in step functions (<strong>S</strong>) available in Inseq. <span class="math inline">\(f(l)\)</span> marks methods allowing for attribution of arbitrary intermediate layers. <strong>Bolded methods</strong> were introduced with <a href="https://github.com/inseq-team/inseq/releases/tag/v0.6.0">Inseq v0.6</a>.
+</figcaption>
+</figure>
+</div>
+<p>At its core, Inseq provides a simple interface for applying input attribution techniques to sequence generation tasks. We categorize methods in three groups, <em>gradient-based</em>, <em>internals-based</em> and <em>perturbation-based</em>, depending on their underlying approach to importance quantification.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> <a href="#tbl-methods" class="quarto-xref">Table&nbsp;<span>3.1</span></a> presents the complete list of supported methods. Aside from popular model-agnostic methods, Inseq notably provides built-in support for attention weight attribution and a range of cutting-edge methods not supported in any other toolkit, such as Discretized Integrated Gradients <span class="citation" data-cites="sanyal-ren-2021-discretized">(<a href="references.html#ref-sanyal-ren-2021-discretized" role="doc-biblioref">Sanyal and Ren, 2021</a>)</span>, Sequential Integrated Gradients <span class="citation" data-cites="enguehard-2023-sequential">(<a href="references.html#ref-enguehard-2023-sequential" role="doc-biblioref">Enguehard, 2023</a>)</span>, Value Zeroing <span class="citation" data-cites="mohebbi-etal-2023-quantifying">(<a href="references.html#ref-mohebbi-etal-2023-quantifying" role="doc-biblioref">Mohebbi et al., 2023</a>)</span>, and ReAGent <span class="citation" data-cites="zhao-shan-2024-reagent">(<a href="references.html#ref-zhao-shan-2024-reagent" role="doc-biblioref">Zhao and Shan, 2024</a>)</span>. Moreover, multiple methods support the importance attribution of custom intermediate model layers, simplifying studies on representational structures and information mixing in sequential models, as seen in our case study of <a href="#sec-chap3-rome-repro" class="quarto-xref"><span>Section 3.3.2</span></a>.</p>
+<p><span class="paragraph">Source and target-side attribution</span> When using encoder-decoder architectures, users can set the <code>attribute_target</code> parameter to include or exclude the generated prefix in the attributed inputs. In most cases, this should be desirable to account for recently generated tokens when explaining model behaviors, such as when to terminate the generation (e.g.&nbsp;relying on the presence of <code>_yes</code> in the target prefix to predict <code>&lt;/s&gt;</code> in <a href="#fig-chap3-code-short" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>, right matrix). However, attributing the source side separately could be helpful, for example, to derive word alignments from importance scores.</p>
+<p><span class="paragraph">Post-processing of attribution outputs</span> Aggregation is a fundamental but often overlooked step in attribution-based analyses since most methods produce neuron-level or subword-level importance scores that would otherwise be difficult to interpret. Inseq includes several <code>Aggregator</code> classes to perform attribution aggregation across various dimensions. For example, the input word <code>Explanation</code> could be tokenized into two subword tokens <code>Expl</code> and <code>anation</code>, and each token would receive <span class="math inline">\(N\)</span> importance scores, where <span class="math inline">\(N\)</span> is the model embedding dimension. In this case, aggregators could first merge subword-level scores into word-level scores, and then merge granular embedding-level scores to obtain a single token-level score that is easier to interpret. Moreover, aggregation could prove especially helpful for long-form generation tasks such as summarization, where word-level importance scores could be aggregated to obtain a measure of sentence-level relevance. Notably, Inseq allows chaining multiple aggregators like in the example above using the <code>AggregatorPipeline</code> class, and provides a <code>PairAggregator</code> to aggregate different attribution maps, simplifying the conduction of contrastive analyses as in <a href="#sec-chap3-gender-bias" class="quarto-xref"><span>Section 3.3.1</span></a>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+<section id="sec-chap3-customize" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="sec-chap3-customize"><span class="header-section-number">3.2.3</span> Customizing generation and attribution</h3>
+<p>During attribution, Inseq first generates target tokens using 🤗 <code>transformers</code> and then attributes them step-by-step. If a custom target string is specified alongside model inputs, the generation step is instead skipped, and the provided text is attributed by constraining the decoding of its tokens.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Constrained attribution can be used, among other things, for contrastive comparisons of minimal pairs and to obtain model justifications for desired outputs.</p>
+<p><span class="paragraph">Custom step functions</span> At every attribution step, Inseq can extract scores of interest (e.g.&nbsp;probabilities, entropy) that can be useful, among other things, to quantify model uncertainty (e.g.&nbsp;how likely the generated <code>_yes</code> token was given the context in <a href="#fig-chap3-code-short" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>). We collectively refer to functions computing these scores as <strong>step functions</strong>. Inseq provides access to multiple built-in step functions (<a href="#tbl-methods" class="quarto-xref">Table&nbsp;<span>3.1</span></a>, <em>S</em>), enabling the computation of these scores, and allows users to create and register new custom ones. Step scores are computed together with the attribution, returned as separate sequences in the output, and visualized alongside importance scores (e.g.&nbsp;the <span class="math inline">\(p(y_t|y_{&lt;t})\)</span> row in <a href="#fig-inseq-teaser" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>).</p>
+<p><span class="paragraph">Step functions as attribution targets</span> For methods relying on model outputs to predict input importance (gradient and perturbation-based), input attributions are commonly obtained from the model’s output logits or class probabilities <span class="citation" data-cites="bastings-etal-2022-will">(<a href="references.html#ref-bastings-etal-2022-will" role="doc-biblioref">Bastings et al., 2022</a>)</span>. However, recent work has shown the effectiveness of using targets, such as the probability difference of a contrastive output pair, to answer interesting questions like “What inputs drive the prediction of <span class="math inline">\(y\)</span> rather than <span class="math inline">\(\hat{y}\)</span>?” <span class="citation" data-cites="yin-neubig-2022-interpreting">(<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">Yin and Neubig, 2022</a>)</span>. For example, the gradient <span class="math inline">\(\nabla(p(\text{barking}) - p(\text{crying}))\)</span> given the prompt *“Can you stop the dog from ___“* will highlight the role of the entity <em>dog</em> in selecting <em>barking</em>, disentangling the semantic component from grammatical correctness by providing a <em>crying</em> as grammatically valid choice. <a href="#fig-chap3-contrastive-example" class="quarto-xref">Figure&nbsp;<span>3.4</span></a> provides an example of such an approach for gender bias detection in machine translation. Inseq users can leverage any built-in or custom-defined step function as an attribution target, enabling advanced use cases like contrastive comparisons.</p>
+<div id="fig-chap3-contrastive-example" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap3-contrastive-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> inseq</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> inseq.load_model(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Helsinki-NLP/opus-mt-en-it"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"saliency"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>attr_out <span class="op">=</span> model.attribute(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I said hi to the manager"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ho salutato il manager"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    contrast_targets<span class="op">=\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Ho salutato la manager"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    attributed_fn<span class="op">=\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"contrast_prob_diff"</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    step_scores<span class="op">=</span>[</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"probability"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"contrast_prob_diff"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a> ]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 3.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 47.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/chap-3-inseq/contrastive_attribution_gender_example.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap3-contrastive-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.4: Source-to-target attributions aggregated at the token level, indicating the importance of the stereotypical noun “manager” to generate the Italian masculine pronoun “il” (original) over the feminine “la” (contrastive case).
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-chap3-usability" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="sec-chap3-usability"><span class="header-section-number">3.2.4</span> Usability Features</h3>
+<p><span class="paragraph">Batched and span-focused attributions</span> The library provides built-in batching capabilities, enabling users to go beyond single sentences and attribute even entire datasets in a single function call. When the attribution of a specific span of interest is needed, Inseq also allows specifying a start and end position for the attribution process. This functionality greatly accelerates the attribution process for studies on localized phenomena (e.g.&nbsp;pronoun coreference in MT models).</p>
+<p><span class="paragraph">Alignment of contrastive options</span> Inseq supports customizable <em>word alignments</em>, i.e.&nbsp;indices aligning tokens in the original and contrastive generated texts, to support contrastive comparisons between texts of different lengths, including automatic alignments using the multilingual LaBSE encoder <span class="citation" data-cites="feng-etal-2022-language">(<a href="references.html#ref-feng-etal-2022-language" role="doc-biblioref">Feng et al., 2022</a>)</span> to streamline their application.</p>
+<p><span class="paragraph">CLI, serialization and visualization</span> The Inseq library offers an API to attribute single examples or entire 🤗 Datasets from the command line and save resulting outputs and visualizations to a file. Attribution outputs can be saved and loaded in JSON format, along with their respective metadata, to easily identify the provenance of the contents. Attributions can be visualized in the console or IPython notebooks and exported as HTML files.</p>
+<p><span class="paragraph">Quantized and distributed attribution</span> Supporting the attribution of large models is critical given recent scaling tendencies <span class="citation" data-cites="kaplan-etal-2020-scaling">(<a href="references.html#ref-kaplan-etal-2020-scaling" role="doc-biblioref">Kaplan et al., 2020</a>)</span>. All models that allow for quantization using <code>bitsandbytes</code> <span class="citation" data-cites="dettmers-etal-2022-gpt3">(<a href="references.html#ref-dettmers-etal-2022-gpt3" role="doc-biblioref">Dettmers et al., 2022</a>)</span> can be loaded directly in 4-bit and 8-bit formats from 🤗 <code>transformers</code>, and their attributions can be computed normally using Inseq at a fraction of the original computational cost.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Relatedly, Inseq is also compatible with the <strong>Petals</strong> framework <span class="citation" data-cites="borzunov-etal-2023-petals">(<a href="references.html#ref-borzunov-etal-2023-petals" role="doc-biblioref">Borzunov et al., 2023</a>)</span>, which supports gradient-based attribution across language models whose computation is distributed across multiple machines. This can alleviate the need for high-end GPUs to run LLMs, enabling the distributed computation of attribution scores.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+</section>
+</section>
+<section id="sec-chap3-case-studies" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-chap3-case-studies"><span class="header-section-number">3.3</span> Case Studies</h2>
+<section id="sec-chap3-gender-bias" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="sec-chap3-gender-bias"><span class="header-section-number">3.3.1</span> Gender Bias in Machine Translation</h3>
+<p>In the first case study, we use Inseq to investigate gender bias in MT models. Studying the social biases embedded in these models is crucial to understanding and mitigating the representational and allocative harms they may engender <span class="citation" data-cites="blodgett-etal-2020-language">(<a href="references.html#ref-blodgett-etal-2020-language" role="doc-biblioref">Blodgett et al., 2020</a>)</span>. <span class="citation" data-cites="savoldi-etal-2021-gender">Savoldi et al. (<a href="references.html#ref-savoldi-etal-2021-gender" role="doc-biblioref">2021</a>)</span> note that the study of bias in MT could benefit from explainability techniques to identify spurious cues exploited by the model and the interaction of different features that can lead to intersectional bias.</p>
+<p><span id="chap3-par-gender-bias" class="paragraph">Synthetic Setup: Turkish to English</span> The Turkish language uses the gender-neutral pronoun <em>o</em>, which can be translated into English as either <code>he</code>, <code>she</code>, or <code>it</code>, making it interesting to study gender bias in MT when associated with a language such as English, for which models will tend to choose a gendered pronoun form. Previous works have leveraged translations from gender-neutral languages to demonstrate the presence of gender bias in translation systems <span class="citation" data-cites="cho-etal-2019-measuring prates-etal-2020-assessing farkas-nemeth-2022-measure">(<a href="references.html#ref-cho-etal-2019-measuring" role="doc-biblioref">Cho et al., 2019</a>; <a href="references.html#ref-prates-etal-2020-assessing" role="doc-biblioref">Prates et al., 2020</a>; <a href="references.html#ref-farkas-nemeth-2022-measure" role="doc-biblioref">Farkas and Németh, 2022</a>)</span>. We repeat this simple setup using a Turkish-to-English MarianMT model <span class="citation" data-cites="tiedemann-2020-tatoeba">(<a href="references.html#ref-tiedemann-2020-tatoeba" role="doc-biblioref">Tiedemann, 2020</a>)</span> and compute different metrics to quantify gender bias using Inseq.</p>
+<div id="tbl-chap3-turkish-gender-bias" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap3-turkish-gender-bias-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th">Base</th>
+<th colspan="2" data-quarto-table-cell-role="th">♀ <span class="math inline">\(\rightarrow\)</span> ♂</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(x_\text{pron}\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(x_\text{occ}\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(x_\text{pron}\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(x_\text{occ}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td><span class="math inline">\(p(y_\text{pron})\)</span></td>
+<td colspan="2" class="color-fdfebc">0.01</td>
+<td colspan="2" class="color-fba05b significant">-0.44*</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\nabla\)</span></td>
+<td class="color-fee695">-0.16</td>
+<td class="color-cbe982 significant">0.25*</td>
+<td class="color-d1ec86 significant">0.23*</td>
+<td class="color-fffebe">-0.00</td>
+</tr>
+<tr class="odd">
+<td>IG</td>
+<td class="color-fff2aa">-0.08</td>
+<td class="color-ecf7a6">0.09</td>
+<td class="color-ebf7a3">0.11</td>
+<td class="color-dff293">0.17</td>
+</tr>
+<tr class="bottomrule even">
+<td>I×G</td>
+<td class="color-feeda1">-0.11</td>
+<td class="color-d3ec87 significant">0.22*</td>
+<td class="color-d5ed88 significant">0.22*</td>
+<td class="color-fffdbc">-0.01</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap3-turkish-gender-bias-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.2: <strong>Gender Bias in Turkish-to-English MT:</strong> Kendall’s <span class="math inline">\(\tau\)</span> correlation of MT model metrics with U.S. labor statistics. * = Significant correlation (<span class="math inline">\(p&lt;.05\)</span>).
+</figcaption>
+</figure>
+</div>
+<p>We select 49 Turkish occupation terms verified by a native speaker (see <a href="appendix-a.html#sec-inseq-appendix-turkish-gender-bias" class="quarto-xref"><span>Section A.1.1</span></a>) and use them to infill the template sentence <em>O bir</em> ____ (<em>He/She is a(n) ____</em>). For each translation, we compute attribution scores for source Turkish pronoun (<span class="math inline">\(x_\text{pron}\)</span>) and occupation (<span class="math inline">\(x_\text{occ}\)</span>) tokens<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> when generating the target English pronoun (<span class="math inline">\(y_\text{pron}\)</span>) using Integrated Gradients (IG), Gradients (<span class="math inline">\(\nabla\)</span>), and Input <span class="math inline">\(\times\)</span> Gradient (I<span class="math inline">\(\times\)</span>G).<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> We also collect target pronoun probabilities (<span class="math inline">\(p(y_\text{pron})\)</span>), rank the 49 occupation terms using these metrics, and finally compute Kendall’s <span class="math inline">\(\tau\)</span> correlation with the percentage of women working in the respective fields, using U.S. labor statistics as in previous works <span class="citation" data-cites="caliskan-etal-2017-semantics rudinger-etal-2018-gender">(e.g., <a href="references.html#ref-caliskan-etal-2017-semantics" role="doc-biblioref">Caliskan et al., 2017</a>; <a href="references.html#ref-rudinger-etal-2018-gender" role="doc-biblioref">Rudinger et al., 2018</a>)</span>. <a href="#tbl-chap3-turkish-gender-bias" class="quarto-xref">Table&nbsp;<span>3.2</span></a> presents our results.</p>
+<p>In the <strong>base case</strong>, we correlate the different metrics with how much the gender distribution deviates from an equal distribution (<span class="math inline">\(50-50\%\)</span>) for each occupation (i.e., the gender bias irrespective of the direction). We observe a strong gender bias, with <em>she</em> being chosen only for 5 out of 49 translations and gender-neutral variants never being produced by the MT model. We find a low correlation between pronoun probability and the degree of gender stereotype associated with the occupation. Moreover, we note a weaker correlation for IG compared to the other two methods. For those, attribution scores for <span class="math inline">\(x_\text{occ}\)</span> show significant correlations with labor statistics, supporting the intuition that the MT model will accord higher importance to source occupation terms associated to gender-stereotypical occupations when predicting the gendered target pronoun.</p>
+<p>In the <strong>gender-swap case</strong> (♀️ <span class="math inline">\(\rightarrow\)</span> ♂️), we use the <code>PairAggregator</code> class to contrastively compare attribution scores and probabilities when translating the pronoun as <em>She</em> or <em>He</em>.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> We correlate the resulting scores with the percentage of women working in the respective occupation and find strong correlations for <span class="math inline">\(p(y_\text{pron})\)</span>, which supports the validity of contrastive approaches in uncovering gender bias.</p>
+<p><span id="chap3-par-gender-bias-bug" class="paragraph">Qualitative Example: English to Dutch</span> We also qualitatively analyze biased MT outputs, showing how attributions can help develop hypotheses about models’ behavior. <a href="#tbl-chap3-m2m-gender-example" class="quarto-xref">Table&nbsp;<span>3.3</span></a> (top) shows the I <span class="math inline">\(\times\)</span> G attributions for English-to-Dutch translation using M2M-100 <span class="citation" data-cites="fan-etal-2021-beyond">(<a href="references.html#ref-fan-etal-2021-beyond" role="doc-biblioref">Fan et al., 2021</a>)</span>.</p>
+<div id="tbl-chap3-m2m-gender-example" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap3-m2m-gender-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<!-- First Table -->
+
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="first-column" data-quarto-table-cell-role="th"><strong>Source</strong></th>
+<th data-quarto-table-cell-role="th">De</th>
+<th data-quarto-table-cell-role="th">leraar</th>
+<th data-quarto-table-cell-role="th">verliest</th>
+<th data-quarto-table-cell-role="th">zijn</th>
+<th data-quarto-table-cell-role="th">baan</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="first-column">The</td>
+<td class="color-ffe4e4">0.10</td>
+<td class="color-ffecec">0.08</td>
+<td class="color-fff4f4">0.04</td>
+<td class="color-fff8f8">0.03</td>
+<td class="color-fffafa">0.02</td>
+</tr>
+<tr class="even">
+<td class="first-column">teacher</td>
+<td class="color-ffe2e2">0.11</td>
+<td class="color-ffcaca">0.20</td>
+<td class="color-fff0f0">0.06</td>
+<td class="color-fff6f6">0.03</td>
+<td class="color-fff2f2">0.05</td>
+</tr>
+<tr class="odd">
+<td class="first-column">loses</td>
+<td class="color-ffe2e2">0.11</td>
+<td class="color-ffe8e8">0.09</td>
+<td class="color-ffc0c0">0.25</td>
+<td class="color-ffeeee">0.07</td>
+<td class="color-ffecec">0.07</td>
+</tr>
+<tr class="even">
+<td class="first-column">her</td>
+<td class="color-ffd8d8">0.15</td>
+<td class="color-ffe8e8">0.09</td>
+<td class="color-ffe6e6">0.10</td>
+<td class="color-ffc8c8">0.21</td>
+<td class="color-ffeeee">0.07</td>
+</tr>
+<tr class="midrule odd">
+<td class="first-column">job</td>
+<td class="color-ffe6e6">0.10</td>
+<td class="color-ffecec">0.08</td>
+<td class="color-ffeaea">0.08</td>
+<td class="color-ffe4e4">0.10</td>
+<td class="color-ffc2c2">0.24</td>
+</tr>
+<tr class="bottomrule even">
+<td class="first-column" data-quarto-table-cell-role="th"><strong>Target</strong></td>
+<td data-quarto-table-cell-role="th">De</td>
+<td data-quarto-table-cell-role="th">leraar</td>
+<td data-quarto-table-cell-role="th">verliest</td>
+<td data-quarto-table-cell-role="th">zijn</td>
+<td data-quarto-table-cell-role="th">baan</td>
+</tr>
+<tr class="odd">
+<td class="first-column">De</td>
+<td class="gray-cell"></td>
+<td class="color-ffc6c6">0.23</td>
+<td class="color-fff2f2">0.05</td>
+<td class="color-fff0f0">0.06</td>
+<td class="color-fff6f6">0.04</td>
+</tr>
+<tr class="even">
+<td class="first-column">leraar</td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="color-ffd4d4">0.17</td>
+<td class="color-ffdede">0.13</td>
+<td class="color-fff6f6">0.03</td>
+</tr>
+<tr class="odd">
+<td class="first-column">verliest</td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="color-ffd0d0">0.18</td>
+<td class="color-ffecec">0.08</td>
+</tr>
+<tr class="midrule even">
+<td class="first-column">zijn</td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="color-ffbebe">0.26</td>
+</tr>
+<tr class="odd">
+<td class="first-column"><span class="math inline">\(p(y_t)\)</span></td>
+<td>0.69</td>
+<td>0.28</td>
+<td>0.35</td>
+<td>0.65</td>
+<td>0.29</td>
+</tr>
+</tbody>
+</table>
+
+<br>
+<!-- Second Table -->
+
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="first-column" data-quarto-table-cell-role="th"><strong>Source</strong></th>
+<th data-quarto-table-cell-role="th">De</th>
+<th data-quarto-table-cell-role="th">♂ → Ø</th>
+<th data-quarto-table-cell-role="th">verliest</th>
+<th data-quarto-table-cell-role="th">haar</th>
+<th data-quarto-table-cell-role="th">baan</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="first-column">The</td>
+<td class="color-fffefe">0.00</td>
+<td class="color-f6f6ff">-0.02</td>
+<td class="color-fffefe">0.00</td>
+<td class="color-fffefe">0.00</td>
+<td class="color-fffefe">0.00</td>
+</tr>
+<tr class="even">
+<td class="first-column">teacher</td>
+<td class="color-fffefe">0.00</td>
+<td class="color-eeeeff">-0.05</td>
+<td class="color-fffcfc">-0.01</td>
+<td class="color-fffcfc">-0.01</td>
+<td class="color-fffcfc">-0.01</td>
+</tr>
+<tr class="odd">
+<td class="first-column">loses</td>
+<td class="color-fffefe">0.00</td>
+<td class="color-f6f6ff">-0.02</td>
+<td class="color-fffcfc">-0.01</td>
+<td class="color-f6f6ff">-0.02</td>
+<td class="color-fffcfc">-0.01</td>
+</tr>
+<tr class="even">
+<td class="first-column">her</td>
+<td class="color-fffefe">0.00</td>
+<td class="color-fffcfc">-0.01</td>
+<td class="color-fffcfc">-0.01</td>
+<td class="color-d8d8ff">-0.10</td>
+<td class="color-fffafa">0.01</td>
+</tr>
+<tr class="midrule odd">
+<td class="first-column">job</td>
+<td class="color-fffefe">0.00</td>
+<td class="color-f6f6ff">-0.02</td>
+<td class="color-fffcfc">-0.01</td>
+<td class="color-f6f6ff">-0.02</td>
+<td class="color-f6f6ff">-0.02</td>
+</tr>
+<tr class="bottomrule even">
+<td class="first-column" data-quarto-table-cell-role="th"><strong>Target</strong></td>
+<td data-quarto-table-cell-role="th">De</td>
+<td data-quarto-table-cell-role="th">♂ → Ø</td>
+<td data-quarto-table-cell-role="th">verliest</td>
+<td data-quarto-table-cell-role="th">haar</td>
+<td data-quarto-table-cell-role="th">baan</td>
+</tr>
+<tr class="odd">
+<td class="first-column">De</td>
+<td class="gray-cell"></td>
+<td class="color-eeeeff">-0.07</td>
+<td class="color-fcfcff">-0.01</td>
+<td class="color-fffcfc">0.01</td>
+<td class="color-fcfcff">-0.01</td>
+</tr>
+<tr class="even">
+<td class="first-column">♂ → Ø</td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="color-ffe8e8">0.09</td>
+<td class="color-ffd0d0">0.18</td>
+<td class="color-fffafa">0.02</td>
+</tr>
+<tr class="odd">
+<td class="first-column">verliest</td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="color-f6f6ff">-0.03</td>
+<td class="color-fefeff">0.00</td>
+</tr>
+<tr class="midrule even">
+<td class="first-column">haar</td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="gray-cell"></td>
+<td class="color-fffefe">0.00</td>
+</tr>
+<tr class="odd">
+<td class="first-column"><span class="math inline">\(\Delta p(y_t)\)</span></td>
+<td>0.00</td>
+<td>-0.23</td>
+<td>0.13</td>
+<td>0.20</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap3-m2m-gender-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.3: <strong>Top:</strong> Attribution of pronoun gender mistranslation using M2M-100. <strong>Bottom:</strong> Target attribution difference when swapping the target noun gender (♂️ <span class="math inline">\(\to\)</span> Ø) from <em>leraar</em> (male) to <em>leerkracht</em> (gender-neutral).
+</figcaption>
+</figure>
+</div>
+<p>The model mistranslates the pronoun <em>her</em> into the masculine form <em>zijn</em> (his). We find that the wrongly translated pronoun exhibits high probability but does not associate substantial importance to the source occupation term <em>teacher</em>. Instead, we find good relative importance for the preceding word and <em>leraar</em> (male teacher). This suggests a strong prior bias for masculine variants, as shown by the pronoun <em>zijn</em> and the noun <em>leraar</em>, which may be a possible cause for this mistranslation. When considering the contrastive example obtained by swapping <em>leraar</em> with its gender-neutral variant <em>leerkracht</em> (<a href="#tbl-chap3-m2m-gender-example" class="quarto-xref">Table&nbsp;<span>3.3</span></a>, bottom), we find increased importance of the target occupation in determining the correctly-gendered target pronoun <em>haar</em> (her). Our results highlight the tendency of MT models to attend inputs sequentially rather than relying on context, hinting at the known benefits of context-aware models for pronoun translation <span class="citation" data-cites="voita-etal-2018-context">(<a href="references.html#ref-voita-etal-2018-context" role="doc-biblioref">Voita et al., 2018</a>)</span>.</p>
+</section>
+<section id="sec-chap3-rome-repro" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="sec-chap3-rome-repro"><span class="header-section-number">3.3.2</span> Locating Factual Knowledge inside GPT-2</h3>
+<p>For our second case study, we experiment with a novel attribution-based technique to locate factual knowledge encoded in the layers of GPT-2 1.5B <span class="citation" data-cites="radford-etal-2019-language">(<a href="references.html#ref-radford-etal-2019-language" role="doc-biblioref">Radford et al., 2019</a>)</span>. Specifically, we aim to reproduce the results of <span class="citation" data-cites="meng-etal-2022-rome">Meng et al. (<a href="references.html#ref-meng-etal-2022-rome" role="doc-biblioref">2022</a>)</span>, showing the influence of intermediate layers in mediating the recall of factual statements such as <em>The Eiffel Tower is located in the city of</em> <span class="math inline">\(\rightarrow\)</span> <code>Paris</code>. <span class="citation" data-cites="meng-etal-2022-rome">Meng et al. (<a href="references.html#ref-meng-etal-2022-rome" role="doc-biblioref">2022</a>)</span> estimated the effect of network components in the prediction of factual statements as the difference in probability of a correct target (e.g.&nbsp;<em>Paris</em>), given a corrupted subject embedding (e.g.&nbsp;for <em>Eiffel Tower</em>), before and after restoring clean activations for some input tokens at different layers of the network. Apart from the obvious importance of final token states in terminal layers, their results highlight the presence of an early site associated with the last subject token playing an important role in recalling the network’s factual knowledge (<a href="#fig-chap3-rome-repro" class="quarto-xref">Figure&nbsp;<span>3.5</span></a>, top).</p>
+<div id="fig-chap3-rome-repro" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap3-rome-repro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-3-inseq/rome-repro.webp" class="img-fluid figure-img" style="width:65.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap3-rome-repro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.5: <strong>Top:</strong> Estimated causal importance of GPT-2 XL layers for predicting factual associations, as reported by <span class="citation" data-cites="meng-etal-2022-rome">Meng et al. (<a href="references.html#ref-meng-etal-2022-rome" role="doc-biblioref">2022</a>)</span>. <strong>Bottom:</strong> Average GPT-2 XL Gradient <span class="math inline">\(\times\)</span> Layer Activation scores obtained with Inseq using contrastive factual pairs as attribution targets.
+</figcaption>
+</figure>
+</div>
+<p>To verify such results, we propose a novel knowledge location method, which we name <strong>Contrastive Attribution Tracing</strong> (CAT), adopting the contrastive attribution paradigm of <span class="citation" data-cites="yin-neubig-2022-interpreting">Yin and Neubig (<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">2022</a>)</span> to locate relevant network components by attributing minimal pairs of correct and wrong factual targets (e.g.&nbsp;<em>Paris</em> vs.&nbsp;<em>Rome</em> for the example above). To perform contrastive attribution, we use the Layer Gradient <span class="math inline">\(\times\)</span> Activation method, a layer-specific variant of Input <span class="math inline">\(\times\)</span> Gradient, to propagate gradients up to intermediate network activations rather than reaching input tokens. The resulting attribution scores hence answer the question <em>“How important are layer <span class="math inline">\(L\)</span> activations for prefix token <span class="math inline">\(t\)</span> in predicting the correct factual target over a wrong one?”</em>. We compute attribution scores for 1000 statements taken from the Counterfact Statement dataset <span class="citation" data-cites="meng-etal-2022-rome">(<a href="references.html#ref-meng-etal-2022-rome" role="doc-biblioref">Meng et al., 2022</a>)</span> and present averaged results in <a href="#fig-chap3-rome-repro" class="quarto-xref">Figure&nbsp;<span>3.5</span></a> (bottom).<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> Our results closely align with those of the original authors, providing additional evidence that attribution methods can be used to identify salient network components and guide model editing, as demonstrated by <span class="citation" data-cites="dai-etal-2022-knowledge">Dai et al. (<a href="references.html#ref-dai-etal-2022-knowledge" role="doc-biblioref">2022</a>)</span>.</p>
+<p>We introduced the proposed CAT method shortly before the attribution patching technique by <span class="citation" data-cites="nanda-2023-attribution">Nanda (<a href="references.html#ref-nanda-2023-attribution" role="doc-biblioref">2023</a>)</span>. Together, these two methods represent the most efficient knowledge location techniques based on gradient propagation, with our approach requiring only a single forward and backward pass of the attributed model. Patching-based approaches, such as causal mediation <span class="citation" data-cites="meng-etal-2022-rome">(<a href="references.html#ref-meng-etal-2022-rome" role="doc-biblioref">Meng et al., 2022</a>)</span>, on the other hand, provide causal guarantees of feature importance at the price of being more computationally intensive. Despite lacking the causal guarantees of such methods, CAT can provide an approximation of feature importance and greatly simplify the study of knowledge encoded in large language model representations, thanks to its efficiency.</p>
+</section>
+</section>
+<section id="sec-conclusion" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-conclusion"><span class="header-section-number">3.4</span> Conclusion</h2>
+<p>We introduced Inseq, a versatile and easy-to-use toolkit for interpreting sequence generation models. With many libraries focused on the study of classification models, Inseq is the first tool explicitly designed to analyze systems for tasks such as machine translation, code generation, and conversational applications. Researchers can easily add interpretability evaluations to their studies using our library to identify unwanted biases and interesting phenomena in their models’ predictions.</p>
+<p>With the Inseq toolkit providing the foundational infrastructure for interpretability analysis, the following chapters will leverage the supported input attribution techniques to investigate context usage in context-aware machine translation systems <a href="chap-4-pecore.html" class="quarto-xref"><span>Chapter 4</span></a> and multilingual language models for retrieval-augmented generation <a href="chap-5-mirage.html" class="quarto-xref"><span>Chapter 5</span></a>.</p>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-adebayo-etal-2018-sanity" class="csl-entry" role="listitem">
+Julius Adebayo, Justin Gilmer, Michael Muelly, Ian Goodfellow, Moritz Hardt, and Been Kim. 2018. <a href="https://proceedings.neurips.cc/paper/2018/file/294a8ed24b1ad22ec2e7efea049b8737-Paper.pdf">Sanity checks for saliency maps</a>. In S. Bengio, H. Wallach, H. Larochelle, K. Grauman, N. Cesa-Bianchi, and R. Garnett, editors, <em>Advances in neural information processing systems</em>, volume 31, pages 9505–9515, Montréal, Canada. Curran Associates, Inc.
+</div>
+<div id="ref-alammar-2021-ecco" class="csl-entry" role="listitem">
+J Alammar. 2021. <a href="https://doi.org/10.18653/v1/2021.acl-demo.30">Ecco: An open source library for the explainability of transformer language models</a>. In Heng Ji, Jong C. Park, and Rui Xia, editors, <em>Proceedings of the 59th annual meeting of the association for computational linguistics and the 11th international joint conference on natural language processing: System demonstrations</em>, pages 249–257, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-atanasova-etal-2020-diagnostic" class="csl-entry" role="listitem">
+Pepa Atanasova, Jakob Grue Simonsen, Christina Lioma, and Isabelle Augenstein. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-main.263">A diagnostic study of explainability techniques for text classification</a>. In Bonnie Webber, Trevor Cohn, Yulan He, and Yang Liu, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing (EMNLP)</em>, pages 3256–3274, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-attanasio-etal-2023-ferret" class="csl-entry" role="listitem">
+Giuseppe Attanasio, Eliana Pastor, Chiara Di Bonaventura, and Debora Nozza. 2023. <a href="https://doi.org/10.18653/v1/2023.eacl-demo.29">Ferret: A framework for benchmarking explainers on transformers</a>. In Danilo Croce and Luca Soldaini, editors, <em>Proceedings of the 17th conference of the european chapter of the association for computational linguistics: System demonstrations</em>, pages 256–266, Dubrovnik, Croatia. Association for Computational Linguistics.
+</div>
+<div id="ref-baherens-etal-2010-explain" class="csl-entry" role="listitem">
+David Baehrens, Timon Schroeter, Stefan Harmeling, Motoaki Kawanabe, Katja Hansen, and Klaus-Robert Müller. 2010. <a href="https://dl.acm.org/doi/10.5555/1756006.1859912">How to explain individual classification decisions</a>. <em>J. Mach. Learn. Res.</em>, 11:1803–1831.
+</div>
+<div id="ref-bahdanau-etal-2015-neural" class="csl-entry" role="listitem">
+Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. 2015. <a href="http://arxiv.org/abs/1409.0473">Neural machine translation by jointly learning to align and translate</a>. In Yoshua Bengio and Yann LeCun, editors, <em>Proceedings of the 3rd international conference on learning representations (<span>ICLR</span>)</em>, San Diego, CA, USA.
+</div>
+<div id="ref-bastings-etal-2022-will" class="csl-entry" role="listitem">
+Jasmijn Bastings, Sebastian Ebert, Polina Zablotskaia, Anders Sandholm, and Katja Filippova. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.64"><span>“</span>Will you find these shortcuts?<span>”</span> A protocol for evaluating the faithfulness of input salience methods for text classification</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 976–991, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-belinkov-glass-2019-analysis" class="csl-entry" role="listitem">
+Yonatan Belinkov and James Glass. 2019. <a href="https://doi.org/10.1162/tacl_a_00254">Analysis methods in neural language processing: A survey</a>. <em>Transactions of the Association for Computational Linguistics</em>, 7:49–72.
+</div>
+<div id="ref-blodgett-etal-2020-language" class="csl-entry" role="listitem">
+Su Lin Blodgett, Solon Barocas, Hal Daumé III, and Hanna Wallach. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.485">Language (technology) is power: A critical survey of <span>“</span>bias<span>”</span> in <span>NLP</span></a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 5454–5476, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-borzunov-etal-2023-petals" class="csl-entry" role="listitem">
+Alexander Borzunov, Dmitry Baranchuk, Tim Dettmers, Maksim Riabinin, Younes Belkada, Artem Chumachenko, Pavel Samygin, and Colin Raffel. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-demo.54">Petals: Collaborative inference and fine-tuning of large models</a>. In Danushka Bollegala, Ruihong Huang, and Alan Ritter, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 3: System demonstrations)</em>, pages 558–568, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-caliskan-etal-2017-semantics" class="csl-entry" role="listitem">
+Aylin Caliskan, Joanna J. Bryson, and Arvind Narayanan. 2017. <a href="https://doi.org/10.1126/science.aal4230">Semantics derived automatically from language corpora contain human-like biases</a>. <em>Science</em>, 356(6334):183–186.
+</div>
+<div id="ref-cho-etal-2019-measuring" class="csl-entry" role="listitem">
+Won Ik Cho, Ji Won Kim, Seok Min Kim, and Nam Soo Kim. 2019. <a href="https://doi.org/10.18653/v1/W19-3824">On measuring gender bias in translation of gender-neutral pronouns</a>. In Marta R. Costa-jussà, Christian Hardmeier, Will Radford, and Kellie Webster, editors, <em>Proceedings of the first workshop on gender bias in natural language processing</em>, pages 173–181, Florence, Italy. Association for Computational Linguistics.
+</div>
+<div id="ref-chrysostomou-aletras-2022-empirical" class="csl-entry" role="listitem">
+George Chrysostomou and Nikolaos Aletras. 2022. <a href="https://doi.org/10.18653/v1/2022.acl-long.477">An empirical study on explanations in out-of-domain settings</a>. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio, editors, <em>Proceedings of the 60th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 6920–6938, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-chung-etal-2022-scaling" class="csl-entry" role="listitem">
+Hyung Won Chung, Le Hou, Shayne Longpre, Barret Zoph, Yi Tay, William Fedus, Yunxuan Li, Xuezhi Wang, Mostafa Dehghani, Siddhartha Brahma, Albert Webson, Shixiang Shane Gu, Zhuyun Dai, Mirac Suzgun, Xinyun Chen, Aakanksha Chowdhery, Alex Castro-Ros, Marie Pellat, Kevin Robinson, et al. 2024. <a href="http://jmlr.org/papers/v25/23-0870.html">Scaling instruction-finetuned language models</a>. <em>Journal of Machine Learning Research</em>, 25(70):1–53.
+</div>
+<div id="ref-clark-etal-2019-bert" class="csl-entry" role="listitem">
+Kevin Clark, Urvashi Khandelwal, Omer Levy, and Christopher D. Manning. 2019. <a href="https://doi.org/10.18653/v1/W19-4828">What does <span>BERT</span> look at? An analysis of <span>BERT</span>‘s attention</a>. In Tal Linzen, Grzegorz Chrupała, Yonatan Belinkov, and Dieuwke Hupkes, editors, <em>Proceedings of the 2019 ACL workshop BlackboxNLP: Analyzing and interpreting neural networks for NLP</em>, pages 276–286, Florence, Italy. Association for Computational Linguistics.
+</div>
+<div id="ref-dai-etal-2022-knowledge" class="csl-entry" role="listitem">
+Damai Dai, Li Dong, Yaru Hao, Zhifang Sui, Baobao Chang, and Furu Wei. 2022. <a href="https://doi.org/10.18653/v1/2022.acl-long.581">Knowledge neurons in pretrained transformers</a>. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio, editors, <em>Proceedings of the 60th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 8493–8502, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-dettmers-etal-2022-gpt3" class="csl-entry" role="listitem">
+Tim Dettmers, Mike Lewis, Younes Belkada, and Luke Zettlemoyer. 2022. <a href="https://proceedings.neurips.cc/paper_files/paper/2022/file/c3ba4962c05c49636d4c6206a97e9c8a-Paper-Conference.pdf">GPT3.int8(): 8-bit matrix multiplication for transformers at scale</a>. In S. Koyejo, S. Mohamed, A. Agarwal, D. Belgrave, K. Cho, and A. Oh, editors, <em>Advances in neural information processing systems</em>, volume 35, pages 30318–30332. Curran Associates, Inc.
+</div>
+<div id="ref-deyoung-etal-2020-eraser" class="csl-entry" role="listitem">
+Jay DeYoung, Sarthak Jain, Nazneen Fatema Rajani, Eric Lehman, Caiming Xiong, Richard Socher, and Byron C. Wallace. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.408"><span>ERASER</span>: <span>A</span> benchmark to evaluate rationalized <span>NLP</span> models</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 4443–4458, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-eikema-aziz-2020-map" class="csl-entry" role="listitem">
+Bryan Eikema and Wilker Aziz. 2020. <a href="https://doi.org/10.18653/v1/2020.coling-main.398">Is <span>MAP</span> decoding all you need? The inadequacy of the mode in neural machine translation</a>. In Donia Scott, Nuria Bel, and Chengqing Zong, editors, <em>Proceedings of the 28th international conference on computational linguistics</em>, pages 4506–4520, Barcelona, Spain (Online). International Committee on Computational Linguistics.
+</div>
+<div id="ref-enguehard-2023-sequential" class="csl-entry" role="listitem">
+Joseph Enguehard. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-acl.477">Sequential integrated gradients: A simple but effective method for explaining language models</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Findings of the association for computational linguistics: ACL 2023</em>, pages 7555–7565, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-fan-etal-2021-beyond" class="csl-entry" role="listitem">
+Angela Fan, Shruti Bhosale, Holger Schwenk, Zhiyi Ma, Ahmed El-Kishky, Siddharth Goyal, Mandeep Baines, Onur Çelebi, Guillaume Wenzek, Vishrav Chaudhary, Naman Goyal, Tom Birch, Vitaliy Liptchinsky, Sergey Edunov, Edouard Grave, Michael Auli, and Armand Joulin. 2021. <a href="http://jmlr.org/papers/v22/20-1307.html">Beyond english-centric multilingual machine translation</a>. <em>Journal of Machine Learning Research</em>, 22(107):1–48.
+</div>
+<div id="ref-farkas-nemeth-2022-measure" class="csl-entry" role="listitem">
+Anna Farkas and Renáta Németh. 2022. <a href="https://doi.org/10.1016/j.ssaho.2021.100239">How to measure gender bias in machine translation: Real-world oriented machine translators, multiple reference points</a>. <em>Social Sciences &amp; Humanities Open</em>, 5(1):100239.
+</div>
+<div id="ref-feldhus-etal-2021-thermostat" class="csl-entry" role="listitem">
+Nils Feldhus, Robert Schwarzenberg, and Sebastian Möller. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-demo.11">Thermostat: A large collection of <span>NLP</span> model explanations and analysis tools</a>. In Heike Adel and Shuming Shi, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing: System demonstrations</em>, pages 87–95, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-feng-etal-2022-language" class="csl-entry" role="listitem">
+Fangxiaoyu Feng, Yinfei Yang, Daniel Cer, Naveen Arivazhagan, and Wei Wang. 2022. <a href="https://doi.org/10.18653/v1/2022.acl-long.62">Language-agnostic <span>BERT</span> sentence embedding</a>. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio, editors, <em>Proceedings of the 60th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 878–891, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-feng-etal-2018-pathologies" class="csl-entry" role="listitem">
+Shi Feng, Eric Wallace, Alvin Grissom II, Mohit Iyyer, Pedro Rodriguez, and Jordan Boyd-Graber. 2018. <a href="https://doi.org/10.18653/v1/D18-1407">Pathologies of neural models make interpretations difficult</a>. In Ellen Riloff, David Chiang, Julia Hockenmaier, and Jun’ichi Tsujii, editors, <em>Proceedings of the 2018 conference on empirical methods in natural language processing</em>, pages 3719–3728, Brussels, Belgium. Association for Computational Linguistics.
+</div>
+<div id="ref-fernandes-etal-2023-translation" class="csl-entry" role="listitem">
+Patrick Fernandes, Kayo Yin, Emmy Liu, André Martins, and Graham Neubig. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-long.36">When does translation require context? A data-driven, multilingual exploration</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 606–626, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-ferrando-etal-2022-towards" class="csl-entry" role="listitem">
+Javier Ferrando, Gerard I. Gállego, Belen Alastruey, Carlos Escolano, and Marta R. Costa-jussà. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.599">Towards opening the black box of neural machine translation: Source and target interpretations of the transformer</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 8756–8769, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-gal-ghahramani-2016-dropout" class="csl-entry" role="listitem">
+Yarin Gal and Zoubin Ghahramani. 2016. <a href="https://proceedings.mlr.press/v48/gal16.html">Dropout as a bayesian approximation: Representing model uncertainty in deep learning</a>. In Maria Florina Balcan and Kilian Q. Weinberger, editors, <em>Proceedings of the 33rd international conference on machine learning</em>, volume 48, pages 1050–1059, New York, NY, USA. Proceedings of Machine Learning Research (PLMR).
+</div>
+<div id="ref-jacovi-goldberg-2020-towards" class="csl-entry" role="listitem">
+Alon Jacovi and Yoav Goldberg. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.386">Towards faithfully interpretable <span>NLP</span> systems: How should we define and evaluate faithfulness?</a> In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 4198–4205, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-jain-wallace-2019-attention" class="csl-entry" role="listitem">
+Sarthak Jain and Byron C. Wallace. 2019. <a href="https://doi.org/10.18653/v1/N19-1357"><span>A</span>ttention is not <span>E</span>xplanation</a>. In Jill Burstein, Christy Doran, and Thamar Solorio, editors, <em>Proceedings of the 2019 conference of the north <span>A</span>merican chapter of the association for computational linguistics: Human language technologies, volume 1 (long and short papers)</em>, pages 3543–3556, Minneapolis, Minnesota. Association for Computational Linguistics.
+</div>
+<div id="ref-kaplan-etal-2020-scaling" class="csl-entry" role="listitem">
+Jared Kaplan, Sam McCandlish, T. J. Henighan, Tom B. Brown, Benjamin Chess, Rewon Child, Scott Gray, Alec Radford, Jeff Wu, and Dario Amodei. 2020. <a href="https://arxiv.org/abs/2001.08361">Scaling laws for neural language models</a>. <em>ArXiv</em>.
+</div>
+<div id="ref-kokhlikyan-etal-2020-captum" class="csl-entry" role="listitem">
+Narine Kokhlikyan, Vivek Miglani, Miguel Martin, Edward Wang, Bilal Alsallakh, Jonathan Reynolds, Alexander Melnikov, Natalia Kliushkina, Carlos Araya, Siqi Yan, and Orion Reblitz-Richardson. 2020. <a href="https://arxiv.org/abs/2009.07896">Captum: A unified and generic model interpretability library for PyTorch</a>. <em>ArXiv</em>.
+</div>
+<div id="ref-lhoest-etal-2021-datasets" class="csl-entry" role="listitem">
+Quentin Lhoest, Albert Villanova del Moral, Yacine Jernite, Abhishek Thakur, Patrick von Platen, Suraj Patil, Julien Chaumond, Mariama Drame, Julien Plu, Lewis Tunstall, Joe Davison, Mario Šaško, Gunjan Chhablani, Bhavitvya Malik, Simon Brandeis, Teven Le Scao, Victor Sanh, Canwen Xu, Nicolas Patry, et al. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-demo.21">Datasets: A community library for natural language processing</a>. In Heike Adel and Shuming Shi, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing: System demonstrations</em>, pages 175–184, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-lu-etal-2023-measuring" class="csl-entry" role="listitem">
+Sheng Lu, Shan Chen, Yingya Li, Danielle Bitterman, Guergana Savova, and Iryna Gurevych. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-emnlp.1054">Measuring pointwise <span class="math inline">\(\mathcal{V}\)</span>-usable information in-context-ly</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Findings of the association for computational linguistics: EMNLP 2023</em>, pages 15739–15756, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-lundberg-lee-2017-shap" class="csl-entry" role="listitem">
+Scott M. Lundberg and Su-In Lee. 2017. <a href="https://dl.acm.org/doi/10.5555/3295222.3295230">A unified approach to interpreting model predictions</a>. In <em>Proceedings of the 31st international conference on neural information processing systems</em>, volume 30, pages 4768–4777, Long Beach, California, USA. Curran Associates Inc.
+</div>
+<div id="ref-madsen-etal-2022-evaluating" class="csl-entry" role="listitem">
+Andreas Madsen, Nicholas Meade, Vaibhav Adlakha, and Siva Reddy. 2022. <a href="https://doi.org/10.18653/v1/2022.findings-emnlp.125">Evaluating the faithfulness of importance measures in <span>NLP</span> by recursively masking allegedly important tokens and retraining</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Findings of the association for computational linguistics: EMNLP 2022</em>, pages 1731–1751, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-meng-etal-2022-rome" class="csl-entry" role="listitem">
+Kevin Meng, David Bau, Alex Andonian, and Yonatan Belinkov. 2022. <a href="https://proceedings.neurips.cc/paper_files/paper/2022/file/6f1d43d5a82a37e89b0665b33bf3a182-Paper-Conference.pdf">Locating and editing factual associations in <span>GPT</span></a>. In S. Koyejo, S. Mohamed, A. Agarwal, D. Belgrave, K. Cho, and A. Oh, editors, <em>Advances in neural information processing systems</em>, volume 35, pages 17359–17372. Curran Associates, Inc.
+</div>
+<div id="ref-mohebbi-etal-2023-quantifying" class="csl-entry" role="listitem">
+Hosein Mohebbi, Willem Zuidema, Grzegorz Chrupała, and Afra Alishahi. 2023. <a href="https://doi.org/10.18653/v1/2023.eacl-main.245">Quantifying context mixing in transformers</a>. In Andreas Vlachos and Isabelle Augenstein, editors, <em>Proceedings of the 17th conference of the european chapter of the association for computational linguistics</em>, pages 3378–3400, Dubrovnik, Croatia. Association for Computational Linguistics.
+</div>
+<div id="ref-nanda-2023-attribution" class="csl-entry" role="listitem">
+Neel Nanda. 2023. <a href="https://www.neelnanda.io/mechanistic-interpretability/attribution-patching">Attribution patching: Activation patching at industrial scale</a>.
+</div>
+<div id="ref-ott-etal-2019-fairseq" class="csl-entry" role="listitem">
+Myle Ott, Sergey Edunov, Alexei Baevski, Angela Fan, Sam Gross, Nathan Ng, David Grangier, and Michael Auli. 2019. <a href="https://doi.org/10.18653/v1/N19-4009">Fairseq: A fast, extensible toolkit for sequence modeling</a>. In Waleed Ammar, Annie Louis, and Nasrin Mostafazadeh, editors, <em>Proceedings of the 2019 conference of the north <span>A</span>merican chapter of the association for computational linguistics (demonstrations)</em>, pages 48–53, Minneapolis, Minnesota. Association for Computational Linguistics.
+</div>
+<div id="ref-pierse-2021-transformers" class="csl-entry" role="listitem">
+Charles Pierse. 2021. <a href="https://github.com/cdpierse/transformers-interpret">Transformers interpret</a>.
+</div>
+<div id="ref-prates-etal-2020-assessing" class="csl-entry" role="listitem">
+Marcelo OR Prates, Pedro H Avelar, and Luís C Lamb. 2020. Assessing gender bias in machine translation: A case study with <span>G</span>oogle <span>T</span>ranslate. <em>Neural Computing and Applications</em>, 32:6363–6381.
+</div>
+<div id="ref-radford-etal-2019-language" class="csl-entry" role="listitem">
+Alec Radford, Jeff Wu, Rewon Child, David Luan, Dario Amodei, and Ilya Sutskever. 2019. <a href="https://openai.com/blog/better-language-models/">Language models are unsupervised multitask learners</a>. <em>OpenAI Blog</em>.
+</div>
+<div id="ref-ribeiro-etal-2016-lime" class="csl-entry" role="listitem">
+Marco Tulio Ribeiro, Sameer Singh, and Carlos Guestrin. 2016. <a href="https://doi.org/10.1145/2939672.2939778">"Why should i trust you?": Explaining the predictions of any classifier</a>. In <em>Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining</em>, pages 1135–1144, New York, NY, USA. Association for Computing Machinery.
+</div>
+<div id="ref-rudinger-etal-2018-gender" class="csl-entry" role="listitem">
+Rachel Rudinger, Jason Naradowsky, Brian Leonard, and Benjamin Van Durme. 2018. <a href="https://doi.org/10.18653/v1/N18-2002">Gender bias in coreference resolution</a>. In Marilyn Walker, Heng Ji, and Amanda Stent, editors, <em>Proceedings of the 2018 conference of the north <span>A</span>merican chapter of the association for computational linguistics: Human language technologies, volume 2 (short papers)</em>, pages 8–14, New Orleans, Louisiana. Association for Computational Linguistics.
+</div>
+<div id="ref-sanyal-ren-2021-discretized" class="csl-entry" role="listitem">
+Soumya Sanyal and Xiang Ren. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.805">Discretized integrated gradients for explaining language models</a>. In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing</em>, pages 10285–10299, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-sarti-etal-2024-democratizing" class="csl-entry" role="listitem">
+Gabriele Sarti, Nils Feldhus, Jirui Qi, Malvina Nissim, and Arianna Bisazza. 2024. <a href="https://ceur-ws.org/Vol-3793/paper_37.pdf">Democratizing advanced attribution analyses of generative language models with the inseq toolkit</a>. In <em>xAI-2024 late-breaking work, demos and doctoral consortium joint proceedings</em>, pages 289–296, Valletta, Malta. CEUR.org.
+</div>
+<div id="ref-sarti-etal-2023-inseq-fixed" class="csl-entry" role="listitem">
+Gabriele Sarti, Nils Feldhus, Ludwig Sickert, Oskar van der Wal, Malvina Nissim, and Arianna Bisazza. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-demo.40">Inseq: An interpretability toolkit for sequence generation models</a>. In Danushka Bollegala, Ruihong Huang, and Alan Ritter, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 3: System demonstrations)</em>, pages 421–435, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-savoldi-etal-2021-gender" class="csl-entry" role="listitem">
+Beatrice Savoldi, Marco Gaido, Luisa Bentivogli, Matteo Negri, and Marco Turchi. 2021. <a href="https://doi.org/10.1162/tacl_a_00401">Gender bias in machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 9:845–874.
+</div>
+<div id="ref-shrikumar-etal-2017-deeplift" class="csl-entry" role="listitem">
+Avanti Shrikumar, Peyton Greenside, and Anshul Kundaje. 2017. <a href="https://proceedings.mlr.press/v70/shrikumar17a.html">Learning important features through propagating activation differences</a>. In Doina Precup and Yee Whye Teh, editors, <em>Proceedings of the 34th international conference on machine learning</em>, volume 70, pages 3145–3153. PMLR.
+</div>
+<div id="ref-simonyan-etal-2014-saliency" class="csl-entry" role="listitem">
+Karen Simonyan, Andrea Vedaldi, and Andrew Zisserman. 2014. <a href="http://arxiv.org/abs/1312.6034">Deep inside convolutional networks: Visualising image classification models and saliency maps</a>. In Yoshua Bengio and Yann LeCun, editors, <em>2nd international conference on learning representations, (<span>ICLR</span>)</em>, Banff, AB, Canada.
+</div>
+<div id="ref-sundararajan-etal-2017-ig" class="csl-entry" role="listitem">
+Mukund Sundararajan, Ankur Taly, and Qiqi Yan. 2017. <a href="https://dl.acm.org/doi/10.5555/3305890.3306024">Axiomatic attribution for deep networks</a>. In <em>Proceedings of the 34th international conference on machine learning (ICML)</em>, volume 70, pages 3319–3328, Sydney, Australia. Journal of Machine Learning Research (JMLR).
+</div>
+<div id="ref-tenney-etal-2020-language" class="csl-entry" role="listitem">
+Ian Tenney, James Wexler, Jasmijn Bastings, Tolga Bolukbasi, Andy Coenen, Sebastian Gehrmann, Ellen Jiang, Mahima Pushkarna, Carey Radebaugh, Emily Reif, and Ann Yuan. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-demos.15">The language interpretability tool: Extensible, interactive visualizations and analysis for <span>NLP</span> models</a>. In Qun Liu and David Schlangen, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing: System demonstrations</em>, pages 107–118, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-tiedemann-2020-tatoeba" class="csl-entry" role="listitem">
+Jörg Tiedemann. 2020. <a href="https://aclanthology.org/2020.wmt-1.139/">The tatoeba translation challenge <span>–</span> realistic data sets for low resource and multilingual <span>MT</span></a>. In Loïc Barrault, Ondřej Bojar, Fethi Bougares, Rajen Chatterjee, Marta R. Costa-jussà, Christian Federmann, Mark Fishel, Alexander Fraser, Yvette Graham, Paco Guzman, Barry Haddow, Matthias Huck, Antonio Jimeno Yepes, Philipp Koehn, André Martins, Makoto Morishita, Christof Monz, Masaaki Nagata, Toshiaki Nakazawa, et al., editors, <em>Proceedings of the fifth conference on machine translation</em>, pages 1174–1182, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-vafa-etal-2021-rationales" class="csl-entry" role="listitem">
+Keyon Vafa, Yuntian Deng, David Blei, and Alexander Rush. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.807">Rationales for sequential predictions</a>. In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing</em>, pages 10314–10332, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-vamvas-sennrich-2021-limits" class="csl-entry" role="listitem">
+Jannis Vamvas and Rico Sennrich. 2021. <a href="https://doi.org/10.18653/v1/2021.blackboxnlp-1.5">On the limits of minimal pairs in contrastive evaluation</a>. In Jasmijn Bastings, Yonatan Belinkov, Emmanuel Dupoux, Mario Giulianelli, Dieuwke Hupkes, Yuval Pinter, and Hassan Sajjad, editors, <em>Proceedings of the fourth BlackboxNLP workshop on analyzing and interpreting neural networks for NLP</em>, pages 58–68, Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-vaswani-etal-2017-attention" class="csl-entry" role="listitem">
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <a href="https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf">Attention is all you need</a>. In I. Guyon, U. Von Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, editors, <em>Advances in neural information processing systems</em>, volume 30. Curran Associates, Inc.
+</div>
+<div id="ref-voita-etal-2018-context" class="csl-entry" role="listitem">
+Elena Voita, Pavel Serdyukov, Rico Sennrich, and Ivan Titov. 2018. <a href="https://doi.org/10.18653/v1/P18-1117">Context-aware neural machine translation learns anaphora resolution</a>. In Iryna Gurevych and Yusuke Miyao, editors, <em>Proceedings of the 56th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 1264–1274, Melbourne, Australia. Association for Computational Linguistics.
+</div>
+<div id="ref-wallace-etal-2020-interpreting" class="csl-entry" role="listitem">
+Eric Wallace, Matt Gardner, and Sameer Singh. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-tutorials.3">Interpreting predictions of <span>NLP</span> models</a>. In Aline Villavicencio and Benjamin Van Durme, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing: Tutorial abstracts</em>, pages 20–23, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-wolf-etal-2020-transformers" class="csl-entry" role="listitem">
+Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue, Anthony Moi, Pierric Cistac, Tim Rault, Remi Louf, Morgan Funtowicz, Joe Davison, Sam Shleifer, Patrick von Platen, Clara Ma, Yacine Jernite, Julien Plu, Canwen Xu, Teven Le Scao, Sylvain Gugger, et al. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-demos.6">Transformers: State-of-the-art natural language processing</a>. In Qun Liu and David Schlangen, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing: System demonstrations</em>, pages 38–45, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-xu-etal-2015-show" class="csl-entry" role="listitem">
+Kelvin Xu, Jimmy Ba, Ryan Kiros, Kyunghyun Cho, Aaron Courville, Ruslan Salakhudinov, Rich Zemel, and Yoshua Bengio. 2015. <a href="https://proceedings.mlr.press/v37/xuc15.html">Show, attend and tell: Neural image caption generation with visual attention</a>. In Francis Bach and David Blei, editors, <em>Proceedings of the 32nd international conference on machine learning</em>, volume 37, pages 2048–2057, Lille, France. PMLR.
+</div>
+<div id="ref-yin-neubig-2022-interpreting" class="csl-entry" role="listitem">
+Kayo Yin and Graham Neubig. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.14">Interpreting language models with contrastive explanations</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 184–198, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-zafar-etal-2021-lack" class="csl-entry" role="listitem">
+Muhammad Bilal Zafar, Michele Donini, Dylan Slack, Cedric Archambeau, Sanjiv Das, and Krishnaram Kenthapadi. 2021. <a href="https://doi.org/10.18653/v1/2021.findings-acl.327">On the lack of robust interpretability of neural text classifiers</a>. In Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli, editors, <em>Findings of the association for computational linguistics: ACL-IJCNLP 2021</em>, pages 3730–3740, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-zeiler-fergus-2014-visualizing" class="csl-entry" role="listitem">
+Matthew D. Zeiler and Rob Fergus. 2014. <a href="https://doi.org/10.1007/978-3-319-10590-1_53">Visualizing and understanding convolutional networks</a>. In David Fleet, Tomas Pajdla, Bernt Schiele, and Tinne Tuytelaars, editors, <em>13th european conference on computer vision (ECCV)</em>, pages 818–833, Switzerland. Springer International Publishing.
+</div>
+<div id="ref-zhao-shan-2024-reagent" class="csl-entry" role="listitem">
+Zhixue Zhao and Boxuan Shan. 2024. <a href="https://arxiv.org/abs/2402.00794">ReAGent: A model-agnostic feature attribution method for generative language models</a>. <em>AAAI Workshop on Responsible Language Models (ReLM)</em>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>We use <em>sequence generation</em> to refer to all iterative tasks, including (but not limited to) natural language generation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://github.com/Textualize/rich" class="uri">https://github.com/Textualize/rich</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>We distinguish between gradient- and internals-based methods to account for their difference in scores’ granularity.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>See <a href="appendix-a.html#sec-inseq-appendix-pair-agg-gender-swap" class="quarto-xref"><span>Section A.1.2</span></a> for an example.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Users employing constrained decoding should be aware of its limitations in the presence of a high distributional discrepancy with natural model outputs <span class="citation" data-cites="vamvas-sennrich-2021-limits">(<a href="references.html#ref-vamvas-sennrich-2021-limits" role="doc-biblioref">Vamvas and Sennrich, 2021</a>)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><code>bitsandbytes 0.37.0</code> required for backward method, see <a href="appendix-a.html#sec-inseq-appendix-factual-knowledge" class="quarto-xref"><span>Section A.1.3</span></a> for an example.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Tutorial: <a href="https://inseq.org/en/latest/examples/petals.html" class="uri">https://inseq.org/en/latest/examples/petals.html</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>For multi-token occupation terms, e.g., <em>bilim insanı</em> (scientist), the first token score was used.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>We set <span class="math inline">\(\Delta &lt; 0.05\)</span> for IG to ensure convergence. Token-level aggregation is performed using the L2 norm.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>An example is provided in <a href="appendix-a.html#sec-inseq-appendix-pair-agg-gender-swap" class="quarto-xref"><span>Section A.1.2</span></a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p><a href="appendix-a.html#fig-chap3-ex-cat-counterfact-plots" class="quarto-xref">Figure&nbsp;<span>A.3</span></a> of <a href="appendix-a.html#sec-inseq-appendix-factual-knowledge" class="quarto-xref"><span>Section A.1.3</span></a> presents some examples.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/chap-4-pecore.html" class="pagination-link" aria-label="Quantifying Context Usage in Neural Machine Translation">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Gabriele Sarti. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://www.rug.nl/?lang=en"><img src="../figures/logos/rug_eng_red.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/?lang=en"><img src="../figures/logos/clcg.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://projects.illc.uva.nl/indeep/"><img src="../figures/logos/indeep_logo_horizontal.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/research/cl/?lang=en"><img src="../figures/logos/gronlp.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+</div>
+    <div class="nav-footer-right">
+<p>Written with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

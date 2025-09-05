@@ -1,0 +1,287 @@
+.sidebar-logo {
+    max-width: 60%;
+}
+
+.paragraph {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.subparagraph {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.center-table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 14px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-table th, .center-table td {
+    padding: 8px 12px;
+    text-align: center;
+    border-bottom: none;
+}
+
+.center-table thead th {
+    border-bottom: 2px solid #000;
+    font-weight: bold;
+}
+
+.center-table .midrule {
+    border-bottom: 1px solid #000;
+}
+
+.center-table .bottomrule {
+    border-bottom: 2px solid #000;
+}
+
+.center-table caption {
+    caption-side: bottom;
+    margin-top: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+/* Color coding for cells */
+.color-fdfebc { background-color: #FDFEBC !important; }
+.color-fba05b { background-color: #FBA05B !important; }
+.color-fee695 { background-color: #FEE695 !important; }
+.color-cbe982 { background-color: #CBE982 !important; }
+.color-d1ec86 { background-color: #D1EC86 !important; }
+.color-fffebe { background-color: #FFFEBE !important; }
+.color-fff2aa { background-color: #FFF2AA !important; }
+.color-ecf7a6 { background-color: #ECF7A6 !important; }
+.color-ebf7a3 { background-color: #EBF7A3 !important; }
+.color-dff293 { background-color: #DFF293 !important; }
+.color-feeda1 { background-color: #FEEDA1 !important; }
+.color-d3ec87 { background-color: #D3EC87 !important; }
+.color-d5ed88 { background-color: #D5ED88 !important; }
+.color-fffdbc { background-color: #FFFDBC !important; }
+
+/* Red color gradients */
+.color-ffe4e4 { background-color: #FFE4E4 !important; }
+.color-ffecec { background-color: #FFECEC !important; }
+.color-fff4f4 { background-color: #FFF4F4 !important; }
+.color-fff8f8 { background-color: #FFF8F8 !important; }
+.color-fffafa { background-color: #FFFAFA !important; }
+.color-ffe2e2 { background-color: #FFE2E2 !important; }
+.color-ffcaca { background-color: #FFCACA !important; }
+.color-fff0f0 { background-color: #FFF0F0 !important; }
+.color-fff6f6 { background-color: #FFF6F6 !important; }
+.color-fff2f2 { background-color: #FFF2F2 !important; }
+.color-ffc0c0 { background-color: #FFC0C0 !important; }
+.color-ffeeee { background-color: #FFEEEE !important; }
+.color-ffd8d8 { background-color: #FFD8D8 !important; }
+.color-ffe6e6 { background-color: #FFE6E6 !important; }
+.color-ffc8c8 { background-color: #FFC8C8 !important; }
+.color-ffeaea { background-color: #FFEAEA !important; }
+.color-ffc2c2 { background-color: #FFC2C2 !important; }
+.color-ffc6c6 { background-color: #FFC6C6 !important; }
+.color-ffd4d4 { background-color: #FFD4D4 !important; }
+.color-ffdede { background-color: #FFDEDE !important; }
+.color-ffd0d0 { background-color: #FFD0D0 !important; }
+.color-ffbebe { background-color: #FFBEBE !important; }
+.color-ffe8e8 { background-color: #FFE8E8 !important; }
+
+/* Blue color gradients */
+.color-fffefe { background-color: #FFFEFE !important; }
+.color-f6f6ff { background-color: #F6F6FF !important; }
+.color-eeeeff { background-color: #EEEEFF !important; }
+.color-fffcfc { background-color: #FFFCFC !important; }
+.color-d8d8ff { background-color: #D8D8FF !important; }
+.color-fcfcff { background-color: #FCFCFF !important; }
+.color-fefeff { background-color: #FEFEFF !important; }
+
+.significant {
+    font-weight: bold;
+}
+        
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.bold-underline {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.group-header {
+    border-bottom: 1px solid #ccc;
+}
+
+.namerow {
+    display: inline-block;
+    width: 150px;
+}
+
+.smallrow {
+    display: inline-block;
+    width: 75px;
+}
+
+.mediumrow {
+    display: inline-block;
+    width: 105px;
+}
+
+.mediumlongrow {
+    display: inline-block;
+    width: 150px;
+}
+
+.mediumsmallrow {
+    display: inline-block;
+    width: 95px;
+}
+
+.longrow {
+    display: inline-block;
+    width: 200px;
+}
+
+.verylongrow {
+    display: inline-block;
+    width: 300px;
+}
+
+.rowspan {
+    vertical-align: middle;
+}
+
+.fullwidthtable {
+    font-size: 14px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fullwidthtable th, .fullwidthtable td {
+    padding: 4px 12px;
+    text-align: center;
+    border-bottom: none;
+}
+
+.fullwidthtable thead th {
+    border-bottom: 2px solid #000;
+    font-weight: bold;
+}
+
+.fullwidthtable .midrule {
+    border-bottom: 1px solid #000;
+}
+
+.fullwidthtable .bottomrule {
+    border-bottom: 2px solid #000;
+}
+
+.fullwidthtable caption {
+    caption-side: bottom;
+    margin-top: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.leftalign td, .leftalign th {
+    text-align: left;
+}
+
+figure.quarto-float-tbl figcaption.quarto-float-caption-bottom {
+    text-align: left;
+}
+
+.rline {
+    border-right-width: 1px !important;
+    border-right-color: black !important;
+}
+
+/* Blue color classes for table cells - matching LaTeX macros */
+.bg-blue-aa {
+    background-color: rgb(252, 252, 255) !important;
+}
+
+.bg-blue-a {
+    background-color: rgb(247, 247, 255) !important;
+}
+
+.bg-blue-b {
+    background-color: rgb(222, 222, 255) !important;
+}
+
+.bg-blue-c {
+    background-color: rgb(191, 191, 255) !important;
+}
+
+.bg-blue-d {
+    background-color: rgb(161, 161, 255) !important;
+}
+
+.bg-blue-e {
+    background-color: rgb(130, 130, 255) !important;
+}
+
+.bg-blue-f {
+    background-color: rgb(89, 89, 255) !important;
+}
+
+/* Red color classes for table cells - matching LaTeX macros */
+.bg-red-a {
+    background-color: rgb(255, 242, 242) !important;
+}
+
+.bg-red-b {
+    background-color: rgb(255, 217, 217) !important;
+}
+
+.bg-red-c {
+    background-color: rgb(255, 179, 179) !important;
+}
+
+.bg-red-d {
+    background-color: rgb(255, 140, 140) !important;
+}
+
+.bg-red-e {
+    background-color: rgb(255, 115, 115) !important;
+}
+
+.bg-red-f {
+    background-color: rgb(255, 89, 89) !important;
+}
+
+.bg-green {
+    background-color: #75A875 !important
+}
+
+#refs > div {
+	margin-bottom: 10px;
+	margin-left: 40px;
+	text-indent: -40px;
+}
+
+.sidebar-menu-container > * > .sidebar-item {
+    margin-top: 15px;
+}
+
+.smallfont {
+    font-size: 8pt;
+}
+
+#thesis-abstract {
+    font-size: 11pt;
+    padding-left: 30px;
+    padding-right: 30px;
+}

@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Ph.D.&nbsp;Thesis, Center for Language and Cognition (CLCG), University of Groningen">
+
+<title>10&nbsp; Unsupervised MT Error Detection and Human Disagreement – From Insights to Impact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/chap-9-qe4pe.html" rel="prev">
+<link href="../figures/logos/rug_crest_icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df7dc7f297c6c2c740a551c3cb7e1581.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../html/custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-8-divemt.html">Interpretability in Human Translation Workflows</a></li><li class="breadcrumb-item"><a href="../chapters/chap-10-unsup-wqe.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../figures/logos/rug_eng_red_hat_line.png" alt="RUG Coat of Arms" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Insights to Impact</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gsarti/phd-thesis" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://gsarti.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-person-circle"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-2-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Attributing Context Usage in Multilingual NLP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-3-inseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-4-pecore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-5-mirage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conditioning Generation for Personalized Machine Translation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-6-ramp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-7-sae-litmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Interpretability in Human Translation Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-8-divemt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-9-qe4pe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-10-unsup-wqe.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-11-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-unsup-wqe-intro" id="toc-sec-unsup-wqe-intro" class="nav-link active" data-scroll-target="#sec-unsup-wqe-intro"><span class="header-section-number">10.1</span> Introduction</a></li>
+  <li><a href="#sec-unsup-wqe-related-work" id="toc-sec-unsup-wqe-related-work" class="nav-link" data-scroll-target="#sec-unsup-wqe-related-work"><span class="header-section-number">10.2</span> Related Work</a></li>
+  <li><a href="#sec-unsup-wqe-data" id="toc-sec-unsup-wqe-data" class="nav-link" data-scroll-target="#sec-unsup-wqe-data"><span class="header-section-number">10.3</span> Models and Datasets</a></li>
+  <li><a href="#sec-unsup-wqe-metrics" id="toc-sec-unsup-wqe-metrics" class="nav-link" data-scroll-target="#sec-unsup-wqe-metrics"><span class="header-section-number">10.4</span> Evaluated Metrics</a></li>
+  <li><a href="#sec-unsup-wqe-experiments" id="toc-sec-unsup-wqe-experiments" class="nav-link" data-scroll-target="#sec-unsup-wqe-experiments"><span class="header-section-number">10.5</span> Experiments</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">10.5.1</span> Setup</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">10.5.2</span> Results</a></li>
+  </ul></li>
+  <li><a href="#sec-unsup-wqe-limitations" id="toc-sec-unsup-wqe-limitations" class="nav-link" data-scroll-target="#sec-unsup-wqe-limitations"><span class="header-section-number">10.6</span> Limitations</a></li>
+  <li><a href="#sec-unsup-wqe-conclusion" id="toc-sec-unsup-wqe-conclusion" class="nav-link" data-scroll-target="#sec-unsup-wqe-conclusion"><span class="header-section-number">10.7</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-8-divemt.html">Interpretability in Human Translation Workflows</a></li><li class="breadcrumb-item"><a href="../chapters/chap-10-unsup-wqe.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chap-10-unsup-wqe" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chapter Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This final experimental chapter presents our comprehensive evaluation of unsupervised word-level quality estimation methods exploiting interpretability and uncertainty quantification methods to identify translation errors in model outputs. In our evaluation spanning 14 metrics across 12 translation directions, we also quantify the impact of human label variation on metric performance, using multiple edit sets from the <span class="smallcaps">DivEMT</span> and QE4PE studies of the previous chapters. Our results highlight the untapped potential of unsupervised metrics, the shortcomings of supervised methods when faced with label uncertainty, and the brittleness of single-annotator evaluation practices.</p>
+<p></p>
+<p>This chapter is adapted from the paper <em>Unsupervised Word-level Quality Estimation for Machine Translation Through the Lens of Annotators (Dis)agreement</em> <span class="citation" data-cites="sarti-etal-2025-unsupervised">(<a href="references.html#ref-sarti-etal-2025-unsupervised" role="doc-biblioref">Sarti et al., 2025b</a>)</span>.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>So, you see, translators do not so much deliver a message as they rewrite the original. And herein lies the difficulty—rewriting is still writing, and writing always reflects the authors ideology and biases.</em></p>
+<p><em>– Rebecca F. Kuang, Babel (2022)</em></p>
+</blockquote>
+<section id="sec-unsup-wqe-intro" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="sec-unsup-wqe-intro"><span class="header-section-number">10.1</span> Introduction</h2>
+<p>Word-level error spans are widely used in machine translation evaluation to obtain robust and fine-grained estimates of translation quality <span class="citation" data-cites="burchardt-2013-multidimensional freitag-etal-2021-experts freitag-etal-2021-results kocmi-etal-2024-error">(<a href="references.html#ref-burchardt-2013-multidimensional" role="doc-biblioref">Lommel et al., 2013</a>; <a href="references.html#ref-freitag-etal-2021-experts" role="doc-biblioref">Freitag et al., 2021a</a>; <a href="references.html#ref-freitag-etal-2021-results" role="doc-biblioref">Freitag et al., 2021b</a>; <a href="references.html#ref-kocmi-etal-2024-error" role="doc-biblioref">Kocmi et al., 2024b</a>)</span>. Due to the cost of manual annotation, word-level quality estimation (WQE) was proposed for assisting in annotating error spans over MT outputs <span class="citation" data-cites="zouhar-etal-2025-ai">(<a href="references.html#ref-zouhar-etal-2025-ai" role="doc-biblioref">Zouhar et al., 2025</a>)</span>. Modern WQE approaches generally rely on costly inference with large language models or ad-hoc training with large amounts of human-annotated texts <span class="citation" data-cites="fernandes-etal-2023-devil kocmi-federmann-2023-large guerreiro-etal-2024-xcomet">(<a href="references.html#ref-fernandes-etal-2023-devil" role="doc-biblioref">Fernandes et al., 2023</a>; <a href="references.html#ref-kocmi-federmann-2023-large" role="doc-biblioref">Kocmi and Federmann, 2023</a>; <a href="references.html#ref-guerreiro-etal-2024-xcomet" role="doc-biblioref">Guerreiro et al., 2024</a>)</span>, making them impractical for less resourced settings <span class="citation" data-cites="zouhar-etal-2024-fine">(<a href="references.html#ref-zouhar-etal-2024-fine" role="doc-biblioref">Zouhar et al., 2024</a>)</span>.</p>
+<p>To improve the efficiency of MT quality assessment, several works explored the use of signals derived from the internals of neural MT systems <span class="citation" data-cites="fomicheva-etal-2020-unsupervised fomicheva-etal-2021-eval4nlp leiter-etal-2024-towards">(<a href="references.html#ref-fomicheva-etal-2020-unsupervised" role="doc-biblioref">Fomicheva et al., 2020</a>; <a href="references.html#ref-fomicheva-etal-2021-eval4nlp" role="doc-biblioref">Fomicheva et al., 2021</a>; <a href="references.html#ref-leiter-etal-2024-towards" role="doc-biblioref">Leiter et al., 2024</a>)</span>, for identifying problems in MT outputs, such as hallucinations <span class="citation" data-cites="guerreiro-etal-2023-optimal guerreiro-etal-2023-looking dale-etal-2023-detecting dale-etal-2023-halomi himmi-etal-2024-enhanced">(<a href="references.html#ref-guerreiro-etal-2023-optimal" role="doc-biblioref">Guerreiro et al., 2023a</a>; <a href="references.html#ref-guerreiro-etal-2023-looking" role="doc-biblioref">Guerreiro et al., 2023b</a>; <a href="references.html#ref-dale-etal-2023-detecting" role="doc-biblioref">Dale et al., 2023a</a>; <a href="references.html#ref-dale-etal-2023-halomi" role="doc-biblioref">Dale et al., 2023b</a>; <a href="references.html#ref-himmi-etal-2024-enhanced" role="doc-biblioref">Himmi et al., 2024</a>)</span>. However, previous works have focused on sentence-level metrics for overall translation quality and do not evaluate performance on multiple label sets due to high annotation costs <span class="citation" data-cites="fomicheva-etal-2022-mlqe zerva-etal-2024-findings">(<a href="references.html#ref-fomicheva-etal-2022-mlqe" role="doc-biblioref">Fomicheva et al., 2022</a>; <a href="references.html#ref-zerva-etal-2024-findings" role="doc-biblioref">Zerva et al., 2024</a>)</span>.</p>
+<div id="fig-intro-fig" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intro-fig-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-10-unsup-wqe/intro_fig.webp" class="img-fluid figure-img" style="width:65.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intro-fig-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.1: Example of German<span class="math inline">\(\rightarrow\)</span>English translation with two sets of human word-level error span annotations and two examples of continuous and binary WQE metrics.
+</figcaption>
+</figure>
+</div>
+<p>In this chapter, we conduct a more comprehensive evaluation spanning 10 unsupervised metrics derived from models’ inner representations and predictive distributions to identify translation errors at the word level. We test three open-source multilingual MT models and LLMs of varying sizes across 12 translation directions, including typologically diverse languages and challenging textual domains. Importantly, we focus on texts with <em>multiple</em> human annotations to measure the impact of individual annotator preferences on metric performance, setting a “human-level” baseline for the WQE task.</p>
+<p>We address the following research questions:</p>
+<ul>
+<li><p>How accurate are unsupervised WQE metrics in detecting MT errors compared to trained metrics and human annotators?</p></li>
+<li><p>Are popular supervised WQE metrics well-calibrated?</p></li>
+<li><p>Are the relative performances of WQE metrics affected by the variability in human error annotations?</p></li>
+</ul>
+<p>We conclude with recommendations for improving the evaluation and usage of future WQE systems.</p>
+</section>
+<section id="sec-unsup-wqe-related-work" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="sec-unsup-wqe-related-work"><span class="header-section-number">10.2</span> Related Work</h2>
+<p><span class="paragraph">Actionable Insights from Interpretability</span> Advances in interpretability research have elucidated multiple mechanisms underlying decision-making, knowledge representation, and biases in LMs <span class="citation" data-cites="ferrando-etal-2024-primer">(<a href="references.html#ref-ferrando-etal-2024-primer" role="doc-biblioref">Ferrando et al., 2024</a>)</span>. However, a better understanding of model’s inner workings often did not translate to tangible gains in model design and other practical applications, which remain rarely explored <span class="citation" data-cites="mosbach-etal-2024-insights">(<a href="references.html#ref-mosbach-etal-2024-insights" role="doc-biblioref">Mosbach et al., 2024</a>)</span>. Some examples in this direction include using targeted machine unlearning methods for safety-critical scenarios <span class="citation" data-cites="barez-etal-2025-open">(<a href="references.html#ref-barez-etal-2025-open" role="doc-biblioref">Barez et al., 2025</a>)</span>, or the use of attribution for trustworthy context citations in LM generations <span class="citation" data-cites="cohenwang-etal-2024-contextcite sarti-etal-2024-quantifying qi-sarti-etal-2024-model">(<a href="references.html#ref-cohenwang-etal-2024-contextcite" role="doc-biblioref">Cohen-Wang et al., 2024</a>; <a href="references.html#ref-sarti-etal-2024-quantifying" role="doc-biblioref">Sarti et al., 2024</a>; <a href="references.html#ref-qi-sarti-etal-2024-model" role="doc-biblioref">Qi^* et al., 2024</a>)</span>. In this study, unsupervised metrics extracted from an MT model during generation are employed to detect errors in models’ generated outputs, following the unsupervised QE paradigm introduced in <a href="chap-2-background.html#sec-chap2-qe" class="quarto-xref"><span>Section 2.6</span></a>. This can be seen as a variant of out-of-distribution detection in signal processing research <span class="citation" data-cites="ood-detection">(<a href="references.html#ref-ood-detection" role="doc-biblioref">Hendrycks and Gimpel, 2017</a>)</span>.</p>
+<p><span class="paragraph">Uncertainty Estimation for Language Models</span> The estimation of uncertainty in language models has garnered increasing attention <span class="citation" data-cites="baan-etal-2023-uncertainty">(<a href="references.html#ref-baan-etal-2023-uncertainty" role="doc-biblioref">Baan et al., 2023</a>)</span>, particularly in the context of generation tasks for which the set of plausible responses is large <span class="citation" data-cites="giulianelli-etal-2023-comes">(<a href="references.html#ref-giulianelli-etal-2023-comes" role="doc-biblioref">Giulianelli et al., 2023</a>)</span>. Predictive uncertainty is typically decomposed into its <em>aleatoric</em> and <em>epistemic</em> components, representing respectively the irreducible variability in the modeled phenomena, and the improvable confidence in model predictions <span class="citation" data-cites="aleatoric-epistemic">(<a href="references.html#ref-aleatoric-epistemic" role="doc-biblioref">Kiureghian and Ditlevsen, 2009</a>)</span>. Popular methods for uncertainty estimation involve the calibration of predictive probabilities to reflect aleatoric uncertainty <span class="citation" data-cites="jiang-etal-2020-know ulmer-etal-2022-exploring zhao2023calibrating chen-etal-2023-close">(<a href="references.html#ref-jiang-etal-2020-know" role="doc-biblioref">Jiang et al., 2020</a>; <a href="references.html#ref-ulmer-etal-2022-exploring" role="doc-biblioref">Ulmer et al., 2022</a>; <a href="references.html#ref-zhao2023calibrating" role="doc-biblioref">Zhao et al., 2023</a>; <a href="references.html#ref-chen-etal-2023-close" role="doc-biblioref">Chen et al., 2023</a>)</span>, and conformal sets prediction <span class="citation" data-cites="zerva-martins-2024-conformalizing ravfogel-etal-2023-conformal">(<a href="references.html#ref-zerva-martins-2024-conformalizing" role="doc-biblioref">Zerva and Martins, 2024</a>; <a href="references.html#ref-ravfogel-etal-2023-conformal" role="doc-biblioref">Ravfogel et al., 2023</a>)</span>. In this study, we utilize uncertainty signals from the predictive distribution of MT models and their internal processing to efficiently predict the resulting generation quality at a fine-grained, token-level scale.</p>
+<p><span class="paragraph">Human Label Variation</span> Human label variation is a type of uncertainty that arises from the inherent variability in human judgments <span class="citation" data-cites="plank-etal-2014-linguistically plank-2022-problem">(<a href="references.html#ref-plank-etal-2014-linguistically" role="doc-biblioref">Plank et al., 2014</a>; <a href="references.html#ref-plank-2022-problem" role="doc-biblioref">Plank, 2022</a>)</span>, which can be hard to disentangle from actual annotation mistakes <span class="citation" data-cites="snow-etal-2008-cheap weber-genzel-etal-2024-varierr">(<a href="references.html#ref-snow-etal-2008-cheap" role="doc-biblioref">Snow et al., 2008</a>; <a href="references.html#ref-weber-genzel-etal-2024-varierr" role="doc-biblioref">Weber-Genzel et al., 2024</a>)</span>. The use of multiple references was recently recommended to ensure a sound evaluation of generative LMs, reflecting human-plausible levels of variability <span class="citation" data-cites="giulianelli-etal-2023-comes">(<a href="references.html#ref-giulianelli-etal-2023-comes" role="doc-biblioref">Giulianelli et al., 2023</a>)</span>, contrary to standard practices that employ a single set of “gold” labels. In our analysis of QE4PE data, which contains multiple edits, we adopt a perspectivist approach<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to ensure a robust assessment of WQE metrics by accounting for annotators’ disagreement <span class="citation" data-cites="uma2021learning">(<a href="references.html#ref-uma2021learning" role="doc-biblioref">Uma et al., 2021</a>)</span>.</p>
+</section>
+<section id="sec-unsup-wqe-data" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="sec-unsup-wqe-data"><span class="header-section-number">10.3</span> Models and Datasets</h2>
+<p>We use datasets containing error annotations or post-edits on the outputs of open-source models to extract unsupervised WQE metrics using real model outputs, thereby avoiding potential confounders. We select the following datasets, summarized in <a href="#tbl-datasets-summary" class="quarto-xref">Table&nbsp;<span>10.1</span></a>:</p>
+<p><span class="paragraph">DivEMT</span> We reuse the DivEMT dataset, introduced in <a href="chap-8-divemt.html" class="quarto-xref"><span>Chapter 8</span></a>, including out-of-English machine translations towards six typologically diverse target languages (English<span class="math inline">\(\rightarrow\)</span>Arabic,Italian,Dutch,Turkish,Ukrainian,Vietnamese) produced by Google Translate and mBART-50 1-to-many for a subset of Wiki texts from the FLORES dataset <span class="citation" data-cites="goyal-etal-2022-flores">(<a href="references.html#ref-goyal-etal-2022-flores" role="doc-biblioref">Goyal et al., 2022</a>)</span>, with edits made by professional translators. In this study, we evaluate unsupervised metrics on the mBART-50 1-to-many model, converting the human post-edits into token-level labels to perform a cross-lingual comparison over a fixed set of examples.</p>
+<p><span class="paragraph">WMT24</span> The WMT24 dataset is taken from the General Machine Translation Shared Task at WMT 2024 <span class="citation" data-cites="kocmi-etal-2024-findings">(<a href="references.html#ref-kocmi-etal-2024-findings" role="doc-biblioref">Kocmi et al., 2024a</a>)</span>. It contains evaluation of several machine translation systems across English<span class="math inline">\(\rightarrow\)</span>{Czech, Hindi, Japanese, Chinese, Russian} (634 segments per language) and Czech<span class="math inline">\(\rightarrow\)</span>Ukrainian (1954 segments). The human evaluation was conducted using the Error Span Annotation protocol (ESA, <span class="citation" data-cites="kocmi-etal-2024-error">Kocmi et al. (<a href="references.html#ref-kocmi-etal-2024-error" role="doc-biblioref">2024b</a>)</span>), which involves human annotators highlighting erroneous spans in the translation and marking them as either <span class="smallcaps">minor</span> or <span class="smallcaps">major</span> errors. This dataset covers the <em>news</em>, <em>social</em>, and <em>speech</em> (with automatic speech recognition) domains. We adopt the official prompting setup from the WMT24 campaign, using the Aya23 model alongside the provided prompt and three in-context translation examples per language to ensure uniformity with previous results.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Aya23 is a large language model introduced by <span class="citation" data-cites="aya23">Aryabumi et al. (<a href="references.html#ref-aya23" role="doc-biblioref">2024</a>)</span> to improve the multilingual capabilities of the original Aya model <span class="citation" data-cites="ustun-etal-2024-aya">(<a href="references.html#ref-ustun-etal-2024-aya" role="doc-biblioref">Üstün et al., 2024</a>)</span> on a selected set of 23 languages. The model was included in the WMT24 evaluation by <span class="citation" data-cites="kocmi-etal-2024-findings">Kocmi et al. (<a href="references.html#ref-kocmi-etal-2024-findings" role="doc-biblioref">2024a</a>)</span>, resulting in the best translation performance among the tested open-source models. The model is a decoder-only transformer model with 40 layers, a model dimension of 8196 and 64 attention heads per layer. Using WMT24 allows us to extend our evaluation to a state-of-the-art LLM, given the popularity of such systems in MT <span class="citation" data-cites="kocmi-etal-2023-findings">(<a href="references.html#ref-kocmi-etal-2023-findings" role="doc-biblioref">Kocmi et al., 2023</a>)</span>.</p>
+<p><span class="paragraph">QE4PE</span> The QE4PE dataset, introduced in <a href="chap-9-qe4pe.html" class="quarto-xref"><span>Chapter 9</span></a>, was created to measure the effect of word-level error highlights when included in real-world human post-editing workflows. The QE4PE data provides granular behavioral metrics to evaluate the speed and quality of post-editing of 12 annotators for En<span class="math inline">\(\rightarrow\)</span>It and En<span class="math inline">\(\rightarrow\)</span>Nl across two challenging textual domains (social posts and biomedical abstracts) and four error span highlighting modalities, including the unsupervised Surprisal MCD<sub>var</sub> method and the supervised <span class="smallcaps">xcomet-xxl</span> we also test in this study. Provided that the presence of error span highlights was found to influence the editing choices of human editors, we limit our evaluation to the six human annotators per language that post-edited sentences without any highlights (3 for the <em>Oracle Post-edit</em> task to produce initial human-based highlights, and 3 for the <em>No Highlight</em> modality in the main task). This prevents us from biasing our evaluation of WQE metrics in favor of the metrics that influenced editing choices. As for <span class="smallcaps">DivEMT</span>, we use the post-edits over translations—in this case, those of the NLLB 3.3B model <span class="citation" data-cites="nllb-2024-scaling">(<a href="references.html#ref-nllb-2024-scaling" role="doc-biblioref">NLLB Team et al., 2024</a>)</span>—to produce token-level error spans, enabling an evaluation of WQE metrics across multiple annotation sets.</p>
+<div id="tbl-datasets-summary" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-datasets-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"><strong>DivEMT</strong></th>
+<th data-quarto-table-cell-role="th"><strong>WMT24</strong></th>
+<th data-quarto-table-cell-role="th"><strong>QE4PE</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="bold">Languages</td>
+<td><span class="smallcaps">en</span>→<span class="smallcaps">ar,it, nl,tr,uk,vi</span></td>
+<td><span class="smallcaps">en</span>→<span class="smallcaps">ja,zh,hi,cs,ru</span> <span class="smallcaps">cs</span>→<span class="smallcaps">uk</span></td>
+<td><span class="smallcaps">en</span>→<span class="smallcaps">it,nl</span></td>
+</tr>
+<tr class="even">
+<td class="bold">Errors type</td>
+<td>Post-edit</td>
+<td>Annotation</td>
+<td>Post-edit</td>
+</tr>
+<tr class="odd">
+<td class="bold">Label sets</td>
+<td>1</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td class="bold">Domains</td>
+<td>Wiki</td>
+<td>Multiple</td>
+<td>Social, Biomed</td>
+</tr>
+<tr class="odd">
+<td class="bold">MT Model</td>
+<td>mBART-50</td>
+<td>Aya23</td>
+<td>NLLB</td>
+</tr>
+<tr class="even">
+<td class="bold"># Segments</td>
+<td>2580</td>
+<td>5124</td>
+<td>3888</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-datasets-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10.1: Summary of tested datasets. Error spans are obtained from explicit error annotations or post-edited spans.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-unsup-wqe-metrics" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="sec-unsup-wqe-metrics"><span class="header-section-number">10.4</span> Evaluated Metrics</h2>
+<p>The following metrics were evaluated using the Inseq library introduced in <a href="chap-3-inseq.html" class="quarto-xref"><span>Chapter 3</span></a>.</p>
+<p><span class="paragraph">Predictive Distribution Metrics</span> We use the <strong>Surprisal</strong> of the predicted token <span class="math inline">\(t^{*}\)</span>, as negative log-probability <span class="math inline">\(-\log p(t^{*}_i|t_{&lt;i})\)</span>, and the <strong>Entropy</strong> <span class="math inline">\(H\)</span> of the output distribution <span class="math inline">\(P_N\)</span> over vocabulary <span class="math inline">\(\mathcal{V}\)</span>, <span class="math inline">\(-\sum_{i=1}^{|\mathcal{V}|} p(t_i|t_{&lt;i}) \log_2 p(t_i|t_{&lt;i})\)</span>, as simple metrics to quantify pointwise and full prediction uncertainty <span class="citation" data-cites="fomicheva-etal-2020-unsupervised">(<a href="references.html#ref-fomicheva-etal-2020-unsupervised" role="doc-biblioref">Fomicheva et al., 2020</a>)</span>. For surprisal, we also compute its expectation (<strong>MCD<span class="math inline">\(_\text{avg}\)</span></strong>) and variance (<strong>MCD<span class="math inline">\(_\text{var}\)</span></strong>) with <span class="math inline">\(n=10\)</span> steps of Monte Carlo Dropout <span class="citation" data-cites="gal-ghahramani-2016-dropout">(MCD, <a href="references.html#ref-gal-ghahramani-2016-dropout" role="doc-biblioref">Gal and Ghahramani, 2016</a>)</span> to obtain a robust estimate and a measure of epistemic uncertainty in predictions, respectively. Intuitively, epistemic uncertainty reflects models’ lack of knowledge rather than data ambiguity.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> We employ the mean of the negative log probabilities as a robust estimate of surprisal:</p>
+<p><span class="math display">\[\text{Surprisal MCD}_{\text{avg}} = \hat y_{\text{MCD}} = \frac{1}{T} \sum_{t=1}^{T} - \log p(x | \Theta_t)\]</span></p>
+<p>Moreover, we estimate predictive uncertainty by calculating the variance of predictive probabilities under the same setup:</p>
+<p><span class="math display">\[\text{Surprisal MCD}_{\text{var}} = \frac{1}{T} \sum_{t=1}^{T} \big(- \log p(x | \Theta_t) - \hat y_{\text{MCD}} \big)\]</span></p>
+<p><span class="paragraph">Vocabulary Projections</span> We use the Logit Lens method <span class="citation" data-cites="logitlens">(LL, <a href="references.html#ref-logitlens" role="doc-biblioref">nostalgebraist, 2020</a>)</span>, introduced in <a href="chap-2-background.html#sec-chap2-nlm-lm" class="quarto-xref"><span>Section 2.1.3</span></a>, to extract probability distributions <span class="math inline">\(P_0, \dots, P_{N-1}\)</span> over <span class="math inline">\(V\)</span> from intermediate activations at every layer <span class="math inline">\(l_0, \dots, l_{N-1}\)</span> of the decoder. We use the surprisal for the final prediction at every layer (<strong>LL-Surprisal</strong>) to assess the presence of layers with high sensitivity to incorrect predictions. For the NLLB and mBART-50 models, we also apply a final layer normalization before the projection, following the model architecture. For the Aya model, we instead scale logits by <span class="math inline">\(0.0625\)</span> (the default <code>logit_scale</code> defined in the model configuration). Following the residual stream view of the transformer model <span class="citation" data-cites="elhage-etal-2021-mathematical">(<a href="references.html#ref-elhage-etal-2021-mathematical" role="doc-biblioref">Elhage et al., 2021</a>)</span>, the resulting logits offer insight into the model’s predictive confidence at that specific depth of processing. Then, we compute the KL divergence between every layer distribution and the final distribution <span class="math inline">\(P_N\)</span>, e.g.&nbsp;<span class="math inline">\(\text{KL}(P_{N-1}\|P_N)\)</span>, to highlight trends in the shift in predictive probability produced by the application of remaining layers (<strong>LL KL-Div</strong>). Finally, we adapt the approach of <span class="citation" data-cites="prediction-depth">Baldock et al. (<a href="references.html#ref-prediction-depth" role="doc-biblioref">2021</a>)</span> and use the number of the first layer for which the final prediction corresponds to the top logit as a metric of model confidence, <span class="math inline">\(l \;\text{s.t.}\;\arg \max P_l = t^{*}\)</span> and <span class="math inline">\(\arg \max P_i \neq t^{*} \;\forall i&lt;l\)</span> (<strong>LL Pred. Depth</strong>).</p>
+<p><span class="paragraph">Context mixing</span> We employ simple estimates of context relevance using attention weights produced during the transformer attention operation. More specifically, for every attention head at every layer of the decoder module, we extract a score for every token in the preceding context. We then use the entropy of the distribution of attention weights<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> over previous context as a simple measure of information locality during inference <span class="citation" data-cites="ferrando-etal-2022-measuring mohebbi-etal-2023-quantifying">(<a href="references.html#ref-ferrando-etal-2022-measuring" role="doc-biblioref">Ferrando et al., 2022</a>; <a href="references.html#ref-mohebbi-etal-2023-quantifying" role="doc-biblioref">Mohebbi et al., 2023</a>)</span>. Following <span class="citation" data-cites="fomicheva-etal-2020-unsupervised">Fomicheva et al. (<a href="references.html#ref-fomicheva-etal-2020-unsupervised" role="doc-biblioref">2020</a>)</span>, we experiment with using the mean and the maximum entropy across all attention heads of all layers as separate metrics (<strong>Attn. Entropy<sub>avg/max</sub></strong>). Finally, we evaluate the Between Layer OOD method by <span class="citation" data-cites="jelenic-etal-2024-blood">Jelenić et al. (<a href="references.html#ref-jelenic-etal-2024-blood" role="doc-biblioref">2024</a>)</span>, employing gradients to estimate layer transformation smoothness for OOD detection (<strong>BLOOD</strong>).</p>
+<p><span class="paragraph">Supervised baselines</span> We also test the state-of-the-art supervised WQE model <span class="smallcaps">xcomet</span> <span class="citation" data-cites="guerreiro-etal-2024-xcomet">(<a href="references.html#ref-guerreiro-etal-2024-xcomet" role="doc-biblioref">Guerreiro et al., 2024</a>)</span>, introduced in <a href="chap-2-background.html#sec-chap2-qe" class="quarto-xref"><span>Section 2.6</span></a>. In this chapter, we focus on their word-level error span prediction capabilities in a quality estimation setup, where the model classifies every input token according to MQM severity levels {<span class="smallcaps">ok</span>, <span class="smallcaps">minor</span>, <span class="smallcaps">major</span>, <span class="smallcaps">critical</span>} with a learned linear layer.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Contrary to the continuous metrics from the previous section, binary labels from <span class="smallcaps">xcomet</span> cannot be easily calibrated to match subjective annotation propensity. Hence, we propose to adapt the <span class="smallcaps">xcomet</span> metric to use the sum of probability for all error types as a token-level continuous confidence metric, <span class="math inline">\(s(t^{*}) = p(\text{minor}) + p(\text{major}) + p(\text{critical})\)</span>, which we dub <strong><span class="smallcaps">xcomet</span><sub>conf</sub></strong>.</p>
+<p><span class="paragraph">Human Editors</span> For QE4PE, we report the min/mean/max agreement between each annotator’s edited spans and those of the other five editors as a less subjective “human-level” quality measure.</p>
+</section>
+<section id="sec-unsup-wqe-experiments" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="sec-unsup-wqe-experiments"><span class="header-section-number">10.5</span> Experiments</h2>
+<section id="setup" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">10.5.1</span> Setup</h3>
+<p><span class="paragraph">Token-level Evaluation</span> Error spans used as labels in our evaluation are defined at the character level, while metric scores depend on the tokenization employed by either the MT model (for unsupervised metrics) or <span class="smallcaps">xcomet</span> (for supervised metrics). To facilitate comparison, we label tokens as part of an error span if at least one character contained within them was marked as an error or edited by an annotator. <a href="#tbl-example-qe4pe-ita" class="quarto-xref">Table&nbsp;<span>10.2</span></a> and <a href="#tbl-example-wmt24-encs" class="quarto-xref">Table&nbsp;<span>10.3</span></a> provide examples of various segmentations for the same MT output.</p>
+<div id="tbl-example-qe4pe-ita" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-example-qe4pe-ita-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p style="font-weight: bold;font-style: italic;font-size: 0.8em">Hover highlighted spans to see error annotations.</p>
+
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td style="font-weight: bold">Source<sub>en</sub></td>
+<td>So why is it that people jump through extra hoops to install Google Maps?</td>
+</tr>
+<tr class="even">
+<td style="font-weight: bold">MT<sub>it</sub> (NLLB)</td>
+<td>Quindi perché le persone devono fare un salto in più per installare Google Maps?</td>
+</tr>
+<tr class="midrule odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Annotator <span class="math inline">\(t1\)</span></td>
+<td>Quindi perché le persone devono fare un <span class="bg-green" title="salto">passaggio</span> in più per installare Google Maps?</td>
+</tr>
+<tr class="odd">
+<td>Annotator <span class="math inline">\(t2\)</span></td>
+<td>Quindi perché le persone <span class="bg-green" title="devono fare un passaggio in più">fanno i salti mortali</span> per installare Google Maps?</td>
+</tr>
+<tr class="even">
+<td>Annotator <span class="math inline">\(t3\)</span></td>
+<td>Quindi perché le persone <span class="bg-green" title="devono fare un salto in più">effettuano dei passaggi ulteriori e superflui</span> per installare Google Maps?</td>
+</tr>
+<tr class="odd">
+<td>Annotator <span class="math inline">\(t4\)</span></td>
+<td><span class="bg-green" title="Quindi">Allora</span> perché le persone <span class="bg-green" title="devono fare">fanno</span> un <span class="bg-green" title="salto">passaggio</span> in più per installare Google Maps?</td>
+</tr>
+<tr class="even">
+<td>Annotator <span class="math inline">\(t5\)</span></td>
+<td><span class="bg-green" title="Quindi perché le persone devono fare un salto in più">E allora mi chiedo: perché gli utenti iPhone si affannano tanto</span> per installare Google Maps?</td>
+</tr>
+<tr class="odd">
+<td>Annotator <span class="math inline">\(t6\)</span></td>
+<td>Quindi perché le persone <span class="bg-green" title="devono fare un salto in più">fanno di tutto</span> per installare Google Maps?</td>
+</tr>
+<tr class="even">
+<td>Edit Counts (<a href="#fig-annotators-perf" class="quarto-xref">Figure&nbsp;<span>10.3</span></a>)</td>
+<td><span class="bg-blue-c" title="2/6">Quindi</span> <span class="bg-blue-b" title="1/6">perché le persone</span> <span class="bg-blue-e" title="5/6">devono fare</span> <span class="bg-blue-d" title="4/6">un</span> <span class="bg-blue-f" title="6/6">salto</span> <span class="bg-blue-d" title="4/6">in più</span> per installare Google Maps?</td>
+</tr>
+<tr class="midrule odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">xcomet-xl</span></td>
+<td>Quindi perché le persone <span style="background-color: #ffcccb" title="minor">devono fare</span> un <span style="background-color: #ffcccb" title="minor">salto in più</span> per installare Google Maps?</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">xcomet-xxl</span></td>
+<td><span style="background-color: #ffcccb" title="minor">Quindi perché</span> le persone <span style="background-color: #ff9999" title="major">devono fare un salto in più</span> per installare Google Maps?</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">xcomet-xl</span><span class="math inline">\(_{\text{conf}}\)</span></td>
+<td><span style="background-color: #FFA500" title=".41">Quindi</span> <span style="background-color: #FFB366" title=".36">perché</span> <span style="background-color: #FFA500" title=".51">le</span> <span style="background-color: #FFA500" title=".50">persone</span> <span style="background-color: #FF8C00" title=".69">devono</span> <span style="background-color: #FF8C00" title=".73">fare</span> <span style="background-color: #FFA500" title=".51">un</span> <span style="background-color: #FF6600" title=".81">salto</span> <span style="background-color: #FF8C00" title=".74">in</span> <span style="background-color: #FF8C00" title=".76">più</span> <span style="background-color: #FFB366" title=".39">per</span> <span style="background-color: #FFA500" title=".47">install</span> <span style="background-color: #FFA500" title=".53">are</span> <span style="background-color: #FFB366" title=".26">Google</span> <span style="background-color: #FFB366" title=".36">Maps</span> <span style="background-color: #FFB366" title=".24">?</span></td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">xcomet-xxl</span><span class="math inline">\(_{\text{conf}}\)</span></td>
+<td><span style="background-color: #FFA500" title=".51">Quindi</span> <span style="background-color: #FF6600" title=".83">perché</span> <span style="background-color: #FFC080" title=".20">le</span> <span style="background-color: #FFC080" title=".20">persone</span> <span style="background-color: #FF9933" title=".42">devono</span> <span style="background-color: #FF6600" title=".84">fare</span> <span style="background-color: #FF0000" title=".90">un</span> <span style="background-color: #FF0000" title=".95">salto</span> <span style="background-color: #FF6600" title=".86">in</span> <span style="background-color: #FF6600" title=".78">più</span> <span style="background-color: #FFFFCC" title=".03">per</span> <span style="background-color: #FFFFFF" title=".00">install</span> <span style="background-color: #FFFFFF" title=".01">are</span> <span style="background-color: #FFFFFF" title=".00">Google</span> <span style="background-color: #FFFFFF" title=".00">Maps</span> <span style="background-color: #FFFFFF" title=".00">?</span></td>
+</tr>
+<tr class="even">
+<td>Surprisal MCD<span class="math inline">\(_{\text{var}}\)</span></td>
+<td><span style="background-color: #FFFFCC" title=".05">Quindi</span> <span style="background-color: #FFFFFF" title=".01">perché</span> <span style="background-color: #FFFFCC" title=".04">le</span> <span style="background-color: #FFFFFF" title=".00">persone</span> <span style="background-color: #FF6600" title=".41">devono</span> <span style="background-color: #FFA500" title=".09">fare</span> <span style="background-color: #FFFFCC" title=".04">un</span> <span style="background-color: #FF0000" title=".59">sal</span> <span style="background-color: #FFFFFF" title=".00">to</span> <span style="background-color: #FF9999" title=".12">in</span> <span style="background-color: #FFFFFF" title=".00">più</span> <span style="background-color: #FFFFFF" title=".00">per</span> <span style="background-color: #FFFFFF" title=".00">installare</span> <span style="background-color: #FFFFFF" title=".00">Google</span> <span style="background-color: #FFFFFF" title=".00">Maps</span> <span style="background-color: #FFFFFF" title=".00">?</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-example-qe4pe-ita-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10.2: Annotated example from the En<span class="math inline">\(\rightarrow\)</span>It portion of the QE4PE dataset. <strong>Top:</strong> Annotator edits with highlighted final text and replaced text on top, with count-based aggregation showing inter-annotator agreement. <strong>Bottom:</strong> Word-level annotations for best-performing metrics discussed in the study.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-example-wmt24-encs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-example-wmt24-encs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p style="font-weight: bold;font-style: italic;font-size: 0.8em">Hover highlighted spans to see error annotations.</p>
+
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td style="font-weight: bold">Source<sub>en</sub></td>
+<td>So the challenges in this are already showing themselves. I'm likely going to have a VERY difficult time getting a medical clearance due to the FAA's stance on certain medications.</td>
+</tr>
+<tr class="even">
+<td style="font-weight: bold">MT<sub>cs</sub> (Aya23)</td>
+<td>Takže problémy s tím se již projevují. Pravděpodobně budu mít PŘESNĚ obtížný čas dostat lékařské potvrzení kvůli postoji FAA k některým lékům.</td>
+</tr>
+<tr class="midrule odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Annotator</td>
+<td>Takže <span style="background-color: #b3d9ff" title="minor">problémy</span> s tím se již projevují. Pravděpodobně budu mít <span style="background-color: #66b3ff" title="major">PŘESNĚ obtížný čas</span> dostat lékařské potvrzení kvůli postoji FAA k některým lékům.</td>
+</tr>
+<tr class="midrule odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">xcomet-xl</span></td>
+<td>Takže problémy s tím se již projevují. Pravděpodobně budu mít <span style="background-color: #ffcccb" title="minor">PŘESNĚ obtížný</span> <span style="background-color: #ffcccb" title="minor">čas dostat</span> lékařské <span style="background-color: #ffcccb" title="minor">potvrzení</span> kvůli postoji FAA k některým lékům</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">xcomet-xxl</span></td>
+<td><span style="background-color: #ffcccb" title="minor">Takže problémy s tím se již projevují</span>. Pravděpodobně budu mít <span style="background-color: #ff9999" title="major">PŘESNĚ obtížný čas dostat</span> lékařské potvrzení kvůli postoji FAA k některým lékům.</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">xcomet-xl</span><span class="math inline">\(_{\text{conf}}\)</span></td>
+<td><span style="background-color: #ff9999" title="0.23">Takže</span> <span style="background-color: #ff8c00" title="0.28">problémy</span> <span style="background-color: #ff9999" title="0.26">s</span> <span style="background-color: #ff8c00" title="0.28">tím</span> <span style="background-color: #ffa500" title="0.17">se</span> <span style="background-color: #ffa500" title="0.19">již</span> <span style="background-color: #ff9999" title="0.31">projevují</span> <span style="background-color: #ffa500" title="0.17">.</span> <span style="background-color: #ff9999" title="0.23">Pravděpodobně</span> <span style="background-color: #ff6666" title="0.40">budu</span> <span style="background-color: #ff6666" title="0.48">mít</span> <span style="background-color: #ff0000" title="0.79">PŘESNĚ</span> <span style="background-color: #ff6600" title="0.65">obtížný</span> <span style="background-color: #ff6600" title="0.76">čas</span> <span style="background-color: #ff6600" title="0.64">dostat</span> <span style="background-color: #ff6666" title="0.50">lékařské</span> <span style="background-color: #ff6666" title="0.51">potvrzení</span> <span style="background-color: #ffa500" title="0.19">kvůli</span> <span style="background-color: #ff8c00" title="0.34">postoji</span> <span style="background-color: #ff9999" title="0.27">FAA</span> <span style="background-color: #ffa500" title="0.20">k</span> <span style="background-color: #ffa500" title="0.20">některým</span> <span style="background-color: #ffa500" title="0.21">lékům</span> <span style="background-color: #ffa500" title="0.17">.</span></td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">xcomet-xxl</span><span class="math inline">\(_{\text{conf}}\)</span></td>
+<td><span style="background-color: #ff6666" title="0.25">Takže</span> <span style="background-color: #ff8c00" title="0.24">problémy</span> <span style="background-color: #ff8c00" title="0.26">s</span> <span style="background-color: #ff6666" title="0.31">tím</span> <span style="background-color: #ff6666" title="0.29">se</span> <span style="background-color: #ff8c00" title="0.23">již</span> <span style="background-color: #ff6666" title="0.26">projevují</span> <span style="background-color: #ffffff" title="0.01">.</span> <span style="background-color: #ffffff" title="0.01">Pravděpodobně</span> <span style="background-color: #ffffcc" title="0.03">budu</span> <span style="background-color: #ff6600" title="0.37">PŘESNĚ</span> <span style="background-color: #ff6666" title="0.30">obtížný</span> <span style="background-color: #ff6666" title="0.32">čas</span> <span style="background-color: #ff8c00" title="0.24">dostat</span> <span style="background-color: #ff9999" title="0.10">lékařské</span> <span style="background-color: #ff8c00" title="0.13">potvrzení</span> <span style="background-color: #ffffff" title="0.01">kvůli</span> <span style="background-color: #ffffff" title="0.00">postoji</span> <span style="background-color: #ffffff" title="0.00">FAA</span> <span style="background-color: #ffffff" title="0.00">k</span> <span style="background-color: #ffffff" title="0.00">některým</span> <span style="background-color: #ffffff" title="0.00">lékům</span> <span style="background-color: #ffffff" title="0.00">.</span></td>
+</tr>
+<tr class="even">
+<td>Out. Entropy</td>
+<td><span style="background-color: #ff8c00" title="0.88">Takže</span> <span style="background-color: #ff6600" title="1.93">problémy</span> <span style="background-color: #ff6600" title="1.88">s</span> <span style="background-color: #ff9999" title="0.84">tím</span> <span style="background-color: #ff6666" title="1.66">se</span> <span style="background-color: #ff9999" title="1.13">již</span> <span style="background-color: #ff8c00" title="0.89">projevují</span> <span style="background-color: #ffffcc" title="0.11">.</span> <span style="background-color: #ffa500" title="0.44">Pravděpodobně</span> <span style="background-color: #ffa500" title="0.22">budu</span> <span style="background-color: #ffffcc" title="0.09">mít</span> <span style="background-color: #ff0000" title="2.09">PŘESNĚ</span> <span style="background-color: #ff0000" title="3.70">obtížný</span> <span style="background-color: #ffffcc" title="0.09">čas</span> <span style="background-color: #ff6600" title="1.40">dostat</span> <span style="background-color: #ff6666" title="1.02">lékařské</span> <span style="background-color: #ff9999" title="0.64">potvrzení</span> <span style="background-color: #ffa500" title="0.69">kvůli</span> <span style="background-color: #ffa500" title="0.24">postoji</span> <span style="background-color: #ff9999" title="0.80">FAA</span> <span style="background-color: #ff6666" title="1.01">k</span> <span style="background-color: #ff9999" title="0.55">některým</span> <span style="background-color: #ffa500" title="0.18">lékům</span> <span style="background-color: #ffffcc" title="0.11">.</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-example-wmt24-encs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10.3: Annotated example from the En<span class="math inline">\(\rightarrow\)</span>Cs portion of the WMT24 dataset. <strong>Top:</strong> Annotator edits with highlighted Error Span Annotation of <span style="background-color: #b3d9ff">minor</span> and <span style="background-color: #66b3ff">major</span> errors. <strong>Bottom:</strong> Word-level annotations for best-performing metrics discussed in the study.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Constraining generation</span> Evaluating metrics at the word level can be challenging due to the need for perfect uniformity between model generations and annotated spans. For this reason, we extract unsupervised metrics during generation while force-decoding the annotated outputs from the MT model to ensure perfect adherence with annotated error spans. In general, such an approach could introduce a problematic confounder in the evaluation, as observed results may be the product of constraining a model towards an unnatural generation, rather than reflecting the underlying phenomena. However, in this study, we carefully ensure that the generation setup matches exactly the one of previous works where the annotated translations were produced, using the same MT model and the same inputs.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Hence, the constraining process serves as a simple assurance of conformity in light of potential discrepancies introduced by different decoding strategies, and does not affect the soundness of our method.</p>
+</section>
+<section id="results" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="results"><span class="header-section-number">10.5.2</span> Results</h3>
+<p><span class="paragraph">How Accurate are Unsupervised WQE Metrics?</span> <a href="#tbl-datasets-perf" class="quarto-xref">Table&nbsp;<span>10.4</span></a> reports the average metrics performance across all translation directions across tested datasets.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> We report Average Precision (AP) as a general measure of metric quality across the full score range, and we estimate calibrated metric performance as the best F1 score (F1*) across all thresholds for binarizing continuous metric scores into pos./neg. labels matching human annotation.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> Our results show that, despite high variability in error span prevalence across different models, languages and annotators, metric rankings remain generally consistent, suggesting the presence of <strong>robust relations between various signals sourced from models’ inner workings and translation errors</strong>.</p>
+<div id="tbl-datasets-perf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-datasets-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"><strong>Method</strong></th>
+<th colspan="2" data-quarto-table-cell-role="th"><strong>DivEMT</strong></th>
+<th colspan="2" data-quarto-table-cell-role="th"><strong>WMT24</strong></th>
+<th colspan="2" data-quarto-table-cell-role="th"><strong>QE4PE</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"><strong>AP</strong></th>
+<th data-quarto-table-cell-role="th"><strong>F1<span class="math inline">\(^{*}\)</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong>AP</strong></th>
+<th data-quarto-table-cell-role="th"><strong>F1<span class="math inline">\(^{*}\)</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong>AP</strong></th>
+<th data-quarto-table-cell-role="th"><strong>F1<span class="math inline">\(^{*}\)</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td></td>
+<td>Random</td>
+<td style="background-color: #f0f0f0">.34</td>
+<td style="background-color: #87ceeb">.50</td>
+<td style="background-color: #f0f0f0">.05</td>
+<td style="background-color: #f0f0f0">.09</td>
+<td style="background-color: #f8f8f8">.17</td>
+<td style="background-color: #f0f0f0">.27</td>
+</tr>
+<tr class="even">
+<td rowspan="10" style="text-align: center; writing-mode: vertical-lr; font-variant: small-caps; font-weight: bold;">unsupervised</td>
+<td>Surprisal</td>
+<td style="background-color: #d4edda">.43</td>
+<td style="background-color: #7fb3d3">.53</td>
+<td style="background-color: #e3f2fd">.08</td>
+<td style="background-color: #e3f2fd">.13</td>
+<td style="background-color: #d4edda">.23</td>
+<td style="background-color: #e3f2fd">.32</td>
+</tr>
+<tr class="odd">
+<td>Out. Entropy</td>
+<td style="background-color: #c3e6cb">.46</td>
+<td style="background-color: #85c1e9">.51</td>
+<td style="background-color: #d0e9ff; text-decoration: underline; font-weight: bold">.10</td>
+<td style="background-color: #c9e2ff; text-decoration: underline; font-weight: bold">.16</td>
+<td style="background-color: #d4edda">.23</td>
+<td style="background-color: #e8f4fd">.31</td>
+</tr>
+<tr class="even">
+<td>Surprisal <span class="smallcaps">mcd</span><span class="math inline">\(_{\text{avg}}\)</span></td>
+<td style="background-color: #d4edda">.43</td>
+<td style="background-color: #7fb3d3">.53</td>
+<td>-</td>
+<td>-</td>
+<td style="background-color: #c8e6c9">.24</td>
+<td style="background-color: #d6e9ff">.33</td>
+</tr>
+<tr class="odd">
+<td>Surprisal <span class="smallcaps">mcd</span><span class="math inline">\(_{\text{var}}\)</span></td>
+<td style="background-color: #b8ddb8; text-decoration: underline; font-weight: bold">.47</td>
+<td style="background-color: #76a9d1; text-decoration: underline; font-weight: bold">.54</td>
+<td>-</td>
+<td>-</td>
+<td style="background-color: #b8ddb8; text-decoration: underline; font-weight: bold">.26</td>
+<td style="background-color: #d0e7ff; text-decoration: underline; font-weight: bold">.34</td>
+</tr>
+<tr class="even">
+<td>LL Surprisal<span class="math inline">\(_{\text{best}}\)</span></td>
+<td style="background-color: #d9eed9">.42</td>
+<td style="background-color: #7fb3d3">.53</td>
+<td style="background-color: #d9eed9">.09</td>
+<td style="background-color: #d6e9ff">.15</td>
+<td style="background-color: #d4edda">.23</td>
+<td style="background-color: #e3f2fd">.32</td>
+</tr>
+<tr class="odd">
+<td>LL KL-Div<span class="math inline">\(_{\text{best}}\)</span></td>
+<td style="background-color: #d4edda">.43</td>
+<td style="background-color: #85c1e9">.51</td>
+<td style="background-color: #f5f5f5">.07</td>
+<td style="background-color: #e8f4fd">.12</td>
+<td style="background-color: #e7f3e7">.20</td>
+<td style="background-color: #f0f8ff">.29</td>
+</tr>
+<tr class="even">
+<td>LL Pred. Depth</td>
+<td style="background-color: #e7f3e7">.39</td>
+<td style="background-color: #85c1e9">.51</td>
+<td style="background-color: #f8f8f8">.06</td>
+<td style="background-color: #e8f4fd">.12</td>
+<td style="background-color: #e7f3e7">.20</td>
+<td style="background-color: #f0f8ff">.29</td>
+</tr>
+<tr class="odd">
+<td>Att. Entropy<span class="math inline">\(_{\text{avg}}\)</span></td>
+<td style="background-color: #f0f8f0">.37</td>
+<td style="background-color: #87ceeb">.50</td>
+<td style="background-color: #f0f0f0">.05</td>
+<td style="background-color: #f0f0f0">.09</td>
+<td style="background-color: #f2f9f2">.18</td>
+<td style="background-color: #f5f9ff">.28</td>
+</tr>
+<tr class="even">
+<td>Att. Entropy<span class="math inline">\(_{\text{max}}\)</span></td>
+<td style="background-color: #f0f0f0">.34</td>
+<td style="background-color: #87ceeb">.50</td>
+<td style="background-color: #f0f0f0">.05</td>
+<td style="background-color: #f0f0f0">.09</td>
+<td style="background-color: #f0f0f0">.16</td>
+<td style="background-color: #f5f9ff">.28</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="smallcaps">blood</span><span class="math inline">\(_{\text{best}}\)</span></td>
+<td style="background-color: #f0f0f0">.34</td>
+<td style="background-color: #87ceeb">.50</td>
+<td>-</td>
+<td>-</td>
+<td style="background-color: #f8f8f8">.17</td>
+<td style="background-color: #f5f9ff">.28</td>
+</tr>
+<tr class="even">
+<td rowspan="4" style="text-align: center; writing-mode: vertical-lr; font-variant: small-caps; font-weight: bold;">supervised</td>
+<td><span class="smallcaps">xcomet-xl</span></td>
+<td style="background-color: #d9eed9">.42</td>
+<td style="background-color: #e3f2fd">.45</td>
+<td style="background-color: #d9eed9">.09</td>
+<td style="background-color: #b8ddb8">.19</td>
+<td style="background-color: #d4edda">.23</td>
+<td style="background-color: #d0e7ff">.34</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">xcomet-xl</span><span class="math inline">\(_{\text{conf}}\)</span></td>
+<td style="background-color: #7eb8d3">.54</td>
+<td style="background-color: #5fa3c7; font-weight: bold">.55</td>
+<td style="background-color: #7eb8d3">.15</td>
+<td style="background-color: #6fadd0">.23</td>
+<td style="background-color: #6fadd0">.32</td>
+<td style="background-color: #c0e0ff; font-weight: bold">.37</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">xcomet-xxl</span></td>
+<td style="background-color: #d4edda">.43</td>
+<td style="background-color: #f0f0f0">.41</td>
+<td style="background-color: #d9eed9">.09</td>
+<td style="background-color: #aed6f1">.20</td>
+<td style="background-color: #d9eed9">.22</td>
+<td style="background-color: #e8f4fd">.31</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="smallcaps">xcomet-xxl</span><span class="math inline">\(_{\text{conf}}\)</span></td>
+<td style="background-color: #5fa3c7; font-weight: bold">.56</td>
+<td style="background-color: #5fa3c7; font-weight: bold">.55</td>
+<td style="background-color: #5fa3c7; font-weight: bold">.16</td>
+<td style="background-color: #5fa3c7; font-weight: bold">.24</td>
+<td style="background-color: #5fa3c7; font-weight: bold">.33</td>
+<td style="background-color: #c0e0ff; font-weight: bold">.37</td>
+</tr>
+<tr class="even">
+<td rowspan="3" style="text-align: center; writing-mode: vertical-lr; font-variant: small-caps; font-weight: bold;">human</td>
+<td>Hum. Editors<span class="math inline">\(_{\text{min}}\)</span></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td style="background-color: #c8e6c9">.24</td>
+<td style="background-color: #d0e7ff">.34</td>
+</tr>
+<tr class="odd">
+<td>Hum. Editors<span class="math inline">\(_{\text{avg}}\)</span></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td style="background-color: #9fd99f">.28</td>
+<td style="background-color: #85c1e9">.41</td>
+</tr>
+<tr class="even">
+<td>Hum. Editors<span class="math inline">\(_{\text{max}}\)</span></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td style="background-color: #6fadd0">.32</td>
+<td style="background-color: #5fa3c7">.47</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-datasets-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10.4: Average Precision (AP) and Optimal F1 (F1*) for metrics across tested datasets. Results are averaged across all languages and annotators, with best unsupervised and <strong>overall best</strong> results highlighted.
+</figcaption>
+</figure>
+</div>
+<p>Among unsupervised metrics, we find those based on the output distribution to be most effective at identifying error spans, in line with previous segment-level QE results <span class="citation" data-cites="fomicheva-etal-2020-unsupervised">(<a href="references.html#ref-fomicheva-etal-2020-unsupervised" role="doc-biblioref">Fomicheva et al., 2020</a>)</span>. Notably, the Surprisal MCD<sub>var</sub> shows strong performances in line with the default <span class="smallcaps">xcomet</span> models. For the multi-label QE4PE dataset, we find that the best supervised metrics score on par with the average human annotator consensus (Hum. Editors<sub>avg</sub>), while unsupervised metrics generally obtain lower performances.</p>
+<p><span class="paragraph">Confidence Weighting Enables <span class="smallcaps">xcomet</span> Calibration</span> From <a href="#tbl-datasets-perf" class="quarto-xref">Table&nbsp;<span>10.4</span></a> results, default <span class="smallcaps">xcomet</span> metrics underperform compared to the best unsupervised techniques, a surprising result given their ad-hoc tuning. On the contrary, simple continuous scores derived from <span class="smallcaps">xcomet</span> (<span class="smallcaps">xcomet</span><sub>conf</sub>) consistently reach better results across all tested sets. <a href="#fig-pr-curves-main" class="quarto-xref">Figure&nbsp;<span>10.2</span></a> shows the precision-recall tradeoff for these metrics on the EN<span class="math inline">\(\rightarrow\)</span>IT subset of the DivEMT dataset.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> In their default form, commonly used for evaluation via the <code>unbabel-comet</code> library, <span class="smallcaps">xcomet</span> metrics consistently outperform Surprisal MCD<sub>var</sub> in terms of precision (51-60%, compared to 34% optimal precision for MCD<sub>var</sub>), but identify only 32-26% of tokens annotated as errors, resulting in lower AP.</p>
+<div id="fig-pr-curves-main" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pr-curves-main-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 15.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="../figures/chap-10-unsup-wqe/divemt_metrics_pr_curves_ita.webp" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<p><img src="../figures/chap-10-unsup-wqe/divemt_metrics_pr_curves_ita_legend.webp" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 15.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pr-curves-main-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.2: Precision-Recall tradeoff for binary and confidence-weighted <span class="smallcaps">xcomet</span> variants and the Surprisal MCD<sub>var</sub> metric for DivEMT EN<span class="math inline">\(\rightarrow\)</span>IT.
+</figcaption>
+</figure>
+</div>
+<p>The low recall of these metrics may be problematic in WQE applications, where omitting an error could result in oversights by human post-editors, who may trust the comprehensiveness of WQE predictions. On the contrary, the confidence-weighted <span class="smallcaps">xcomet</span><sub>conf</sub> shows strong performances across the whole recall range, resulting in consistent improvements in both F1* and AP <a href="#tbl-datasets-perf" class="quarto-xref">Table&nbsp;<span>10.4</span></a>. Concretely, these results confirm that default <span class="smallcaps">xcomet</span> performance does not reflect the full capacity of the metric, and <strong>operating with granular confidence scores can be beneficial when calibration is possible</strong>.</p>
+<p><span class="paragraph">Metrics Performance for Multiple Annotations</span> While our evaluation so far employed human error span annotations as binary labels, we set out to assess how more granular labeling schemes impact metrics’ performance. Given <span class="math inline">\(L\)</span> sets of binary labels (up to 6 per language for QE4PE), we assign a score <span class="math inline">\(s \in \{1,\dots,L\}\)</span> to every MT token using the number of annotators that marked it as an error, resulting in edit counts reflecting human agreement rate, as shown in <a href="#tbl-example-qe4pe-ita" class="quarto-xref">Table&nbsp;<span>10.2</span></a>.</p>
+<p><a href="#fig-annotators-perf" class="quarto-xref">Figure&nbsp;<span>10.3</span></a> presents the correlation of various metrics as the number of annotators available increases, with median values and confidence bounds obtained from edit counts across all combinations of <span class="math inline">\(L\)</span> label sets.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> The increasing trend in correlations across all reported metrics indicates that these methods effectively reflect the <em>aleatoric uncertainty</em> in error span labels, i.e., the disagreement between various annotators. In particular, the Surprisal MCD<sub>var</sub> metric sees a steeper correlation increase than other well-performing metrics, surpassing default <span class="smallcaps">xcomet</span> supervised approaches for higher correlation bins. This suggests the epistemic uncertainty derived from noisy model predictions might be a promising way to anticipate the aleatoric uncertainty across human annotators for WQE. We observe that 95% confidence intervals for high-scoring metrics largely overlap when a single set of labels is used, indicating that <strong>rankings of metric performance are subject to change depending on the subjective choices of the annotator</strong>. While this poses a problem when attempting a robust evaluation of WQE metrics, we remark that including multiple annotations largely mitigates this issue. As a result, we recommend explicitly accounting for human label variation by including multiple error annotations in future WQE evaluations to ensure generalizable findings.</p>
+<div id="fig-annotators-perf" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-annotators-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-10-unsup-wqe/qe4pe_correlations.webp" class="img-fluid figure-img" style="width:70.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-annotators-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.3: Spearman correlation between WQE metric scores and human edit counts across multiple annotation sets for QE4PE EN<span class="math inline">\(\rightarrow\)</span>IT (left) and EN<span class="math inline">\(\rightarrow\)</span>NL (right).
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-unsup-wqe-limitations" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="sec-unsup-wqe-limitations"><span class="header-section-number">10.6</span> Limitations</h2>
+<p>Our findings are accompanied by several limitations. Firstly, our choice of tested datasets was limited by the availability of annotated outputs generated by open-source MT models. While several other datasets matching these criteria exist <span class="citation" data-cites="fomicheva-etal-2022-mlqe yang-etal-2023-rethinking dale-etal-2023-halomi">(<a href="references.html#ref-fomicheva-etal-2022-mlqe" role="doc-biblioref">Fomicheva et al., 2022</a>; <a href="references.html#ref-yang-etal-2023-rethinking" role="doc-biblioref">Yang et al., 2023</a>; <a href="references.html#ref-dale-etal-2023-halomi" role="doc-biblioref">Dale et al., 2023b</a>)</span>, we restricted our assessment to a sufficient subset to ensure diversity across languages and tested models to support our findings. To facilitate comparison with other datasets, our evaluation for WMT24 treats available error spans as binary labels and does not directly account for error severity in human-annotated spans. Our choice of unsupervised metrics was primarily driven by previous work on uncertainty quantification in MT, and ease of implementation for popular methods in mechanistic interpretability literature <span class="citation" data-cites="ferrando-etal-2024-primer">(<a href="references.html#ref-ferrando-etal-2024-primer" role="doc-biblioref">Ferrando et al., 2024</a>)</span>. However, our choices in the latter category were limited, as most methods are nowadays developed and tested specifically for decoder-only transformer models. Finally, despite their strong performance, we found that unsupervised methods based on MCD require substantial computational resources, and as such, we were unable to evaluate them on Aya23 35B. While our primary focus was to establish baseline performances across various popular methods, future work should leverage the latest insights from more advanced techniques, such as those requiring the tuning of vocabulary projections <span class="citation" data-cites="belrose-etal-2023-eliciting yom-din-etal-2024-jump">(<a href="references.html#ref-belrose-etal-2023-eliciting" role="doc-biblioref">Belrose et al., 2023</a>; <a href="references.html#ref-yom-din-etal-2024-jump" role="doc-biblioref">Yom Din et al., 2024</a>)</span> or the identification of “confidence neurons” that modulate predictive entropy <span class="citation" data-cites="confidence-neurons">(<a href="references.html#ref-confidence-neurons" role="doc-biblioref">Stolfo et al., 2024</a>)</span>.</p>
+</section>
+<section id="sec-unsup-wqe-conclusion" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="sec-unsup-wqe-conclusion"><span class="header-section-number">10.7</span> Conclusion</h2>
+<p>We conducted a comprehensive evaluation of supervised and unsupervised WQE metrics across multiple languages and annotation sets. Our results show that, while unsupervised metrics generally lag behind state-of-the-art supervised systems, some uncertainty quantification methods based on the predictive distribution show promising correlation with human label variation. Moreover, we find that popular supervised WQE metrics generally have low levels of recall and can benefit from confidence weighting when calibration is possible. Finally, individual annotator preferences are key confounders in WQE evaluations and can be mitigated by using multiple annotation sets.</p>
+<p>We offer the following practical recommendations for evaluating WQE systems:</p>
+<ul>
+<li><p>Use agreement between multiple human annotations to control the effect of subjective preferences and rank WQE metrics robustly.</p></li>
+<li><p>Employ an in-distribution calibration set of error spans before testing to ensure fair metric comparisons, and favor evaluations accounting for precision-recall tradeoffs to ensure their usability across various confidence levels.</p></li>
+<li><p>Previous work showed the effectiveness of visualization reflecting prediction confidence <span class="citation" data-cites="vasconcelos-etal-2025-generation">(<a href="references.html#ref-vasconcelos-etal-2025-generation" role="doc-biblioref">Vasconcelos et al., 2025</a>)</span>, such as highlights for various error severity levels <span class="citation" data-cites="sarti-etal-2025-qe4pe">(<a href="references.html#ref-sarti-etal-2025-qe4pe" role="doc-biblioref">Sarti et al., 2025a</a>)</span>. Consider using continuous WQE metrics in real-world applications such as WQE-augmented post-editing to convey fine-grained confidence variations.</p></li>
+</ul>
+<p>This final assessment concludes our investigation into the potential of model processing signals for enhancing the downstream verification of machine-translated content, converting interpretability methods commonly used for model analysis into practical tools for improving decision-making in real-world human-AI interaction settings.</p>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-aya23" class="csl-entry" role="listitem">
+Viraat Aryabumi, John Dang, Dwarak Talupuru, Saurabh Dash, David Cairuz, Hangyu Lin, Bharat Venkitesh, Madeline Smith, Jon Ander Campos, Yi Chern Tan, Kelly Marchisio, Max Bartolo, Sebastian Ruder, Acyr Locatelli, Julia Kreutzer, Nick Frosst, Aidan Gomez, Phil Blunsom, Marzieh Fadaee, et al. 2024. <a href="https://arxiv.org/abs/2405.15032">Aya 23: Open weight releases to further multilingual progress</a>.
+</div>
+<div id="ref-baan-etal-2023-uncertainty" class="csl-entry" role="listitem">
+Joris Baan, Nico Daheim, Evgenia Ilia, Dennis Ulmer, Haau-Sing Li, Raquel Fernández, Barbara Plank, Rico Sennrich, Chrysoula Zerva, and Wilker Aziz. 2023. <a href="https://arxiv.org/abs/2307.15703">Uncertainty in natural language generation: From theory to applications</a>.
+</div>
+<div id="ref-prediction-depth" class="csl-entry" role="listitem">
+Robert Baldock, Hartmut Maennel, and Behnam Neyshabur. 2021. <a href="https://proceedings.neurips.cc/paper_files/paper/2021/file/5a4b25aaed25c2ee1b74de72dc03c14e-Paper.pdf">Deep learning through the lens of example difficulty</a>. In M. Ranzato, A. Beygelzimer, Y. Dauphin, P. S. Liang, and J. Wortman Vaughan, editors, <em>Advances in neural information processing systems</em>, volume 34, pages 10876–10889. Curran Associates, Inc.
+</div>
+<div id="ref-barez-etal-2025-open" class="csl-entry" role="listitem">
+Fazl Barez, Tingchen Fu, Ameya Prabhu, Stephen Casper, Amartya Sanyal, Adel Bibi, Aidan O’Gara, Robert Kirk, Ben Bucknall, Tim Fist, Luke Ong, Philip Torr, Kwok-Yan Lam, Robert Trager, David Krueger, Sören Mindermann, José Hernandez-Orallo, Mor Geva, and Yarin Gal. 2025. <a href="https://arxiv.org/abs/2501.04952">Open problems in machine unlearning for AI safety</a>.
+</div>
+<div id="ref-belrose-etal-2023-eliciting" class="csl-entry" role="listitem">
+Nora Belrose, Zach Furman, Logan Smith, Danny Halawi, Igor Ostrovsky, Lev McKinney, Stella Biderman, and Jacob Steinhardt. 2023. <a href="https://arxiv.org/abs/2303.08112">Eliciting latent predictions from transformers with the tuned lens</a>. <em>ArXiv</em>, abs/2303.08112.
+</div>
+<div id="ref-chen-etal-2023-close" class="csl-entry" role="listitem">
+Yangyi Chen, Lifan Yuan, Ganqu Cui, Zhiyuan Liu, and Heng Ji. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-long.75">A close look into the calibration of pre-trained language models</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 1343–1367, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-cohenwang-etal-2024-contextcite" class="csl-entry" role="listitem">
+Benjamin Cohen-Wang, Harshay Shah, Kristian Georgiev, and Aleksander Mądry. 2024. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/adbea136219b64db96a9941e4249a857-Paper-Conference.pdf">ContextCite: Attributing model generation to context</a>. In A. Globerson, L. Mackey, D. Belgrave, A. Fan, U. Paquet, J. Tomczak, and C. Zhang, editors, <em>Advances in neural information processing systems</em>, volume 37, pages 95764–95807. Curran Associates, Inc.
+</div>
+<div id="ref-dale-etal-2023-detecting" class="csl-entry" role="listitem">
+David Dale, Elena Voita, Loic Barrault, and Marta R. Costa-jussà. 2023a. <a href="https://doi.org/10.18653/v1/2023.acl-long.3">Detecting and mitigating hallucinations in machine translation: Model internal workings alone do well, sentence similarity <span>E</span>ven better</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 36–50, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-dale-etal-2023-halomi" class="csl-entry" role="listitem">
+David Dale, Elena Voita, Janice Lam, Prangthip Hansanti, Christophe Ropers, Elahe Kalbassi, Cynthia Gao, Loic Barrault, and Marta Costa-jussà. 2023b. <a href="https://doi.org/10.18653/v1/2023.emnlp-main.42"><span>H</span>al<span>O</span>mi: A manually annotated benchmark for multilingual hallucination and omission detection in machine translation</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Proceedings of the 2023 conference on empirical methods in natural language processing</em>, pages 638–653, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-elhage-etal-2021-mathematical" class="csl-entry" role="listitem">
+Nelson Elhage, Neel Nanda, Catherine Olsson, Tom Henighan, Nicholas Joseph, Ben Mann, Amanda Askell, Yuntao Bai, Anna Chen, Tom Conerly, Nova DasSarma, Dawn Drain, Deep Ganguli, Zac Hatfield-Dodds, Danny Hernandez, Andy Jones, Jackson Kernion, Liane Lovitt, Kamal Ndousse, et al. 2021. A mathematical framework for transformer circuits. <em>Transformer Circuits Thread</em>. https://transformer-circuits.pub/2021/framework/index.html.
+</div>
+<div id="ref-fernandes-etal-2023-devil" class="csl-entry" role="listitem">
+Patrick Fernandes, Daniel Deutsch, Mara Finkelstein, Parker Riley, André Martins, Graham Neubig, Ankush Garg, Jonathan Clark, Markus Freitag, and Orhan Firat. 2023. <a href="https://doi.org/10.18653/v1/2023.wmt-1.100">The devil is in the errors: Leveraging large language models for fine-grained machine translation evaluation</a>. In Philipp Koehn, Barry Haddow, Tom Kocmi, and Christof Monz, editors, <em>Proceedings of the eighth conference on machine translation</em>, pages 1066–1083, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-ferrando-etal-2022-measuring" class="csl-entry" role="listitem">
+Javier Ferrando, Gerard I. Gállego, and Marta R. Costa-jussà. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.595">Measuring the mixing of contextual information in the transformer</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 8698–8714, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-ferrando-etal-2024-primer" class="csl-entry" role="listitem">
+Javier Ferrando, Gabriele Sarti, Arianna Bisazza, and Marta R. Costa-jussà. 2024. <a href="https://arxiv.org/abs/2405.00208">A primer on the inner workings of transformer-based language models</a>. <em>Arxiv Preprint</em>.
+</div>
+<div id="ref-fomicheva-etal-2021-eval4nlp" class="csl-entry" role="listitem">
+Marina Fomicheva, Piyawat Lertvittayakumjorn, Wei Zhao, Steffen Eger, and Yang Gao. 2021. <a href="https://doi.org/10.18653/v1/2021.eval4nlp-1.17">The <span>E</span>val4<span>NLP</span> shared task on explainable quality estimation: Overview and results</a>. In Yang Gao, Steffen Eger, Wei Zhao, Piyawat Lertvittayakumjorn, and Marina Fomicheva, editors, <em>Proceedings of the 2nd workshop on evaluation and comparison of NLP systems</em>, pages 165–178, Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-fomicheva-etal-2022-mlqe" class="csl-entry" role="listitem">
+Marina Fomicheva, Shuo Sun, Erick Fonseca, Chrysoula Zerva, Frédéric Blain, Vishrav Chaudhary, Francisco Guzmán, Nina Lopatina, Lucia Specia, and André F. T. Martins. 2022. <a href="https://aclanthology.org/2022.lrec-1.530/"><span>MLQE</span>-<span>PE</span>: A multilingual quality estimation and post-editing dataset</a>. In Nicoletta Calzolari, Frédéric Béchet, Philippe Blache, Khalid Choukri, Christopher Cieri, Thierry Declerck, Sara Goggi, Hitoshi Isahara, Bente Maegaard, Joseph Mariani, Hélène Mazo, Jan Odijk, and Stelios Piperidis, editors, <em>Proceedings of the thirteenth language resources and evaluation conference</em>, pages 4963–4974, Marseille, France. European Language Resources Association.
+</div>
+<div id="ref-fomicheva-etal-2020-unsupervised" class="csl-entry" role="listitem">
+Marina Fomicheva, Shuo Sun, Lisa Yankovskaya, Frédéric Blain, Francisco Guzmán, Mark Fishel, Nikolaos Aletras, Vishrav Chaudhary, and Lucia Specia. 2020. <a href="https://doi.org/10.1162/tacl_a_00330">Unsupervised quality estimation for neural machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 8:539–555.
+</div>
+<div id="ref-freitag-etal-2021-experts" class="csl-entry" role="listitem">
+Markus Freitag, George Foster, David Grangier, Viresh Ratnakar, Qijun Tan, and Wolfgang Macherey. 2021a. <a href="https://doi.org/10.1162/tacl_a_00437">Experts, errors, and context: A large-scale study of human evaluation for machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 9:1460–1474.
+</div>
+<div id="ref-freitag-etal-2021-results" class="csl-entry" role="listitem">
+Markus Freitag, Ricardo Rei, Nitika Mathur, Chi-kiu Lo, Craig Stewart, George Foster, Alon Lavie, and Ondřej Bojar. 2021b. <a href="https://aclanthology.org/2021.wmt-1.73/">Results of the <span>WMT</span>21 metrics shared task: Evaluating metrics with expert-based human evaluations on <span>TED</span> and news domain</a>. In Loic Barrault, Ondrej Bojar, Fethi Bougares, Rajen Chatterjee, Marta R. Costa-jussa, Christian Federmann, Mark Fishel, Alexander Fraser, Markus Freitag, Yvette Graham, Roman Grundkiewicz, Paco Guzman, Barry Haddow, Matthias Huck, Antonio Jimeno Yepes, Philipp Koehn, Tom Kocmi, Andre Martins, Makoto Morishita, et al., editors, <em>Proceedings of the sixth conference on machine translation</em>, pages 733–774, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-gal-ghahramani-2016-dropout" class="csl-entry" role="listitem">
+Yarin Gal and Zoubin Ghahramani. 2016. <a href="https://proceedings.mlr.press/v48/gal16.html">Dropout as a bayesian approximation: Representing model uncertainty in deep learning</a>. In Maria Florina Balcan and Kilian Q. Weinberger, editors, <em>Proceedings of the 33rd international conference on machine learning</em>, volume 48, pages 1050–1059, New York, NY, USA. Proceedings of Machine Learning Research (PLMR).
+</div>
+<div id="ref-giulianelli-etal-2023-comes" class="csl-entry" role="listitem">
+Mario Giulianelli, Joris Baan, Wilker Aziz, Raquel Fernández, and Barbara Plank. 2023. <a href="https://doi.org/10.18653/v1/2023.emnlp-main.887">What comes next? Evaluating uncertainty in neural text generators against human production variability</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Proceedings of the 2023 conference on empirical methods in natural language processing</em>, pages 14349–14371, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-goyal-etal-2022-flores" class="csl-entry" role="listitem">
+Naman Goyal, Cynthia Gao, Vishrav Chaudhary, Peng-Jen Chen, Guillaume Wenzek, Da Ju, Sanjana Krishnan, Marc’Aurelio Ranzato, Francisco Guzmán, and Angela Fan. 2022. <a href="https://doi.org/10.1162/tacl_a_00474">The <span>F</span>lores-101 evaluation benchmark for low-resource and multilingual machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 10:522–538.
+</div>
+<div id="ref-guerreiro-etal-2023-optimal" class="csl-entry" role="listitem">
+Nuno M. Guerreiro, Pierre Colombo, Pablo Piantanida, and André Martins. 2023a. <a href="https://doi.org/10.18653/v1/2023.acl-long.770">Optimal transport for unsupervised hallucination detection in neural machine translation</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 13766–13784, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-guerreiro-etal-2024-xcomet" class="csl-entry" role="listitem">
+Nuno M. Guerreiro, Ricardo Rei, Daan van Stigt, Luisa Coheur, Pierre Colombo, and André F. T. Martins. 2024. <a href="https://doi.org/10.1162/tacl_a_00683">Xcomet: Transparent machine translation evaluation through fine-grained error detection</a>. <em>Transactions of the Association for Computational Linguistics</em>, 12:979–995.
+</div>
+<div id="ref-guerreiro-etal-2023-looking" class="csl-entry" role="listitem">
+Nuno M. Guerreiro, Elena Voita, and André Martins. 2023b. <a href="https://doi.org/10.18653/v1/2023.eacl-main.75">Looking for a needle in a haystack: A comprehensive study of hallucinations in neural machine translation</a>. In Andreas Vlachos and Isabelle Augenstein, editors, <em>Proceedings of the 17th conference of the european chapter of the association for computational linguistics</em>, pages 1059–1075, Dubrovnik, Croatia. Association for Computational Linguistics.
+</div>
+<div id="ref-ood-detection" class="csl-entry" role="listitem">
+Dan Hendrycks and Kevin Gimpel. 2017. <a href="https://arxiv.org/abs/1610.02136">A baseline for detecting misclassified and out-of-distribution examples in neural networks</a>. In <em>International conference on learning representations (ICLR 2017)</em>.
+</div>
+<div id="ref-himmi-etal-2024-enhanced" class="csl-entry" role="listitem">
+Anas Himmi, Guillaume Staerman, Marine Picot, Pierre Colombo, and Nuno M Guerreiro. 2024. <a href="https://doi.org/10.18653/v1/2024.emnlp-main.1033">Enhanced hallucination detection in neural machine translation through simple detector aggregation</a>. In Yaser Al-Onaizan, Mohit Bansal, and Yun-Nung Chen, editors, <em>Proceedings of the 2024 conference on empirical methods in natural language processing</em>, pages 18573–18583, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-jelenic-etal-2024-blood" class="csl-entry" role="listitem">
+Fran Jelenić, Josip Jukić, Martin Tutek, Mate Puljiz, and Jan Snajder. 2024. <a href="https://openreview.net/forum?id=AcRfzLS6se">Out-of-distribution detection by leveraging between-layer transformation smoothness</a>. In <em>The twelfth international conference on learning representations</em>.
+</div>
+<div id="ref-jiang-etal-2020-know" class="csl-entry" role="listitem">
+Zhengbao Jiang, Frank F. Xu, Jun Araki, and Graham Neubig. 2020. <a href="https://doi.org/10.1162/tacl_a_00324">How can we know what language models know?</a> <em>Transactions of the Association for Computational Linguistics</em>, 8:423–438.
+</div>
+<div id="ref-aleatoric-epistemic" class="csl-entry" role="listitem">
+Armen Der Kiureghian and Ove Ditlevsen. 2009. <a href="https://doi.org/10.1016/j.strusafe.2008.06.020">Aleatory or epistemic? Does it matter?</a> <em>Structural Safety</em>, 31(2):105–112. Risk Acceptance and Risk Communication.
+</div>
+<div id="ref-kocmi-etal-2024-findings" class="csl-entry" role="listitem">
+Tom Kocmi, Eleftherios Avramidis, Rachel Bawden, Ondřej Bojar, Anton Dvorkovich, Christian Federmann, Mark Fishel, Markus Freitag, Thamme Gowda, Roman Grundkiewicz, Barry Haddow, Marzena Karpinska, Philipp Koehn, Benjamin Marie, Christof Monz, Kenton Murray, Masaaki Nagata, Martin Popel, Maja Popović, et al. 2024a. <a href="https://doi.org/10.18653/v1/2024.wmt-1.1">Findings of the <span>WMT</span>24 general machine translation shared task: The <span>LLM</span> era is here but <span>MT</span> is not solved yet</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 1–46, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-kocmi-etal-2023-findings" class="csl-entry" role="listitem">
+Tom Kocmi, Eleftherios Avramidis, Rachel Bawden, Ondřej Bojar, Anton Dvorkovich, Christian Federmann, Mark Fishel, Markus Freitag, Thamme Gowda, Roman Grundkiewicz, Barry Haddow, Philipp Koehn, Benjamin Marie, Christof Monz, Makoto Morishita, Kenton Murray, Masaaki Nagata, Toshiaki Nakazawa, Martin Popel, et al. 2023. <a href="https://doi.org/10.18653/v1/2023.wmt-1.1">Findings of the 2023 conference on machine translation (<span>WMT</span>23): <span>LLM</span>s are here but not quite there yet</a>. In Philipp Koehn, Barry Haddow, Tom Kocmi, and Christof Monz, editors, <em>Proceedings of the eighth conference on machine translation</em>, pages 1–42, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-kocmi-federmann-2023-large" class="csl-entry" role="listitem">
+Tom Kocmi and Christian Federmann. 2023. <a href="https://aclanthology.org/2023.eamt-1.19/">Large language models are state-of-the-art evaluators of translation quality</a>. In Mary Nurminen, Judith Brenner, Maarit Koponen, Sirkku Latomaa, Mikhail Mikhailov, Frederike Schierl, Tharindu Ranasinghe, Eva Vanmassenhove, Sergi Alvarez Vidal, Nora Aranberri, Mara Nunziatini, Carla Parra Escartín, Mikel Forcada, Maja Popovic, Carolina Scarton, and Helena Moniz, editors, <em>Proceedings of the 24th annual conference of the european association for machine translation</em>, pages 193–203, Tampere, Finland. European Association for Machine Translation.
+</div>
+<div id="ref-kocmi-etal-2024-error" class="csl-entry" role="listitem">
+Tom Kocmi, Vilém Zouhar, Eleftherios Avramidis, Roman Grundkiewicz, Marzena Karpinska, Maja Popović, Mrinmaya Sachan, and Mariya Shmatova. 2024b. <a href="https://doi.org/10.18653/v1/2024.wmt-1.131">Error span annotation: A balanced approach for human evaluation of machine translation</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 1440–1453, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-leiter-etal-2024-towards" class="csl-entry" role="listitem">
+Christoph Leiter, Piyawat Lertvittayakumjorn, Marina Fomicheva, Wei Zhao, Yang Gao, and Steffen Eger. 2024. <a href="http://jmlr.org/papers/v25/22-0416.html">Towards explainable evaluation metrics for machine translation</a>. <em>Journal of Machine Learning Research</em>, 25(75):1–49.
+</div>
+<div id="ref-burchardt-2013-multidimensional" class="csl-entry" role="listitem">
+Arle Richard Lommel, Aljoscha Burchardt, and Hans Uszkoreit. 2013. <a href="https://aclanthology.org/2013.tc-1.6/">Multidimensional quality metrics: A flexible system for assessing translation quality</a>. In <em>Proceedings of translating and the computer 35</em>, London, UK. Aslib.
+</div>
+<div id="ref-mohebbi-etal-2023-quantifying" class="csl-entry" role="listitem">
+Hosein Mohebbi, Willem Zuidema, Grzegorz Chrupała, and Afra Alishahi. 2023. <a href="https://doi.org/10.18653/v1/2023.eacl-main.245">Quantifying context mixing in transformers</a>. In Andreas Vlachos and Isabelle Augenstein, editors, <em>Proceedings of the 17th conference of the european chapter of the association for computational linguistics</em>, pages 3378–3400, Dubrovnik, Croatia. Association for Computational Linguistics.
+</div>
+<div id="ref-mosbach-etal-2024-insights" class="csl-entry" role="listitem">
+Marius Mosbach, Vagrant Gautam, Tomás Vergara Browne, Dietrich Klakow, and Mor Geva. 2024. <a href="https://doi.org/10.18653/v1/2024.emnlp-main.181">From insights to actions: The impact of interpretability and analysis research on <span>NLP</span></a>. In Yaser Al-Onaizan, Mohit Bansal, and Yun-Nung Chen, editors, <em>Proceedings of the 2024 conference on empirical methods in natural language processing</em>, pages 3078–3105, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-nllb-2024-scaling" class="csl-entry" role="listitem">
+NLLB Team, Marta R. Costa-jussà, James Cross, Onur Çelebi, Maha Elbayad, Kenneth Heafield, Kevin Heffernan, Elahe Kalbassi, Janice Lam, Daniel Licht, Jean Maillard, Anna Sun, Skyler Wang, Guillaume Wenzek, Al Youngblood, Bapi Akula, Loic Barrault, Gabriel Mejia Gonzalez, Prangthip Hansanti, et al. 2024. <a href="https://doi.org/10.1038/s41586-024-07335-x">Scaling neural machine translation to 200 languages</a>. <em>Nature</em>, 630(8018):841–846.
+</div>
+<div id="ref-logitlens" class="csl-entry" role="listitem">
+nostalgebraist. 2020. <a href="https://www.alignmentforum.org/posts/AcKRB8wDpdaN6v6ru/interpreting-gpt-the-logit-lens">Interpreting <span>GPT</span>: The logit lens</a>. <em>AI Alignment Forum</em>.
+</div>
+<div id="ref-plank-2022-problem" class="csl-entry" role="listitem">
+Barbara Plank. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.731">The <span>“</span>problem<span>”</span> of human label variation: On ground truth in data, modeling and evaluation</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 10671–10682, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-plank-etal-2014-linguistically" class="csl-entry" role="listitem">
+Barbara Plank, Dirk Hovy, and Anders Søgaard. 2014. <a href="https://doi.org/10.3115/v1/P14-2083">Linguistically debatable or just plain wrong?</a> In Kristina Toutanova and Hua Wu, editors, <em>Proceedings of the 52nd annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 507–511, Baltimore, Maryland. Association for Computational Linguistics.
+</div>
+<div id="ref-qi-sarti-etal-2024-model" class="csl-entry" role="listitem">
+Jirui Qi^*, Gabriele Sarti^*, Raquel Fernández, and Arianna Bisazza. 2024. <a href="https://doi.org/10.18653/v1/2024.emnlp-main.347">Model internals-based answer attribution for trustworthy retrieval-augmented generation</a>. In Yaser Al-Onaizan, Mohit Bansal, and Yun-Nung Chen, editors, <em>Proceedings of the 2024 conference on empirical methods in natural language processing</em>, pages 6037–6053, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-ravfogel-etal-2023-conformal" class="csl-entry" role="listitem">
+Shauli Ravfogel, Yoav Goldberg, and Jacob Goldberger. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-acl.3">Conformal nucleus sampling</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Findings of the association for computational linguistics: ACL 2023</em>, pages 27–34, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-sarti-etal-2024-quantifying" class="csl-entry" role="listitem">
+Gabriele Sarti, Grzegorz Chrupała, Malvina Nissim, and Arianna Bisazza. 2024. <a href="https://openreview.net/forum?id=XTHfNGI3zT">Quantifying the plausibility of context reliance in neural machine translation</a>. In <em>The twelfth international conference on learning representations (ICLR 2024)</em>, Vienna, Austria. OpenReview.
+</div>
+<div id="ref-sarti-etal-2025-qe4pe" class="csl-entry" role="listitem">
+Gabriele Sarti, Vilém Zouhar, Grzegorz Chrupała, Ana Guerberof-Arenas, Malvina Nissim, and Arianna Bisazza. 2025a. <a href="https://arxiv.org/abs/2503.03044"><span>QE4PE</span>: Word-level quality estimation for human post-editing</a>. <em>Arxiv Preprint</em>.
+</div>
+<div id="ref-sarti-etal-2025-unsupervised" class="csl-entry" role="listitem">
+Gabriele Sarti, Vilém Zouhar, Malvina Nissim, and Arianna Bisazza. 2025b. <a href="https://arxiv.org/abs/TBD">Unsupervised word-level quality estimation for machine translation through the lens of annotators (dis)agreement</a>. <em>Arxiv Preprint</em>.
+</div>
+<div id="ref-snow-etal-2008-cheap" class="csl-entry" role="listitem">
+Rion Snow, Brendan O’Connor, Daniel Jurafsky, and Andrew Ng. 2008. <a href="https://aclanthology.org/D08-1027/">Cheap and fast <span>–</span> but is it good? Evaluating non-expert annotations for natural language tasks</a>. In Mirella Lapata and Hwee Tou Ng, editors, <em>Proceedings of the 2008 conference on empirical methods in natural language processing</em>, pages 254–263, Honolulu, Hawaii. Association for Computational Linguistics.
+</div>
+<div id="ref-confidence-neurons" class="csl-entry" role="listitem">
+Alessandro Stolfo, Ben Wu, Wes Gurnee, Yonatan Belinkov, Xingyi Song, Mrinmaya Sachan, and Neel Nanda. 2024. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/e21955c93dede886af1d0d362c756757-Paper-Conference.pdf">Confidence regulation neurons in language models</a>. In A. Globerson, L. Mackey, D. Belgrave, A. Fan, U. Paquet, J. Tomczak, and C. Zhang, editors, <em>Advances in neural information processing systems</em>, volume 37, pages 125019–125049. Curran Associates, Inc.
+</div>
+<div id="ref-ulmer-etal-2022-exploring" class="csl-entry" role="listitem">
+Dennis Ulmer, Jes Frellsen, and Christian Hardmeier. 2022. <a href="https://doi.org/10.18653/v1/2022.findings-emnlp.198">Exploring predictive uncertainty and calibration in <span>NLP</span>: A study on the impact of method <span>&amp;</span> data scarcity</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Findings of the association for computational linguistics: EMNLP 2022</em>, pages 2707–2735, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-uma2021learning" class="csl-entry" role="listitem">
+Alexandra N Uma, Tommaso Fornaciari, Dirk Hovy, Silviu Paun, Barbara Plank, and Massimo Poesio. 2021. Learning from disagreement: A survey. <em>Journal of Artificial Intelligence Research</em>, 72:1385–1470.
+</div>
+<div id="ref-ustun-etal-2024-aya" class="csl-entry" role="listitem">
+Ahmet Üstün, Viraat Aryabumi, Zheng Yong, Wei-Yin Ko, Daniel D’souza, Gbemileke Onilude, Neel Bhandari, Shivalika Singh, Hui-Lee Ooi, Amr Kayid, Freddie Vargus, Phil Blunsom, Shayne Longpre, Niklas Muennighoff, Marzieh Fadaee, Julia Kreutzer, and Sara Hooker. 2024. <a href="https://doi.org/10.18653/v1/2024.acl-long.845">Aya model: An instruction finetuned open-access multilingual language model</a>. In Lun-Wei Ku, Andre Martins, and Vivek Srikumar, editors, <em>Proceedings of the 62nd annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 15894–15939, Bangkok, Thailand. Association for Computational Linguistics.
+</div>
+<div id="ref-vasconcelos-etal-2025-generation" class="csl-entry" role="listitem">
+Helena Vasconcelos, Gagan Bansal, Adam Fourney, Q. Vera Liao, and Jennifer Wortman Vaughan. 2025. <a href="https://doi.org/10.1145/3702320">Generation probabilities are not enough: Uncertainty highlighting in AI code completions</a>. <em>ACM Trans. Comput.-Hum. Interact.</em>, 32(1).
+</div>
+<div id="ref-weber-genzel-etal-2024-varierr" class="csl-entry" role="listitem">
+Leon Weber-Genzel, Siyao Peng, Marie-Catherine De Marneffe, and Barbara Plank. 2024. <a href="https://doi.org/10.18653/v1/2024.acl-long.123"><span>V</span>ari<span>E</span>rr <span>NLI</span>: Separating annotation error from human label variation</a>. In Lun-Wei Ku, Andre Martins, and Vivek Srikumar, editors, <em>Proceedings of the 62nd annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 2256–2269, Bangkok, Thailand. Association for Computational Linguistics.
+</div>
+<div id="ref-yang-etal-2023-rethinking" class="csl-entry" role="listitem">
+Zhen Yang, Fandong Meng, Yuanmeng Yan, and Jie Zhou. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-acl.126">Rethinking the word-level quality estimation for machine translation from human judgement</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Findings of the association for computational linguistics: ACL 2023</em>, pages 2012–2025, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-yom-din-etal-2024-jump" class="csl-entry" role="listitem">
+Alexander Yom Din, Taelin Karidi, Leshem Choshen, and Mor Geva. 2024. <a href="https://aclanthology.org/2024.lrec-main.840/">Jump to conclusions: Short-cutting transformers with linear transformations</a>. In Nicoletta Calzolari, Min-Yen Kan, Veronique Hoste, Alessandro Lenci, Sakriani Sakti, and Nianwen Xue, editors, <em>Proceedings of the 2024 joint international conference on computational linguistics, language resources and evaluation (LREC-COLING 2024)</em>, pages 9615–9625, Torino, Italia. ELRA; ICCL.
+</div>
+<div id="ref-zerva-etal-2024-findings" class="csl-entry" role="listitem">
+Chrysoula Zerva, Frederic Blain, José G. C. De Souza, Diptesh Kanojia, Sourabh Deoghare, Nuno M. Guerreiro, Giuseppe Attanasio, Ricardo Rei, Constantin Orasan, Matteo Negri, Marco Turchi, Rajen Chatterjee, Pushpak Bhattacharyya, Markus Freitag, and André Martins. 2024. <a href="https://doi.org/10.18653/v1/2024.wmt-1.3">Findings of the quality estimation shared task at <span>WMT</span> 2024: Are <span>LLM</span>s closing the gap in <span>QE</span>?</a> In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 82–109, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-zerva-martins-2024-conformalizing" class="csl-entry" role="listitem">
+Chrysoula Zerva and André F. T. Martins. 2024. <a href="https://doi.org/10.1162/tacl_a_00711">Conformalizing machine translation evaluation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 12:1460–1478.
+</div>
+<div id="ref-zhao2023calibrating" class="csl-entry" role="listitem">
+Yao Zhao, Mikhail Khalman, Rishabh Joshi, Shashi Narayan, Mohammad Saleh, and Peter J Liu. 2023. <a href="https://openreview.net/forum?id=0qSOodKmJaN">Calibrating sequence likelihood improves conditional language generation</a>. In <em>The eleventh international conference on learning representations</em>.
+</div>
+<div id="ref-zouhar-etal-2024-fine" class="csl-entry" role="listitem">
+Vilém Zouhar, Shuoyang Ding, Anna Currey, Tatyana Badeka, Jenyuan Wang, and Brian Thompson. 2024. <a href="https://doi.org/10.18653/v1/2024.acl-short.45">Fine-tuned machine translation metrics struggle in unseen domains</a>. In Lun-Wei Ku, Andre Martins, and Vivek Srikumar, editors, <em>Proceedings of the 62nd annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 488–500, Bangkok, Thailand. Association for Computational Linguistics.
+</div>
+<div id="ref-zouhar-etal-2025-ai" class="csl-entry" role="listitem">
+Vilém Zouhar, Tom Kocmi, and Mrinmaya Sachan. 2025. <a href="https://aclanthology.org/2025.naacl-long.255/"><span>AI</span>-assisted human evaluation of machine translation</a>. In Luis Chiruzzo, Alan Ritter, and Lu Wang, editors, <em>Proceedings of the 2025 conference of the nations of the americas chapter of the association for computational linguistics: Human language technologies (volume 1: Long papers)</em>, pages 4936–4950, Albuquerque, New Mexico. Association for Computational Linguistics.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://pdai.info/" class="uri">https://pdai.info/</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://github.com/wmt-conference/wmt-collect-translations" class="uri">https://github.com/wmt-conference/wmt-collect-translations</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>MCD is tested only on encoder-decoder models since Aya layers do not include dropout. The MCD<span class="math inline">\(_\text{var}\)</span> setting corresponds to the <span class="light-content" style="color: #e6950a;">Unsupervised</span> setting from <a href="chap-9-qe4pe.html" class="quarto-xref"><span>Chapter 9</span></a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>For encoder-decoder model, self-attention and cross-attention weights are concatenated and renormalized.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>The default <span class="smallcaps">xcomet</span> metric was used with the <code>unbabel-comet</code> library (<code>v2.2.6</code>).<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Generation parameters such as sampling temperature are not relevant in this setting, provided that they only alter the selection of the following output token, which we do via force-decoding.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Full breakdown available in <a href="appendix-c.html#tbl-qe4pe-ita-all-results" class="quarto-xref">Table&nbsp;<span>C.16</span></a>, <a href="appendix-c.html#tbl-qe4pe-nld-all-results" class="quarto-xref">Table&nbsp;<span>C.17</span></a>, <a href="appendix-c.html#tbl-divemt-all-results" class="quarto-xref">Table&nbsp;<span>C.18</span></a>, <a href="appendix-c.html#tbl-wmt24esa-all-results" class="quarto-xref">Table&nbsp;<span>C.19</span></a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Random baseline AP values match the proportion of tokens marked as errors, which can vary greatly.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Results for all datasets in <a href="appendix-c.html#fig-qe4pe-ita-pr-curves" class="quarto-xref">Figure&nbsp;<span>C.11</span></a>, <a href="appendix-c.html#fig-qe4pe-nld-pr-curves" class="quarto-xref">Figure&nbsp;<span>C.12</span></a>, <a href="appendix-c.html#fig-divemt-pr-curves" class="quarto-xref">Figure&nbsp;<span>C.13</span></a>, <a href="appendix-c.html#fig-wmt24esa-pr-curves" class="quarto-xref">Figure&nbsp;<span>C.14</span></a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p><span class="math inline">\(x\)</span>=1 corresponds to binary labels from previous sections.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/chap-9-qe4pe.html" class="pagination-link" aria-label="Word-level Quality Estimation for Machine Translation Post-editing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Gabriele Sarti. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://www.rug.nl/?lang=en"><img src="../figures/logos/rug_eng_red.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/?lang=en"><img src="../figures/logos/clcg.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://projects.illc.uva.nl/indeep/"><img src="../figures/logos/indeep_logo_horizontal.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/research/cl/?lang=en"><img src="../figures/logos/gronlp.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+</div>
+    <div class="nav-footer-right">
+<p>Written with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

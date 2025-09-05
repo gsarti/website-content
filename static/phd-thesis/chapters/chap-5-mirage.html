@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Ph.D.&nbsp;Thesis, Center for Language and Cognition (CLCG), University of Groningen">
+
+<title>5&nbsp; Answer Attribution for Trustworthy Retrieval-Augmented Generation – From Insights to Impact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/chap-4-pecore.html" rel="prev">
+<link href="../figures/logos/rug_crest_icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df7dc7f297c6c2c740a551c3cb7e1581.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../html/custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-3-inseq.html">Attributing Context Usage in Multilingual NLP</a></li><li class="breadcrumb-item"><a href="../chapters/chap-5-mirage.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../figures/logos/rug_eng_red_hat_line.png" alt="RUG Coat of Arms" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Insights to Impact</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gsarti/phd-thesis" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://gsarti.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-person-circle"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-2-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Attributing Context Usage in Multilingual NLP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-3-inseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-4-pecore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-5-mirage.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conditioning Generation for Personalized Machine Translation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-6-ramp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-7-sae-litmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Interpretability in Human Translation Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-8-divemt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-9-qe4pe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-10-unsup-wqe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-11-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-chap5-intro" id="toc-sec-chap5-intro" class="nav-link active" data-scroll-target="#sec-chap5-intro"><span class="header-section-number">5.1</span> Introduction</a></li>
+  <li><a href="#background-and-related-work" id="toc-background-and-related-work" class="nav-link" data-scroll-target="#background-and-related-work"><span class="header-section-number">5.2</span> Background and Related Work</a>
+  <ul class="collapse">
+  <li><a href="#sec-chap5-approaches" id="toc-sec-chap5-approaches" class="nav-link" data-scroll-target="#sec-chap5-approaches"><span class="header-section-number">5.2.1</span> Answer Attribution Methods</a></li>
+  </ul></li>
+  <li><a href="#sec-chap5-framework" id="toc-sec-chap5-framework" class="nav-link" data-scroll-target="#sec-chap5-framework"><span class="header-section-number">5.3</span> Method</a>
+  <ul class="collapse">
+  <li><a href="#from-granular-attributions-to-document-level-citations" id="toc-from-granular-attributions-to-document-level-citations" class="nav-link" data-scroll-target="#from-granular-attributions-to-document-level-citations"><span class="header-section-number">5.3.1</span> From Granular Attributions to Document-level Citations</a></li>
+  </ul></li>
+  <li><a href="#sec-chap5-agreement" id="toc-sec-chap5-agreement" class="nav-link" data-scroll-target="#sec-chap5-agreement"><span class="header-section-number">5.4</span> Agreement with Human Answer Attribution Annotations</a>
+  <ul class="collapse">
+  <li><a href="#sec-chap5-xor-attriqa" id="toc-sec-chap5-xor-attriqa" class="nav-link" data-scroll-target="#sec-chap5-xor-attriqa"><span class="header-section-number">5.4.1</span> Experimental Setup</a></li>
+  <li><a href="#entailment-based-baselines" id="toc-entailment-based-baselines" class="nav-link" data-scroll-target="#entailment-based-baselines"><span class="header-section-number">5.4.2</span> Entailment-based Baselines</a></li>
+  <li><a href="#sec-chap5-xor-attriqa-results" id="toc-sec-chap5-xor-attriqa-results" class="nav-link" data-scroll-target="#sec-chap5-xor-attriqa-results"><span class="header-section-number">5.4.3</span> Results and Analysis</a></li>
+  </ul></li>
+  <li><a href="#sec-chap5-eli5-evaluation" id="toc-sec-chap5-eli5-evaluation" class="nav-link" data-scroll-target="#sec-chap5-eli5-evaluation"><span class="header-section-number">5.5</span> Answer Attribution for Long-form QA</a>
+  <ul class="collapse">
+  <li><a href="#experimental-setup" id="toc-experimental-setup" class="nav-link" data-scroll-target="#experimental-setup"><span class="header-section-number">5.5.1</span> Experimental Setup</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">5.5.2</span> Results</a></li>
+  <li><a href="#sec-chap5-disagree" id="toc-sec-chap5-disagree" class="nav-link" data-scroll-target="#sec-chap5-disagree"><span class="header-section-number">5.5.3</span> Qualitative Analysis of Disagreements</a></li>
+  </ul></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">5.6</span> Limitations</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5.7</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-3-inseq.html">Attributing Context Usage in Multilingual NLP</a></li><li class="breadcrumb-item"><a href="../chapters/chap-5-mirage.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chap-5-mirage" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chapter Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This chapter extends our investigation of context usage to modern pre-trained decoder-only language models for the popular task of retrieval-augmented generation. We propose <span class="smallcaps">Mirage</span>, an extension of <span class="smallcaps">PECoRe</span> using context saliency to address trustworthiness challenges in answer attribution for RAG applications. We evaluate our proposed approach on a multilingual extractive QA dataset, finding high agreement with human-annotated answer attributions. On open-ended QA, <span class="smallcaps">Mirage</span> achieves citation quality and efficiency comparable to self-citation prompting, while also allowing for a finer-grained control of attribution parameters. Our qualitative evaluation highlights the faithfulness of <span class="smallcaps">Mirage</span> attributions and underscores the promising application of model internals for trustworthy answer generation with language models.</p>
+<p></p>
+<p>This chapter is adapted from the paper <em>Model Internals-based Answer Attribution for Trustworthy Retrieval-Augmented Generation</em> <span class="citation" data-cites="qi-sarti-etal-2024-model">(<a href="references.html#ref-qi-sarti-etal-2024-model" role="doc-biblioref">Qi^* et al., 2024</a>)</span>.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>“What makes the desert beautiful,” said the little prince, “is that it hides a well somewhere…”</em></p>
+<p><em>– Antoine de Saint-Exupéry, Le petit prince (1943)</em></p>
+</blockquote>
+<section id="sec-chap5-intro" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-chap5-intro"><span class="header-section-number">5.1</span> Introduction</h2>
+<p>Retrieval-augmented generation with large language models has become the de facto standard methodology for question answering in both academic <span class="citation" data-cites="lewis-etal-2020-rag izacard-etal-2023-atlas">(<a href="references.html#ref-lewis-etal-2020-rag" role="doc-biblioref">Lewis et al., 2020</a>; <a href="references.html#ref-izacard-etal-2023-atlas" role="doc-biblioref">Izacard et al., 2023</a>)</span> and industrial settings <span class="citation" data-cites="dao-le-2023-chatgptchatgpt ma-etal-2024-crafting">(<a href="references.html#ref-dao-le-2023-chatgptchatgpt" role="doc-biblioref">Dao and Le, 2023</a>; <a href="references.html#ref-ma-etal-2024-crafting" role="doc-biblioref">Ma et al., 2024</a>)</span>. This approach is effective in mitigating hallucinations and producing factually accurate answers <span class="citation" data-cites="petroni-etal-2020-how lewis-etal-2020-rag borgeaud-etal-2022-improving ren-etal-2025-investigating">(<a href="references.html#ref-petroni-etal-2020-how" role="doc-biblioref">Petroni et al., 2020</a>; <a href="references.html#ref-lewis-etal-2020-rag" role="doc-biblioref">Lewis et al., 2020</a>; <a href="references.html#ref-borgeaud-etal-2022-improving" role="doc-biblioref">Borgeaud et al., 2022</a>; <a href="references.html#ref-ren-etal-2025-investigating" role="doc-biblioref">Ren et al., 2025</a>)</span>. However, verifying whether the model answer is faithfully supported by the retrieved sources is often non-trivial due to the large context size and the variety of potentially correct answers <span class="citation" data-cites="krishna-etal-2021-hurdles xu-etal-2023-critical">(<a href="references.html#ref-krishna-etal-2021-hurdles" role="doc-biblioref">Krishna et al., 2021</a>; <a href="references.html#ref-xu-etal-2023-critical" role="doc-biblioref">Xu et al., 2023</a>)</span>.</p>
+<p>In light of this issue, several <em>answer attribution</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> approaches were recently proposed to ensure the trustworthiness of RAG outputs <span class="citation" data-cites="rashkin-etal-2023-measuring bohnet-etal-2022-attributedqa muller-etal-2023-evaluating">(<a href="references.html#ref-rashkin-etal-2023-measuring" role="doc-biblioref">Rashkin et al., 2023</a>; <a href="references.html#ref-bohnet-etal-2022-attributedqa" role="doc-biblioref">Bohnet et al., 2022</a>; <a href="references.html#ref-muller-etal-2023-evaluating" role="doc-biblioref">Muller et al., 2023</a>)</span>. Initial efforts in this area employed models trained on Natural Language Inference (NLI) to automate the identification of supporting documents <span class="citation" data-cites="bohnet-etal-2022-attributedqa yue-etal-2023-automatic">(<a href="references.html#ref-bohnet-etal-2022-attributedqa" role="doc-biblioref">Bohnet et al., 2022</a>; <a href="references.html#ref-yue-etal-2023-automatic" role="doc-biblioref">Yue et al., 2023</a>)</span>. However, being based on an external validator, this approach does not faithfully explain the answer generation process but simply identifies plausible sources supporting model answers in a post-hoc fashion. Following recent progress in the instruction-following abilities of LLMs, <em>self-citation</em> (i.e.&nbsp;prompting LLMs to generate inline citations alongside their answers) has been proposed to mitigate the training and inference costs of external validator modules <span class="citation" data-cites="gao-etal-2023-enabling">(<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">Gao et al., 2023a</a>)</span>. However, self-citation performance is hindered by the imperfect instruction-following capacity of modern LLMs <span class="citation" data-cites="mu2023can liu-etal-2023-evaluating">(<a href="references.html#ref-mu2023can" role="doc-biblioref">Mu et al., 2023</a>; <a href="references.html#ref-liu-etal-2023-evaluating" role="doc-biblioref">Liu et al., 2023</a>)</span>, and resulting attributions are still predicted in an unintelligible, post-hoc fashion. This is an important limitation for these approaches, since the primary goal of answer attribution should be to ensure that the LLM is not ‘right for the wrong reasons’ <span class="citation" data-cites="mccoy-etal-2019-right">(<a href="references.html#ref-mccoy-etal-2019-right" role="doc-biblioref">McCoy et al., 2019</a>)</span>.</p>
+<p>In light of these considerations, we introduce <span class="smallcaps">Mirage</span>, an extension of the context-reliance evaluation <span class="smallcaps">PECoRe</span> framework from the previous chapter for efficient and faithful answer attributions. <span class="smallcaps">Mirage</span> first identifies context-sensitive tokens in a generated sentence by measuring the shift in LM predictive distribution caused by the added input context. Then, it attributes this shift to specific influential tokens in the context using gradient-based saliency or other input attribution techniques <span class="citation" data-cites="madsen-etal-2022-evaluating">(<a href="references.html#ref-madsen-etal-2022-evaluating" role="doc-biblioref">Madsen et al., 2022</a>)</span>. Finally, attributions can be aggregated at the document level to match context-dependent generated sentences with retrieved documents that contribute to their prediction. The resulting pairs can then be converted to citations using the standard answer attribution (AA) format.</p>
+<div id="fig-chap5-motivation" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap5-motivation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-5-mirage/mirage_small.webp" class="img-fluid figure-img" style="width:55.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap5-motivation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: <span class="smallcaps">Mirage</span> is a model internals-based framework for answer attribution in RAG settings. Context-sensitive answer spans (in color) are detected and matched with contextual cues in retrieved sources to evaluate the trustworthiness of models’ answers.
+</figcaption>
+</figure>
+</div>
+<p>We begin our assessment of <span class="smallcaps">Mirage</span> on the short-form XOR-AttriQA dataset <span class="citation" data-cites="muller-etal-2023-evaluating">(<a href="references.html#ref-muller-etal-2023-evaluating" role="doc-biblioref">Muller et al., 2023</a>)</span>, showing high agreement between <span class="smallcaps">Mirage</span> results and human annotations across several languages. We then test our method on the open-ended ELI5 dataset <span class="citation" data-cites="fan-etal-2019-eli5">(<a href="references.html#ref-fan-etal-2019-eli5" role="doc-biblioref">Fan et al., 2019</a>)</span>, achieving AA quality comparable to or better than self-citation while ensuring a higher degree of control over attribution parameters. In summary, we make the following contributions:<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<ul>
+<li><p>We introduce <span class="smallcaps">Mirage</span>, a model internals-based answer attribution framework optimized for RAG applications.</p></li>
+<li><p>We quantify the plausibility of <span class="smallcaps">Mirage</span> attributions on two datasets, showing improvements over NLI and self-citation methods while ensuring better controllability and efficiency.</p></li>
+<li><p>We analyze challenging attribution settings, highlighting <span class="smallcaps">Mirage</span>‘s faithfulness to LLMs’ reasoning process.</p></li>
+</ul>
+</section>
+<section id="background-and-related-work" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="background-and-related-work"><span class="header-section-number">5.2</span> Background and Related Work</h2>
+<p>In RAG settings, a set of documents relevant to a user query is retrieved from an external dataset and infilled into an LLM prompt to improve the generation process <span class="citation" data-cites="petroni-etal-2020-how lewis-etal-2020-rag">(<a href="references.html#ref-petroni-etal-2020-how" role="doc-biblioref">Petroni et al., 2020</a>; <a href="references.html#ref-lewis-etal-2020-rag" role="doc-biblioref">Lewis et al., 2020</a>)</span>. <em>Answer attribution</em> <span class="citation" data-cites="rashkin-etal-2023-measuring bohnet-etal-2022-attributedqa muller-etal-2023-evaluating">(<a href="references.html#ref-rashkin-etal-2023-measuring" role="doc-biblioref">Rashkin et al., 2023</a>; <a href="references.html#ref-bohnet-etal-2022-attributedqa" role="doc-biblioref">Bohnet et al., 2022</a>; <a href="references.html#ref-muller-etal-2023-evaluating" role="doc-biblioref">Muller et al., 2023</a>)</span> aims to identify which retrieved documents support the generated answer <span class="citation" data-cites="gao-etal-2023-retrieval">(<em>answer faithfulness</em>, <a href="references.html#ref-gao-etal-2023-retrieval" role="doc-biblioref">Gao et al., 2023b</a>)</span>, e.g., by exploiting the similarity between model outputs and references.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Simplifying access to relevant sources via answer attribution is a fundamental step towards ensuring RAG trustworthiness in customer-facing scenarios <span class="citation" data-cites="liu-etal-2023-evaluating">(<a href="references.html#ref-liu-etal-2023-evaluating" role="doc-biblioref">Liu et al., 2023</a>)</span>.</p>
+<section id="sec-chap5-approaches" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="sec-chap5-approaches"><span class="header-section-number">5.2.1</span> Answer Attribution Methods</h3>
+<p><span class="paragraph">Entailment-based Answer Attribution</span> <span class="citation" data-cites="bohnet-etal-2022-attributedqa">Bohnet et al. (<a href="references.html#ref-bohnet-etal-2022-attributedqa" role="doc-biblioref">2022</a>)</span> and <span class="citation" data-cites="muller-etal-2023-evaluating">Muller et al. (<a href="references.html#ref-muller-etal-2023-evaluating" role="doc-biblioref">2023</a>)</span> propose to approximate human AA annotations with NLI systems such as TRUE <span class="citation" data-cites="honovich-etal-2022-true-evaluating">(<a href="references.html#ref-honovich-etal-2022-true-evaluating" role="doc-biblioref">Honovich et al., 2022</a>)</span>, using a source document as premise and an LLM-generated sentence as entailment hypothesis. AAs produced by these systems were shown to correlate strongly with human annotations, prompting their adoption in AA studies <span class="citation" data-cites="muller-etal-2023-evaluating gao-etal-2023-enabling">(<a href="references.html#ref-muller-etal-2023-evaluating" role="doc-biblioref">Muller et al., 2023</a>; <a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">Gao et al., 2023a</a>)</span>. Despite their effectiveness, entailment-based methods can be computationally expensive when several answer sentence-document pairs are present. Moreover, this setup assumes the NLI model’s ability to robustly detect entailment relations across all domains and languages for which the LLM generator is used. In practice, however, NLI systems were shown to be brittle in challenging scenarios, exploiting shallow heuristics <span class="citation" data-cites="mccoy-etal-2019-right nie-etal-2020-adversarial sinha-etal-2021-unnatural luo-etal-2022-simple-challenging">(<a href="references.html#ref-mccoy-etal-2019-right" role="doc-biblioref">McCoy et al., 2019</a>; <a href="references.html#ref-nie-etal-2020-adversarial" role="doc-biblioref">Nie et al., 2020</a>; <a href="references.html#ref-sinha-etal-2021-unnatural" role="doc-biblioref">Sinha et al., 2021</a>; <a href="references.html#ref-luo-etal-2022-simple-challenging" role="doc-biblioref">Luo et al., 2022</a>)</span>, and require dedicated efforts for less-resourced settings <span class="citation" data-cites="conneau-etal-2018-xnli">(<a href="references.html#ref-conneau-etal-2018-xnli" role="doc-biblioref">Conneau et al., 2018</a>)</span>. For example, NLI may fail to correctly attribute answers in multi-hop QA settings when considering individual documents as premises <span class="citation" data-cites="yang-etal-2018-hotpotqa welbl-etal-2018-constructing">(<a href="references.html#ref-yang-etal-2018-hotpotqa" role="doc-biblioref">Yang et al., 2018</a>; <a href="references.html#ref-welbl-etal-2018-constructing" role="doc-biblioref">Welbl et al., 2018</a>)</span>.</p>
+<p><span class="paragraph">Self-citation</span> <span class="citation" data-cites="gao-etal-2023-enabling">(<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">Gao et al., 2023a</a>)</span> is a recent AA approach exploiting the ability of recent LLMs to follow instructions in natural language <span class="citation" data-cites="raffel-etal-2020-exploring chung-etal-2022-scaling sanh2022multitask openai-2023-gpt4">(<a href="references.html#ref-raffel-etal-2020-exploring" role="doc-biblioref">Raffel et al., 2020</a>; <a href="references.html#ref-chung-etal-2022-scaling" role="doc-biblioref">Chung et al., 2024</a>; <a href="references.html#ref-sanh2022multitask" role="doc-biblioref">Sanh et al., 2022</a>; <a href="references.html#ref-openai-2023-gpt4" role="doc-biblioref">OpenAI, 2023</a>)</span>, thereby avoiding the need for an external validator. <span class="citation" data-cites="nakano-etal-2021-webgpt">Nakano et al. (<a href="references.html#ref-nakano-etal-2021-webgpt" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="menick-etal-2022-teaching">Menick et al. (<a href="references.html#ref-menick-etal-2022-teaching" role="doc-biblioref">2022</a>)</span> propose citation fine-tuning for LLMs, while <span class="citation" data-cites="gao-etal-2023-enabling">Gao et al. (<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">2023a</a>)</span> instruct general-purpose LLMs to produce inline citations in a few-shot setting. Self-citation answers are generally more relevant to the provided sources’ contents, but can still contain unsupported statements and inaccurate citations <span class="citation" data-cites="liu-etal-2023-evaluating">(<a href="references.html#ref-liu-etal-2023-evaluating" role="doc-biblioref">Liu et al., 2023</a>)</span>. In our preliminary analysis, we find that self-citation often misses relevant citations, uses wrong formats, or refers to non-existing documents (<a href="#fig-chap5-error" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>). For the ELI5 dataset <span class="citation" data-cites="fan-etal-2019-eli5">(<a href="references.html#ref-fan-etal-2019-eli5" role="doc-biblioref">Fan et al., 2019</a>)</span>, we find that LLaMA 2 7B Chat <span class="citation" data-cites="touvron-etal-2023-llama2">(<a href="references.html#ref-touvron-etal-2023-llama2" role="doc-biblioref">Touvron et al., 2023</a>)</span> and Zephyr <span class="math inline">\(\beta\)</span> 7B <span class="citation" data-cites="tunstall-etal-2023-zephyr">(<a href="references.html#ref-tunstall-etal-2023-zephyr" role="doc-biblioref">Tunstall et al., 2024</a>)</span> fail to produce AAs matching the prompt instructions for the majority of generated sentences, with almost all answers having at least one unattributed sentence when the <span class="citation" data-cites="gao-etal-2023-enabling">Gao et al. (<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">2023a</a>)</span> self-citation setup is used (<a href="#tbl-chap5-self-citation-error" class="quarto-xref">Table&nbsp;<span>5.1</span></a>).</p>
+<div class="quarto-layout-panel" data-fig-pos="t" data-layout="[0.55, -0.03, 0.42]">
+<div class="quarto-layout-row quarto-layout-valign-bottom">
+<div class="quarto-layout-cell" style="flex-basis: 55.0%;justify-content: flex-start;">
+<div id="fig-chap5-error" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap5-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-5-mirage/self_citation_errors.webp" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap5-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.2: Instruction-following errors in <em>self-citation</em>, using the setup of <span class="citation" data-cites="gao-etal-2023-enabling">Gao et al. (<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">2023a</a>)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 3.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 42.0%;justify-content: center;">
+<div id="tbl-chap5-self-citation-error" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap5-self-citation-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" style="text-align: left;" data-quarto-table-cell-role="th"><strong>Model</strong></th>
+<th colspan="2" class="group-header" style="text-align: left;" data-quarto-table-cell-role="th"><strong>Missing citation (%)</strong></th>
+</tr>
+<tr class="subheader even">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Sentence</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="namerow" style="text-align: left;">Zephyr 7B <span class="math inline">\(\beta\)</span></td>
+<td style="text-align: left;">54.5</td>
+<td style="text-align: left;">95.7</td>
+</tr>
+<tr class="even">
+<td class="namerow" style="text-align: left;">LLaMA 2 7B Chat</td>
+<td style="text-align: left;">62.4</td>
+<td style="text-align: left;">99.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap5-self-citation-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.1: Percentage of unattributed sentences and answers with <span class="math inline">\(\geq 1\)</span> unattributed sentences on ELI5.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><span class="paragraph">Answer Attribution can be Unfaithful</span> The aforementioned approaches do not account for attributions’ <em>faithfulness</em>, i.e.&nbsp;whether the selected documents influence the LLM during the generation. Indeed, the presence of an entailment relation or high semantic similarity does not imply that the retrieved document influenced the answer generation process. This can be true in cases where LLMs may rely on memorized knowledge while ignoring relevant, albeit unnecessary, contextual information.</p>
+<p>Even in the case of self-citation, recent work showed that, while the justifications of self-explaining LLMs appear plausible, they generally do not align with their internal reasoning process <span class="citation" data-cites="atanasova-etal-2023-faithfulness madsen-etal-2024-self agarwal2024faithfulness randl-etal-2025-evaluating">(<a href="references.html#ref-atanasova-etal-2023-faithfulness" role="doc-biblioref">Atanasova et al., 2023</a>; <a href="references.html#ref-madsen-etal-2024-self" role="doc-biblioref">Madsen et al., 2024</a>; <a href="references.html#ref-agarwal2024faithfulness" role="doc-biblioref">Agarwal et al., 2024</a>; <a href="references.html#ref-randl-etal-2025-evaluating" role="doc-biblioref">Randl et al., 2025</a>)</span>, with little to no predictive efficacy <span class="citation" data-cites="huang-etal-2023-rigorously">(<a href="references.html#ref-huang-etal-2023-rigorously" role="doc-biblioref">Huang et al., 2023</a>)</span>. By contrast, approaches based on model internals are designed to faithfully reflect input importance in motivating model predictions. For instance, <span class="citation" data-cites="salghisi-etal-2024-fine-tune">Alghisi et al. (<a href="references.html#ref-salghisi-etal-2024-fine-tune" role="doc-biblioref">2024</a>)</span> explores the use of gradient-based attribution to locate salient history segments for various dialogical tasks.</p>
+<p>Concurrent to our work, <span class="citation" data-cites="phukan-etal-2024-peering">Phukan et al. (<a href="references.html#ref-phukan-etal-2024-peering" role="doc-biblioref">2024</a>)</span> and <span class="citation" data-cites="cohenwang-etal-2024-contextcite">Cohen-Wang et al. (<a href="references.html#ref-cohenwang-etal-2024-contextcite" role="doc-biblioref">2024</a>)</span> have proposed other internals-based methods for granular AA of LLM generations. While the two-step approaches proposed in both works are similar to <span class="smallcaps">Mirage</span>, they also differ in substantial ways. Notably, <span class="citation" data-cites="phukan-etal-2024-peering">Phukan et al. (<a href="references.html#ref-phukan-etal-2024-peering" role="doc-biblioref">2024</a>)</span> derive attributions from embedding similarity, which does not capture the functional influence of context usage during the generation process. ContextCite <span class="citation" data-cites="cohenwang-etal-2024-contextcite">(<a href="references.html#ref-cohenwang-etal-2024-contextcite" role="doc-biblioref">Cohen-Wang et al., 2024</a>)</span> instead fits a linear surrogate model to estimate the impact of ablating context segments on downstream answer probabilities. While this procedure approximates causal context influence, it still requires a sufficiently large context and many LLM forward passes to learn the surrogate model<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, ultimately providing a coarser attribution for the full generated output. On the contrary, <span class="smallcaps">Mirage</span> efficiently estimates generated tokens requiring attribution via contrastive metrics to produce granular attributions at the token level, limiting computations to estimate how context impacts LLM predictions. A maximally faithful AA approach would ablate all possible combinations of context elements to counterfactually estimate their importance in relation to model predictions. Given the long-form answers and contexts in RAG settings, this is practically unfeasible. Even if based on approximations, internals-based approaches such as <span class="smallcaps">Mirage</span> are intrinsically more faithful than external validators like NLI models, since they aim to exploit information functional to the predictive process rather than relying solely on the generated output.</p>
+</section>
+</section>
+<section id="sec-chap5-framework" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="sec-chap5-framework"><span class="header-section-number">5.3</span> Method</h2>
+<p>Identifying which generated spans were most influenced by preceding information is a key challenge for LM attribution. The Model Internals-based RAG Explanations (<span class="smallcaps">Mirage</span>) method we propose is an extension of the Plausibility Evaluation for Context Reliance (<span class="smallcaps">PECoRe</span>) framework <span class="citation" data-cites="sarti-etal-2024-quantifying">(<a href="references.html#ref-sarti-etal-2024-quantifying" role="doc-biblioref">Sarti et al., 2024</a>)</span> for context-aware machine translation. Importantly, this framework requires open-weights access to the LLM generator, which is a strict but necessary requirement to provide an accurate overview of the actual context usage during generation <span class="citation" data-cites="casper-etal-2024-blackbox">(<a href="references.html#ref-casper-etal-2024-blackbox" role="doc-biblioref">Casper et al., 2024</a>)</span>. This section frames the <span class="smallcaps">PECoRe</span>’s two-step procedure in the context of RAG, as illustrated in <a href="#fig-chap5-mirage-illustration" class="quarto-xref">Figure&nbsp;<span>5.3</span></a>, and clarifies how <span class="smallcaps">Mirage</span> adapts it for RAG answer attribution.</p>
+<div id="fig-chap5-mirage-illustration" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap5-mirage-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-5-mirage/mirage_large.webp" class="img-fluid figure-img" style="width:100.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap5-mirage-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.3: Illustration of <span class="smallcaps">Mirage</span>’s two-step approach adapted from <span class="smallcaps">PECoRe</span> for RAG answer attribution. <strong>Step 1:</strong> CTI detects context-sensitive tokens in the generation (e.g.&nbsp;<em>smaller</em>). <strong>Step 2:</strong> CCI attributes the generation of detected tokens back to context tokens (e.g.&nbsp;<em>few</em> in Doc[1] promotes the generation of <em>smaller</em> instead of <em>PC</em>) using contrastive input attribution. Token pairs are then aggregated into sentence-document citations for practical usage.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Step 1: Context-sensitive Token Identification (CTI)</span> For every token in an answer sentence <span class="math inline">\(\mathbf{y} = \langle y_1, \dots, y_{n} \rangle\)</span> generated by an LM prompted with a query <span class="math inline">\(\mathbf{q}\)</span> and a context <span class="math inline">\(\mathbf{c} = \langle c_1, \dots, c_{|\mathbf{c}|} \rangle\)</span>, a contrastive metric <span class="math inline">\(m\)</span> such as KL divergence <span class="citation" data-cites="kullback-leibler-1951-information">(<a href="references.html#ref-kullback-leibler-1951-information" role="doc-biblioref">Kullback and Leibler, 1951</a>)</span> is used to quantify the shift in the LM predictive distribution at the <span class="math inline">\(i\)</span>-th generation step when the context is present or absent (<span class="math inline">\(P^i_\text{ctx}\)</span> or <span class="math inline">\(P^i_\text{no-ctx}\)</span>). Resulting scores <span class="math inline">\(\mathbf{m} = \langle m_1, \dots, m_{n} \rangle\)</span> reflect the context sensitivity of every generated token and can be converted into binary labels using a selector function <span class="math inline">\(s_\text{cti}\)</span>:</p>
+<p><span class="math display">\[
+\begin{split}
+    \text{CTI}(\mathbf{q}, \mathbf{c}, \mathbf{y}) = \{\,y_i\,|\,s_\text{cti\,}(m_i) = 1\,\forall y_i \in \mathbf{y}\}
+\\
+    \text{with}\;m_i = D_\text{KL}(P^i_\text{ctx} \| P^i_\text{no-ctx})
+\end{split}
+\]</span></p>
+<p><span class="paragraph">Step 2: Contextual Cues Imputation (CCI)</span> For every context-sensitive token <span class="math inline">\(y_i\)</span> identified by CTI, a contrastive alternative <span class="math inline">\(y^{\setminus \mathbf{c}}_i\)</span> is produced by excluding <span class="math inline">\(\mathbf{c}\)</span> from the prompt, but using the original generated prefix <span class="math inline">\(\mathbf{y}_{&lt;i}\)</span>. Then, <em>contrastive input attribution</em> <span class="citation" data-cites="yin-neubig-2022-interpreting">(<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">Yin and Neubig, 2022</a>)</span> is used to obtain attribution scores <span class="math inline">\(\mathbf{a}^i = \langle a^i_1, \dots, a^i_{|\mathbf{c}|} \rangle\)</span> for every context token <span class="math inline">\(c_j \in \mathbf{c}\)</span>:</p>
+<p><span class="math display">\[
+\begin{split}
+    \mathbf{a}^i =
+    \big\{\,\nabla_j\big(p(y_i) - p(y^{\setminus \mathbf{c}}_i)\,\big),\;\forall c_j \in \mathbf{c}\,\}
+\end{split}
+\]</span></p>
+<p>where <span class="math inline">\(\nabla_j\)</span> is the L2 norm of the gradient vector over the input embedding of context token <span class="math inline">\(c_j\)</span>, and both probabilities are computed from the same contextual inputs <span class="math inline">\((\mathbf{q}, \mathbf{c}, \mathbf{y}_{&lt;i})\)</span>. Intuitively, this procedure identifies which tokens in <span class="math inline">\(\mathbf{c}\)</span> influence the increment of the probability for token <span class="math inline">\(y_i\)</span> and the decrement of that for the non-contextual option <span class="math inline">\(y^{\setminus \mathbf{c}}_i\)</span>, as shown in Step 2 in <a href="#fig-chap5-mirage-illustration" class="quarto-xref">Figure&nbsp;<span>5.3</span></a>. Resulting scores are once again binarized with a selector <span class="math inline">\(s_\text{CCI}\)</span>:</p>
+<p><span class="math display">\[
+\text{CCI}(y_i) = \{\,c_j\,|\,s_\text{cci\,}(a^i_j) = 1,\;\forall c_j \in \mathbf{c}\}
+\]</span></p>
+<p>This results in pairs of context-sensitive generated tokens and the respective input-context tokens influencing their prediction:</p>
+<p><span class="math display">\[
+\mathcal{P} = \big\{ \langle\,y_i, c_j\,\rangle,\; \forall y_i \in \text{CTI}, \forall c_j \in \text{CCI}(y_i)\big\}
+\]</span></p>
+<section id="from-granular-attributions-to-document-level-citations" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="from-granular-attributions-to-document-level-citations"><span class="header-section-number">5.3.1</span> From Granular Attributions to Document-level Citations</h3>
+<p><span class="paragraph">CTI Filtering</span> To obtain discrete labels from the CTI step, we set <span class="math inline">\(s_\text{cti}(m_i) = m_i \geq m^*\)</span>, where <span class="math inline">\(m^*\)</span> is a threshold value for selecting context-sensitive generated tokens. We experiment with two variants of <span class="math inline">\(m^*\)</span>: a <strong>calibrated threshold</strong> <span class="math inline">\(m_{\text{cal}}^*\)</span> obtained by maximizing agreement between the contrastive metric and human annotations on a calibration set with human AA annotations, and an <strong>example-level threshold</strong> <span class="math inline">\(m_\text{ex}^*\)</span> using only within-example scores to avoid the need for calibration data. Following <span class="citation" data-cites="sarti-etal-2024-quantifying">Sarti et al. (<a href="references.html#ref-sarti-etal-2024-quantifying" role="doc-biblioref">2024</a>)</span>, we set <span class="math inline">\(m_\text{ex}^* = \overline{\mathbf{m}} + \sigma_\mathbf{m}\)</span>, where <span class="math inline">\(\overline{\mathbf{m}}\)</span> and <span class="math inline">\(\sigma_\mathbf{m}\)</span> are the average and standard deviation of <span class="math inline">\(\mathbf{m}\)</span> scores for generated tokens.</p>
+<p><span class="paragraph">CCI Filtering</span> To extract granular document citations (i.e., colored spans with document indices in <a href="#fig-chap5-motivation" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>), we set <span class="math inline">\(s_\text{cci} = a^i_j \geq a^{i*}\)</span>, where <span class="math inline">\(a^{i*}\)</span> is either the Top-K or Top-% highest attribution value in <span class="math inline">\(\mathbf{a}^i\)</span>, to filter attributed context tokens <span class="math inline">\(c_j \in \text{CCI}(y_i)\)</span>. Then, we use the identifier <span class="math inline">\(\text{docid}(c_j)\)</span> of the documents they belong to as citation indices for context-sensitive token <span class="math inline">\(y_i\)</span>. Highlights for consecutive tokens citing the same documents are collated into a single span and mapped from subword to word level to facilitate interpretation.</p>
+<p><span class="paragraph">Sentence-level Aggregation</span> Following standard sentence-level AA practices, we aggregate token-level citations as the union over all cited documents <span class="math inline">\(\text{docid}(\cdot)\)</span> across context-sensitive tokens in <span class="math inline">\(\mathbf{y}\)</span>:</p>
+<p><span class="math display">\[
+\begin{gathered}
+    \text{Mirage}(\mathbf{y}) = \bigcup_{y_i \in \text{CTI}(\mathbf{y})} \text{docid}(c_j)\;\forall c_j \in \text{CCI}(y_i) \\
+    \text{with}\;s_\text{cti} = m_i \geq m^*, s_\text{cci} = a^i_j \geq a^{i*}
+\end{gathered}
+\]</span></p>
+<p>In the following sections, we use <span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{cal}}\)</span> and <span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> to refer to sentence-level answer attribution using <span class="math inline">\(m_{\text{cal}}^*\)</span> and <span class="math inline">\(m_{\text{ex}}^*\)</span> thresholds, respectively.</p>
+</section>
+</section>
+<section id="sec-chap5-agreement" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="sec-chap5-agreement"><span class="header-section-number">5.4</span> Agreement with Human Answer Attribution Annotations</h2>
+<p>We begin our evaluation by comparing <span class="smallcaps">Mirage</span> predictions to human-produced answer attributions. Importantly, our aim is not to compare several AA approaches to claim optimal faithfulness, but rather to evaluate how our proposed framework fares against existing approaches at the task of producing answer attributions from model internals. We employ the XOR-AttriQA dataset <span class="citation" data-cites="muller-etal-2023-evaluating">(<a href="references.html#ref-muller-etal-2023-evaluating" role="doc-biblioref">Muller et al., 2023</a>)</span>, which, to our knowledge, is the only open dataset with human annotations over RAG outputs produced by a publicly accessible LM.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>We limit our assessment to open-weights LLMs to ensure that <span class="smallcaps">Mirage</span> answer attribution can faithfully reflect the model’s inner processing towards the natural production of the annotated answer used for evaluation. While these answers could be force-decoded from an open-source model to enable usage, such a procedure would likely impact the validity of AA, as the selected model would not naturally generate the forced answers. Moreover, while cross-linguality is not the focus of our work, XOR-AttriQA allows us to assess the robustness of <span class="smallcaps">Mirage</span> across several languages and its agreement with human annotations compared to an entailment-based system.</p>
+<section id="sec-chap5-xor-attriqa" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="sec-chap5-xor-attriqa"><span class="header-section-number">5.4.1</span> Experimental Setup</h3>
+<p>XOR-AttriQA consists of 500/4720 validation/test tuples, each containing a concise factual query <span class="math inline">\(\mathbf{q}\)</span>, a set of retrieved documents that we use as context <span class="math inline">\(\mathbf{c} = \langle \text{doc}_1, \dots, \text{doc}_k \rangle\)</span>, and a single-sentence answer <span class="math inline">\(\mathbf{y}\)</span> produced by an mT5-base model <span class="citation" data-cites="xue-etal-2021-mt5">(<a href="references.html#ref-xue-etal-2021-mt5" role="doc-biblioref">Xue et al., 2021</a>)</span> fine-tuned on cross-lingual QA in a RAG setup (CORA; <span class="citation" data-cites="asai-etal-2021-one">Asai et al. (<a href="references.html#ref-asai-etal-2021-one" role="doc-biblioref">2021</a>)</span>). Queries and documents span five languages —Bengali (BN), Finnish (FI), Japanese (JA), Russian (RU), and Telugu (TE)—and cross-lingual retrieval is allowed.</p>
+<p>Although the RAG generator employs a set of retrieved documents during generation, human annotators were asked to label tuples <span class="math inline">\((\mathbf{q}, \text{doc}_i, \mathbf{y})\)</span> to indicate whether the information in <span class="math inline">\(\text{doc}_i\)</span> supports the generation of <span class="math inline">\(\mathbf{y}\)</span>.</p>
+<div id="tbl-xor-attriqa-statistics" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-xor-attriqa-statistics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Dataset</strong></th>
+<th data-quarto-table-cell-role="th"><strong>BN</strong></th>
+<th data-quarto-table-cell-role="th"><strong>FI</strong></th>
+<th data-quarto-table-cell-role="th"><strong>JA</strong></th>
+<th data-quarto-table-cell-role="th"><strong>RU</strong></th>
+<th data-quarto-table-cell-role="th"><strong>TE</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Total</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Orig.</td>
+<td>1407</td>
+<td>659</td>
+<td>1066</td>
+<td>954</td>
+<td>634</td>
+<td>4720</td>
+</tr>
+<tr class="even">
+<td>Match</td>
+<td>274</td>
+<td>214</td>
+<td>232</td>
+<td>254</td>
+<td>170</td>
+<td>1144</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-xor-attriqa-statistics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.2: Statistic for test sets of the original XOR-AttriQA and XOR-AttriQA<span class="math inline">\(_{\text{match}}\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>Notably, <span class="smallcaps">Mirage</span> requires extracting model internals in the naturalistic setting that leads to the generation of the desired answer, i.e., the one assessed by human annotators. Hence, we perform a selection procedure to identify XOR-AttriQA examples where the answer produced by filling in the concatenated documents <span class="math inline">\(\mathbf{c}\)</span> in the LM prompt matches the one provided. The resulting subset, which we dub XOR-AttriQA<span class="math inline">\(_{\text{match}}\)</span>, contains 142/1144 calibration/test examples and is used for our evaluation. Replicating the original answer generation process is challenging since the original ordering of the documents <span class="math inline">\(\text{doc}_i\)</span> in <span class="math inline">\(\mathbf{c}\)</span> is unavailable.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> To maximize the chances of replication, we attempt to restore the original document sequence by randomly shuffling the order of <span class="math inline">\(\text{doc}_i\)</span>s until LLM can naturally predict the answer <span class="math inline">\(\mathbf{y}\)</span>. The procedure adopted is described in <a href="#alg-mirage" class="quarto-xref">Algorithm 1</a>. The statistics of the original XOR-AttriQA and XOR-AttriQA<span class="math inline">\(_{\text{match}}\)</span> are shown in <a href="#tbl-xor-attriqa-statistics" class="quarto-xref">Table&nbsp;<span>5.2</span></a>.</p>
+<div id="alg-mirage" class="pseudocode-container quarto-float" data-caption-prefix="Algorithm" data-pseudocode-number="1">
+<div class="pseudocode">
+\begin{algorithm} \caption{Restore document sequence producing the original annotated answer in XOR-AttriQA} \begin{algorithmic} \Require $\{Doc_1, ..., Doc_n\}$, $query$, $answer$, $\mathbb{M}$ \Procedure{RestoreSequence}{$\{Doc_1, ..., Doc_n\}, query, answer, \mathbb{M}$} \State $iter = 0, \, found=False$ \While {$iter &lt; 200$} \State $pred = \mathbb{M}(\{Doc_1, ..., Doc_n\}, query)$ \If{$pred == answer$} \State $found = True$, \textbf{break} \Else \State ${\rm Shuffle}(\{Doc_1, ..., Doc_n\})$ \EndIf \State iter += 1 \EndWhile \If{$found$} \State \textbf{return} $\{Doc_1, ..., Doc_n\}$ \EndIf \EndProcedure \end{algorithmic} \end{algorithm}
+</div>
+</div>
+</section>
+<section id="entailment-based-baselines" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="entailment-based-baselines"><span class="header-section-number">5.4.2</span> Entailment-based Baselines</h3>
+<p><span class="citation" data-cites="muller-etal-2023-evaluating">Muller et al. (<a href="references.html#ref-muller-etal-2023-evaluating" role="doc-biblioref">2023</a>)</span> use an mT5 XXL model fine-tuned on NLI for performing answer attribution on XOR-AttriQA. Since neither the tuned model nor the tuning data are released, we opt to use TRUE <span class="citation" data-cites="honovich-etal-2022-true-evaluating">(<a href="references.html#ref-honovich-etal-2022-true-evaluating" role="doc-biblioref">Honovich et al., 2022</a>)</span>, a fine-tuned T5 11B model <span class="citation" data-cites="raffel-etal-2020-exploring">(<a href="references.html#ref-raffel-etal-2020-exploring" role="doc-biblioref">Raffel et al., 2020</a>)</span>, which was shown to highly overlap with human annotation on English answer attribution tasks <span class="citation" data-cites="muller-etal-2023-evaluating gao-etal-2023-enabling">(<a href="references.html#ref-muller-etal-2023-evaluating" role="doc-biblioref">Muller et al., 2023</a>; <a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">Gao et al., 2023a</a>)</span>. We evaluate TRUE agreement with human annotation in two setups. In NLI<span class="math inline">\(_\text{orig}\)</span>, we evaluate the model directly on all examples, including non-English data. While this leads the English-centric TRUE model out of distribution, it accounts for real-world scenarios with noisy data, and can be used to assess the robustness of the method in less-resourced settings. Instead, in NLI<span class="math inline">\(_\text{mt}\)</span>, all queries and documents are machine translated to English using the Google Translate API. While this simplifies the task by ensuring all TRUE inputs are in English, it can lead to information loss due to imprecise translation.</p>
+</section>
+<section id="sec-chap5-xor-attriqa-results" class="level3" data-number="5.4.3">
+<h3 data-number="5.4.3" class="anchored" data-anchor-id="sec-chap5-xor-attriqa-results"><span class="header-section-number">5.4.3</span> Results and Analysis</h3>
+<p><span class="paragraph"><span class="smallcaps">Mirage</span> agrees with human answer attribution</span> <a href="#tbl-chap5-agreement" class="quarto-xref">Table&nbsp;<span>5.3</span></a> presents our results. <span class="smallcaps">Mirage</span> is found to largely agree with human annotations on XOR-AttriQA<span class="math inline">\(_{\text{match}}\)</span>, with scores on par or slightly better than those of the ad-hoc NLI<span class="math inline">\(_\text{mt}\)</span> system augmented with automatic translation. Although calibration appears to generally improve <span class="smallcaps">Mirage</span>’s agreement with human annotators, we note that the uncalibrated <span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> achieves strong performances despite having no access to external modules or tuning data. These findings confirm that the inner workings of LMs can be used to perform answer attribution, yielding performances on par with supervised answer attribution approaches even in the absence of annotations for calibration.</p>
+<div id="tbl-chap5-agreement" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap5-agreement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Method</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Extra Req.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>CCI Filter</strong></th>
+<th data-quarto-table-cell-role="th"><strong>BN</strong></th>
+<th data-quarto-table-cell-role="th"><strong>FI</strong></th>
+<th data-quarto-table-cell-role="th"><strong>JA</strong></th>
+<th data-quarto-table-cell-role="th"><strong>RU</strong></th>
+<th data-quarto-table-cell-role="th"><strong>TE</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Avg. / Std</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="namerow">NLI<span class="math inline">\(_{\text{orig}}\)</span></td>
+<td><span class="footnotesize longrow">11B NLI model</span></td>
+<td rowspan="2" class="rowspan">--</td>
+<td>33.8</td>
+<td>83.7</td>
+<td>86.5</td>
+<td class="bold">85.8</td>
+<td>50.0</td>
+<td class="mediumrow">68.0 / 21.9</td>
+</tr>
+<tr class="midrule even">
+<td class="namerow">NLI<span class="math inline">\(_{\text{mt}}\)</span></td>
+<td><span class="footnotesize">11B NLI model + MT</span></td>
+<td>82.6</td>
+<td>83.7</td>
+<td>90.5</td>
+<td>81.7</td>
+<td>82.5</td>
+<td class="mediumrow">84.2 / 3.2</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="rowspan"><span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{cal}}\)</span> (Ours)</td>
+<td rowspan="2" class="rowspan"><span class="footnotesize">142 annotated AA ex.</span></td>
+<td>Top 3</td>
+<td>81.7</td>
+<td class="bold">84.2</td>
+<td>87.8</td>
+<td>83.3</td>
+<td>87.0</td>
+<td class="mediumrow">84.8 / 2.3</td>
+</tr>
+<tr class="midrule even">
+<td>Top 5%</td>
+<td class="bold">84.4</td>
+<td>83.0</td>
+<td class="bold">91.4</td>
+<td class="bold">85.8</td>
+<td class="bold">88.9</td>
+<td class="mediumrow"><span class="bold">86.7</span> / 3.1</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="rowspan"><span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> (Ours)</td>
+<td rowspan="2" class="rowspan">--</td>
+<td>Top 3</td>
+<td>80.2</td>
+<td>78.5</td>
+<td>83.8</td>
+<td>77.2</td>
+<td>75.2</td>
+<td class="mediumrow">79.0 / 2.9</td>
+</tr>
+<tr class="even">
+<td>Top 5%</td>
+<td class="underline">81.7</td>
+<td class="underline">80.1</td>
+<td class="underline">89.2</td>
+<td class="underline">84.4</td>
+<td class="underline">81.8</td>
+<td class="mediumrow"><u>83.4</u> / 3.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap5-agreement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.3: Agreement % of <span class="smallcaps">Mirage</span> and entailment-based baselines with human AA on XOR-AttriQA<span class="math inline">\(_{\text{match}}\)</span> using CORA for RAG. <strong>Extra Req.</strong>: data/models needed for AA in addition to the RAG model and the current example. <strong>Filter</strong>: <span class="math inline">\(s_\text{cci}\)</span> filtering for saliency scores. <strong>Best overall</strong> and <u>best uncalibrated scores</u> are highlighted.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph"><span class="smallcaps">Mirage</span> is robust across languages and filtering procedures</span> <a href="#tbl-chap5-agreement" class="quarto-xref">Table&nbsp;<span>5.3</span></a> shows that NLI<span class="math inline">\(_\text{orig}\)</span> answer attribution performances are largely language-dependent due to the unbalanced multilingual abilities of the TRUE NLI model. This highlights the brittleness of entailment-based approaches in OOD settings, as discussed in <a href="#sec-chap5-approaches" class="quarto-xref"><span>Section 5.2.1</span></a>. Instead, <span class="smallcaps">Mirage</span> variants perform similarly across all languages by exploiting the internals of the multilingual RAG model. <span class="smallcaps">Mirage</span>’s performance across languages is comparable to that of NLI<span class="math inline">\(_\text{mt}\)</span>, which requires an extra translation step to operate on English inputs.</p>
+<p>We further validate the robustness of the CCI filtering process by testing percentile values between Top 3-100% for the <span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> setting. <a href="#fig-chap5-robustness" class="quarto-xref">Figure&nbsp;<span>5.4</span></a> shows that Top % values between 3 and 20% lead to a comparably high agreement with human annotation, suggesting this filtering threshold can be selected without ad-hoc parameter tuning.</p>
+<div id="fig-chap5-robustness" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap5-robustness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-5-mirage/cci_filtering_robustness.webp" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap5-robustness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.4: Robustness of <span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> agreement with human annotations across Top-% CCI filtering thresholds.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-chap5-eli5-evaluation" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="sec-chap5-eli5-evaluation"><span class="header-section-number">5.5</span> Answer Attribution for Long-form QA</h2>
+<p>XOR-AttriQA can only provide limited insights for real-world answer attribution evaluation, as its examples are sourced from Wikipedia articles and its answers are very concise. In this section, we extend our evaluation to ELI5 <span class="citation" data-cites="fan-etal-2019-eli5">(<a href="references.html#ref-fan-etal-2019-eli5" role="doc-biblioref">Fan et al., 2019</a>)</span>, a challenging long-form QA dataset that was recently employed to evaluate LLM self-citation capabilities <span class="citation" data-cites="gao-etal-2023-enabling">(<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">Gao et al., 2023a</a>)</span>. Different from XOR-AttriQA, ELI5 answers are expected to contain multiple sentences of variable length, making it especially fitting to assess <span class="smallcaps">Mirage</span> context-sensitive token identification capabilities before document attribution. Alongside our quantitative assessment of <span class="smallcaps">Mirage</span> in relation to self-citation baselines, we conduct a qualitative evaluation of the disagreement between the two methods.</p>
+<section id="experimental-setup" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="experimental-setup"><span class="header-section-number">5.5.1</span> Experimental Setup</h3>
+<p><span class="paragraph">Dataset</span> The ELI5 dataset contains open-ended why/how/what queries <span class="math inline">\(\mathbf{q}\)</span> from the “Explain Like I’m Five” subreddit eliciting long-form multi-sentence answers. For our evaluation, we use the RAG-adapted ELI5 version by <span class="citation" data-cites="gao-etal-2023-enabling">Gao et al. (<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">2023a</a>)</span>, containing top-5 matching documents <span class="math inline">\(\mathbf{c} = \langle \text{doc}_1, \dots, \text{doc}_5 \rangle\)</span> retrieved from a filtered version of the Common Crawl (Sphere; <span class="citation" data-cites="piktus-etal-2021-web">Piktus et al. (<a href="references.html#ref-piktus-etal-2021-web" role="doc-biblioref">2021</a>)</span>) for every query. The answer attribution task is performed by generating a multi-sentence answer <span class="math inline">\(\mathbf{ans} = \langle \mathbf{y}_1, \dots, \mathbf{y}_m \rangle\)</span> with an LLM using <span class="math inline">\((\mathbf{q}, \mathbf{c})\)</span> as inputs, and identifying documents in <span class="math inline">\(\mathbf{c}\)</span> supporting the generation of answer sentence <span class="math inline">\(\mathbf{y}_i,\,\forall \mathbf{y}_i \in \mathbf{ans}\)</span>.</p>
+<p><span class="paragraph">Models and Answer Attribution Procedure</span> We select LLaMA 2 7B Chat <span class="citation" data-cites="touvron-etal-2023-llama2">(<a href="references.html#ref-touvron-etal-2023-llama2" role="doc-biblioref">Touvron et al., 2023</a>)</span> and Zephyr <span class="math inline">\(\beta\)</span> 7B <span class="citation" data-cites="tunstall-etal-2023-zephyr">(<a href="references.html#ref-tunstall-etal-2023-zephyr" role="doc-biblioref">Tunstall et al., 2024</a>)</span> for our experiments since they are high-quality open-source LLMs of manageable size. To enable a fair comparison between the tested attribution methods, we first generate answers with inline citations using the self-citation prompt by <span class="citation" data-cites="gao-etal-2023-retrieval">Gao et al. (<a href="references.html#ref-gao-etal-2023-retrieval" role="doc-biblioref">2023b</a>)</span>. Then, we remove citation tags and use <span class="smallcaps">Mirage</span> to attribute the resulting answers to retrieved documents. This process ensures that citation quality is compared over the same set of answers, controlling for the variability that a different prompt could produce. For more robust results, we perform generation three times using different sampling seeds, and report the averaged scores. Since human-annotated data is not available, we only assess the calibration-free <span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span>.</p>
+<p><span class="paragraph">Entailment-based Evaluation</span> Differently from the XOR-AttriQA dataset used in <a href="#sec-chap5-agreement" class="quarto-xref"><span>Section 5.4</span></a>, ELI5 does not contain human annotations of AA. For this reason, and to ensure consistency with <span class="citation" data-cites="gao-etal-2023-enabling">Gao et al. (<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">2023a</a>)</span> self-citation assessment, we adopt the TRUE model as a high-quality approximation of expected annotation behavior. Despite the potential OOD issues of entailment-based AA highlighted in <a href="#sec-chap5-agreement" class="quarto-xref"><span>Section 5.4</span></a>, we expect TRUE to perform well on ELI5 since it closely matches the general/scientific knowledge queries in TRUE’s fine-tuning corpora and contains only English sentences. To overcome the multi-hop issue when using single documents for entailment-based answer attribution, we follow the ALCE evaluation <span class="citation" data-cites="gao-etal-2023-enabling">(<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">Gao et al., 2023a</a>)</span> to measure citation quality as NLI precision and recall (summarized by F1 scores) over the concatenation of retrieved documents. The ALCE framework for RAG QA evaluation assesses the LLMs’ responses from three viewpoints: citation quality, correctness, and fluency. <strong>Citation quality</strong> evaluates the answer attribution performance with recall and precision scores. The <em>recall</em> score calculates if the concatenation of the cited documents entails the generated sentence. The <em>precision</em> measures whether each document is cited precisely by verifying if the concatenated text still entails the generation whenever one of the documents is removed. We further calculate F1 scores to summarize the overall performance.</p>
+</section>
+<section id="results" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="results"><span class="header-section-number">5.5.2</span> Results</h3>
+<p>Results in <a href="#tbl-chap5-eli5-results" class="quarto-xref">Table&nbsp;<span>5.4</span></a> show that <span class="smallcaps">Mirage</span> provides a significant boost in answer attribution precision and recall for the Zephyr <span class="math inline">\(\beta\)</span> model. At the same time, it greatly improves citation recall at the expense of precision for LLaMA 2, resulting in an overall higher F1 score for the <span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> Top 5% setting. These results confirm that <span class="smallcaps">Mirage</span> can produce effective answer attributions in longer and more complex settings while employing no external resources like the self-citation approach.</p>
+<div id="tbl-chap5-eli5-results" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap5-eli5-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"><strong>Model</strong></th>
+<th rowspan="2" data-quarto-table-cell-role="th"><strong>Answer Attrib.</strong></th>
+<th colspan="3" class="group-header" data-quarto-table-cell-role="th"><strong>Citation</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th">Prec.</th>
+<th data-quarto-table-cell-role="th">Rec.</th>
+<th data-quarto-table-cell-role="th">F1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="3" class="rowspan">Zephyr <span class="math inline">\(\beta\)</span></td>
+<td>Self-citation</td>
+<td>41.4</td>
+<td>24.3</td>
+<td>30.6</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> Top 3</td>
+<td>38.3</td>
+<td>46.2</td>
+<td>41.9</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> Top 5%</td>
+<td class="bold">44.7</td>
+<td class="bold">46.5</td>
+<td class="bold">45.6</td>
+</tr>
+<tr class="even">
+<td rowspan="3" class="rowspan">LLaMA 2</td>
+<td>Self-citation</td>
+<td class="bold">37.9</td>
+<td>19.8</td>
+<td>26.0</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> Top 3</td>
+<td>21.8</td>
+<td class="bold">29.6</td>
+<td>25.1</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> Top 5%</td>
+<td>26.2</td>
+<td>29.1</td>
+<td class="bold">27.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap5-eli5-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.4: Answer attribution quality estimated by TRUE for self-citation and <span class="smallcaps">Mirage</span> on ELI5.
+</figcaption>
+</figure>
+</div>
+<p>From the comparison between Top 3 and Top 5% CCI filtering strategies, we note that the latter generally results in better performance. This intuitively supports the idea that an adaptive selection strategy is more suitable for accommodating the wide variability of attribution scores across different examples. <a href="#fig-chap5-cci-case" class="quarto-xref">Figure&nbsp;<span>5.5</span></a> visualizes the distributions of attribution scores <span class="math inline">\(a^i_j\)</span> for an answer produced by Zephyr <span class="math inline">\(\beta\)</span>, showing that most context tokens in retrieved documents receive low attribution scores, with only a handful of them contributing to the prediction of the context-sensitive token ‘9’ in the generation. This example also provides an intuitive explanation of the robustness of Top-% selection thresholds discussed in <a href="#sec-chap5-xor-attriqa-results" class="quarto-xref"><span>Section 5.4.3</span></a>. Ultimately, the Top 5% threshold is sufficient to select the document containing the direct mention of the generated token.</p>
+<div id="fig-chap5-cci-case" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap5-cci-case-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-5-mirage/attribution_example.png" class="img-fluid figure-img" style="width:80.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap5-cci-case-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.5: Attribution scores over retrieved documents’ tokens for the prediction of context-sensitive token ‘9’.
+</figcaption>
+</figure>
+</div>
+<p>Since the <span class="math inline">\(m^*_\text{ex}\)</span> threshold used to select context-sensitive tokens by <span class="smallcaps">Mirage</span><span class="math inline">\(_{\text{ex}}\)</span> depends on the mean and standard deviation of generated answer’s scores, we expect that the length of the generated answer might play a role in citation quality. As shown in <a href="#fig-chap5-correlation" class="quarto-xref">Figure&nbsp;<span>5.6</span></a>, <span class="smallcaps">Mirage</span> citation quality is indeed lower for shorter answer sentences. However, a similar trend is observed for self-citation, which is outperformed by <span class="smallcaps">Mirage</span> for all but the shortest length bin (<span class="math inline">\(\leq 10\)</span> tokens). The proportion of non-attributed sentences (red line) suggests that the lower quality could be a byproduct of the ALCE evaluation protocol, where non-attributed sentences receive zero precision/recall. Future availability of human-annotated RAG datasets may shed more light on this effect.</p>
+<div id="fig-chap5-correlation" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap5-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-5-mirage/mirage_performance.png" class="img-fluid figure-img" style="width:80.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap5-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.6: <span class="smallcaps">Mirage</span><span class="math inline">\(_\text{ex}\)</span> (top) and self-citation (bottom) average performance on ELI5 answer sentences binned by length. <span class="light-content" style="color: #ff0000;">Red</span>: Percentage of sentences with <span class="math inline">\(\geq 1\)</span> citations.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-chap5-disagree" class="level3" data-number="5.5.3">
+<h3 data-number="5.5.3" class="anchored" data-anchor-id="sec-chap5-disagree"><span class="header-section-number">5.5.3</span> Qualitative Analysis of Disagreements</h3>
+<p>To better understand <span class="smallcaps">Mirage</span>’s performance, we examine some ELI5 examples where <span class="smallcaps">Mirage</span> disagrees with self-citation on Zephyr <span class="math inline">\(\beta\)</span>’s generations. <a href="#tbl-chap5-case-study-1" class="quarto-xref">Table&nbsp;<span>5.5</span></a> and <a href="#tbl-chap5-case-study-2" class="quarto-xref">Table&nbsp;<span>5.6</span></a> illustrate two cases in which the entailment-based TRUE model results agree with either <span class="smallcaps">Mirage</span> or self-citation.</p>
+<p>In <a href="#tbl-chap5-case-study-1" class="quarto-xref">Table&nbsp;<span>5.5</span></a>, the answer provided by the model is directly supported by Document [1], as also identified by TRUE. However, self-citation fails to cite the related document at the end of the two sentences. By contrast, <span class="smallcaps">Mirage</span> attributes several spans to Document [1], resulting in the correct answer attribution for both sentences.</p>
+<div id="tbl-chap5-case-study-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap5-case-study-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="bottomrule odd">
+<td>Input: Prompt + Retrieved docs (N=5) + Query</td>
+</tr>
+<tr class="even">
+<td><strong>Document [1]</strong> […] Q. What does it mean for books to be Sensitized or Desensitized? A security strip is embedded into each library book. When a book is checked out, it must be ‘desensitized’ so that it will not set off the alarm when it leaves or enters the library. When the book is returned, it is ‘sensitized’ so that the alarm will be set off should someone attempt to take the book from the library without going through the proper borrowing procedure.</td>
+</tr>
+<tr class="odd">
+<td><strong>Document [2]</strong> […]</td>
+</tr>
+<tr class="midrule even">
+<td><strong>Query</strong>: How does a small paper library bar code set off the security alarm when you haven’t checked a book out?</td>
+</tr>
+<tr class="bottomrule odd">
+<td>Answer attribution results</td>
+</tr>
+<tr class="even">
+<td><strong>Self-citation</strong>: […] When a book is checked out, it is ‘desensitized’ to prevent the alarm from going off. <span class="light-content" style="color: blue;">[<span class="math inline">\(\varnothing\)</span>]</span> When the book is returned, it is ‘sensitized’ so the alarm will sound if the item is taken without authorization. <span class="light-content" style="color: blue;">[<span class="math inline">\(\varnothing\)</span>]</span> […]</td>
+</tr>
+<tr class="midrule odd">
+<td><strong><span class="smallcaps">Mirage</span></strong>: […] <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: yellow;">When a book is checked</span><span class="math inline">\(^{(1)}\)</span> out, <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: yellow;">it</span><span class="math inline">\(^{(1)}\)</span> is <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: yellow;">‘desensitized’</span><span class="math inline">\(^{(1)}\)</span> to prevent the alarm from going off. <span class="light-content" style="color: blue;">[1]</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: yellow;">When the book</span><span class="math inline">\(^{(1)}\)</span> is returned, it is <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: yellow;">‘sensitized’</span><span class="math inline">\(^{(1)}\)</span> so the alarm will sound if the item is taken without authorization. <span class="light-content" style="color: blue;">[1]</span> […]</td>
+</tr>
+<tr class="even">
+<td><strong>NLI (<span class="smallcaps">True</span> model)</strong>: <span class="light-content" style="color: blue;">[1] entails both answer sentences.</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap5-case-study-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.5: Example of self-citation failure using Zephyr <span class="math inline">\(\beta\)</span> on ELI5. NLI and <span class="smallcaps">Mirage</span> produce the correct citation, while self-citation does not cite any document ([<span class="light-content" style="color: #0000ff;"><span class="math inline">\(\varnothing\)</span></span>]).
+</figcaption>
+</figure>
+</div>
+<p>While TRUE achieves high consistency with human judgment (e.g., for the example in <a href="#tbl-chap5-case-study-1" class="quarto-xref">Table&nbsp;<span>5.5</span></a>), NLI-based AA can still prove unreliable in cases of high lexical overlap between the answer and supporting documents. <a href="#tbl-chap5-case-study-2" class="quarto-xref">Table&nbsp;<span>5.6</span></a> illustrates one such case, where both self-citation and TRUE attribute the answer to Document [3], whereas <span class="smallcaps">Mirage</span> does not label any context document as salient for the answer. Here, the answer wrongly states that the bar code can be used to <strong>prevent</strong> the alarm, while Document [3] mentions that the code can be used to <strong>cancel</strong> the alarm after an accidental activation. Thus, despite the high lexical and semantic relatedness, the answer is not supported by Document [3]. The failure of TRUE in this setting highlights the sensitivity of entailment-based systems to surface-level similarity, making them brittle in cases where the model’s context usage is not straightforward. Using another sampling seed for the same query produces the answer <em>“[…] the individual can <strong>cancel</strong> the alarm by providing their password at the keypad”</em>, which <span class="smallcaps">Mirage</span> correctly attributes to Document [3].</p>
+<div id="tbl-chap5-case-study-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap5-case-study-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="bottomrule odd">
+<td>Input: Prompt + Retrieved docs (N=5) + Query</td>
+</tr>
+<tr class="even">
+<td><strong>Document [2]</strong> […]</td>
+</tr>
+<tr class="odd">
+<td><strong>Document [3]</strong> […] What will happen if you accidentally set off your security system? The siren will sound and it will be loud, but you should be able to stop the siren by entering your code into your keypad. […]</td>
+</tr>
+<tr class="even">
+<td><strong>Document [4]</strong> […]</td>
+</tr>
+<tr class="midrule odd">
+<td><strong>Query</strong>: How does a small paper library bar code set off the security alarm when you haven’t checked a book out?</td>
+</tr>
+<tr class="bottomrule even">
+<td>Answer attribution results</td>
+</tr>
+<tr class="odd">
+<td><strong>Self-citation</strong>: […] False alarms can be prevented by entering the code on the keypad, as documented in <span class="light-content" style="color: blue;">[3]</span>. […]</td>
+</tr>
+<tr class="midrule even">
+<td><strong><span class="smallcaps">Mirage</span></strong>: […] False alarms can be prevented by entering the code on the keypad <span class="light-content" style="color: blue;">[<span class="math inline">\(\varnothing\)</span>]</span> […]</td>
+</tr>
+<tr class="odd">
+<td><strong>NLI (<span class="smallcaps">True</span> model)</strong>: <span class="light-content" style="color: blue;">[3] entails the answer sentence.</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap5-case-study-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.6: Example showcasing the brittleness of entailment-based AA. <span class="smallcaps">Mirage</span> correctly finds that the answer cannot be attributed ([<span class="light-content" style="color: #0000ff;"><span class="math inline">\(\varnothing\)</span></span>]), while NLI and self-citation attribute the lexically similar <span class="light-content" style="color: #0000ff;">Document [3]</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="limitations" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="limitations"><span class="header-section-number">5.6</span> Limitations</h2>
+<p>We now highlight some limitations of the <span class="smallcaps">Mirage</span> method and our experimental evaluation, which should be addressed in future work.</p>
+<p><span class="paragraph">LLMs Optimized for Self-citation</span> Our analysis focuses specifically on models that are not explicitly trained to perform self-citation and can provide citations only when prompted to do so. While recent systems incorporate self-citation into their optimization scheme for RAG applications, incorporating model internals into the attribution process will remain a valuable and inexpensive method to ensure faithful answer attributions.</p>
+<p><span class="paragraph">Brittleness of NLI-based Evaluation</span> Following <span class="citation" data-cites="gao-etal-2023-enabling">Gao et al. (<a href="references.html#ref-gao-etal-2023-enabling" role="doc-biblioref">2023a</a>)</span>, the evaluation of <a href="#sec-chap5-eli5-evaluation" class="quarto-xref"><span>Section 5.5</span></a> employs the NLI-based system TRUE due to the lack of AA-annotated answers produced by open-source LLMs. However, using the predictions of NLI models as AA references is far from ideal, given their brittleness in challenging scenarios and their tendency to exploit shallow heuristics. While the ELI5 dataset is reasonably in-domain for the TRUE model, this factor might still undermine the reliability of some of our quantitative evaluation results. Future work should produce a wider variety of annotated datasets for reproducible answer attribution using open-source LLMs, enabling us to extend our analysis to a broader set of languages and model sizes and ultimately enhance the robustness of our findings.</p>
+<p><span class="paragraph">Applicability to Other Domains and Models</span> Our evaluation is conducted on relatively homogeneous QA datasets and does not include language models with &gt;7B parameters. This limits the generalizability of our findings to other domains and larger models. Future work should extend our analysis to a broader range of domains and model sizes to further validate the robustness and applicability of <span class="smallcaps">Mirage</span>. This said, we expect <span class="smallcaps">Mirage</span> to be less vulnerable to language and quality shifts compared to existing AA methods that depend on external validators or on the model’s instruction-following abilities.</p>
+<p><span class="paragraph">Scalability on Longer Context</span> The computational cost for the simple gradient-based version of <span class="smallcaps">Mirage</span> we propose is <span class="math inline">\(2O(F)+|\text{CTI}(\mathbf{y})| \cdot O(B)\)</span>, where <span class="math inline">\(O(F), O(B)\)</span> are respectively the costs of a forward and a backward pass with the LLM, and <span class="math inline">\(|\text{CTI}(\mathbf{y})|\)</span> is the number of tokens selected by the CTI step. While CTI effectively limits the expensive backward component in the <span class="smallcaps">Mirage</span> computation, its cost is bound to increase significantly for larger models and context sizes. When applying <span class="smallcaps">Mirage</span> to LLMs with $&lt;$10B parameters, we note that its cost can be comparable or lower to supervised models like TRUE, requiring several forward passes using a large 11B LLM. Importantly, <span class="smallcaps">Mirage</span> is a flexible framework that can be implemented using different input attribution methods in the CCI step, including lightweight techniques that require only forward passes, such as Attention Rollout <span class="citation" data-cites="abnar-zuidema-2020-quantifying">(<a href="references.html#ref-abnar-zuidema-2020-quantifying" role="doc-biblioref">Abnar and Zuidema, 2020</a>)</span>, Value Zeroing <span class="citation" data-cites="mohebbi-etal-2023-quantifying">(<a href="references.html#ref-mohebbi-etal-2023-quantifying" role="doc-biblioref">Mohebbi et al., 2023</a>)</span>, or ALTI-Logit <span class="citation" data-cites="ferrando-etal-2023-explaining">(<a href="references.html#ref-ferrando-etal-2023-explaining" role="doc-biblioref">Ferrando et al., 2023</a>)</span>. Finally, a promising perspective for scaling to larger LLMs could be to assess whether <span class="smallcaps">Mirage</span>-produced AAs remain accurate when force-decoding the original model’s answer from a different LLM with fewer parameters.</p>
+<p><span class="paragraph">Parametrization and Choice of Attribution Method</span> While <a href="#sec-chap5-agreement" class="quarto-xref"><span>Section 5.4</span></a> highlights the robustness of <span class="smallcaps">Mirage</span> to various CCI filtering thresholds, the method still requires non-trivial parametrization. In particular, we emphasize that the choice of the attribution method employed to generate attribution scores in the CCI step can significantly impact the faithfulness of the resulting answer attributions. Although we used a relatively simple gradient-based approach, our proposed framework is method-agnostic. We leave the evaluation of modern input attribution techniques, such as the ones mentioned in the previous paragraph, to future work to further improve <span class="smallcaps">Mirage</span> applicability in real-world settings.</p>
+</section>
+<section id="conclusion" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5.7</span> Conclusion</h2>
+<p>In this chapter, we introduced <span class="smallcaps">Mirage</span>, a novel approach to enhance the faithfulness of answer attribution in RAG systems. By leveraging model internals, <span class="smallcaps">Mirage</span> effectively addresses the limitations of previous methods based on prompting or external NLI validators. Our experiments demonstrate that <span class="smallcaps">Mirage</span> produces outputs that strongly agree with human annotations while being more efficient and controllable than its counterparts. Our qualitative analysis shows that <span class="smallcaps">Mirage</span> can produce faithful attributions that reflect actual context usage during generation, reducing the risk of false positives motivated by surface-level similarity. Overall, <span class="smallcaps">Mirage</span> represents a promising first step in exploiting interpretability insights to develop faithful answer attribution methods, paving the way for the usage of LLM-powered question-answering systems in real-world, user-facing applications.</p>
+<p>In the next part of this thesis, we will move beyond analysis-driven methods to study how prompting (<a href="chap-6-ramp.html" class="quarto-xref"><span>Chapter 6</span></a>) and interpretability-based methods (<a href="chap-7-sae-litmt.html" class="quarto-xref"><span>Chapter 7</span></a>) can be used to effectively condition the machine translation generation process.</p>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-abnar-zuidema-2020-quantifying" class="csl-entry" role="listitem">
+Samira Abnar and Willem Zuidema. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.385">Quantifying attention flow in transformers</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 4190–4197, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-agarwal2024faithfulness" class="csl-entry" role="listitem">
+Chirag Agarwal, Sree Harsha Tanneru, and Himabindu Lakkaraju. 2024. <a href="https://arxiv.org/abs/2402.04614">Faithfulness vs. Plausibility: On the (un)reliability of explanations from large language models</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-salghisi-etal-2024-fine-tune" class="csl-entry" role="listitem">
+Simone Alghisi, Massimo Rizzoli, Gabriel Roccabruna, Seyed Mahed Mousavi, and Giuseppe Riccardi. 2024. <a href="https://aclanthology.org/2024.inlg-main.15/">Should we fine-tune or <span>RAG</span>? Evaluating different techniques to adapt <span>LLM</span>s for dialogue</a>. In Saad Mahamood, Nguyen Le Minh, and Daphne Ippolito, editors, <em>Proceedings of the 17th international natural language generation conference</em>, pages 180–197, Tokyo, Japan. Association for Computational Linguistics.
+</div>
+<div id="ref-anil-etal-2023-palm" class="csl-entry" role="listitem">
+Rohan Anil, Andrew M Dai, Orhan Firat, Melvin Johnson, Dmitry Lepikhin, Alexandre Passos, Siamak Shakeri, Emanuel Taropa, Paige Bailey, Zhifeng Chen, et al. 2023. <a href="https://arxiv.org/abs/2305.10403">Palm 2 technical report</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-asai-etal-2021-one" class="csl-entry" role="listitem">
+Akari Asai, Xinyan Yu, Jungo Kasai, and Hanna Hajishirzi. 2021. One question answering model for many languages with cross-lingual dense passage retrieval. <em>Advances in Neural Information Processing Systems</em>, 34:7547–7560.
+</div>
+<div id="ref-atanasova-etal-2023-faithfulness" class="csl-entry" role="listitem">
+Pepa Atanasova, Oana-Maria Camburu, Christina Lioma, Thomas Lukasiewicz, Jakob Grue Simonsen, and Isabelle Augenstein. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-short.25">Faithfulness tests for natural language explanations</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 283–294, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-bohnet-etal-2022-attributedqa" class="csl-entry" role="listitem">
+Bernd Bohnet, Vinh Q. Tran, Pat Verga, Roee Aharoni, Daniel Andor, Livio Baldini Soares, Jacob Eisenstein, Kuzman Ganchev, Jonathan Herzig, Kai Hui, Tom Kwiatkowski, Ji Ma, Jianmo Ni, Tal Schuster, William W. Cohen, Michael Collins, Dipanjan Das, Donald Metzler, Slav Petrov, et al. 2022. <a href="https://arxiv.org/abs/2212.08037">Attributed question answering: Evaluation and modeling for attributed large language models</a>. <em>ArXiv</em>.
+</div>
+<div id="ref-borgeaud-etal-2022-improving" class="csl-entry" role="listitem">
+Sebastian Borgeaud, Arthur Mensch, Jordan Hoffmann, Trevor Cai, Eliza Rutherford, Katie Millican, George Bm Van Den Driessche, Jean-Baptiste Lespiau, Bogdan Damoc, Aidan Clark, Diego De Las Casas, Aurelia Guy, Jacob Menick, Roman Ring, Tom Hennigan, Saffron Huang, Loren Maggiore, Chris Jones, Albin Cassirer, et al. 2022. <a href="https://proceedings.mlr.press/v162/borgeaud22a.html">Improving language models by retrieving from trillions of tokens</a>. In Kamalika Chaudhuri, Stefanie Jegelka, Le Song, Csaba Szepesvari, Gang Niu, and Sivan Sabato, editors, <em>Proceedings of the 39th international conference on machine learning</em>, volume 162, pages 2206–2240. PMLR.
+</div>
+<div id="ref-casper-etal-2024-blackbox" class="csl-entry" role="listitem">
+Stephen Casper, Carson Ezell, Charlotte Siegmann, Noam Kolt, Taylor Lynn Curtis, Benjamin Bucknall, Andreas Haupt, Kevin Wei, Jérémy Scheurer, Marius Hobbhahn, Lee Sharkey, Satyapriya Krishna, Marvin Von Hagen, Silas Alberti, Alan Chan, Qinyi Sun, Michael Gerovitch, David Bau, Max Tegmark, et al. 2024. <a href="https://doi.org/10.1145/3630106.3659037">Black-box access is insufficient for rigorous AI audits</a>. In <em>Proceedings of the 2024 ACM conference on fairness, accountability, and transparency</em>, pages 2254–2272, New York, NY, USA. Association for Computing Machinery.
+</div>
+<div id="ref-chung-etal-2022-scaling" class="csl-entry" role="listitem">
+Hyung Won Chung, Le Hou, Shayne Longpre, Barret Zoph, Yi Tay, William Fedus, Yunxuan Li, Xuezhi Wang, Mostafa Dehghani, Siddhartha Brahma, Albert Webson, Shixiang Shane Gu, Zhuyun Dai, Mirac Suzgun, Xinyun Chen, Aakanksha Chowdhery, Alex Castro-Ros, Marie Pellat, Kevin Robinson, et al. 2024. <a href="http://jmlr.org/papers/v25/23-0870.html">Scaling instruction-finetuned language models</a>. <em>Journal of Machine Learning Research</em>, 25(70):1–53.
+</div>
+<div id="ref-cohenwang-etal-2024-contextcite" class="csl-entry" role="listitem">
+Benjamin Cohen-Wang, Harshay Shah, Kristian Georgiev, and Aleksander Mądry. 2024. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/adbea136219b64db96a9941e4249a857-Paper-Conference.pdf">ContextCite: Attributing model generation to context</a>. In A. Globerson, L. Mackey, D. Belgrave, A. Fan, U. Paquet, J. Tomczak, and C. Zhang, editors, <em>Advances in neural information processing systems</em>, volume 37, pages 95764–95807. Curran Associates, Inc.
+</div>
+<div id="ref-conneau-etal-2018-xnli" class="csl-entry" role="listitem">
+Alexis Conneau, Ruty Rinott, Guillaume Lample, Adina Williams, Samuel Bowman, Holger Schwenk, and Veselin Stoyanov. 2018. <a href="https://doi.org/10.18653/v1/D18-1269"><span>XNLI</span>: Evaluating cross-lingual sentence representations</a>. In Ellen Riloff, David Chiang, Julia Hockenmaier, and Jun’ichi Tsujii, editors, <em>Proceedings of the 2018 conference on empirical methods in natural language processing</em>, pages 2475–2485, Brussels, Belgium. Association for Computational Linguistics.
+</div>
+<div id="ref-dao-le-2023-chatgptchatgpt" class="csl-entry" role="listitem">
+Xuan-Quy Dao and Ngoc-Bich Le. 2023. <a href="https://arxiv.org/abs/2307.08272">Chatgpt is good but bing chat is better for vietnamese students</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-fan-etal-2019-eli5" class="csl-entry" role="listitem">
+Angela Fan, Yacine Jernite, Ethan Perez, David Grangier, Jason Weston, and Michael Auli. 2019. <a href="https://doi.org/10.18653/v1/P19-1346"><span>ELI</span>5: Long form question answering</a>. In Anna Korhonen, David Traum, and Lluís Màrquez, editors, <em>Proceedings of the 57th annual meeting of the association for computational linguistics</em>, pages 3558–3567, Florence, Italy. Association for Computational Linguistics.
+</div>
+<div id="ref-ferrando-etal-2023-explaining" class="csl-entry" role="listitem">
+Javier Ferrando, Gerard I. Gállego, Ioannis Tsiamas, and Marta R. Costa-jussà. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-long.301">Explaining how transformers use context to build predictions</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 5486–5513, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-gao-etal-2023-enabling" class="csl-entry" role="listitem">
+Tianyu Gao, Howard Yen, Jiatong Yu, and Danqi Chen. 2023a. <a href="https://doi.org/10.18653/v1/2023.emnlp-main.398">Enabling large language models to generate text with citations</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Proceedings of the 2023 conference on empirical methods in natural language processing</em>, pages 6465–6488, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-gao-etal-2023-retrieval" class="csl-entry" role="listitem">
+Yunfan Gao, Yun Xiong, Xinyu Gao, Kangxiang Jia, Jinliu Pan, Yuxi Bi, Yi Dai, Jiawei Sun, and Haofen Wang. 2023b. <a href="https://arxiv.org/abs/2312.10997">Retrieval-augmented generation for large language models: A survey</a>. <em>ArXiv</em>.
+</div>
+<div id="ref-honovich-etal-2022-true-evaluating" class="csl-entry" role="listitem">
+Or Honovich, Roee Aharoni, Jonathan Herzig, Hagai Taitelbaum, Doron Kukliansy, Vered Cohen, Thomas Scialom, Idan Szpektor, Avinatan Hassidim, and Yossi Matias. 2022. <a href="https://doi.org/10.18653/v1/2022.naacl-main.287"><span>TRUE</span>: Re-evaluating factual consistency evaluation</a>. In Marine Carpuat, Marie-Catherine de Marneffe, and Ivan Vladimir Meza Ruiz, editors, <em>Proceedings of the 2022 conference of the north american chapter of the association for computational linguistics: Human language technologies</em>, pages 3905–3920, Seattle, United States. Association for Computational Linguistics.
+</div>
+<div id="ref-huang-etal-2023-rigorously" class="csl-entry" role="listitem">
+Jing Huang, Atticus Geiger, Karel D’Oosterlinck, Zhengxuan Wu, and Christopher Potts. 2023. <a href="https://doi.org/10.18653/v1/2023.blackboxnlp-1.24">Rigorously assessing natural language explanations of neurons</a>. In Yonatan Belinkov, Sophie Hao, Jaap Jumelet, Najoung Kim, Arya McCarthy, and Hosein Mohebbi, editors, <em>Proceedings of the 6th BlackboxNLP workshop: Analyzing and interpreting neural networks for NLP</em>, pages 317–331, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-izacard-etal-2023-atlas" class="csl-entry" role="listitem">
+Gautier Izacard, Patrick Lewis, Maria Lomeli, Lucas Hosseini, Fabio Petroni, Timo Schick, Jane Dwivedi-Yu, Armand Joulin, Sebastian Riedel, and Edouard Grave. 2023. <a href="http://jmlr.org/papers/v24/23-0037.html">Atlas: Few-shot learning with retrieval augmented language models</a>. <em>Journal of Machine Learning Research</em>, 24(251):1–43.
+</div>
+<div id="ref-krishna-etal-2021-hurdles" class="csl-entry" role="listitem">
+Kalpesh Krishna, Aurko Roy, and Mohit Iyyer. 2021. <a href="https://doi.org/10.18653/v1/2021.naacl-main.393">Hurdles to progress in long-form question answering</a>. In Kristina Toutanova, Anna Rumshisky, Luke Zettlemoyer, Dilek Hakkani-Tur, Iz Beltagy, Steven Bethard, Ryan Cotterell, Tanmoy Chakraborty, and Yichao Zhou, editors, <em>Proceedings of the 2021 conference of the north american chapter of the association for computational linguistics: Human language technologies</em>, pages 4940–4957, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-kullback-leibler-1951-information" class="csl-entry" role="listitem">
+Solomon Kullback and Richard A Leibler. 1951. On information and sufficiency. <em>The annals of mathematical statistics</em>, 22(1):79–86.
+</div>
+<div id="ref-lewis-etal-2020-rag" class="csl-entry" role="listitem">
+Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Küttler, Mike Lewis, Wen-tau Yih, Tim Rocktäschel, Sebastian Riedel, and Douwe Kiela. 2020. Retrieval-augmented generation for knowledge-intensive NLP tasks. In <em>Proceedings of the 34th international conference on neural information processing systems</em>, Red Hook, NY, USA. Curran Associates Inc.
+</div>
+<div id="ref-liu-etal-2023-evaluating" class="csl-entry" role="listitem">
+Nelson Liu, Tianyi Zhang, and Percy Liang. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-emnlp.467">Evaluating verifiability in generative search engines</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Findings of the association for computational linguistics: EMNLP 2023</em>, pages 7001–7025, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-luo-etal-2022-simple-challenging" class="csl-entry" role="listitem">
+Cheng Luo, Wei Liu, Jieyu Lin, Jiajie Zou, Ming Xiang, and Nai Ding. 2022. <a href="https://doi.org/10.18653/v1/2022.findings-emnlp.252">Simple but challenging: Natural language inference models fail on simple sentences</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Findings of the association for computational linguistics: EMNLP 2022</em>, pages 3449–3462, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-ma-etal-2024-crafting" class="csl-entry" role="listitem">
+Lijia Ma, Xingchen Xu, and Yong Tan. 2024. <a href="https://arxiv.org/abs/2402.19421">Crafting knowledge: Exploring the creative mechanisms of chat-based search engines</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-madsen-etal-2024-self" class="csl-entry" role="listitem">
+Andreas Madsen, Sarath Chandar, and Siva Reddy. 2024. <a href="https://doi.org/10.18653/v1/2024.findings-acl.19">Are self-explanations from large language models faithful?</a> In Lun-Wei Ku, Andre Martins, and Vivek Srikumar, editors, <em>Findings of the association for computational linguistics: ACL 2024</em>, pages 295–337, Bangkok, Thailand. Association for Computational Linguistics.
+</div>
+<div id="ref-madsen-etal-2022-evaluating" class="csl-entry" role="listitem">
+Andreas Madsen, Nicholas Meade, Vaibhav Adlakha, and Siva Reddy. 2022. <a href="https://doi.org/10.18653/v1/2022.findings-emnlp.125">Evaluating the faithfulness of importance measures in <span>NLP</span> by recursively masking allegedly important tokens and retraining</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Findings of the association for computational linguistics: EMNLP 2022</em>, pages 1731–1751, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-mccoy-etal-2019-right" class="csl-entry" role="listitem">
+R. Thomas McCoy, Ellie Pavlick, and Tal Linzen. 2019. <a href="https://doi.org/10.18653/v1/P19-1334">Right for the wrong reasons: Diagnosing syntactic heuristics in natural language inference</a>. In Anna Korhonen, David Traum, and Lluís Màrquez, editors, <em>Proceedings of the 57th annual meeting of the association for computational linguistics</em>, pages 3428–3448, Florence, Italy. Association for Computational Linguistics.
+</div>
+<div id="ref-menick-etal-2022-teaching" class="csl-entry" role="listitem">
+Jacob Menick, Maja Trebacz, Vladimir Mikulik, John Aslanides, Francis Song, Martin Chadwick, Mia Glaese, Susannah Young, Lucy Campbell-Gillingham, Geoffrey Irving, et al. 2022. <a href="https://arxiv.org/abs/2203.11147">Teaching language models to support answers with verified quotes</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-mohebbi-etal-2023-quantifying" class="csl-entry" role="listitem">
+Hosein Mohebbi, Willem Zuidema, Grzegorz Chrupała, and Afra Alishahi. 2023. <a href="https://doi.org/10.18653/v1/2023.eacl-main.245">Quantifying context mixing in transformers</a>. In Andreas Vlachos and Isabelle Augenstein, editors, <em>Proceedings of the 17th conference of the european chapter of the association for computational linguistics</em>, pages 3378–3400, Dubrovnik, Croatia. Association for Computational Linguistics.
+</div>
+<div id="ref-mu2023can" class="csl-entry" role="listitem">
+Norman Mu, Sarah Chen, Zifan Wang, Sizhe Chen, David Karamardian, Lulwa Aljeraisy, Dan Hendrycks, and David Wagner. 2023. <a href="https://arxiv.org/abs/2311.04235">Can LLMs follow simple rules?</a> <em>Arxiv</em>.
+</div>
+<div id="ref-muller-etal-2023-evaluating" class="csl-entry" role="listitem">
+Benjamin Muller, John Wieting, Jonathan Clark, Tom Kwiatkowski, Sebastian Ruder, Livio Soares, Roee Aharoni, Jonathan Herzig, and Xinyi Wang. 2023. <a href="https://doi.org/10.18653/v1/2023.emnlp-main.10">Evaluating and modeling attribution for cross-lingual question answering</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Proceedings of the 2023 conference on empirical methods in natural language processing</em>, pages 144–157, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-nakano-etal-2021-webgpt" class="csl-entry" role="listitem">
+Reiichiro Nakano, Jacob Hilton, Suchir Balaji, Jeff Wu, Long Ouyang, Christina Kim, Christopher Hesse, Shantanu Jain, Vineet Kosaraju, William Saunders, et al. 2021. <a href="https://arxiv.org/abs/2112.09332">Webgpt: Browser-assisted question-answering with human feedback</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-nie-etal-2020-adversarial" class="csl-entry" role="listitem">
+Yixin Nie, Adina Williams, Emily Dinan, Mohit Bansal, Jason Weston, and Douwe Kiela. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.441">Adversarial <span>NLI</span>: A new benchmark for natural language understanding</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 4885–4901, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-openai-2023-gpt4" class="csl-entry" role="listitem">
+OpenAI. 2023. <a href="https://arxiv.org/abs/2303.08774">Gpt-4 technical report</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-petroni-etal-2020-how" class="csl-entry" role="listitem">
+Fabio Petroni, Patrick Lewis, Aleksandra Piktus, Tim Rocktäschel, Yuxiang Wu, Alexander H. Miller, and Sebastian Riedel. 2020. <a href="https://openreview.net/forum?id=025X0zPfn">How context affects language models’ factual predictions</a>. In <em>Automated knowledge base construction</em>.
+</div>
+<div id="ref-phukan-etal-2024-peering" class="csl-entry" role="listitem">
+Anirudh Phukan, Shwetha Somasundaram, Apoorv Saxena, Koustava Goswami, and Balaji Vasan Srinivasan. 2024. <a href="https://doi.org/10.18653/v1/2024.findings-acl.682">Peering into the mind of language models: An approach for attribution in contextual question answering</a>. In Lun-Wei Ku, Andre Martins, and Vivek Srikumar, editors, <em>Findings of the association for computational linguistics: ACL 2024</em>, pages 11481–11495, Bangkok, Thailand. Association for Computational Linguistics.
+</div>
+<div id="ref-piktus-etal-2021-web" class="csl-entry" role="listitem">
+Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Dmytro Okhonko, Samuel Broscheit, Gautier Izacard, Patrick Lewis, Barlas Oğuz, Edouard Grave, Wen-tau Yih, et al. 2021. <a href="https://arxiv.org/abs/2112.09924">The web is your oyster-knowledge-intensive NLP against a very large web corpus</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-qi-sarti-etal-2024-model" class="csl-entry" role="listitem">
+Jirui Qi^*, Gabriele Sarti^*, Raquel Fernández, and Arianna Bisazza. 2024. <a href="https://doi.org/10.18653/v1/2024.emnlp-main.347">Model internals-based answer attribution for trustworthy retrieval-augmented generation</a>. In Yaser Al-Onaizan, Mohit Bansal, and Yun-Nung Chen, editors, <em>Proceedings of the 2024 conference on empirical methods in natural language processing</em>, pages 6037–6053, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-raffel-etal-2020-exploring" class="csl-entry" role="listitem">
+Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael Matena, Yanqi Zhou, Wei Li, and Peter J Liu. 2020. Exploring the limits of transfer learning with a unified text-to-text transformer. <em>Journal of machine learning research</em>, 21(140):1–67.
+</div>
+<div id="ref-randl-etal-2025-evaluating" class="csl-entry" role="listitem">
+Korbinian Randl, John Pavlopoulos, Aron Henriksson, and Tony Lindgren. 2025. <a href="https://doi.org/10.1007/978-3-031-78977-9_3">Evaluating the reliability of self-explanations in large language models</a>. In <em>Discovery science: 27th international conference</em>, pages 36–51, Berlin, Heidelberg. Springer-Verlag.
+</div>
+<div id="ref-rashkin-etal-2023-measuring" class="csl-entry" role="listitem">
+Hannah Rashkin, Vitaly Nikolaev, Matthew Lamm, Lora Aroyo, Michael Collins, Dipanjan Das, Slav Petrov, Gaurav Singh Tomar, Iulia Turc, and David Reitter. 2023. <a href="https://doi.org/10.1162/coli_a_00486">Measuring attribution in natural language generation models</a>. <em>Computational Linguistics</em>, 49(4):777–840.
+</div>
+<div id="ref-ren-etal-2025-investigating" class="csl-entry" role="listitem">
+Ruiyang Ren, Yuhao Wang, Yingqi Qu, Wayne Xin Zhao, Jing Liu, Hua Wu, Ji-Rong Wen, and Haifeng Wang. 2025. <a href="https://aclanthology.org/2025.coling-main.250/">Investigating the factual knowledge boundary of large language models with retrieval augmentation</a>. In Owen Rambow, Leo Wanner, Marianna Apidianaki, Hend Al-Khalifa, Barbara Di Eugenio, and Steven Schockaert, editors, <em>Proceedings of the 31st international conference on computational linguistics</em>, pages 3697–3715, Abu Dhabi, UAE. Association for Computational Linguistics.
+</div>
+<div id="ref-sanh2022multitask" class="csl-entry" role="listitem">
+Victor Sanh, Albert Webson, Colin Raffel, Stephen Bach, Lintang Sutawika, Zaid Alyafeai, Antoine Chaffin, Arnaud Stiegler, Arun Raja, Manan Dey, M Saiful Bari, Canwen Xu, Urmish Thakker, Shanya Sharma Sharma, Eliza Szczechla, Taewoon Kim, Gunjan Chhablani, Nihal Nayak, Debajyoti Datta, et al. 2022. <a href="https://openreview.net/forum?id=9Vrb9D0WI4">Multitask prompted training enables zero-shot task generalization</a>. In <em>Proceedings of the tenth international conference on learning representations (ICLR)</em>.
+</div>
+<div id="ref-sarti-etal-2024-quantifying" class="csl-entry" role="listitem">
+Gabriele Sarti, Grzegorz Chrupała, Malvina Nissim, and Arianna Bisazza. 2024. <a href="https://openreview.net/forum?id=XTHfNGI3zT">Quantifying the plausibility of context reliance in neural machine translation</a>. In <em>The twelfth international conference on learning representations (ICLR 2024)</em>, Vienna, Austria. OpenReview.
+</div>
+<div id="ref-sinha-etal-2021-unnatural" class="csl-entry" role="listitem">
+Koustuv Sinha, Prasanna Parthasarathi, Joelle Pineau, and Adina Williams. 2021. <a href="https://doi.org/10.18653/v1/2021.acl-long.569"><span>UnNatural</span> <span>L</span>anguage <span>I</span>nference</a>. In Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli, editors, <em>Proceedings of the 59th annual meeting of the association for computational linguistics and the 11th international joint conference on natural language processing (volume 1: Long papers)</em>, pages 7329–7346, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-touvron-etal-2023-llama2" class="csl-entry" role="listitem">
+Hugo Touvron, Louis Martin, Kevin R. Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Nikolay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, Daniel M. Bikel, Lukas Blecher, Cristian Cantòn Ferrer, Moya Chen, Guillem Cucurull, David Esiobu, Jude Fernandes, Jeremy Fu, Wenyin Fu, et al. 2023. <a href="https://arxiv.org/abs/2307.09288">Llama 2: Open foundation and fine-tuned chat models</a>. <em>ArXiv</em>.
+</div>
+<div id="ref-tunstall-etal-2023-zephyr" class="csl-entry" role="listitem">
+Lewis Tunstall, Edward Beeching, Nathan Lambert, Nazneen Rajani, Kashif Rasul, Younes Belkada, Shengyi Huang, Leandro von Werra, Clémentine Fourrier, Nathan Habib, Nathan Sarrazin, Omar Sanseviero, Alexander M. Rush, and Thomas Wolf. 2024. <a href="https://openreview.net/forum?id=aKkAwZB6JV#discussion">Zephyr: Direct distillation of LM alignment</a>. In <em>Proceedings of the 1st conference on language modeling (COLM)</em>.
+</div>
+<div id="ref-welbl-etal-2018-constructing" class="csl-entry" role="listitem">
+Johannes Welbl, Pontus Stenetorp, and Sebastian Riedel. 2018. <a href="https://doi.org/10.1162/tacl_a_00021">Constructing datasets for multi-hop reading comprehension across documents</a>. <em>Transactions of the Association for Computational Linguistics</em>, 6:287–302.
+</div>
+<div id="ref-xu-etal-2023-critical" class="csl-entry" role="listitem">
+Fangyuan Xu, Yixiao Song, Mohit Iyyer, and Eunsol Choi. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-long.181">A critical evaluation of evaluations for long-form question answering</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 3225–3245, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-xue-etal-2021-mt5" class="csl-entry" role="listitem">
+Linting Xue, Noah Constant, Adam Roberts, Mihir Kale, Rami Al-Rfou, Aditya Siddhant, Aditya Barua, and Colin Raffel. 2021. <a href="https://doi.org/10.18653/v1/2021.naacl-main.41">M<span>T</span>5: A massively multilingual pre-trained text-to-text transformer</a>. In Kristina Toutanova, Anna Rumshisky, Luke Zettlemoyer, Dilek Hakkani-Tur, Iz Beltagy, Steven Bethard, Ryan Cotterell, Tanmoy Chakraborty, and Yichao Zhou, editors, <em>Proceedings of the 2021 conference of the north american chapter of the association for computational linguistics: Human language technologies</em>, pages 483–498, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-yang-etal-2018-hotpotqa" class="csl-entry" role="listitem">
+Zhilin Yang, Peng Qi, Saizheng Zhang, Yoshua Bengio, William Cohen, Ruslan Salakhutdinov, and Christopher D. Manning. 2018. <a href="https://doi.org/10.18653/v1/D18-1259"><span>H</span>otpot<span>QA</span>: A dataset for diverse, explainable multi-hop question answering</a>. In Ellen Riloff, David Chiang, Julia Hockenmaier, and Jun’ichi Tsujii, editors, <em>Proceedings of the 2018 conference on empirical methods in natural language processing</em>, pages 2369–2380, Brussels, Belgium. Association for Computational Linguistics.
+</div>
+<div id="ref-yin-neubig-2022-interpreting" class="csl-entry" role="listitem">
+Kayo Yin and Graham Neubig. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.14">Interpreting language models with contrastive explanations</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 184–198, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-yue-etal-2023-automatic" class="csl-entry" role="listitem">
+Xiang Yue, Boshi Wang, Ziru Chen, Kai Zhang, Yu Su, and Huan Sun. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-emnlp.307">Automatic evaluation of attribution by large language models</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Findings of the association for computational linguistics: EMNLP 2023</em>, pages 4615–4635, Singapore. Association for Computational Linguistics.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>We use the term <em>answer attribution</em> (AA) when referring to the task of citing relevant sources to distinguish it from the <em>input attribution</em> methods used in <span class="smallcaps">Mirage</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Code and data released at <a href="https://github.com/Betswish/MIRAGE" class="uri">https://github.com/Betswish/MIRAGE</a>. A demo for <span class="smallcaps">Mirage</span> using the Inseq <code>attribute-context</code> API is available at <a href="https://hf.co/spaces/gsarti/mirage" class="uri">https://hf.co/spaces/gsarti/mirage</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Popular frameworks such as <a href="https://www.langchain.com/"><code>LangChain</code></a> and <a href="https://www.llamaindex.ai/"><code>LlamaIndex</code></a> support similarity-based citations using vector databases.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Authors suggest a minimum of 32 different ablations.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>E.g., the human-annotated answers in <span class="citation" data-cites="bohnet-etal-2022-attributedqa">Bohnet et al. (<a href="references.html#ref-bohnet-etal-2022-attributedqa" role="doc-biblioref">2022</a>)</span> were generated by PALM 540B <span class="citation" data-cites="anil-etal-2023-palm">(<a href="references.html#ref-anil-etal-2023-palm" role="doc-biblioref">Anil et al., 2023</a>)</span>, whose internals are inaccessible. See <a href="appendix-a.html#sec-mirage-appendix-full-attribution" class="quarto-xref"><span>Section A.3.1</span></a> for a comparison.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><span class="citation" data-cites="muller-etal-2023-evaluating">Muller et al. (<a href="references.html#ref-muller-etal-2023-evaluating" role="doc-biblioref">2023</a>)</span> only provide the split documents without the original ordering.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/chap-4-pecore.html" class="pagination-link" aria-label="Quantifying Context Usage in Neural Machine Translation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Gabriele Sarti. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://www.rug.nl/?lang=en"><img src="../figures/logos/rug_eng_red.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/?lang=en"><img src="../figures/logos/clcg.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://projects.illc.uva.nl/indeep/"><img src="../figures/logos/indeep_logo_horizontal.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/research/cl/?lang=en"><img src="../figures/logos/gronlp.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+</div>
+    <div class="nav-footer-right">
+<p>Written with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

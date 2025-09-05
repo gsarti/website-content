@@ -1,0 +1,2665 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Ph.D.&nbsp;Thesis, Center for Language and Cognition (CLCG), University of Groningen">
+
+<title>Appendix B — Conditioning Generation for Personalized Machine Translation – From Insights to Impact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/appendix-c.html" rel="next">
+<link href="../chapters/appendix-a.html" rel="prev">
+<link href="../figures/logos/rug_crest_icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df7dc7f297c6c2c740a551c3cb7e1581.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../html/custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/appendix-a.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/appendix-b.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../figures/logos/rug_eng_red_hat_line.png" alt="RUG Coat of Arms" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Insights to Impact</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gsarti/phd-thesis" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://gsarti.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-person-circle"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-2-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Attributing Context Usage in Multilingual NLP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-3-inseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-4-pecore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-5-mirage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conditioning Generation for Personalized Machine Translation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-6-ramp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-7-sae-litmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Interpretability in Human Translation Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-8-divemt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-9-qe4pe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-10-unsup-wqe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-11-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-b.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-ramp-appendix" id="toc-sec-ramp-appendix" class="nav-link active" data-scroll-target="#sec-ramp-appendix"><span class="header-section-number">B.1</span> Retrieval and Marking for Attribute-Controlled Translation</a>
+  <ul class="collapse">
+  <li><a href="#sec-ramp-prompt-templates" id="toc-sec-ramp-prompt-templates" class="nav-link" data-scroll-target="#sec-ramp-prompt-templates"><span class="header-section-number">B.1.1</span> Prompt Templates</a></li>
+  <li><a href="#sec-ramp-full-scores" id="toc-sec-ramp-full-scores" class="nav-link" data-scroll-target="#sec-ramp-full-scores"><span class="header-section-number">B.1.2</span> Full Per-language Results</a></li>
+  <li><a href="#sec-ramp-analysis-zeroshot" id="toc-sec-ramp-analysis-zeroshot" class="nav-link" data-scroll-target="#sec-ramp-analysis-zeroshot"><span class="header-section-number">B.1.3</span> Error Analysis of Cross-Lingual Prompting</a></li>
+  </ul></li>
+  <li><a href="#sec-sae-litmt-appendix" id="toc-sec-sae-litmt-appendix" class="nav-link" data-scroll-target="#sec-sae-litmt-appendix"><span class="header-section-number">B.2</span> Steering Language Models for Machine Translation Personalization</a>
+  <ul class="collapse">
+  <li><a href="#sec-sae-litmt-reproducibility" id="toc-sec-sae-litmt-reproducibility" class="nav-link" data-scroll-target="#sec-sae-litmt-reproducibility"><span class="header-section-number">B.2.1</span> Experiments Reproducibility</a></li>
+  <li><a href="#sec-sae-litmt-all-models" id="toc-sec-sae-litmt-all-models" class="nav-link" data-scroll-target="#sec-sae-litmt-all-models"><span class="header-section-number">B.2.2</span> All Models Results</a></li>
+  <li><a href="#sec-sae-litmt-output-examples" id="toc-sec-sae-litmt-output-examples" class="nav-link" data-scroll-target="#sec-sae-litmt-output-examples"><span class="header-section-number">B.2.3</span> Dataset and Generation Examples</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/appendix-a.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/appendix-b.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-appendix-b" class="quarto-section-identifier">Appendix B — Conditioning Generation for Personalized Machine Translation</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sec-ramp-appendix" class="level2" data-number="B.1">
+<h2 data-number="B.1" class="anchored" data-anchor-id="sec-ramp-appendix"><span class="header-section-number">B.1</span> Retrieval and Marking for Attribute-Controlled Translation</h2>
+<section id="sec-ramp-prompt-templates" class="level3" data-number="B.1.1">
+<h3 data-number="B.1.1" class="anchored" data-anchor-id="sec-ramp-prompt-templates"><span class="header-section-number">B.1.1</span> Prompt Templates</h3>
+<p><strong>Formality-Controlled Translation</strong> *Here is a sentence: {<code>src</code>} Here is its <code>lang</code> translation written in a <code>attr</code> style: {<code>tgt</code>} The translated sentence conveys a <code>attr</code> style by using words such as ‘<code>w1</code>’, ‘<code>w2</code>’.</p>
+<p><strong>Gender-Controlled Translation</strong> Here is a sentence: {<code>src</code>} Here is its <code>lang</code> translation in which the person is <code>attr</code>: {<code>tgt</code>} In the translation, the <code>attr</code> gender of the person is made explicit by words such as ‘<code>w1</code>’, ‘<code>w2</code>’.</p>
+</section>
+<section id="sec-ramp-full-scores" class="level3" data-number="B.1.2">
+<h3 data-number="B.1.2" class="anchored" data-anchor-id="sec-ramp-full-scores"><span class="header-section-number">B.1.2</span> Full Per-language Results</h3>
+<ul>
+<li><a href="#tbl-chap6-preliminary-cocoa-results" class="quarto-xref">Table&nbsp;<span>B.1</span></a>: Detailed scores of same-language prompting on <span class="smallcaps">CoCoA-MT</span> (preliminary evaluation).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li><a href="#tbl-chap6-same-language-cocoa-details" class="quarto-xref">Table&nbsp;<span>B.2</span></a>: Full results of same-language prompting on <span class="smallcaps">CoCoA-MT</span> (full evaluation).</li>
+<li><a href="#tbl-chap6-same-language-geneval-details" class="quarto-xref">Table&nbsp;<span>B.3</span></a>: Full results of same-language prompting on <span class="smallcaps">MT-GenEval</span> (full evaluation).</li>
+<li><a href="#tbl-chap6-cross-lingual-cocoa-details" class="quarto-xref">Table&nbsp;<span>B.4</span></a>: Full results of cross-lingual prompting on <span class="smallcaps">CoCoA-MT</span>.</li>
+<li><a href="#tbl-chap6-cross-lingual-geneval-details" class="quarto-xref">Table&nbsp;<span>B.5</span></a>: Full results of cross-lingual prompting on <span class="smallcaps">MT-GenEval</span>.</li>
+</ul>
+<div id="tbl-chap6-preliminary-cocoa-results" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-preliminary-cocoa-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th colspan="5" class="rline" data-quarto-table-cell-role="th"><strong>BLEU</strong></th>
+<th colspan="5" class="rline" data-quarto-table-cell-role="th"><strong>COMET</strong></th>
+<th colspan="5" class="group-header" data-quarto-table-cell-role="th"><strong>Sentential Accuracy</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th"><strong>0</strong></th>
+<th data-quarto-table-cell-role="th"><strong>4</strong></th>
+<th data-quarto-table-cell-role="th"><strong>8</strong></th>
+<th data-quarto-table-cell-role="th"><strong>16</strong></th>
+<th class="rline" data-quarto-table-cell-role="th"><strong>32</strong></th>
+<th data-quarto-table-cell-role="th"><strong>0</strong></th>
+<th data-quarto-table-cell-role="th"><strong>4</strong></th>
+<th data-quarto-table-cell-role="th"><strong>8</strong></th>
+<th data-quarto-table-cell-role="th"><strong>16</strong></th>
+<th class="rline" data-quarto-table-cell-role="th"><strong>32</strong></th>
+<th data-quarto-table-cell-role="th"><strong>0</strong></th>
+<th data-quarto-table-cell-role="th"><strong>4</strong></th>
+<th data-quarto-table-cell-role="th"><strong>8</strong></th>
+<th data-quarto-table-cell-role="th"><strong>16</strong></th>
+<th data-quarto-table-cell-role="th"><strong>32</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="2" class="rowspan">BLOOM 7.1B</td>
+<td>base</td>
+<td rowspan="2" class="rowspan">22</td>
+<td>29</td>
+<td>30</td>
+<td>31</td>
+<td class="rline">21</td>
+<td rowspan="2" class="rowspan">.16</td>
+<td>.58</td>
+<td>.59</td>
+<td>.60</td>
+<td class="rline">-.09</td>
+<td rowspan="2" class="rowspan">.56</td>
+<td>.76</td>
+<td>.84</td>
+<td>.88</td>
+<td>.73</td>
+</tr>
+<tr class="midrule even">
+<td><span class="smallcaps">Ramp</span></td>
+<td>31</td>
+<td>32</td>
+<td>33</td>
+<td class="rline">25</td>
+<td>.60</td>
+<td>.61</td>
+<td>.62</td>
+<td class="rline">.15</td>
+<td>.84</td>
+<td>.89</td>
+<td>.91</td>
+<td>.84</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="rowspan">XGLM 7.5B</td>
+<td>base</td>
+<td rowspan="2" class="rowspan">12</td>
+<td>25</td>
+<td>27</td>
+<td>28</td>
+<td class="rline">29</td>
+<td rowspan="2" class="rowspan">-.53</td>
+<td>.44</td>
+<td>.45</td>
+<td>.50</td>
+<td class="rline">.52</td>
+<td rowspan="2" class="rowspan">.52</td>
+<td>.76</td>
+<td>.84</td>
+<td>.85</td>
+<td>.89</td>
+</tr>
+<tr class="midrule even">
+<td><span class="smallcaps">Ramp</span></td>
+<td>27</td>
+<td>28</td>
+<td>28</td>
+<td class="rline">30</td>
+<td>.45</td>
+<td>.48</td>
+<td>.47</td>
+<td class="rline">.48</td>
+<td>.86</td>
+<td>.90</td>
+<td>.91</td>
+<td>.92</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="rowspan">GPT-NeoX 20B</td>
+<td>base</td>
+<td rowspan="2" class="rowspan">23</td>
+<td>28</td>
+<td>29</td>
+<td>29</td>
+<td class="rline">29</td>
+<td rowspan="2" class="rowspan">.11</td>
+<td>.27</td>
+<td>.27</td>
+<td>.27</td>
+<td class="rline">.28</td>
+<td rowspan="2" class="rowspan">.56</td>
+<td>.80</td>
+<td>.85</td>
+<td>.85</td>
+<td>.95</td>
+</tr>
+<tr class="midrule even">
+<td><span class="smallcaps">Ramp</span></td>
+<td>29.</td>
+<td>30</td>
+<td>30</td>
+<td class="rline">29</td>
+<td>.28</td>
+<td>.31</td>
+<td>.31</td>
+<td class="rline">.28</td>
+<td>.85</td>
+<td>.89</td>
+<td>.89</td>
+<td>.87</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="rowspan">BLOOM 175B</td>
+<td>base</td>
+<td rowspan="2" class="rowspan">30</td>
+<td>38</td>
+<td>39</td>
+<td>39</td>
+<td class="rline">--</td>
+<td rowspan="2" class="rowspan">.48</td>
+<td>.73</td>
+<td>.74</td>
+<td>.75</td>
+<td class="rline">--</td>
+<td rowspan="2" class="rowspan">.61</td>
+<td>.90</td>
+<td>.95</td>
+<td>.95</td>
+<td>--</td>
+</tr>
+<tr class="midrule even">
+<td><span class="smallcaps">Ramp</span></td>
+<td>39</td>
+<td>40</td>
+<td>40</td>
+<td class="rline">--</td>
+<td>.74</td>
+<td>.74</td>
+<td>.76</td>
+<td class="rline">--</td>
+<td>.95</td>
+<td>.97</td>
+<td>.97</td>
+<td>--</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-preliminary-cocoa-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.1: Detailed scores of same-language prompting on CoCoA-MT (preliminary evaluation). Numbers in the header represent the number of in-context examples used for prompting, including zero-shot prompting (0). Scores are averaged across two available formality values (formal, informal) and languages (ES, FR, HI, PT).
+</figcaption>
+</figure>
+</div>
+<div id="tbl-chap6-same-language-cocoa-details" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-same-language-cocoa-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>ES</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>FR</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>HI</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>PT</strong></th>
+<th rowspan="2" data-quarto-table-cell-role="th"><strong>AVG</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">I</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">I</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">I</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">I</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="12" class="rowspan">XGLM 7.5B</td>
+<td rowspan="4" class="rowspan">base</td>
+<td>BLEU</td>
+<td>30.1</td>
+<td class="rline">33.0</td>
+<td>30.7</td>
+<td class="rline">28.8</td>
+<td>18.5</td>
+<td class="rline">16.9</td>
+<td>35.7</td>
+<td class="rline">35.4</td>
+<td>28.6</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>0.500</td>
+<td class="rline">0.527</td>
+<td>0.348</td>
+<td class="rline">0.350</td>
+<td>0.454</td>
+<td class="rline">0.425</td>
+<td>0.547</td>
+<td class="rline">0.554</td>
+<td>0.463</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>0.524</td>
+<td class="rline">0.966</td>
+<td>0.977</td>
+<td class="rline">0.633</td>
+<td>0.976</td>
+<td class="rline">0.744</td>
+<td>0.931</td>
+<td class="rline">0.928</td>
+<td>0.835</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>0.507</td>
+<td class="rline">0.958</td>
+<td>0.953</td>
+<td class="rline">0.840</td>
+<td>0.963</td>
+<td class="rline">0.748</td>
+<td>0.888</td>
+<td class="rline">0.912</td>
+<td>0.846</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan">+mark</td>
+<td>BLEU</td>
+<td>31.0</td>
+<td class="rline">33.2</td>
+<td>29.4</td>
+<td class="rline">27.4</td>
+<td>19.2</td>
+<td class="rline">18.6</td>
+<td>35.7</td>
+<td class="rline">35.5</td>
+<td>28.7</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>0.498</td>
+<td class="rline">0.541</td>
+<td>0.207</td>
+<td class="rline">0.188</td>
+<td>0.439</td>
+<td class="rline">0.409</td>
+<td>0.552</td>
+<td class="rline">0.552</td>
+<td>0.423</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>0.728</td>
+<td class="rline">0.972</td>
+<td>0.985</td>
+<td class="rline">0.923</td>
+<td>0.986</td>
+<td class="rline">0.860</td>
+<td>0.960</td>
+<td class="rline">0.947</td>
+<td>0.920</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>0.697</td>
+<td class="rline">0.958</td>
+<td>0.963</td>
+<td class="rline">0.917</td>
+<td>0.983</td>
+<td class="rline">0.838</td>
+<td>0.927</td>
+<td class="rline">0.937</td>
+<td>0.902</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan"><span class="smallcaps">Ramp</span></td>
+<td>BLEU</td>
+<td>32.8</td>
+<td class="rline">33.5</td>
+<td>32.7</td>
+<td class="rline">31.0</td>
+<td>21.0</td>
+<td class="rline">20.3</td>
+<td>34.2</td>
+<td class="rline">34.4</td>
+<td>30.0</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>0.480</td>
+<td class="rline">0.511</td>
+<td>0.314</td>
+<td class="rline">0.302</td>
+<td>0.502</td>
+<td class="rline">0.491</td>
+<td>0.488</td>
+<td class="rline">0.522</td>
+<td>0.451</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>0.842</td>
+<td class="rline">0.963</td>
+<td>0.989</td>
+<td class="rline">0.926</td>
+<td>0.993</td>
+<td class="rline">0.885</td>
+<td>0.961</td>
+<td class="rline">0.943</td>
+<td>0.938</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>0.803</td>
+<td class="rline">0.952</td>
+<td>0.975</td>
+<td class="rline">0.922</td>
+<td>0.98</td>
+<td class="rline">0.873</td>
+<td>0.928</td>
+<td class="rline">0.948</td>
+<td>0.923</td>
+</tr>
+<tr class="odd">
+<td rowspan="12" class="rowspan">BLOOM 175B</td>
+<td rowspan="4" class="rowspan">base</td>
+<td>BLEU</td>
+<td>44.3</td>
+<td class="rline">45.0</td>
+<td>42.9</td>
+<td class="rline">41.0</td>
+<td>27.1</td>
+<td class="rline">25.8</td>
+<td>47.3</td>
+<td class="rline">45.7</td>
+<td>39.9</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>0.728</td>
+<td class="rline">0.759</td>
+<td>0.611</td>
+<td class="rline">0.600</td>
+<td>0.673</td>
+<td class="rline">0.645</td>
+<td>0.762</td>
+<td class="rline">0.750</td>
+<td>0.691</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>0.795</td>
+<td class="rline">0.960</td>
+<td>0.987</td>
+<td class="rline">0.890</td>
+<td>0.978</td>
+<td class="rline">0.885</td>
+<td>0.987</td>
+<td class="rline">0.954</td>
+<td>0.930</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>0.889</td>
+<td class="rline">0.963</td>
+<td>0.987</td>
+<td class="rline">0.888</td>
+<td>0.980</td>
+<td class="rline">0.863</td>
+<td>0.987</td>
+<td class="rline">0.960</td>
+<td>0.940</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan">+mark</td>
+<td>BLEU</td>
+<td>45.8</td>
+<td class="rline">44.5</td>
+<td>43.3</td>
+<td class="rline">41.8</td>
+<td>28.4</td>
+<td class="rline">27.1</td>
+<td>46.4</td>
+<td class="rline">45.3</td>
+<td>40.3</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>0.726</td>
+<td class="rline">0.745</td>
+<td>0.610</td>
+<td class="rline">0.594</td>
+<td>0.677</td>
+<td class="rline">0.659</td>
+<td>0.751</td>
+<td class="rline">0.745</td>
+<td>0.688</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>0.930</td>
+<td class="rline">0.987</td>
+<td>0.996</td>
+<td class="rline">0.958</td>
+<td>0.995</td>
+<td class="rline">0.936</td>
+<td>0.989</td>
+<td class="rline">0.972</td>
+<td>0.970</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>0.942</td>
+<td class="rline">0.985</td>
+<td>0.992</td>
+<td class="rline">0.957</td>
+<td>0.992</td>
+<td class="rline">0.925</td>
+<td>0.990</td>
+<td class="rline">0.977</td>
+<td>0.970</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan"><span class="smallcaps">Ramp</span></td>
+<td>BLEU</td>
+<td>46.4</td>
+<td class="rline">46.2</td>
+<td>43.9</td>
+<td class="rline">42.9</td>
+<td>30.8</td>
+<td class="rline">29.2</td>
+<td>48.8</td>
+<td class="rline">47.4</td>
+<td>41.9</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>0.718</td>
+<td class="rline">0.759</td>
+<td>0.611</td>
+<td class="rline">0.610</td>
+<td>0.721</td>
+<td class="rline">0.713</td>
+<td>0.782</td>
+<td class="rline">0.771</td>
+<td>0.711</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>0.956</td>
+<td class="rline">0.984</td>
+<td>0.998</td>
+<td class="rline">0.952</td>
+<td>0.991</td>
+<td class="rline">0.947</td>
+<td>0.993</td>
+<td class="rline">0.962</td>
+<td>0.973</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>0.957</td>
+<td class="rline">0.982</td>
+<td>0.995</td>
+<td class="rline">0.945</td>
+<td>0.993</td>
+<td class="rline">0.935</td>
+<td>0.990</td>
+<td class="rline">0.967</td>
+<td>0.970</td>
+</tr>
+<tr class="odd">
+<td colspan="2" rowspan="4" class="rowspan">Adapted MT</td>
+<td>BLEU</td>
+<td>44.4</td>
+<td class="rline">43.7</td>
+<td>43.4</td>
+<td class="rline">37.8</td>
+<td>19.1</td>
+<td class="rline">17.0</td>
+<td>53.0</td>
+<td class="rline">49.9</td>
+<td>38.5</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>0.712</td>
+<td class="rline">0.724</td>
+<td>0.559</td>
+<td class="rline">0.547</td>
+<td>-0.191</td>
+<td class="rline">-0.263</td>
+<td>0.783</td>
+<td class="rline">0.764</td>
+<td>0.454</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>0.697</td>
+<td class="rline">0.598</td>
+<td>0.822</td>
+<td class="rline">0.377</td>
+<td>0.869</td>
+<td class="rline">0.449</td>
+<td>0.972</td>
+<td class="rline">0.744</td>
+<td>0.691</td>
+</tr>
+<tr class="even">
+<td>S-Acc</td>
+<td>0.700</td>
+<td class="rline">0.600</td>
+<td>0.810</td>
+<td class="rline">0.400</td>
+<td>0.680</td>
+<td class="rline">0.600</td>
+<td>0.950</td>
+<td class="rline">0.800</td>
+<td>0.693</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-same-language-cocoa-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.2: Full results of same-language prompting on CoCoA-MT.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-chap6-same-language-geneval-details" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-same-language-geneval-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>AR</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>ES</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>FR</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>HI</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>PT</strong></th>
+<th rowspan="2" data-quarto-table-cell-role="th"><strong>AVG</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="12" class="rowspan">XGLM 7.5B</td>
+<td rowspan="4" class="rowspan">base</td>
+<td>BLEU</td>
+<td>7.6</td>
+<td class="rline">7.5</td>
+<td>35.5</td>
+<td class="rline">38.2</td>
+<td>27.1</td>
+<td class="rline">28.6</td>
+<td>13.8</td>
+<td class="rline">16.4</td>
+<td>29.2</td>
+<td class="rline">33.1</td>
+<td>23.7</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>-.040</td>
+<td class="rline">-.012</td>
+<td>.694</td>
+<td class="rline">.738</td>
+<td>.509</td>
+<td class="rline">.555</td>
+<td>.304</td>
+<td class="rline">.332</td>
+<td>.661</td>
+<td class="rline">.713</td>
+<td>.445</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>.848</td>
+<td class="rline">.947</td>
+<td>.688</td>
+<td class="rline">.808</td>
+<td>.715</td>
+<td class="rline">.880</td>
+<td>.585</td>
+<td class="rline">.956</td>
+<td>.621</td>
+<td class="rline">.855</td>
+<td>.790</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>.617</td>
+<td class="rline">.866</td>
+<td>.651</td>
+<td class="rline">.938</td>
+<td>.581</td>
+<td class="rline">.920</td>
+<td>.303</td>
+<td class="rline">.962</td>
+<td>.494</td>
+<td class="rline">.934</td>
+<td>.727</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan">+mark</td>
+<td>BLEU</td>
+<td>7.7</td>
+<td class="rline">7.8</td>
+<td>35.4</td>
+<td class="rline">38.2</td>
+<td>27.5</td>
+<td class="rline">28.7</td>
+<td>14.0</td>
+<td class="rline">16.7</td>
+<td>29.1</td>
+<td class="rline">32.4</td>
+<td>23.7</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>-.038</td>
+<td class="rline">-.020</td>
+<td>.704</td>
+<td class="rline">.735</td>
+<td>.508</td>
+<td class="rline">.556</td>
+<td>.300</td>
+<td class="rline">.317</td>
+<td>.663</td>
+<td class="rline">.714</td>
+<td>.444</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>.868</td>
+<td class="rline">.939</td>
+<td>.665</td>
+<td class="rline">.811</td>
+<td>.701</td>
+<td class="rline">.881</td>
+<td>.581</td>
+<td class="rline">.955</td>
+<td>.626</td>
+<td class="rline">.860</td>
+<td>.789</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>.664</td>
+<td class="rline">.856</td>
+<td>.612</td>
+<td class="rline">.937</td>
+<td>.562</td>
+<td class="rline">.919</td>
+<td>.355</td>
+<td class="rline">.966</td>
+<td>.519</td>
+<td class="rline">.927</td>
+<td>.732</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan"><span class="smallcaps">Ramp</span></td>
+<td>BLEU</td>
+<td>9.2</td>
+<td class="rline">8.8</td>
+<td>37.5</td>
+<td class="rline">39.4</td>
+<td>27.5</td>
+<td class="rline">29.2</td>
+<td>14.8</td>
+<td class="rline">16.6</td>
+<td>31.4</td>
+<td class="rline">33.3</td>
+<td>24.8</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>.037</td>
+<td class="rline">.043</td>
+<td>.723</td>
+<td class="rline">.759</td>
+<td>.528</td>
+<td class="rline">.571</td>
+<td>.325</td>
+<td class="rline">.337</td>
+<td>.681</td>
+<td class="rline">.723</td>
+<td>.473</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>.939</td>
+<td class="rline">.961</td>
+<td>.750</td>
+<td class="rline">.806</td>
+<td>.781</td>
+<td class="rline">.885</td>
+<td>.667</td>
+<td class="rline">.956</td>
+<td>.759</td>
+<td class="rline">.854</td>
+<td>.836</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>.836</td>
+<td class="rline">.901</td>
+<td>.722</td>
+<td class="rline">.936</td>
+<td>.716</td>
+<td class="rline">.937</td>
+<td>.509</td>
+<td class="rline">.974</td>
+<td>.729</td>
+<td class="rline">.940</td>
+<td>.820</td>
+</tr>
+<tr class="odd">
+<td rowspan="12" class="rowspan">BLOOM 175B</td>
+<td rowspan="4" class="rowspan">base</td>
+<td>BLEU</td>
+<td>14.8</td>
+<td class="rline">16.9</td>
+<td>45.6</td>
+<td class="rline">50.3</td>
+<td>38.1</td>
+<td class="rline">41.7</td>
+<td>20.8</td>
+<td class="rline">24.6</td>
+<td>37.6</td>
+<td class="rline">42.2</td>
+<td>33.3</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>.282</td>
+<td class="rline">.395</td>
+<td>.837</td>
+<td class="rline">.892</td>
+<td>.719</td>
+<td class="rline">.770</td>
+<td>.599</td>
+<td class="rline">.629</td>
+<td>.807</td>
+<td class="rline">.861</td>
+<td>.679</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>.665</td>
+<td class="rline">.966</td>
+<td>.578</td>
+<td class="rline">.814</td>
+<td>.660</td>
+<td class="rline">.902</td>
+<td>.480</td>
+<td class="rline">.951</td>
+<td>.594</td>
+<td class="rline">.872</td>
+<td>.748</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>.411</td>
+<td class="rline">.934</td>
+<td>.515</td>
+<td class="rline">.965</td>
+<td>.581</td>
+<td class="rline">.961</td>
+<td>.212</td>
+<td class="rline">.973</td>
+<td>.525</td>
+<td class="rline">.960</td>
+<td>.704</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan">+mark</td>
+<td>BLEU</td>
+<td>15.2</td>
+<td class="rline">17.1</td>
+<td>45.8</td>
+<td class="rline">50.0</td>
+<td>37.9</td>
+<td class="rline">41.3</td>
+<td>20.3</td>
+<td class="rline">23.8</td>
+<td>37.6</td>
+<td class="rline">42.2</td>
+<td>33.1</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>.294</td>
+<td class="rline">.387</td>
+<td>.843</td>
+<td class="rline">.887</td>
+<td>.712</td>
+<td class="rline">.767</td>
+<td>.576</td>
+<td class="rline">.606</td>
+<td>.807</td>
+<td class="rline">.861</td>
+<td>.674</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>.707</td>
+<td class="rline">.969</td>
+<td>.610</td>
+<td class="rline">.818</td>
+<td>.663</td>
+<td class="rline">.902</td>
+<td>.493</td>
+<td class="rline">.958</td>
+<td>.594</td>
+<td class="rline">.872</td>
+<td>.759</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>.482</td>
+<td class="rline">.936</td>
+<td>.568</td>
+<td class="rline">.973</td>
+<td>.588</td>
+<td class="rline">.962</td>
+<td>.284</td>
+<td class="rline">.974</td>
+<td>.525</td>
+<td class="rline">.960</td>
+<td>.725</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan"><span class="smallcaps">Ramp</span></td>
+<td>BLEU</td>
+<td>16.7</td>
+<td class="rline">17.6</td>
+<td>47.9</td>
+<td class="rline">50.2</td>
+<td>39.5</td>
+<td class="rline">41.8</td>
+<td>22.2</td>
+<td class="rline">25.0</td>
+<td>39.3</td>
+<td class="rline">42.7</td>
+<td>34.3</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>.358</td>
+<td class="rline">.407</td>
+<td>.860</td>
+<td class="rline">.895</td>
+<td>.734</td>
+<td class="rline">.787</td>
+<td>.632</td>
+<td class="rline">.646</td>
+<td>.810</td>
+<td class="rline">.858</td>
+<td>.699</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>.841</td>
+<td class="rline">.972</td>
+<td>.709</td>
+<td class="rline">.809</td>
+<td>.765</td>
+<td class="rline">.906</td>
+<td>.633</td>
+<td class="rline">.953</td>
+<td>.701</td>
+<td class="rline">.886</td>
+<td>.817</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>.721</td>
+<td class="rline">.940</td>
+<td>.707</td>
+<td class="rline">.964</td>
+<td>.732</td>
+<td class="rline">.971</td>
+<td>.518</td>
+<td class="rline">.973</td>
+<td>.683</td>
+<td class="rline">.972</td>
+<td>.818</td>
+</tr>
+<tr class="odd">
+<td colspan="2" rowspan="4" class="rowspan">Adapted MT</td>
+<td>BLEU</td>
+<td>23.3</td>
+<td class="rline">24.4</td>
+<td>53.2</td>
+<td class="rline">54.2</td>
+<td>44.2</td>
+<td class="rline">46.4</td>
+<td>29.3</td>
+<td class="rline">32.3</td>
+<td>43.4</td>
+<td class="rline">45.7</td>
+<td>35.9</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>.496</td>
+<td class="rline">.522</td>
+<td>.876</td>
+<td class="rline">.902</td>
+<td>.759</td>
+<td class="rline">.797</td>
+<td>.722</td>
+<td class="rline">.743</td>
+<td>.825</td>
+<td class="rline">.857</td>
+<td>.528</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>.910</td>
+<td class="rline">.981</td>
+<td>.932</td>
+<td class="rline">.921</td>
+<td>.919</td>
+<td class="rline">.956</td>
+<td>.762</td>
+<td class="rline">.837</td>
+<td>.922</td>
+<td class="rline">.961</td>
+<td>.853</td>
+</tr>
+<tr class="even">
+<td>S-Acc</td>
+<td>.940</td>
+<td class="rline">.970</td>
+<td>.910</td>
+<td class="rline">.960</td>
+<td>.950</td>
+<td class="rline">.960</td>
+<td>.280</td>
+<td class="rline">.750</td>
+<td>.930</td>
+<td class="rline">.990</td>
+<td>.863</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-same-language-geneval-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.3: Full results of same-language prompting on <span class="smallcaps">MT-GenEval</span>.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-chap6-cross-lingual-cocoa-details" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-cross-lingual-cocoa-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>ES</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>FR</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>HI</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>PT</strong></th>
+<th rowspan="2" data-quarto-table-cell-role="th"><strong>AVG</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">I</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">I</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">I</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">I</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="8" class="rowspan">BLOOM 175B</td>
+<td rowspan="4" class="rowspan">base</td>
+<td>BLEU</td>
+<td>40.9</td>
+<td class="rline">46.3</td>
+<td>33.7</td>
+<td class="rline">32.0</td>
+<td>21.8</td>
+<td class="rline">18.9</td>
+<td>33.9</td>
+<td class="rline">29.0</td>
+<td>32.1</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>0.785</td>
+<td class="rline">0.823</td>
+<td>0.611</td>
+<td class="rline">0.615</td>
+<td>0.409</td>
+<td class="rline">0.436</td>
+<td>0.772</td>
+<td class="rline">0.705</td>
+<td>0.644</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>0.211</td>
+<td class="rline">0.990</td>
+<td>0.899</td>
+<td class="rline">0.656</td>
+<td>0.944</td>
+<td class="rline">0.123</td>
+<td>0.704</td>
+<td class="rline">0.010</td>
+<td>0.567</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>0.200</td>
+<td class="rline">0.930</td>
+<td>0.880</td>
+<td class="rline">0.715</td>
+<td>0.940</td>
+<td class="rline">0.100</td>
+<td>0.975</td>
+<td class="rline">0.025</td>
+<td>0.596</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan"><span class="smallcaps">Ramp</span></td>
+<td>BLEU</td>
+<td>39.4</td>
+<td class="rline">44.6</td>
+<td>35.3</td>
+<td class="rline">34.7</td>
+<td>22.4</td>
+<td class="rline">18.4</td>
+<td>32.2</td>
+<td class="rline">27.5</td>
+<td>31.8</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>0.749</td>
+<td class="rline">0.788</td>
+<td>0.575</td>
+<td class="rline">0.614</td>
+<td>0.488</td>
+<td class="rline">0.480</td>
+<td>0.770</td>
+<td class="rline">0.702</td>
+<td>0.646</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>0.169</td>
+<td class="rline">0.978</td>
+<td>0.949</td>
+<td class="rline">0.770</td>
+<td>0.973</td>
+<td class="rline">0.143</td>
+<td>1.000</td>
+<td class="rline">0.015</td>
+<td>0.625</td>
+</tr>
+<tr class="even">
+<td>S-Acc</td>
+<td>0.175</td>
+<td class="rline">0.950</td>
+<td>0.930</td>
+<td class="rline">0.790</td>
+<td>0.975</td>
+<td class="rline">0.140</td>
+<td>0.975</td>
+<td class="rline">0.040</td>
+<td>0.622</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-cross-lingual-cocoa-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.4: Full results of cross-lingual prompting on <span class="smallcaps">CoCoA-MT</span>.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-chap6-cross-lingual-geneval-details" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-cross-lingual-geneval-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>AR</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>ES</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>FR</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>HI</strong></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>PT</strong></th>
+<th rowspan="2" data-quarto-table-cell-role="th"><strong>AVG</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th class="rline" data-quarto-table-cell-role="th">M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="8" class="rowspan">BLOOM 175B</td>
+<td rowspan="4" class="rowspan">base</td>
+<td>BLEU</td>
+<td>10.6</td>
+<td class="rline">11.6</td>
+<td>43.3</td>
+<td class="rline">47.4</td>
+<td>34.2</td>
+<td class="rline">38.2</td>
+<td>11.4</td>
+<td class="rline">15.0</td>
+<td>34.4</td>
+<td class="rline">38.6</td>
+<td>28.5</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>.071</td>
+<td class="rline">.138</td>
+<td>.805</td>
+<td class="rline">.857</td>
+<td>.648</td>
+<td class="rline">.719</td>
+<td>-.135</td>
+<td class="rline">-.003</td>
+<td>.766</td>
+<td class="rline">.822</td>
+<td>.469</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>.843</td>
+<td class="rline">.956</td>
+<td>.627</td>
+<td class="rline">.810</td>
+<td>.561</td>
+<td class="rline">.899</td>
+<td>.653</td>
+<td class="rline">.962</td>
+<td>.588</td>
+<td class="rline">.874</td>
+<td>.777</td>
+</tr>
+<tr class="midrule even">
+<td>S-Acc</td>
+<td>.541</td>
+<td class="rline">.785</td>
+<td>.529</td>
+<td class="rline">.936</td>
+<td>.389</td>
+<td class="rline">.944</td>
+<td>.051</td>
+<td class="rline">.745</td>
+<td>.475</td>
+<td class="rline">.939</td>
+<td>.633</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan"><span class="smallcaps">Ramp</span></td>
+<td>BLEU</td>
+<td>10.0</td>
+<td class="rline">10.5</td>
+<td>44.6</td>
+<td class="rline">47.8</td>
+<td>35.7</td>
+<td class="rline">39.1</td>
+<td>13.9</td>
+<td class="rline">16.6</td>
+<td>36.0</td>
+<td class="rline">39.4</td>
+<td>29.4</td>
+</tr>
+<tr class="even">
+<td>COMET</td>
+<td>-.044</td>
+<td class="rline">.020</td>
+<td>.818</td>
+<td class="rline">.860</td>
+<td>.686</td>
+<td class="rline">.739</td>
+<td>.139</td>
+<td class="rline">.212</td>
+<td>.779</td>
+<td class="rline">.816</td>
+<td>.502</td>
+</tr>
+<tr class="odd">
+<td>L-Acc</td>
+<td>.845</td>
+<td class="rline">.956</td>
+<td>.660</td>
+<td class="rline">.815</td>
+<td>.608</td>
+<td class="rline">.900</td>
+<td>.574</td>
+<td class="rline">.961</td>
+<td>.680</td>
+<td class="rline">.882</td>
+<td>.788</td>
+</tr>
+<tr class="even">
+<td>S-Acc</td>
+<td>.479</td>
+<td class="rline">.703</td>
+<td>.605</td>
+<td class="rline">.953</td>
+<td>.497</td>
+<td class="rline">.956</td>
+<td>.105</td>
+<td class="rline">.870</td>
+<td>.613</td>
+<td class="rline">.951</td>
+<td>.673</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-cross-lingual-geneval-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.5: Full results of cross-lingual prompting on <span class="smallcaps">MT-GenEval</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-ramp-analysis-zeroshot" class="level3" data-number="B.1.3">
+<h3 data-number="B.1.3" class="anchored" data-anchor-id="sec-ramp-analysis-zeroshot"><span class="header-section-number">B.1.3</span> Error Analysis of Cross-Lingual Prompting</h3>
+<p><a href="#tbl-chap6-cross-lingual-analysis" class="quarto-xref">Table&nbsp;<span>B.6</span></a> shows two examples where <span class="smallcaps">Ramp</span> performs significantly worse than the base model in terms of <span class="smallcaps">comet</span>. In the first example, having multiple in-context examples containing <em>“million”</em> led the model to mis-translate <em>“billion”</em> to <em>“million”</em>. In the second example, we observe that the color related in-context examples led the model to produce hallucinated output about clothing colors.</p>
+<p>Repeated misleading in-context examples are less observed on <span class="smallcaps">MT-GenEval</span> and in the same-language setting because (1) <span class="smallcaps">CoCoA-MT</span> translates the same set of English sentences to different languages while <span class="smallcaps">MT-GenEval</span> collects English sentences independently; (2) There are no duplicated source (English) sentences for each language. (Therefore, if <span class="smallcaps">Ramp</span> retrieves duplicated English sentences as in <a href="#tbl-chap6-cross-lingual-analysis" class="quarto-xref">Table&nbsp;<span>B.6</span></a>, their reference translations are guaranteed to be in different languages.)</p>
+<div id="tbl-chap6-cross-lingual-analysis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-cross-lingual-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td rowspan="14" class="rowspan"><strong>In-context examples (EN)</strong></td>
+<td><strong>Maybe he should. What did you think about that guy findin 3 million dollars worth of old baseball cards in his grandpas attic.</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Yeah that makes sense, did you heard about the $10 million bunker he has?</strong></td>
+</tr>
+<tr class="odd">
+<td>I have. I heard that he started a library in 1895 with 32,000 books in it. All from his personal collection. Can you imagine?</td>
+</tr>
+<tr class="even">
+<td><strong>Yeah that makes sense, did you heard about the $10 million bunker he has?</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Yeah that makes sense, did you heard about the $10 million bunker he has?</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Maybe he should. What did you think about that guy findin 3 million dollars worth of old baseball cards in his grandpas attic.</strong></td>
+</tr>
+<tr class="odd">
+<td>That is really expensive I agree, did you watch the Lego Batman movie?</td>
+</tr>
+<tr class="even">
+<td><strong>Yeah that makes sense, did you heard about the $10 million bunker he has?</strong></td>
+</tr>
+<tr class="odd">
+<td>That is crazy. Do you like Tom Hanks, he’s grossed over 8.5 billion at the box office</td>
+</tr>
+<tr class="even">
+<td>That is really expensive I agree, did you watch the Lego Batman movie?</td>
+</tr>
+<tr class="odd">
+<td>That is crazy. Do you like Tom Hanks, he’s grossed over 8.5 billion at the box office</td>
+</tr>
+<tr class="even">
+<td>That is crazy. Do you like Tom Hanks, he’s grossed over 8.5 billion at the box office</td>
+</tr>
+<tr class="odd">
+<td>He doesnt look like he has 56 years! I heard he made 75000000 from Mission Impossible 3</td>
+</tr>
+<tr class="midrule even">
+<td>Really? I guess he made a valuable contribution to science and also to medicine, did you hear of that species of flying snakes</td>
+</tr>
+<tr class="odd">
+<td><strong>Input (EN)</strong></td>
+<td>If you got it why not? He is worth over 20 billion dollars after all.</td>
+</tr>
+<tr class="even">
+<td><strong>Reference (ES)</strong></td>
+<td>Si lo tiene, ¿por qué no? Al fin y al cabo, vale más de 20 000 millones de dólares.</td>
+</tr>
+<tr class="odd">
+<td><strong><span class="smallcaps">Ramp</span> (ES)</strong></td>
+<td>Si lo tienes, ¿por qué no? Es millonario después de todo.</td>
+</tr>
+<tr class="bottomrule even">
+<td><strong>base (ES)</strong></td>
+<td>Si lo tienes, ¿por qué no? Él vale más de 20 mil millones de dólares después de todo.</td>
+</tr>
+<tr class="odd">
+<td rowspan="14" class="rowspan"><strong>In-context examples (EN)</strong></td>
+<td>thats such a fun thing to have in your code of conduct. are you more of a dog person than cat person?</td>
+</tr>
+<tr class="even">
+<td>For sure lol, it was so nice talking with you, say hi to your cats for me!</td>
+</tr>
+<tr class="odd">
+<td>thats such a fun thing to have in your code of conduct. are you more of a dog person than cat person?</td>
+</tr>
+<tr class="even">
+<td><strong>What can’t dogs do! I know they aren’t color blind like we were taught when young. It was so nice chatting with you, tell yuki hi!</strong></td>
+</tr>
+<tr class="odd">
+<td>For sure lol, it was so nice talking with you, say hi to your cats for me!</td>
+</tr>
+<tr class="even">
+<td><strong>Oh yeah. That sucker was mean let me tell you. I think I would have a rabid dog chase me, which by the way dogs are not color blind!</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Thanks you too! And watch out for dogs, they’re not actually colorblind but they just don’t see as many colors as a normal human can</strong></td>
+</tr>
+<tr class="even">
+<td>LOL That’s funny! Google prefers dogs over cats! The wrote in their code of conduct that they are a dog company. It’s been fun chatting with you!</td>
+</tr>
+<tr class="odd">
+<td>Such gorgeous dogs! Do you &amp; your dogs live in a northern climate?</td>
+</tr>
+<tr class="even">
+<td>LOL That’s funny! Google prefers dogs over cats! The wrote in their code of conduct that they are a dog company. It’s been fun chatting with you!</td>
+</tr>
+<tr class="odd">
+<td>thats such a fun thing to have in your code of conduct. are you more of a dog person than cat person?</td>
+</tr>
+<tr class="even">
+<td>Such gorgeous dogs! Do you &amp; your dogs live in a northern climate?</td>
+</tr>
+<tr class="odd">
+<td><strong>haha me too! I heard that they wore clothes that were full of color. Surprised me because I always thought of them as wearing black and white.</strong></td>
+</tr>
+<tr class="midrule even">
+<td>For sure lol, it was so nice talking with you, say hi to your cats for me!</td>
+</tr>
+<tr class="odd">
+<td><strong>Input (EN)</strong></td>
+<td>lol I had an African grey that could say everything I said around the house. Like clean your room! as well any loud sounds.</td>
+</tr>
+<tr class="even">
+<td><strong>Reference (PT)</strong></td>
+<td>“lol Tinha um papagaio-cinzento que conseguia dizer tudo o que ouvia em casa. Tipo”Limpe o seu quarto!” e também quaisquer sons altos”</td>
+</tr>
+<tr class="odd">
+<td><strong><span class="smallcaps">Ramp</span> (PT)</strong></td>
+<td>haha eu também! Eu ouvi dizer que eles usam roupas de todas as cores. Surpreendeu-me porque eu sempre pensei neles usando preto e branco.</td>
+</tr>
+<tr class="even">
+<td><strong>base (PT)</strong></td>
+<td>hahaha eu tinha um papagaio cinza africano que dizia tudo o que eu dizia em casa. Como limpar o quarto! Bem como qualquer som alto.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-cross-lingual-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.6: Examples of <span class="smallcaps">CoCoA-MT</span> (formal) where <span class="smallcaps">Ramp</span> performs worse than the base model in cross-lingual zero-shot setting. Potentially problematic in-context examples leading to mistranslations or hallucinations are highlighted.
+</figcaption>
+</figure>
+</div>
+<p></p><div style="page-break-after: always;"></div> <p></p>
+</section>
+</section>
+<section id="sec-sae-litmt-appendix" class="level2" data-number="B.2">
+<h2 data-number="B.2" class="anchored" data-anchor-id="sec-sae-litmt-appendix"><span class="header-section-number">B.2</span> Steering Language Models for Machine Translation Personalization</h2>
+<section id="sec-sae-litmt-reproducibility" class="level3" data-number="B.2.1">
+<h3 data-number="B.2.1" class="anchored" data-anchor-id="sec-sae-litmt-reproducibility"><span class="header-section-number">B.2.1</span> Experiments Reproducibility</h3>
+<p>In this section, we provide every parameter we use for the reproducibility of our experiments setups.</p>
+<section id="sec-sae-litmt-base-prompt" class="level4" data-number="B.2.1.1">
+<h4 data-number="B.2.1.1" class="anchored" data-anchor-id="sec-sae-litmt-base-prompt"><span class="header-section-number">B.2.1.1</span> Base Prompt</h4>
+<p>We use the same prompt template across all methods: ZS (which corresponds to the original model translation), ZS-Exp.<span class="math inline">\(_\text{HT}\)</span>, ZS-Exp.<span class="math inline">\(_\text{PT}\)</span> (detailed in <a href="#sec-sae-litmt-explain" class="quarto-xref"><span>Section B.2.1.4</span></a>), MS, ActAdd, ReFT, and SAE-based contrastive setups. This prompt, shown in <a href="#lst-chap7-explain-final" class="quarto-xref">Listing&nbsp;<span>B.3</span></a>, instructs the model to translate the source sentence while explicitly preventing it from adding any explanations about the translation process. Since all test models are Instruction Tuned, we utilize their native chat templates to preprocess the input accordingly. For multi-shot examples, the <em>user</em> and <em>assistant</em> turns are repeated for each example, always using the same prompt structure.</p>
+</section>
+<section id="sec-sae-litmt-reft-training" class="level4" data-number="B.2.1.2">
+<h4 data-number="B.2.1.2" class="anchored" data-anchor-id="sec-sae-litmt-reft-training"><span class="header-section-number">B.2.1.2</span> ReFT Training</h4>
+<p>ReFT training was conducted using the PyReFT toolkit from the original authors<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. We applied the intervention at the same hook point used by other steering methods - specifically, the layer output corresponding to the residual stream at the selected layer. The training configuration includes a <code>low_rank_dimension</code> of 4, <code>lora_alpha</code> set to 32, and a <code>lora_dropout</code> of 0.05. ReFT was trained on the same 20 prompts used in the MS setup, for a total of 100 epochs.</p>
+</section>
+<section id="sec-sae-litmt-cont-methods" class="level4" data-number="B.2.1.3">
+<h4 data-number="B.2.1.3" class="anchored" data-anchor-id="sec-sae-litmt-cont-methods"><span class="header-section-number">B.2.1.3</span> SAE Cont.<span class="math inline">\(_\text{HT}\)</span> and SAE Cont.<span class="math inline">\(_\text{PT}\)</span></h4>
+<p>We use the NNsight library <span class="citation" data-cites="fiottokaufman-etal-2024-nnsight">(<a href="references.html#ref-fiottokaufman-etal-2024-nnsight" role="doc-biblioref">Fiotto-Kaufman et al., 2025</a>)</span> to extract and manipulate model activations for all steering experiments. The source code is publicly available in the repository linked in the main body of this paper. For consistency, we use the same set of contrastive examples employed in the MS approach.</p>
+</section>
+<section id="sec-sae-litmt-explain" class="level4" data-number="B.2.1.4">
+<h4 data-number="B.2.1.4" class="anchored" data-anchor-id="sec-sae-litmt-explain"><span class="header-section-number">B.2.1.4</span> ZS-Exp.<span class="math inline">\(_\text{HT}\)</span> and ZS-Exp.<span class="math inline">\(_\text{PT}\)</span></h4>
+<p>For both the ZS-Exp.<span class="math inline">\(_\text{HT}\)</span> and ZS-Exp.<span class="math inline">\(_\text{PT}\)</span> setups, we used GPT-4o (June 2025) to generate explanations detailing the stylistic differences between a base translation and a target human translation. The prompt template used for this task is shown in <a href="#lst-chap7-explain-template" class="quarto-xref">Listing&nbsp;<span>B.1</span></a>, using the same 20 examples as in the MS, SAE Cont.<span class="math inline">\(_\text{HT}\)</span>, and SAE Cont.<span class="math inline">\(_\text{PT}\)</span> setups.</p>
+<p>All outputs were manually inspected to ensure no verbatim excerpts from the provided examples were present, avoiding any risk of data leakage. Example outputs for different novels are shown in <a href="#lst-chap7-explain-example" class="quarto-xref">Listing&nbsp;<span>B.2</span></a>.</p>
+<p>Finally, these generated guidelines are used to prompt the evaluated models, following the template shown in <a href="#lst-chap7-explain-final" class="quarto-xref">Listing&nbsp;<span>B.3</span></a>.</p>
+<div id="lst-chap7-explain-template" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-chap7-explain-template-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;B.1: Prompt template used to get GPT 4o explanation using translation examples.
+</figcaption>
+<div aria-describedby="lst-chap7-explain-template-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Objective - Identify stylistic choices in translations for personalization purposes.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>You will be provided with a source text, a standard translation, and a target translation by a specific translator whose style we want to emulate.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Your task is to analyze the 'Target translation' by comparing it to the 'Base translation' and the 'Source text'.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Identify and list the distinctive stylistic patterns, choices, and preferences exhibited in the Target translation.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>These stylistic cues should help another translator (or an AI) to adapt their translations to match the style of the target translator.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Source text: ____</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Base translation: ____</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Target translation: ____</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">... Repeat Source, Base and Target</span><span class="co">]</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Please extract a concise list of key stylistic cues. Focus on aspects such as vocabulary choices, sentence structure, tone and register, handling of cultural nuances, punctuation/formatting preferences and overall creativity.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Output a short list of stylistic cues as bullet points. Write the list as if you were directly giving the guidelines to the translator and avoid using specific examples.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<div id="lst-chap7-explain-example" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-chap7-explain-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;B.2: Examples of explanation obtained from GPT 4o when comparing different translations from different novels.
+</figcaption>
+<div aria-describedby="lst-chap7-explain-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">When comparing H1 and MT for Beware of Pity (German)</span><span class="co">]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Maintain a tone that is professional, thoughtful, and subtly persuasive.</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Avoid overly technical jargon unless necessary; explain specialized terms briefly if used.</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Preserve the author's voice, keeping a balance between academic rigor and narrative engagement.</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ensure smooth transitions between sentences and paragraphs to support coherent argumentation.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Translate idiomatic expressions in a way that retains their intended effect, even if the wording differs.</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">When comparing H1 and H2 for Beware of Pity (German)</span><span class="co">]</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Keep the tone warm, welcoming, and direct - avoid overly formal or distant language.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use active voice wherever possible to maintain energy and engagement.</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Avoid idioms or expressions that may not translate culturally; aim for universal accessibility.</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Maintain consistent tone and register throughout, adapting to the intended audience's familiarity with the subject.</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Respect the rhythm and structure of the original, but feel free to adjust sentence length for readability.</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">When comparing H1 and H2 for Crime and Punishment (Russian)</span><span class="co">]</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prefer dynamic over formal vocabulary: Opt for vivid or emotionally charged words when available.</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Add tonal nuance and emotional shading: Enrich dialogues and narration with subtle shifts in tone, especially sarcasm, understatement, or irony, to match character voice or mood.</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use contractions and familiar phrasing: Employ contractions and relaxed expressions to preserve spoken character.</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Expand or rephrase for clarity and voice: Don't hesitate to slightly reword or elaborate if it strengthens tone, clarifies intent, or enhances character differentiation.</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Favor rhythmic, flowing sentence structure: Break long, formal sentences into multiple shorter clauses or use punctuation (dashes, ellipses) for dramatic or emotional effect.</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">...</span><span class="co">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<div id="lst-chap7-explain-final" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-chap7-explain-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;B.3: Zero shot template template when prompting language models with different setups
+</figcaption>
+<div aria-describedby="lst-chap7-explain-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Translate the following sentence between the angular parentheses into English.</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">if setup == ZS-Exp</span><span class="co">]</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Follow the following guidelines when translating: &lt;explanations here&gt;</span><span class="co">]</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>The original sentence is: ____.</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>Remember to write only the translation, without any additional text or explanation.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-sae-litmt-all-models" class="level3" data-number="B.2.2">
+<h3 data-number="B.2.2" class="anchored" data-anchor-id="sec-sae-litmt-all-models"><span class="header-section-number">B.2.2</span> All Models Results</h3>
+<section id="sec-sae-litmt-steering-results" class="level4" data-number="B.2.2.1">
+<h4 data-number="B.2.2.1" class="anchored" data-anchor-id="sec-sae-litmt-steering-results"><span class="header-section-number">B.2.2.1</span> Full Prompting and Steering Results</h4>
+<p>We present detailed plots of the results for each novel across the three evaluated models in <a href="#fig-chap7-gemma2b-all" class="quarto-xref">Figure&nbsp;<span>B.1</span></a> (Gemma 2 2B), <a href="#fig-chap7-gemma9b-all" class="quarto-xref">Figure&nbsp;<span>B.2</span></a> (Gemma 2 9B), and <a href="#fig-chap7-llama8b-all" class="quarto-xref">Figure&nbsp;<span>B.3</span></a> (Llama 3.1 8B). These plots display the performance of all evaluated methods, reporting the three submetrics: <strong>H</strong> accuracy (general human-likeness), <strong>P</strong> accuracy (translator-specific accuracy), and <strong>P<span class="math inline">\(_\text{flip}\)</span></strong> (personalized flip accuracy), alongside the corresponding <span class="smallcaps">comet</span> scores measuring translation quality.</p>
+<div id="fig-chap7-gemma2b-all" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap7-gemma2b-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-7-sae-litmt/app_gemma-2-2b-it_novels_avg.webp" class="img-fluid figure-img" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap7-gemma2b-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;B.1: Results for every language on Gemma 2 2B.
+</figcaption>
+</figure>
+</div>
+<div id="fig-chap7-gemma9b-all" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap7-gemma9b-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-7-sae-litmt/app_gemma-2-9b-it_novels_avg.webp" class="img-fluid figure-img" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap7-gemma9b-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;B.2: Results for every language on Gemma 2 9B.
+</figcaption>
+</figure>
+</div>
+<div id="fig-chap7-llama8b-all" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap7-llama8b-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-7-sae-litmt/app_llama-3.1-8b-it_novels_avg.webp" class="img-fluid figure-img" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap7-llama8b-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;B.3: Results for every language on Llama 3.1 8B.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-sae-litmt-output-examples" class="level3" data-number="B.2.3">
+<h3 data-number="B.2.3" class="anchored" data-anchor-id="sec-sae-litmt-output-examples"><span class="header-section-number">B.2.3</span> Dataset and Generation Examples</h3>
+<p>We present in <a href="#tbl-chap7-examples-all-zh" class="quarto-xref">Table&nbsp;<span>B.7</span></a> and <a href="#tbl-chap7-examples-all-it" class="quarto-xref">Table&nbsp;<span>B.8</span></a> a selection of examples from two different languages, showcasing outputs from each of the tested setups. For each example, we also report the corresponding classification label predicted by the classifier and the associated <span class="smallcaps">comet</span> score. Additionally</p>
+<div id="tbl-chap7-examples-all-zh" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap7-examples-all-zh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Source/Method</th>
+<th data-quarto-table-cell-role="th">Translation</th>
+<th data-quarto-table-cell-role="th">📊 Classifier</th>
+<th data-quarto-table-cell-role="th">☄️ COMET</th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td class="mediumsmallrow"><strong>Source (ZH)</strong></td>
+<td>遂又往後看時，只見畫著一張弓，弓上掛著香櫞。也有一首歌詞云：「二十年來辨是非，榴花開處照宮闈。三春爭及初春景，虎兕相逢大夢歸。」</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong><span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span></strong></td>
+<td><em>Forthwith, therefore, he prosecuted a further perusal of what came next, when he caught sight of a picture of a bow. On this bow hung a citron. There was also this ode: Full twenty years right and wrong to expound will be thy fate! What place pomegranate blossoms come in bloom will face the Palace Gate! The third portion of spring, of the first spring in beauty short will fall! When tiger meets with hare thou wilt return to sleep perennial.</em></td>
+<td><span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span></td>
+<td>-</td>
+</tr>
+<tr class="midrule odd">
+<td><strong><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span></strong></td>
+<td><em>The picture that followed was of a bow with a citron hanging from it, followed by what looked like the words of a song: You shall, when twenty years in life's hard school are done, In pomegranate-time to palace halls ascend. Though three springs never could with your first spring compare, When hare meets tiger your great dream shall end.</em></td>
+<td><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span></td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td><strong>Gemma 2 2B</strong></td>
+<td><em>When he turned back to look, he saw a bow hanging on it, with a plum blossom. There was also a poem that said: "For twenty years, I have been trying to distinguish right from wrong, and the plum blossoms bloom in the palace. In the spring, the tigers and the rhinoceroses meet, and they dream of returning home."</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.49</td>
+</tr>
+<tr class="odd">
+<td><strong>Gemma 2 9B</strong></td>
+<td><em>Looking back, he saw a painting of a bow with a quiver hanging on it. There was also a line of lyrics that said: "For twenty years, I have distinguished right from wrong, and the blossoming of the pomegranate flowers illuminates the imperial court. Three springs have passed, and now it is the beginning of spring again, like a dream where tigers and rhinoceroses meet.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.56</td>
+</tr>
+<tr class="midrule even">
+<td><strong>Llama 3.1 8B</strong></td>
+<td><em>As I looked back, I saw a painting of a bow with a censer on it. There was also a poem that said: "Twenty years of distinguishing right from wrong, the lotus flower blooms in the palace. Three springs competing with the scenery of the first spring, the tiger and the rhinoceros meet and return to their dream."</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.53</td>
+</tr>
+<tr class="odd">
+<td><strong>ZS-Exp.<span class="math inline">\(_\text{HT}\)</span></strong></td>
+<td><em>And as he turned his gaze back upon the scene once more, there was displayed an archer's bow strung tautly; upon its surface hung a fragrant plum blossom. A poem also recited thus spake: "For twenty years I have sought truth amidst strife, where blooming durian flowers illuminate the palace walls. In spring's embrace, they vie for beauty, tigers clashing in dreams of return."</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.60</td>
+</tr>
+<tr class="even">
+<td><strong>ZS-Exp.<span class="math inline">\(_\text{PT}\)</span></strong></td>
+<td><em>And as he turned his gaze back upon the scene once more, there was displayed an archer's bow strung tautly; upon its surface hung a fragrant plum blossom. A poem also recited thus: "For twenty years I have sought truth amidst strife, where blooming durian flowers illuminate the palace walls. In spring's embrace, they vie for beauty, tigers clashing in dreams of return."</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.61</td>
+</tr>
+<tr class="midrule odd">
+<td><strong>MS</strong></td>
+<td><em>Then, turning around, he noticed a picture depicting a bow hanging on its string, adorned with incense sticks. A verse read: "For twenty years I've tried to discern truth from falsehood, and wherever fragrant plum blossoms bloom, the palace gates shine brightly."</em></td>
+<td><span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span></td>
+<td>0.65</td>
+</tr>
+<tr class="even">
+<td><strong>ActAdd</strong></td>
+<td><em>When he turned back to look, he saw a bow hanging on it, with a plum blossom. There was also a poem that said: "For twenty years, I have been trying to tell right from wrong, and the plum blossoms bloom in the palace. In spring, the tigers and rhinoceroses meet, and they dream of going back home."</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.53</td>
+</tr>
+<tr class="odd">
+<td><strong>ReFT</strong></td>
+<td><em>When he turned back to look, he saw a bow hanging there, adorned with a plum blossom. There was also a poem that said: "For twenty years, I have tried to distinguish right from wrong, and plum blossoms bloom within the palace. In spring, tiger and rhinoceros meet, dreaming of their return home."</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.58</td>
+</tr>
+<tr class="even">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span></strong> (<span class="math inline">\(\alpha=1\)</span>)</td>
+<td><em>When he turned back to look, he saw a bow hung upon it, with a plum blossom. There was also a verse which read: "For twenty years, I have struggled to discern truth from falsehood, and the plums blossomed where the imperial court resided. During the three springs, the tiger and rhinoceros met, dreaming of their return."</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.62</td>
+</tr>
+<tr class="odd">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span></strong> (<span class="math inline">\(\alpha=5\)</span>)</td>
+<td><em>He looked back and there hung a bow adorned with a plum blossom. A verse read: "Twenty years I've struggled for truth, where fragrant plums bloom near the imperial court. Spring arrives, tiger and rhino clash, dreaming of their return.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.62</td>
+</tr>
+<tr class="even">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span></strong> (<span class="math inline">\(\alpha=50\)</span>)</td>
+<td><em>The when the veryShellTruth lookWarmTheTheTheTigeratPoint [...]</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{PT}\)</span></strong> (<span class="math inline">\(\alpha=5\)</span>)</td>
+<td><em>He looked back and saw a bow adorned with fragrant citron. A verse declared: "Twenty years I've weighed right and wrong; where pomegranate blossoms bloom, they light the palace gates. Spring's full bloom cannot match early spring's grace. When tiger meets rhino, one returns to the great dream."</em></td>
+<td><span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span></td>
+<td>0.65</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap7-examples-all-zh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.7: Example paragraphs from “Dream of the Red Chamber” (ZH<span class="math inline">\(\to\)</span>EN) translated with <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span> personalization. Setup outputs are from Gemma 2 2B; only MS and SAE Cont.<span class="math inline">\(_\text{PT}\)</span> successfully flip the classifier prediction.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-chap7-examples-all-it" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap7-examples-all-it-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Source/Method</th>
+<th data-quarto-table-cell-role="th">Translation</th>
+<th data-quarto-table-cell-role="th">📊 Classifier</th>
+<th data-quarto-table-cell-role="th">☄️ COMET</th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td class="mediumsmallrow"><strong>Source (IT)</strong></td>
+<td>Intanto la stalla fu chiusa e Pinocchio rimase solo: e perché erano molte ore che non aveva mangiato, cominciò a sbadigliare dal grande appetito. E, sbadigliando, spalancava una bocca che pareva un forno.</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong><span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span></strong></td>
+<td><em>When the stable door was closed, Pinocchio was left alone. And since he hadn't eaten in many hours, he began to yawn from hunger. And when he yawned, his mouth opened as wide as an oven.</em></td>
+<td><span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span></td>
+<td>-</td>
+</tr>
+<tr class="midrule odd">
+<td><strong><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span></strong></td>
+<td><em>The stable was then shut and Pinocchio was left alone. He had not eaten for many hours, and he began to yawn from hunger. And when he yawned he opened a mouth that seemed as wide as an oven.</em></td>
+<td><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span></td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td><strong>Gemma 2 2B</strong></td>
+<td><em>At that moment the stable was closed and Pinocchio was left alone, and because it had been many hours since he had eaten, he began to yawn from a great hunger. And, yawning, he opened a mouth that seemed like a furnace.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.79</td>
+</tr>
+<tr class="odd">
+<td><strong>Gemma 2 9B</strong></td>
+<td><em>Meanwhile, the stable was closed and Pinocchio was left alone: and because it had been many hours since he had eaten, he began to yawn from his great hunger. And, yawning, he opened a mouth that looked like an oven.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.80</td>
+</tr>
+<tr class="midrule even">
+<td><strong>Llama 3.1 8B</strong></td>
+<td><em>Meanwhile the stable was closed and Pinocchio was left alone: and because it was many hours since he hadn't eaten, he began to yawn from great hunger. And, yawning, he opened a mouth that seemed like an oven.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.80</td>
+</tr>
+<tr class="odd">
+<td><strong>ZS-Exp.<span class="math inline">\(_\text{HT}\)</span></strong></td>
+<td><em>Meanwhile, the stable door was shut, leaving Pinocchio alone. His tummy rumbled because it had been hours since his last meal, and he started yawning widely from his hunger. With each yawn, his mouth opened like an oven.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.78</td>
+</tr>
+<tr class="even">
+<td><strong>ZS-Exp.<span class="math inline">\(_\text{PT}\)</span></strong></td>
+<td><em>Meanwhile, the stable door was shut, leaving Pinocchio all alone. His tummy rumbled because it had been hours since his last meal, and he started yawning widely from sheer hunger. With each yawn, his mouth gaped open like an oven.</em></td>
+<td><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span></td>
+<td>0.80</td>
+</tr>
+<tr class="midrule odd">
+<td><strong>MS</strong></td>
+<td><em>Meanwhile, the stable door was shut and Pinocchio was left alone. Since it had been hours since he last ate, he began yawning from hunger. Each yawn opened his mouth wide enough to look like an oven.</em></td>
+<td><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span></td>
+<td>0.81</td>
+</tr>
+<tr class="even">
+<td><strong>ActAdd</strong></td>
+<td><em>Meanwhile, the stable was closed and Pinocchio remained alone. Because many hours passed without eating, he started yawning from very big hunger. And while yawning, he opened his mouth wide like an oven.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.75</td>
+</tr>
+<tr class="odd">
+<td><strong>ReFT</strong></td>
+<td><em>Meanwhile, the stable was closed and Pinocchio stayed alone. Because many hours had passed since he last ate, he began to yawn from big hunger. And, yawning, he opened a mouth that looked like an oven.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.77</td>
+</tr>
+<tr class="even">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span></strong> (<span class="math inline">\(\alpha=1\)</span>)</td>
+<td><em>Meanwhile, the stable door was shut and Pinocchio was left alone. Because it had been many hours since he had eaten, he started to yawn with intense hunger. And, as he yawned, his mouth gaped open like an oven.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.79</td>
+</tr>
+<tr class="odd">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span></strong> (<span class="math inline">\(\alpha=5\)</span>)</td>
+<td><em>Meanwhile, the stable door shut, leaving Pinocchio all alone. Because it had been many hours since he'd eaten, he started to yawn with intense hunger. As he yawned, his mouth gaped open, looking like an oven.</em></td>
+<td><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span></td>
+<td>0.82</td>
+</tr>
+<tr class="even">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span></strong> (<span class="math inline">\(\alpha=50\)</span>)</td>
+<td><em>He He "It The ... You It "[They They) THE...I I HE IT [There There THEYRE WE "A A FOR "[...]</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.14</td>
+</tr>
+<tr class="odd">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{PT}\)</span></strong> (<span class="math inline">\(\alpha=5\)</span>)</td>
+<td><em>The stable was then shut, leaving Pinocchio all alone. He had not eaten for many hours and began to yawn from great hunger. As he yawned, he opened his mouth wide, like an oven.</em></td>
+<td><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span></td>
+<td>0.84</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap7-examples-all-it-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.8: Example paragraphs from “Pinocchio” (IT<span class="math inline">\(\to\)</span>EN) translated with <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span> personalization. Setup outputs are from Gemma 2 9B; ZS-Exp.<span class="math inline">\(_\text{PT}\)</span>, MS, SAE Cont.<span class="math inline">\(_\text{HT}\)</span> and SAE Cont.<span class="math inline">\(_\text{PT}\)</span> (both <span class="math inline">\(\alpha\)</span> = 5) can flip the classifier prediction.
+</figcaption>
+</figure>
+</div>
+<div style="page-break-after: always;"></div>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-fiottokaufman-etal-2024-nnsight" class="csl-entry" role="listitem">
+Jaden Fried Fiotto-Kaufman, Alexander Russell Loftus, Eric Todd, Jannik Brinkmann, Koyena Pal, Dmitrii Troitskii, Michael Ripa, Adam Belfki, Can Rager, Caden Juang, Aaron Mueller, Samuel Marks, Arnab Sen Sharma, Francesca Lucchetti, Nikhil Prakash, Carla E. Brodley, Arjun Guha, Jonathan Bell, Byron C Wallace, et al. 2025. <a href="https://openreview.net/forum?id=MxbEiFRf39"><span>NN</span>sight and <span>NDIF</span>: Democratizing access to open-weight foundation model internals</a>. In <em>The thirteenth international conference on learning representations</em>.
+</div>
+</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>We set maximum output length as 50 tokens in the preliminary evaluation, while we use 100 tokens in the main evaluation. Early truncating leads to slightly lower scores in <a href="#tbl-chap6-preliminary-cocoa-results" class="quarto-xref">Table&nbsp;<span>B.1</span></a> than in <a href="chap-6-ramp.html#tbl-chap6-full-results" class="quarto-xref">Table&nbsp;<span>6.4</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://github.com/stanfordnlp/pyreft" class="uri">https://github.com/stanfordnlp/pyreft</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/appendix-a.html" class="pagination-link" aria-label="Attributing Context Usage in Multilingual NLP">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/appendix-c.html" class="pagination-link" aria-label="Interpretability in Human Translation Workflows">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Gabriele Sarti. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://www.rug.nl/?lang=en"><img src="../figures/logos/rug_eng_red.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/?lang=en"><img src="../figures/logos/clcg.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://projects.illc.uva.nl/indeep/"><img src="../figures/logos/indeep_logo_horizontal.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/research/cl/?lang=en"><img src="../figures/logos/gronlp.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+</div>
+    <div class="nav-footer-right">
+<p>Written with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

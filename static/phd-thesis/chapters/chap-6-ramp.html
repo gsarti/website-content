@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Ph.D.&nbsp;Thesis, Center for Language and Cognition (CLCG), University of Groningen">
+
+<title>6&nbsp; Retrieval and Marking for Attribute-Controlled Translation – From Insights to Impact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/chap-7-sae-litmt.html" rel="next">
+<link href="../figures/logos/rug_crest_icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df7dc7f297c6c2c740a551c3cb7e1581.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../html/custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-6-ramp.html">Conditioning Generation for Personalized Machine Translation</a></li><li class="breadcrumb-item"><a href="../chapters/chap-6-ramp.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../figures/logos/rug_eng_red_hat_line.png" alt="RUG Coat of Arms" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Insights to Impact</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gsarti/phd-thesis" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://gsarti.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-person-circle"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-2-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Attributing Context Usage in Multilingual NLP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-3-inseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-4-pecore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-5-mirage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conditioning Generation for Personalized Machine Translation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-6-ramp.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-7-sae-litmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Interpretability in Human Translation Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-8-divemt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-9-qe4pe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-10-unsup-wqe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-11-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-chap6-introduction" id="toc-sec-chap6-introduction" class="nav-link active" data-scroll-target="#sec-chap6-introduction"><span class="header-section-number">6.1</span> Introduction</a></li>
+  <li><a href="#method" id="toc-method" class="nav-link" data-scroll-target="#method"><span class="header-section-number">6.2</span> Method</a>
+  <ul class="collapse">
+  <li><a href="#sec-chap6-ramp" id="toc-sec-chap6-ramp" class="nav-link" data-scroll-target="#sec-chap6-ramp"><span class="header-section-number">6.2.1</span> Our Approach: <span class="smallcaps">Ramp</span></a></li>
+  <li><a href="#sec-chap6-cross-lingual-methods" id="toc-sec-chap6-cross-lingual-methods" class="nav-link" data-scroll-target="#sec-chap6-cross-lingual-methods"><span class="header-section-number">6.2.2</span> Cross-Lingual Prompting</a></li>
+  </ul></li>
+  <li><a href="#experiments" id="toc-experiments" class="nav-link" data-scroll-target="#experiments"><span class="header-section-number">6.3</span> Experiments</a>
+  <ul class="collapse">
+  <li><a href="#sec-chap6-dataset-details" id="toc-sec-chap6-dataset-details" class="nav-link" data-scroll-target="#sec-chap6-dataset-details"><span class="header-section-number">6.3.1</span> Datasets</a></li>
+  <li><a href="#sec-chap6-llm" id="toc-sec-chap6-llm" class="nav-link" data-scroll-target="#sec-chap6-llm"><span class="header-section-number">6.3.2</span> Large Language Models</a></li>
+  <li><a href="#sec-chap6-baseline" id="toc-sec-chap6-baseline" class="nav-link" data-scroll-target="#sec-chap6-baseline"><span class="header-section-number">6.3.3</span> Baseline</a></li>
+  <li><a href="#sec-chap6-evaluation-metrics" id="toc-sec-chap6-evaluation-metrics" class="nav-link" data-scroll-target="#sec-chap6-evaluation-metrics"><span class="header-section-number">6.3.4</span> Evaluation Metrics</a></li>
+  <li><a href="#sec-chap6-same-language" id="toc-sec-chap6-same-language" class="nav-link" data-scroll-target="#sec-chap6-same-language"><span class="header-section-number">6.3.5</span> Same-Language Prompting</a></li>
+  <li><a href="#sec-chap6-cross-lingual-prompting" id="toc-sec-chap6-cross-lingual-prompting" class="nav-link" data-scroll-target="#sec-chap6-cross-lingual-prompting"><span class="header-section-number">6.3.6</span> Cross-Lingual Prompting</a></li>
+  </ul></li>
+  <li><a href="#sec-chap6-limitations" id="toc-sec-chap6-limitations" class="nav-link" data-scroll-target="#sec-chap6-limitations"><span class="header-section-number">6.4</span> Limitations</a></li>
+  <li><a href="#sec-chap6-conclusion" id="toc-sec-chap6-conclusion" class="nav-link" data-scroll-target="#sec-chap6-conclusion"><span class="header-section-number">6.5</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-6-ramp.html">Conditioning Generation for Personalized Machine Translation</a></li><li class="breadcrumb-item"><a href="../chapters/chap-6-ramp.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chap-6-ramp" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chapter Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This chapter shifts the focus from understanding models’ context usage to influencing their generation process. As an initial investigation, we introduce Retrieval and Attribute-Marking enhanced Prompting (<span class="smallcaps">Ramp</span>), a prompting method that employs semantic similarity retrieval to select in-context examples and attribute marking to identify relevant information, improving generation accuracy with large multilingual language models for few-shot and zero-shot attribute-controlled translation. We experiment on two multilingual datasets for formality and gender-controlled translation, showing that <span class="smallcaps">Ramp</span> improves both attribute accuracy and translation quality over standard prompting and MT baselines. The cross-lingual effectiveness of our approach, using in-context examples from various languages, demonstrates the potential for scalable personalization methods when few examples are available.</p>
+<p></p>
+<p>This chapter is adapted from the paper <em><span class="smallcaps">Ramp</span>: Retrieval and Attribute-Marking Enhanced Prompting for Attribute-Controlled Translation</em> <span class="citation" data-cites="sarti-etal-2023-ramp">(<a href="references.html#ref-sarti-etal-2023-ramp" role="doc-biblioref">Sarti et al., 2023</a>)</span>.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>Like physical events with their causal and teleological interpretations, every linguistic event had two possible interpretations: as a transmission of information and as the realization of a plan.</em></p>
+<p><em>– Ted Chiang, Stories of Your Life and Others (2002)</em></p>
+</blockquote>
+<section id="sec-chap6-introduction" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-chap6-introduction"><span class="header-section-number">6.1</span> Introduction</h2>
+<p><em>Text style transfer</em> (TST) is a task that aims to control stylistic attributes of an input text without affecting its semantic content <span class="citation" data-cites="jin-etal-2022-deep">(<a href="references.html#ref-jin-etal-2022-deep" role="doc-biblioref">Jin et al., 2022</a>)</span>. Research in TST has focused mainly on English, thanks to the availability of large monolingual English datasets that cover stylistic attributes such as formality and simplicity <span class="citation" data-cites="rao-tetreault-2018-dear zhu-etal-2010-monolingual">(<a href="references.html#ref-rao-tetreault-2018-dear" role="doc-biblioref">Rao and Tetreault, 2018</a>; <a href="references.html#ref-zhu-etal-2010-monolingual" role="doc-biblioref">Zhu et al., 2010</a>)</span>. In recent years, however, multilingual and cross-lingual applications of TST have steadily gained popularity <span class="citation" data-cites="briakou-etal-2021-ola garcia-etal-2021-multilingual krishna-etal-2022-shot">(<a href="references.html#ref-briakou-etal-2021-ola" role="doc-biblioref">Briakou et al., 2021</a>; <a href="references.html#ref-garcia-etal-2021-multilingual" role="doc-biblioref">Garcia et al., 2021</a>; <a href="references.html#ref-krishna-etal-2022-shot" role="doc-biblioref">Krishna et al., 2022</a>)</span>. A notable instance of cross-lingual TST is <em>attribute-controlled translation</em> (ACT), in which attribute<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> conditioning is performed alongside machine translation to ensure that translations are not only correct but match user-specified preferences, such as formality/honorifics <span class="citation" data-cites="sennrich-etal-2016-controlling niu-etal-2017-study michel-neubig-2018-extreme niu-carpuat-2020-controlling nadejde-etal-2022-cocoa wang-etal-2023-controlling">(<a href="references.html#ref-sennrich-etal-2016-controlling" role="doc-biblioref">Sennrich et al., 2016</a>; <a href="references.html#ref-niu-etal-2017-study" role="doc-biblioref">Niu et al., 2017</a>; <a href="references.html#ref-michel-neubig-2018-extreme" role="doc-biblioref">Michel and Neubig, 2018</a>; <a href="references.html#ref-niu-carpuat-2020-controlling" role="doc-biblioref">Niu and Carpuat, 2020</a>; <a href="references.html#ref-nadejde-etal-2022-cocoa" role="doc-biblioref">Nadejde et al., 2022</a>; <a href="references.html#ref-wang-etal-2023-controlling" role="doc-biblioref">Wang et al., 2023</a>)</span>, gender <span class="citation" data-cites="rabinovich-etal-2017-personalized vanmassenhove-etal-2018-getting saunders-byrne-2020-reducing">(<a href="references.html#ref-rabinovich-etal-2017-personalized" role="doc-biblioref">Rabinovich et al., 2017</a>; <a href="references.html#ref-vanmassenhove-etal-2018-getting" role="doc-biblioref">Vanmassenhove et al., 2018</a>; <a href="references.html#ref-saunders-byrne-2020-reducing" role="doc-biblioref">Saunders and Byrne, 2020</a>)</span>, and length <span class="citation" data-cites="lakew-etal-2019-controlling schioppa-etal-2021-controlling">(<a href="references.html#ref-lakew-etal-2019-controlling" role="doc-biblioref">Lakew et al., 2019</a>; <a href="references.html#ref-schioppa-etal-2021-controlling" role="doc-biblioref">Schioppa et al., 2021</a>)</span>. ACT is crucial for sectors such as customer service and business communication, where stylistic differences can significantly impact user perception (e.g., misgendering customers or speaking to them in an inappropriately informal tone can be perceived as offensive or disconcerting). <a href="#tbl-chap6-data-preview" class="quarto-xref">Table&nbsp;<span>6.1</span></a> shows examples of ACT for formality and gender attributes.</p>
+<div id="tbl-chap6-data-preview" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-data-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><strong>Formality-Controlled Translation (CoCoA-MT)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td><strong>Neutral Src (EN)</strong></td>
+<td>OK, then please follow me to your table.</td>
+</tr>
+<tr class="even">
+<td><strong>Formal Ref (JA)</strong></td>
+<td>ではテーブルまで私に<u>ついて来てください</u>。</td>
+</tr>
+<tr class="odd">
+<td><strong>Informal Ref (JA)</strong></td>
+<td>ではテーブルまで私に<u>ついて来て</u>。</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><strong>Gender-Controlled Translation (MT-GenEval)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td><strong>Neutral Src (EN)</strong></td>
+<td>After retiring from teaching, Cook became a novelist.</td>
+</tr>
+<tr class="even">
+<td><strong>Feminine Ref (NL)</strong></td>
+<td>Nadat <u>ze</u> stopte met lesgeven, werd Cook <u>schrijfster</u>.</td>
+</tr>
+<tr class="odd">
+<td><strong>Masculine Ref (NL)</strong></td>
+<td>Nadat <u>hij</u> stopte met lesgeven, werd Cook <u>schrijver</u>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-data-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6.1: Examples of attribute triplets from CoCoA-MT and MT-GenEval. Attribute markers in the attribute-controlled translations are underlined.
+</figcaption>
+</figure>
+</div>
+<p>Most prior work on ACT relies on a supervised adaptation component that conditions the generative model on the selective attribute. However, few annotated ACT datasets are available, and they generally cover only a limited set of languages and attributes. Thus, enabling few-shot or zero-shot ACT would facilitate applying attribute control to less-resourced attributes and languages.</p>
+<p>As a first step into our investigation of conditioning machine translation generation, this chapter introduces a new approach for ACT: <strong>R</strong>etrieval and <strong>A</strong>ttribute-<strong>M</strong>arking enhanced <strong>P</strong>rompting (<span class="smallcaps">Ramp</span>). Recent studies have shown that large language models can perform MT out of the box using the prompting paradigm <span class="citation" data-cites="brown-etal-2020-language lin-etal-2022-shot chowdhery-etal-2023-palm">(<a href="references.html#ref-brown-etal-2020-language" role="doc-biblioref">Brown et al., 2020</a>; <a href="references.html#ref-lin-etal-2022-shot" role="doc-biblioref">Lin et al., 2022</a>; <a href="references.html#ref-chowdhery-etal-2023-palm" role="doc-biblioref">Chowdhery et al., 2023</a>)</span>. We build on this, prompting LLMs to perform <em>attribute-controlled</em> MT through two innovations: (1) <em>retrieval of similar examples</em> and (2) <em>explicit attribute marking</em>.</p>
+<div id="fig-chap6-ramp" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap6-ramp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-6-ramp/ramp.webp" class="img-fluid figure-img" style="width:90.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap6-ramp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: An example of <span class="smallcaps">Ramp</span> using 2 in-context examples. <strong>Top:</strong> A sentence similarity model embeds the input sentence, and the top-<span class="math inline">\(k\)</span> most similar labeled examples are retrieved from a pool of training data to build the prompt context. <strong>Bottom:</strong> Labeled cross-lingual examples are used to fill in the English prompt template, which is then provided to the LLM to generate the output.
+</figcaption>
+</figure>
+</div>
+<p>Recent works adopting the prompting paradigm for text style transfer have mainly focused on the generalization capabilities of large English-centric LMs for zero-shot style transfer using previously unseen style descriptions <span class="citation" data-cites="suzgun-etal-2022-prompt reif-etal-2022-recipe">(<a href="references.html#ref-suzgun-etal-2022-prompt" role="doc-biblioref">Suzgun et al., 2022</a>; <a href="references.html#ref-reif-etal-2022-recipe" role="doc-biblioref">Reif et al., 2022</a>)</span>. However, prior work on other NLP tasks has shown that cross-lingual prompting of multilingual LLMs can be effective <span class="citation" data-cites="zhao-schutze-2021-discrete zhou-etal-2023-enhancing huang-etal-2022-zero">(<a href="references.html#ref-zhao-schutze-2021-discrete" role="doc-biblioref">Zhao and Schütze, 2021</a>; <a href="references.html#ref-zhou-etal-2023-enhancing" role="doc-biblioref">Zhou et al., 2023</a>; <a href="references.html#ref-huang-etal-2022-zero" role="doc-biblioref">Huang et al., 2022</a>)</span>. As such, we leverage multilingual LLMs and extend their ACT capabilities cross-lingually to languages not covered by the in-context examples, thus enabling zero-shot ACT.</p>
+</section>
+<section id="method" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="method"><span class="header-section-number">6.2</span> Method</h2>
+<p><span class="paragraph">Attribute-Controlled Translation</span> ACT takes two inputs, a sentence <span class="math inline">\(\mathbf{x}\)</span> and a desired target attribute <span class="math inline">\(a \in A\)</span> (with <span class="math inline">\(A\)</span> being the space of attributes), and outputs a translation <span class="math inline">\(\mathbf{y}\)</span> that complies with the specified attribute. It can be formulated as a function <span class="math inline">\(f: (\mathbf{x},a)\rightarrow\mathbf{y}\)</span>. In our experiments, we use attribute values provided by the <span class="smallcaps">CoCoA-MT</span> formality translation dataset and the <span class="smallcaps">MT-GenEval</span> gender translation dataset, i.e., <span class="math inline">\(A=\)</span> {formal, informal} or {female, male}.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p><span class="paragraph">Prompting</span> In the prompting paradigm for decoder-only LLMs, inputs are given as decoding prefixes to the model, usually combined with natural language instructions for output generation. In style-controlled translation, we formulate the prompt for target language <span class="math inline">\(l\)</span> and attribute <span class="math inline">\(a\)</span> using the text <em>“Here is a sentence: {<span class="math inline">\(\underline{\mathbf{x}}\)</span>} Here is its <span class="math inline">\(\underline{l}\)</span> translation written in a <span class="math inline">\(\underline{a}\)</span> style:”</em> to produce the output <span class="math inline">\(\mathbf{y}\)</span>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> In the few-shot setting, we provide a sequence of <span class="math inline">\(k\)</span> labeled <em>in-context examples</em> before the unlabeled input, which can be formulated as a function <span class="math inline">\(f: \{(\mathbf{x}_1, l_1, a, \mathbf{y}_1),\dots, (\mathbf{x}_{k+1}, l_{k+1}, a)\}\rightarrow\mathbf{y}_{k+1}\)</span>.</p>
+<section id="sec-chap6-ramp" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="sec-chap6-ramp"><span class="header-section-number">6.2.1</span> Our Approach: <span class="smallcaps">Ramp</span></h3>
+<p><span class="smallcaps">Ramp</span> builds on the success of the prompting paradigm on few-shot generation tasks such as monolingual text style transfer <span class="citation" data-cites="reif-etal-2022-recipe">(<a href="references.html#ref-reif-etal-2022-recipe" role="doc-biblioref">Reif et al., 2022</a>)</span> and MT <span class="citation" data-cites="garcia-firat-2022-using agrawal-etal-2023-context">(<a href="references.html#ref-garcia-firat-2022-using" role="doc-biblioref">Garcia and Firat, 2022</a>; <a href="references.html#ref-agrawal-etal-2023-context" role="doc-biblioref">Agrawal et al., 2023</a>)</span> by creating more informative prompts through <em>similarity retrieval</em> and <em>attribute marking</em>. See <a href="#fig-chap6-ramp" class="quarto-xref">Figure&nbsp;<span>6.1</span></a> for an illustration of <span class="smallcaps">Ramp</span>.</p>
+<p><span class="paragraph">Similarity Retrieval</span> In standard prompting, in-context examples are sampled randomly from the pool of labeled examples <span class="math inline">\(\mathcal{D}_A\)</span>. In <span class="smallcaps">Ramp</span>, we select examples based on their similarity with the input text. We first embed both the input text and the source texts of <span class="math inline">\(\mathcal{D}_A\)</span> using all-MiniLM-L6-v2 <span class="citation" data-cites="wang-etal-2020-minilm">(<a href="references.html#ref-wang-etal-2020-minilm" role="doc-biblioref">Wang et al., 2020</a>)</span>. Then, the top-<span class="math inline">\(k\)</span> most similar examples are retrieved for the input text based on cosine similarity. These are then used in a descending order based on their cosine similarity as in-context examples in the inference prompt. As demonstrated in <a href="#fig-chap6-ramp" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>, the in-context example “You will always be welcome here.” has the highest similarity to the test example “You’re welcome.”, so it is prompted first.</p>
+<p><span class="paragraph">Attribute Marking</span> In standard prompting, in-context examples are provided without explicit information on why they satisfy the prompting objective. Inspired by recent studies that have shown that decomposition of complex tasks can improve prompting quality <span class="citation" data-cites="nye-etal-2022-show wei-etal-2022-chain">(<a href="references.html#ref-nye-etal-2022-show" role="doc-biblioref">Nye et al., 2022</a>; <a href="references.html#ref-wei-etal-2022-chain" role="doc-biblioref">Wei et al., 2022</a>)</span>, we include for every in-context example an additional sentence directly after the target sentence that specifies which text spans convey the desired attribute (e.g., <em>“The translated sentence conveys a formal style by using words such as ‘Vous’.”</em>). In our experiments, we use the gold attribute spans included in the CoCoA-MT and MT-GenEval datasets. In <a href="#sec-chap6-conclusion" class="quarto-xref"><span>Section 6.5</span></a> we suggest possibilities for automatically deriving attribute spans when gold training labels are not available.</p>
+</section>
+<section id="sec-chap6-cross-lingual-methods" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="sec-chap6-cross-lingual-methods"><span class="header-section-number">6.2.2</span> Cross-Lingual Prompting</h3>
+<p>The similarity retrieval component of <span class="smallcaps">Ramp</span> requires a large pool <span class="math inline">\(\mathcal{D}_A\)</span> from which to find appropriate in-context examples for prompting. Low-resource attributes or language pairs may have insufficient or no annotated data from which to retrieve such examples. To mitigate this issue, we introduce <em>cross-lingual prompting</em>, in which the target side of the in-context examples differs from the desired target language of the translation task. As demonstrated in <a href="#fig-chap6-ramp" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>, we investigate whether the system can leverage examples in one language (e.g., attribute indicators in Spanish) to produce the same attribute in another (e.g., French). Two main features of our <span class="smallcaps">Ramp</span> model allow us to perform cross-lingual prompting: (1) the use of multilingual LLMs, and (2) the example retrieval step, which is done on the source language only.</p>
+</section>
+</section>
+<section id="experiments" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="experiments"><span class="header-section-number">6.3</span> Experiments</h2>
+<p>In this section, we describe the datasets, LLMs, and baselines used in our experiments, as well as the evaluation metrics. We then present the results of <span class="smallcaps">Ramp</span> in both same-language and cross-lingual prompting settings.</p>
+<section id="sec-chap6-dataset-details" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-chap6-dataset-details"><span class="header-section-number">6.3.1</span> Datasets</h3>
+<p>We experiment on two multilingual ACT datasets:</p>
+<ul>
+<li><strong><span class="smallcaps">CoCoA-MT</span></strong> <span class="citation" data-cites="nadejde-etal-2022-cocoa">(<a href="references.html#ref-nadejde-etal-2022-cocoa" role="doc-biblioref">Nadejde et al., 2022</a>)</span> covers formality-controlled translation in the conversation domain. Source sentences are underspecified for formality, and references require formality markings (formal or informal).</li>
+<li><strong><span class="smallcaps">MT-GenEval</span></strong> <span class="citation" data-cites="currey-etal-2022-mt">(<a href="references.html#ref-currey-etal-2022-mt" role="doc-biblioref">Currey et al., 2022</a>)</span> covers gendered translation in the Wikipedia domain. We use the <em>contextual</em> subset, in which sentences are gender ambiguous in the source while the reference requires gender marking. We do not use the disambiguating sentences; instead, we explicitly control the target gender.</li>
+</ul>
+<p>Both datasets have gold annotations for attribute-marked target spans, and both cover translation from English into multiple diverse target languages. We list their target languages in <a href="#tbl-chap6-languages" class="quarto-xref">Table&nbsp;<span>6.2</span></a>.</p>
+<div id="tbl-chap6-languages" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-languages-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td>AR</td>
+<td class="rline">Arabic</td>
+<td>DE</td>
+<td class="rline">German</td>
+<td>EN</td>
+<td>English</td>
+</tr>
+<tr class="even">
+<td>ES</td>
+<td class="rline">Spanish</td>
+<td>FR</td>
+<td class="rline">French</td>
+<td>HI</td>
+<td>Hindi</td>
+</tr>
+<tr class="odd">
+<td>IT</td>
+<td class="rline">Italian</td>
+<td>JA</td>
+<td class="rline">Japanese</td>
+<td>NL</td>
+<td>Dutch</td>
+</tr>
+<tr class="even">
+<td>RU</td>
+<td class="rline">Russian</td>
+<td></td>
+<td class="rline"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">AR</th>
+<th data-quarto-table-cell-role="th">ES</th>
+<th data-quarto-table-cell-role="th">FR</th>
+<th data-quarto-table-cell-role="th">HI</th>
+<th data-quarto-table-cell-role="th">PT</th>
+<th data-quarto-table-cell-role="th">DE</th>
+<th data-quarto-table-cell-role="th">IT</th>
+<th data-quarto-table-cell-role="th">JA</th>
+<th data-quarto-table-cell-role="th">RU</th>
+<th data-quarto-table-cell-role="th">NL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td>CoCoA-MT</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>MT-GenEval</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="midrule odd">
+<td>XGLM</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>BLOOM</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-languages-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6.2: <strong>Top:</strong> Language codes used in the <span class="smallcaps">Ramp</span> experiments. <strong>Bottom:</strong> Target languages in the test sets and languages <strong>seen</strong> by LLMs in pre-training. We report results on languages seen by both LLMs.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-chap6-llm" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="sec-chap6-llm"><span class="header-section-number">6.3.2</span> Large Language Models</h3>
+<p>We select three massively multilingual decoder-only LLMs for the prompting experiments:</p>
+<ul>
+<li><p><span class="smallcaps">XGLM</span> <span class="citation" data-cites="lin-etal-2022-shot">(<a href="references.html#ref-lin-etal-2022-shot" role="doc-biblioref">Lin et al., 2022</a>)</span> is a 7.5B-parameter model trained on a balanced corpus containing 30 languages. It was shown to outperform much larger models such as GPT-3 on tasks related to machine translation and cross-lingual language understanding. We select it due to its broad linguistic coverage and its manageable size.</p></li>
+<li><p><span class="smallcaps">Bloom</span> <span class="citation" data-cites="bigscience-2023-bloom">(<a href="references.html#ref-bigscience-2023-bloom" role="doc-biblioref">BigScience Workshop et al., 2022</a>)</span> is a model available in multiple sizes, trained on a curated corpus spanning 46 natural languages (and 13 programming languages). However, many of the test languages are not part of its pre-training corpus (see <a href="#tbl-chap6-languages" class="quarto-xref">Table&nbsp;<span>6.2</span></a>). We evaluate two variants of the model (7.1B and 175B parameters) to assess how it is affected by a massive scaling in model parameters. The larger variant has a parameter count comparable to that of GPT-3, making it the largest publicly available multilingual LLM at present.</p></li>
+<li><p><span class="smallcaps">GPT-NeoX</span> <span class="citation" data-cites="black-etal-2022-gpt">(<a href="references.html#ref-black-etal-2022-gpt" role="doc-biblioref">Black et al., 2022</a>)</span> is a 20B-parameter model trained on The Pile <span class="citation" data-cites="gao-etal-2021-pile">(<a href="references.html#ref-gao-etal-2021-pile" role="doc-biblioref">Gao et al., 2021</a>)</span>, a large English-centric corpus covering a broad range of domains. While the model was primarily trained on English data and is therefore not intended for multilingual usage, it exhibits interesting generalization performance for many of our target languages.</p></li>
+</ul>
+<p>The selected models span three orders of magnitude in terms of number of parameters and differ in the languages that they cover (see <a href="#tbl-chap6-languages" class="quarto-xref">Table&nbsp;<span>6.2</span></a>).</p>
+</section>
+<section id="sec-chap6-baseline" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="sec-chap6-baseline"><span class="header-section-number">6.3.3</span> Baseline</h3>
+<p>Attribute tagging is a standard method for ACT, so we include a baseline following the approach and configuration used by <span class="citation" data-cites="nadejde-etal-2022-cocoa">Nadejde et al. (<a href="references.html#ref-nadejde-etal-2022-cocoa" role="doc-biblioref">2022</a>)</span>, i.e.&nbsp;an encoder-decoder transformer MT model <span class="citation" data-cites="vaswani-etal-2017-attention">(<a href="references.html#ref-vaswani-etal-2017-attention" role="doc-biblioref">Vaswani et al., 2017</a>)</span> pre-trained on public parallel data and further finetuned on contrastive training pairs with attribute tags (from either <span class="smallcaps">CoCoA-MT</span> or <span class="smallcaps">MT-GenEval</span>) such as <code>&lt;formal&gt;</code>, <code>&lt;informal&gt;</code>, <code>&lt;masculine&gt;</code> and <code>&lt;feminine&gt;</code>. We refer to these models as <strong>adapted MT</strong> in our evaluation.</p>
+<div id="tbl-chap6-classifier-accuracy-avg" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-classifier-accuracy-avg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Dataset</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Attribute</strong></th>
+<th data-quarto-table-cell-role="th"><strong># Train</strong></th>
+<th data-quarto-table-cell-role="th"><strong># Test</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Acc.</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td>CoCoA-MT</td>
+<td>Formality</td>
+<td>7,600</td>
+<td>1,596</td>
+<td>0.990</td>
+</tr>
+<tr class="even">
+<td>MT-GenEval</td>
+<td>Gender</td>
+<td>4,900</td>
+<td>9,854</td>
+<td>0.970</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-classifier-accuracy-avg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6.3: Dataset statistics. We report <strong>#</strong> of triplets in the <strong>train</strong>/<strong>test</strong> split aggregated across all languages and the classification <strong>acc</strong>uracy on the test split of the classifiers.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-chap6-evaluation-metrics" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4" class="anchored" data-anchor-id="sec-chap6-evaluation-metrics"><span class="header-section-number">6.3.4</span> Evaluation Metrics</h3>
+<p>We measure translation quality with <span class="smallcaps">BLEU</span> <span class="citation" data-cites="papineni-etal-2002-bleu">(<a href="references.html#ref-papineni-etal-2002-bleu" role="doc-biblioref">Papineni et al., 2002</a>)</span> and <span class="smallcaps">comet</span> <span class="citation" data-cites="rei-etal-2020-comet">(<a href="references.html#ref-rei-etal-2020-comet" role="doc-biblioref">Rei et al., 2020</a>)</span>. For attribute accuracy, we use the lexical matching metrics provided with <span class="smallcaps">CoCoA-MT</span> and <span class="smallcaps">MT-GenEval</span> (<strong>Lexical-Accuracy</strong>) and sentence encoders trained on contrastive examples (<strong>Sentential-Accuracy</strong>). For the latter, we train multilingual classifiers on top of the mDeBERTa-v3 encoder <span class="citation" data-cites="he-etal-2023-debertav3">(<a href="references.html#ref-he-etal-2023-debertav3" role="doc-biblioref">He et al., 2023</a>)</span>. High-performance pre-trained classifiers have been shown to produce attribute accuracy estimates closer to human judgments for style transfer <span class="citation" data-cites="lai-etal-2022-human">(<a href="references.html#ref-lai-etal-2022-human" role="doc-biblioref">Lai et al., 2022</a>)</span>. <a href="#tbl-chap6-classifier-accuracy-avg" class="quarto-xref">Table&nbsp;<span>6.3</span></a> presents the accuracy of the classification models on the test sets of their respective datasets, averaged across all languages.</p>
+<p>We use the original train/test split provided by the <span class="smallcaps">CoCoA-MT</span> dataset. Each split contains <em>telephony</em> and <em>topical_chat</em> domains. We use the <em>topical_chat</em> domain in our experiments. <span class="smallcaps">MT-GenEval</span> contains a dev and test split, and we use the dev split as training data for the classification model and prompting experiments.</p>
+<p>We finetune <span class="smallcaps">mDeBERTa-v3-base</span> model<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> on the contrastive examples in the respective training sets to obtain the attribute classifiers. We fine-tune the classifier for two epochs with a batch size of 8, a learning rate of 2e-5, 500 warm-up steps, a max sequence length of 256, and save checkpoints every 500 steps. We do not do hyperparameter tuning, and thus, a validation set is not used.</p>
+<p>Unlike lexical accuracy, the multilingual attribute classifier does not penalize text generated in incorrect languages. Thus, in cross-lingual prompting experiments, we include a step of language detection<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> so that generated sentences not in the requested target language are considered incorrect.</p>
+</section>
+<section id="sec-chap6-same-language" class="level3" data-number="6.3.5">
+<h3 data-number="6.3.5" class="anchored" data-anchor-id="sec-chap6-same-language"><span class="header-section-number">6.3.5</span> Same-Language Prompting</h3>
+<p>We first evaluate the effectiveness of <span class="smallcaps">Ramp</span> for formality- and gender-controlled translation where the language pair used for in-context examples is the same as the one used in the prompt candidate (e.g., English<span class="math inline">\(\to\)</span>Spanish formality-controlled translation using English<span class="math inline">\(\to\)</span>Spanish in-context examples).</p>
+<p>We begin by conducting a preliminary evaluation of 3 LLMs across different ranges of in-context examples to reduce the number of experimental settings for our main assessment. We perform formality-controlled translation using <span class="smallcaps">CoCoA-MT</span>, and evaluate LLMs by varying the number of in-context examples (i.e., 4-8-16-32, selected based on the feasible context length<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>). <a href="#fig-chap6-preliminary-cocoa-results" class="quarto-xref">Figure&nbsp;<span>6.2</span></a> presents results averaged across all four languages <strong>seen</strong> by <span class="smallcaps">Bloom</span> during its pre-training.</p>
+<div id="fig-chap6-preliminary-cocoa-results" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap6-preliminary-cocoa-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="../figures/chap-6-ramp/cocoamt_bleu.webp" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="../figures/chap-6-ramp/cocoamt_accuracy.webp" class="img-fluid figure-img"></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap6-preliminary-cocoa-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.2: BLEU and sentential formality accuracy of prompt outputs on <span class="smallcaps">CoCoA-MT</span> test set for different amounts of in-context examples in the base and <span class="smallcaps">Ramp</span> settings. Confidence intervals are obtained for the base setting by sampling in-context examples using 3 seeds. Detailed scores are included in <a href="appendix-b.html#tbl-chap6-preliminary-cocoa-results" class="quarto-xref">Table&nbsp;<span>B.1</span></a>.
+</figcaption>
+</figure>
+</div>
+<p>We observe that <span class="smallcaps">Ramp</span> generally outperforms base prompting (i.e., random in-context examples and no attribute marking) across most LLMs and example settings for both BLEU and formality accuracy. Moreover, BLEU and formality accuracy improve with increased model size and with the number of examples, until this number reaches 16. Based on these results, we move forward with the main evaluation using <span class="smallcaps">XGLM</span> 7.5B and <span class="smallcaps">Bloom</span> 175B models and 16 in-context examples for both datasets.</p>
+<p><a href="#tbl-chap6-full-results" class="quarto-xref">Table&nbsp;<span>6.4</span></a> presents our main results alongside the adapted MT baseline. The base model uses in-context examples that are randomly sampled from the pool of labeled examples. We also include an ablation that adds only attribute marking on top of base prompting, without similarity retrieval (<strong>+mark</strong>).</p>
+<div id="tbl-chap6-full-results" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap6-full-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th colspan="4" class="group-header" data-quarto-table-cell-role="th"><strong>CoCoA-MT</strong></th>
+<th colspan="4" class="group-header" data-quarto-table-cell-role="th"><strong>MT-GenEval</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th">BLEU</th>
+<th data-quarto-table-cell-role="th">COMET</th>
+<th data-quarto-table-cell-role="th">L-Acc</th>
+<th data-quarto-table-cell-role="th">S-Acc</th>
+<th data-quarto-table-cell-role="th">BLEU</th>
+<th data-quarto-table-cell-role="th">COMET</th>
+<th data-quarto-table-cell-role="th">L-Acc</th>
+<th data-quarto-table-cell-role="th">S-Acc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="7" class="rowspan">Same-Language</td>
+<td rowspan="3" class="rowspan">XGLM 7.5B</td>
+<td>base</td>
+<td>28.6</td>
+<td class="bold">0.463</td>
+<td>0.835</td>
+<td>0.846</td>
+<td>23.7</td>
+<td>0.445</td>
+<td>0.790</td>
+<td>0.727</td>
+</tr>
+<tr class="even">
+<td>+mark</td>
+<td>28.7</td>
+<td>0.423</td>
+<td>0.920</td>
+<td>0.902</td>
+<td>23.7</td>
+<td>0.444</td>
+<td>0.789</td>
+<td>0.732</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="smallcaps">Ramp</span></td>
+<td class="bold">30.0</td>
+<td>0.451</td>
+<td class="bold">0.938</td>
+<td class="bold">0.923</td>
+<td class="bold">24.8</td>
+<td class="bold">0.473</td>
+<td class="bold">0.836</td>
+<td class="bold">0.820</td>
+</tr>
+<tr class="even">
+<td rowspan="3" class="rowspan">BLOOM 175B</td>
+<td>base</td>
+<td>39.9</td>
+<td>0.691</td>
+<td>0.930</td>
+<td>0.940</td>
+<td>33.3</td>
+<td>0.679</td>
+<td>0.748</td>
+<td>0.704</td>
+</tr>
+<tr class="odd">
+<td>+mark</td>
+<td>40.3</td>
+<td>0.688</td>
+<td>0.970</td>
+<td class="bold">0.970</td>
+<td>33.1</td>
+<td>0.674</td>
+<td>0.759</td>
+<td>0.725</td>
+</tr>
+<tr class="midrule even">
+<td><span class="smallcaps">Ramp</span></td>
+<td class="bold">41.9</td>
+<td class="bold">0.711</td>
+<td class="bold">0.973</td>
+<td class="bold">0.970</td>
+<td class="bold">34.3</td>
+<td class="bold">0.699</td>
+<td class="bold">0.817</td>
+<td class="bold">0.818</td>
+</tr>
+<tr class="midrule odd">
+<td colspan="2">Adapted MT</td>
+<td>38.5</td>
+<td>0.454</td>
+<td>0.691</td>
+<td>0.693</td>
+<td>39.6</td>
+<td>0.750</td>
+<td>0.842</td>
+<td>0.864</td>
+</tr>
+<tr class="even">
+<td rowspan="2" class="rowspan">Cross-Lingual</td>
+<td rowspan="2" class="rowspan">BLOOM 175B</td>
+<td>base</td>
+<td>32.1</td>
+<td>0.644</td>
+<td>0.567</td>
+<td>0.596</td>
+<td>28.5</td>
+<td>0.469</td>
+<td>0.777</td>
+<td>0.633</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Ramp</span></td>
+<td>31.8</td>
+<td>0.646</td>
+<td class="bold">0.625</td>
+<td class="bold">0.622</td>
+<td class="bold">29.4</td>
+<td class="bold">0.502</td>
+<td class="bold">0.788</td>
+<td class="bold">0.673</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap6-full-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6.4: BLEU, COMET, <strong>L</strong>exical- and <strong>S</strong>entential-<strong>Acc</strong>uracy of selected LLMs using 16 same-language in-context examples on two tasks, alongside adapted MT models. Scores are aggregated across <strong>seen</strong> languages (w.r.t. BLOOM pre-training) and both attributes for each task. (Full results in <a href="appendix-b.html#tbl-chap6-same-language-cocoa-details" class="quarto-xref">Table&nbsp;<span>B.2</span></a>–<a href="appendix-b.html#tbl-chap6-cross-lingual-geneval-details" class="quarto-xref">Table&nbsp;<span>B.5</span></a>.)
+</figcaption>
+</figure>
+</div>
+<p>We observe that in the +mark setting, simple attribute marking consistently improves attribute accuracy of the generated text, but leads to degradation of <span class="smallcaps">comet</span> on <span class="smallcaps">CoCoA-MT</span>. The complete <span class="smallcaps">Ramp</span> with similarity retrieval not only compensates for the <span class="smallcaps">comet</span> degradation but also improves quality and attribute metrics across the board, especially for the high-capacity <span class="smallcaps">Bloom</span> 175B model.</p>
+<p>Adapted MT outperforms <span class="smallcaps">Bloom</span> 175B on <span class="smallcaps">MT-GenEval</span> in all metrics, but underperforms it on <span class="smallcaps">CoCoA-MT</span>. This suggests that it is challenging to conduct a fine-grained comparison between LLMs and standard MT systems, as they may have different domain coverage. <span class="smallcaps">Bloom</span> 175B consistently outperforms <span class="smallcaps">XGLM</span> 7.5B in both generic translation quality and attribute control accuracy, so we focus on <span class="smallcaps">Bloom</span> 175B for our cross-lingual prompting analysis.</p>
+</section>
+<section id="sec-chap6-cross-lingual-prompting" class="level3" data-number="6.3.6">
+<h3 data-number="6.3.6" class="anchored" data-anchor-id="sec-chap6-cross-lingual-prompting"><span class="header-section-number">6.3.6</span> Cross-Lingual Prompting</h3>
+<p>We have demonstrated the effectiveness of selecting similar same-language examples to build the prompt, echoing related work <span class="citation" data-cites="liu-etal-2022-makes agrawal-etal-2023-context">(<a href="references.html#ref-liu-etal-2022-makes" role="doc-biblioref">Liu et al., 2022</a>; <a href="references.html#ref-agrawal-etal-2023-context" role="doc-biblioref">Agrawal et al., 2023</a>)</span>. In this section, we evaluate the cross-lingual prompting option, i.e., retrieving in-context examples from other target languages besides the desired language of translation. We test this zero-shot setting using the leave-one-out strategy, i.e.&nbsp;we retrieve in-context examples from every language except the desired language of translation. We ensure that we retrieve an equal number of examples from all languages: the number of examples retrieved from each language is the total desired number of in-context examples divided by the number of training languages. In <span class="smallcaps">CoCoA-MT</span>, we retrieve 14 in-context examples from 7 languages. In <span class="smallcaps">MT-GenEval</span>, we retrieve 8 in-context examples from 8 languages.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> Finally, results are averaged across tested language pairs. Languages that are not seen during the LLM pre-training are included among in-context examples, but not as the target language of the translation task.</p>
+<p><a href="#tbl-chap6-full-results" class="quarto-xref">Table&nbsp;<span>6.4</span></a> (bottom) presents our results using <span class="smallcaps">Bloom</span> 175B. On both test sets, compared to the baseline, we observe improved attribute accuracy and comparable or better generic translation quality when using <span class="smallcaps">Ramp</span> with cross-lingual prompting.</p>
+<p>We observe translation quality degradation with <span class="smallcaps">Ramp</span> on some target languages of <span class="smallcaps">CoCoA-MT</span>, such as Spanish. Manual analysis shows that repeatedly inaccurate retrieval results could lead to hallucinations.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> For example, <span class="smallcaps">Ramp</span> retrieves multiple sentences containing <em>“million”</em> for the input <code>If you got it why not? He is worth over 20 billion dollars after all</code>. This results in mistranslation of <em>billion</em> to <em>million</em> (<em>millionario</em>): <code>Si lo tienes, ¿por qué no?</code> <code>Es millonario después de todo</code>. We give detailed examples in <a href="appendix-b.html#sec-ramp-analysis-zeroshot" class="quarto-xref"><span>Section B.1.3</span></a>. This is a known issue with retrieval-based prompting <span class="citation" data-cites="liu-etal-2022-makes agrawal-etal-2023-context">(<a href="references.html#ref-liu-etal-2022-makes" role="doc-biblioref">Liu et al., 2022</a>; <a href="references.html#ref-agrawal-etal-2023-context" role="doc-biblioref">Agrawal et al., 2023</a>)</span>, which can be mitigated by using more diverse in-context examples or a larger pool of training data for retrieval.</p>
+</section>
+</section>
+<section id="sec-chap6-limitations" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-chap6-limitations"><span class="header-section-number">6.4</span> Limitations</h2>
+<p>We delineate some limitations of our approach and discuss future work directions.</p>
+<p><span class="paragraph">Example Availability and Prompt Sensitivity</span> The proposed formulation of the <span class="smallcaps">Ramp</span> method relies on gold annotations for attribute marking, which are not always available depending on the dataset. However, <span class="smallcaps">Ramp</span> could be easily extended to unsupervised settings through LLM input attribution methods, such as those we presented in the previous part of this thesis. This approach builds upon recent techniques in unsupervised language generation metrics <span class="citation" data-cites="fomicheva-etal-2021-eval4nlp fomicheva-etal-2022-translation leiter-etal-2024-towards">(<a href="references.html#ref-fomicheva-etal-2021-eval4nlp" role="doc-biblioref">Fomicheva et al., 2021</a>; <a href="references.html#ref-fomicheva-etal-2022-translation" role="doc-biblioref">Fomicheva et al., 2022</a>; <a href="references.html#ref-leiter-etal-2024-towards" role="doc-biblioref">Leiter et al., 2024</a>)</span>. Apart from the choice of in-context examples, prompting is also sensitive to their ordering <span class="citation" data-cites="lu-etal-2022-fantastically">(<a href="references.html#ref-lu-etal-2022-fantastically" role="doc-biblioref">Lu et al., 2022</a>)</span> and the design of the template <span class="citation" data-cites="jiang-etal-2020-know">(<a href="references.html#ref-jiang-etal-2020-know" role="doc-biblioref">Jiang et al., 2020</a>)</span>. We refrain from tuning example orders and templates to avoid introducing too many variables, but we acknowledge that this could lead to suboptimal results.</p>
+<p><span class="paragraph">Unseen Languages, Computational Resources and Diversity</span> Multilingual LLMs perform competitively on machine translation for languages seen during their pre-training. However, we noticed that <span class="smallcaps">Bloom</span> 175B produces better English<span class="math inline">\(\to\)</span>Italian translations than <span class="smallcaps">XGLM</span> 7.5B even though Italian is not listed among <span class="smallcaps">Bloom</span>’s training languages. This could be due to typological similarity between Italian and the Romance languages included in <span class="smallcaps">Bloom</span> training. Multilingual LLMs such as <span class="smallcaps">Bloom</span> also require significantly more GPU resources for inference than standard bilingual MT systems do, making them less practical for production deployment. Finally, the <span class="smallcaps">MT-GenEval</span> test set is limited in providing only two gender labels (<code>female</code> and <code>male</code>) as minimal pairs, while neutral rewriting is not represented.</p>
+</section>
+<section id="sec-chap6-conclusion" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="sec-chap6-conclusion"><span class="header-section-number">6.5</span> Conclusion</h2>
+<p>As a first step in our exploration of conditioning machine translation generation, we introduced the <span class="smallcaps">Ramp</span> in-context learning for better conditioning performance through the use of attribute annotations and similar retrieved examples. We demonstrated its effectiveness with multilingual LLMs for both formality-controlled and gender-controlled translation, showing that it improves attribute accuracy and translation quality over standard prompting and adapted MT baselines, including in cross-lingual settings using relevant in-context examples from other languages. In the next chapter, we expand our investigation to steering methods that intervene directly in the inner processing of LLMs and study their effectiveness for personalization in the challenging domain of literary machine translation.</p>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-agrawal-etal-2023-context" class="csl-entry" role="listitem">
+Sweta Agrawal, Chunting Zhou, Mike Lewis, Luke Zettlemoyer, and Marjan Ghazvininejad. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-acl.564">In-context examples selection for machine translation</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Findings of the association for computational linguistics: ACL 2023</em>, pages 8857–8873, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-bigscience-2023-bloom" class="csl-entry" role="listitem">
+BigScience Workshop, Teven Le Scao, Angela Fan, Christopher Akiki, Ellie Pavlick, Suzana Ilić, Daniel Hesslow, Roman Castagné, Alexandra Luccioni, François Yvon, et al. 2022. <a href="https://arxiv.org/abs/2211.05100"><span>BLOOM</span>: A 176B-parameter open-access multilingual language model</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-black-etal-2022-gpt" class="csl-entry" role="listitem">
+Sidney Black, Stella Biderman, Eric Hallahan, Quentin Anthony, Leo Gao, Laurence Golding, Horace He, Connor Leahy, Kyle McDonell, Jason Phang, Michael Pieler, Usvsn Sai Prashanth, Shivanshu Purohit, Laria Reynolds, Jonathan Tow, Ben Wang, and Samuel Weinbach. 2022. <a href="https://doi.org/10.18653/v1/2022.bigscience-1.9"><span>GPT</span>-<span>N</span>eo<span>X</span>-20<span>B</span>: An open-source autoregressive language model</a>. In Angela Fan, Suzana Ilic, Thomas Wolf, and Matthias Gallé, editors, <em>Proceedings of BigScience episode <span>#</span>5 – workshop on challenges <span>&amp;</span> perspectives in creating large language models</em>, pages 95–136, virtual+Dublin. Association for Computational Linguistics.
+</div>
+<div id="ref-briakou-etal-2021-ola" class="csl-entry" role="listitem">
+Eleftheria Briakou, Di Lu, Ke Zhang, and Joel Tetreault. 2021. <a href="https://doi.org/10.18653/v1/2021.naacl-main.256">Ol<span>á</span>, bonjour, salve! <span>XFORMAL</span>: A benchmark for multilingual formality style transfer</a>. In Kristina Toutanova, Anna Rumshisky, Luke Zettlemoyer, Dilek Hakkani-Tur, Iz Beltagy, Steven Bethard, Ryan Cotterell, Tanmoy Chakraborty, and Yichao Zhou, editors, <em>Proceedings of the 2021 conference of the north american chapter of the association for computational linguistics: Human language technologies</em>, pages 3199–3216, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-brown-etal-2020-language" class="csl-entry" role="listitem">
+Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M. Ziegler, Jeffrey Wu, Clemens Winter, et al. 2020. Language models are few-shot learners. In <em>Proceedings of the 34th international conference on neural information processing systems</em>, Red Hook, NY, USA. Curran Associates Inc.
+</div>
+<div id="ref-chowdhery-etal-2023-palm" class="csl-entry" role="listitem">
+Aakanksha Chowdhery, Sharan Narang, Jacob Devlin, Maarten Bosma, Gaurav Mishra, Adam Roberts, Paul Barham, Hyung Won Chung, Charles Sutton, Sebastian Gehrmann, Parker Schuh, Kensen Shi, Sasha Tsvyashchenko, Joshua Maynez, Abhishek Rao, Parker Barnes, Yi Tay, Noam Shazeer, Vinodkumar Prabhakaran, et al. 2023. <a href="http://jmlr.org/papers/v24/22-1144.html">PaLM: Scaling language modeling with pathways</a>. <em>Journal of Machine Learning Research</em>, 24(240):1–113.
+</div>
+<div id="ref-currey-etal-2022-mt" class="csl-entry" role="listitem">
+Anna Currey, Maria Nadejde, Raghavendra Reddy Pappagari, Mia Mayer, Stanislas Lauly, Xing Niu, Benjamin Hsu, and Georgiana Dinu. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.288"><span>MT</span>-<span>G</span>en<span>E</span>val: A counterfactual and contextual dataset for evaluating gender accuracy in machine translation</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 4287–4299, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-fomicheva-etal-2021-eval4nlp" class="csl-entry" role="listitem">
+Marina Fomicheva, Piyawat Lertvittayakumjorn, Wei Zhao, Steffen Eger, and Yang Gao. 2021. <a href="https://doi.org/10.18653/v1/2021.eval4nlp-1.17">The <span>E</span>val4<span>NLP</span> shared task on explainable quality estimation: Overview and results</a>. In Yang Gao, Steffen Eger, Wei Zhao, Piyawat Lertvittayakumjorn, and Marina Fomicheva, editors, <em>Proceedings of the 2nd workshop on evaluation and comparison of NLP systems</em>, pages 165–178, Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-fomicheva-etal-2022-translation" class="csl-entry" role="listitem">
+Marina Fomicheva, Lucia Specia, and Nikolaos Aletras. 2022. <a href="https://doi.org/10.18653/v1/2022.findings-acl.327">Translation error detection as rationale extraction</a>. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio, editors, <em>Findings of the association for computational linguistics: ACL 2022</em>, pages 4148–4159, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-gao-etal-2021-pile" class="csl-entry" role="listitem">
+Leo Gao, Stella Biderman, Sid Black, Laurence Golding, Travis Hoppe, Charles Foster, Jason Phang, Horace He, Anish Thite, Noa Nabeshima, Shawn Presser, and Connor Leahy. 2021. <a href="https://arxiv.org/abs/2101.00027">The pile: An 800GB dataset of diverse text for language modeling</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-garcia-etal-2021-multilingual" class="csl-entry" role="listitem">
+Xavier Garcia, Noah Constant, Mandy Guo, and Orhan Firat. 2021. <a href="https://arxiv.org/abs/2107.14749">Towards universality in multilingual text rewriting</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-garcia-firat-2022-using" class="csl-entry" role="listitem">
+Xavier Garcia and Orhan Firat. 2022. <a href="https://arxiv.org/abs/2202.11822">Using natural language prompts for machine translation</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-he-etal-2023-debertav3" class="csl-entry" role="listitem">
+Pengcheng He, Jianfeng Gao, and Weizhu Chen. 2023. <a href="https://openreview.net/forum?id=sE7-XhLxHA"><span>DeBERTaV3</span>: Improving <span>DeBERTa</span> using <span>ELECTRA</span>-style pre-training with gradient-disentangled embedding sharing</a>. In <em>Proceedings of the 11th international conference on learning representations</em>.
+</div>
+<div id="ref-huang-etal-2022-zero" class="csl-entry" role="listitem">
+Lianzhe Huang, Shuming Ma, Dongdong Zhang, Furu Wei, and Houfeng Wang. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.790">Zero-shot cross-lingual transfer of prompt-based tuning with a unified multilingual prompt</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 11488–11497, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-jiang-etal-2020-know" class="csl-entry" role="listitem">
+Zhengbao Jiang, Frank F. Xu, Jun Araki, and Graham Neubig. 2020. <a href="https://doi.org/10.1162/tacl_a_00324">How can we know what language models know?</a> <em>Transactions of the Association for Computational Linguistics</em>, 8:423–438.
+</div>
+<div id="ref-jin-etal-2022-deep" class="csl-entry" role="listitem">
+Di Jin, Zhijing Jin, Zhiting Hu, Olga Vechtomova, and Rada Mihalcea. 2022. <a href="https://doi.org/10.1162/coli_a_00426">Deep learning for text style transfer: A survey</a>. <em>Computational Linguistics</em>, 48(1):155–205.
+</div>
+<div id="ref-krishna-etal-2022-shot" class="csl-entry" role="listitem">
+Kalpesh Krishna, Deepak Nathani, Xavier Garcia, Bidisha Samanta, and Partha Talukdar. 2022. <a href="https://doi.org/10.18653/v1/2022.acl-long.514">Few-shot controllable style transfer for low-resource multilingual settings</a>. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio, editors, <em>Proceedings of the 60th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 7439–7468, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-lai-etal-2022-human" class="csl-entry" role="listitem">
+Huiyuan Lai, Jiali Mao, Antonio Toral, and Malvina Nissim. 2022. <a href="https://doi.org/10.18653/v1/2022.humeval-1.9">Human judgement as a compass to navigate automatic metrics for formality transfer</a>. In Anya Belz, Maja Popović, Ehud Reiter, and Anastasia Shimorina, editors, <em>Proceedings of the 2nd workshop on human evaluation of NLP systems (HumEval)</em>, pages 102–115, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-lakew-etal-2019-controlling" class="csl-entry" role="listitem">
+Surafel Melaku Lakew, Mattia Di Gangi, and Marcello Federico. 2019. <a href="https://aclanthology.org/2019.iwslt-1.31/">Controlling the output length of neural machine translation</a>. In Jan Niehues, Rolando Cattoni, Sebastian Stüker, Matteo Negri, Marco Turchi, Thanh-Le Ha, Elizabeth Salesky, Ramon Sanabria, Loic Barrault, Lucia Specia, and Marcello Federico, editors, <em>Proceedings of the 16th international conference on spoken language translation</em>, Hong Kong. Association for Computational Linguistics.
+</div>
+<div id="ref-leiter-etal-2024-towards" class="csl-entry" role="listitem">
+Christoph Leiter, Piyawat Lertvittayakumjorn, Marina Fomicheva, Wei Zhao, Yang Gao, and Steffen Eger. 2024. <a href="http://jmlr.org/papers/v25/22-0416.html">Towards explainable evaluation metrics for machine translation</a>. <em>Journal of Machine Learning Research</em>, 25(75):1–49.
+</div>
+<div id="ref-lin-etal-2022-shot" class="csl-entry" role="listitem">
+Xi Victoria Lin, Todor Mihaylov, Mikel Artetxe, Tianlu Wang, Shuohui Chen, Daniel Simig, Myle Ott, Naman Goyal, Shruti Bhosale, Jingfei Du, Ramakanth Pasunuru, Sam Shleifer, Punit Singh Koura, Vishrav Chaudhary, Brian O’Horo, Jeff Wang, Luke Zettlemoyer, Zornitsa Kozareva, Mona Diab, et al. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.616">Few-shot learning with multilingual generative language models</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 9019–9052, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-liu-etal-2022-makes" class="csl-entry" role="listitem">
+Jiachang Liu, Dinghan Shen, Yizhe Zhang, Bill Dolan, Lawrence Carin, and Weizhu Chen. 2022. <a href="https://doi.org/10.18653/v1/2022.deelio-1.10">What makes good in-context examples for <span>GPT</span>-3?</a> In Eneko Agirre, Marianna Apidianaki, and Ivan Vulić, editors, <em>Proceedings of deep learning inside out (DeeLIO 2022): The 3rd workshop on knowledge extraction and integration for deep learning architectures</em>, pages 100–114, Dublin, Ireland; Online. Association for Computational Linguistics.
+</div>
+<div id="ref-lu-etal-2022-fantastically" class="csl-entry" role="listitem">
+Yao Lu, Max Bartolo, Alastair Moore, Sebastian Riedel, and Pontus Stenetorp. 2022. <a href="https://doi.org/10.18653/v1/2022.acl-long.556">Fantastically ordered prompts and where to find them: Overcoming few-shot prompt order sensitivity</a>. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio, editors, <em>Proceedings of the 60th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 8086–8098, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-michel-neubig-2018-extreme" class="csl-entry" role="listitem">
+Paul Michel and Graham Neubig. 2018. <a href="https://doi.org/10.18653/v1/P18-2050">Extreme adaptation for personalized neural machine translation</a>. In Iryna Gurevych and Yusuke Miyao, editors, <em>Proceedings of the 56th annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 312–318, Melbourne, Australia. Association for Computational Linguistics.
+</div>
+<div id="ref-nadejde-etal-2022-cocoa" class="csl-entry" role="listitem">
+Maria Nadejde, Anna Currey, Benjamin Hsu, Xing Niu, Marcello Federico, and Georgiana Dinu. 2022. <a href="https://doi.org/10.18653/v1/2022.findings-naacl.47"><span>C</span>o<span>C</span>o<span>A</span>-<span>MT</span>: A dataset and benchmark for contrastive controlled <span>MT</span> with application to formality</a>. In Marine Carpuat, Marie-Catherine de Marneffe, and Ivan Vladimir Meza Ruiz, editors, <em>Findings of the association for computational linguistics: NAACL 2022</em>, pages 616–632, Seattle, United States. Association for Computational Linguistics.
+</div>
+<div id="ref-niu-carpuat-2020-controlling" class="csl-entry" role="listitem">
+Xing Niu and Marine Carpuat. 2020. <a href="https://ojs.aaai.org/index.php/AAAI/article/view/6379">Controlling neural machine translation formality with synthetic supervision</a>. <em>Proceedings of the AAAI Conference on Artificial Intelligence</em>, 34(05):8568–8575.
+</div>
+<div id="ref-niu-etal-2017-study" class="csl-entry" role="listitem">
+Xing Niu, Marianna Martindale, and Marine Carpuat. 2017. <a href="https://doi.org/10.18653/v1/D17-1299">A study of style in machine translation: Controlling the formality of machine translation output</a>. In Martha Palmer, Rebecca Hwa, and Sebastian Riedel, editors, <em>Proceedings of the 2017 conference on empirical methods in natural language processing</em>, pages 2814–2819, Copenhagen, Denmark. Association for Computational Linguistics.
+</div>
+<div id="ref-nye-etal-2022-show" class="csl-entry" role="listitem">
+Maxwell Nye, Anders Johan Andreassen, Guy Gur-Ari, Henryk Michalewski, Jacob Austin, David Bieber, David Dohan, Aitor Lewkowycz, Maarten Bosma, David Luan, Charles Sutton, and Augustus Odena. 2022. <a href="https://openreview.net/forum?id=HBlx2idbkbq">Show your work: Scratchpads for intermediate computation with language models</a>. In <em>Deep learning for code workshop</em>.
+</div>
+<div id="ref-papineni-etal-2002-bleu" class="csl-entry" role="listitem">
+Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu. 2002. <a href="https://doi.org/10.3115/1073083.1073135"><span>B</span>leu: A method for automatic evaluation of machine translation</a>. In Pierre Isabelle, Eugene Charniak, and Dekang Lin, editors, <em>Proceedings of the 40th annual meeting of the association for computational linguistics</em>, pages 311–318, Philadelphia, Pennsylvania, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-rabinovich-etal-2017-personalized" class="csl-entry" role="listitem">
+Ella Rabinovich, Raj Nath Patel, Shachar Mirkin, Lucia Specia, and Shuly Wintner. 2017. <a href="https://aclanthology.org/E17-1101/">Personalized machine translation: Preserving original author traits</a>. In Mirella Lapata, Phil Blunsom, and Alexander Koller, editors, <em>Proceedings of the 15th conference of the <span>E</span>uropean chapter of the association for computational linguistics: Volume 1, long papers</em>, pages 1074–1084, Valencia, Spain. Association for Computational Linguistics.
+</div>
+<div id="ref-rao-tetreault-2018-dear" class="csl-entry" role="listitem">
+Sudha Rao and Joel Tetreault. 2018. <a href="https://doi.org/10.18653/v1/N18-1012">Dear sir or madam, may <span>I</span> introduce the <span>GYAFC</span> dataset: Corpus, benchmarks and metrics for formality style transfer</a>. In Marilyn Walker, Heng Ji, and Amanda Stent, editors, <em>Proceedings of the 2018 conference of the north <span>A</span>merican chapter of the association for computational linguistics: Human language technologies, volume 1 (long papers)</em>, pages 129–140, New Orleans, Louisiana. Association for Computational Linguistics.
+</div>
+<div id="ref-rei-etal-2020-comet" class="csl-entry" role="listitem">
+Ricardo Rei, Craig Stewart, Ana C Farinha, and Alon Lavie. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-main.213"><span>COMET</span>: A neural framework for <span>MT</span> evaluation</a>. In Bonnie Webber, Trevor Cohn, Yulan He, and Yang Liu, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing (EMNLP)</em>, pages 2685–2702, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-reif-etal-2022-recipe" class="csl-entry" role="listitem">
+Emily Reif, Daphne Ippolito, Ann Yuan, Andy Coenen, Chris Callison-Burch, and Jason Wei. 2022. <a href="https://doi.org/10.18653/v1/2022.acl-short.94">A recipe for arbitrary text style transfer with large language models</a>. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio, editors, <em>Proceedings of the 60th annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 837–848, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-sarti-etal-2023-ramp" class="csl-entry" role="listitem">
+Gabriele Sarti, Phu Mon Htut, Xing Niu, Benjamin Hsu, Anna Currey, Georgiana Dinu, and Maria Nadejde. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-short.126"><span>RAMP</span>: Retrieval and attribute-marking enhanced prompting for attribute-controlled translation</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 1476–1490, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-saunders-byrne-2020-reducing" class="csl-entry" role="listitem">
+Danielle Saunders and Bill Byrne. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.690">Reducing gender bias in neural machine translation as a domain adaptation problem</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 7724–7736, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-schioppa-etal-2021-controlling" class="csl-entry" role="listitem">
+Andrea Schioppa, David Vilar, Artem Sokolov, and Katja Filippova. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.535">Controlling machine translation for multiple attributes with additive interventions</a>. In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing</em>, pages 6676–6696, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-sennrich-etal-2016-controlling" class="csl-entry" role="listitem">
+Rico Sennrich, Barry Haddow, and Alexandra Birch. 2016. <a href="https://doi.org/10.18653/v1/N16-1005">Controlling politeness in neural machine translation via side constraints</a>. In Kevin Knight, Ani Nenkova, and Owen Rambow, editors, <em>Proceedings of the 2016 conference of the north <span>A</span>merican chapter of the association for computational linguistics: Human language technologies</em>, pages 35–40, San Diego, California. Association for Computational Linguistics.
+</div>
+<div id="ref-suzgun-etal-2022-prompt" class="csl-entry" role="listitem">
+Mirac Suzgun, Luke Melas-Kyriazi, and Dan Jurafsky. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.141">Prompt-and-rerank: A method for zero-shot and few-shot arbitrary textual style transfer with small language models</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 2195–2222, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-vanmassenhove-etal-2018-getting" class="csl-entry" role="listitem">
+Eva Vanmassenhove, Christian Hardmeier, and Andy Way. 2018. <a href="https://doi.org/10.18653/v1/D18-1334">Getting gender right in neural machine translation</a>. In Ellen Riloff, David Chiang, Julia Hockenmaier, and Jun’ichi Tsujii, editors, <em>Proceedings of the 2018 conference on empirical methods in natural language processing</em>, pages 3003–3008, Brussels, Belgium. Association for Computational Linguistics.
+</div>
+<div id="ref-vaswani-etal-2017-attention" class="csl-entry" role="listitem">
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <a href="https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf">Attention is all you need</a>. In I. Guyon, U. Von Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, editors, <em>Advances in neural information processing systems</em>, volume 30. Curran Associates, Inc.
+</div>
+<div id="ref-vilar-etal-2023-prompting" class="csl-entry" role="listitem">
+David Vilar, Markus Freitag, Colin Cherry, Jiaming Luo, Viresh Ratnakar, and George Foster. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-long.859">Prompting <span>P</span>a<span>LM</span> for translation: Assessing strategies and performance</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 15406–15427, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-wang-etal-2020-minilm" class="csl-entry" role="listitem">
+Wenhui Wang, Furu Wei, Li Dong, Hangbo Bao, Nan Yang, and Ming Zhou. 2020. <a href="https://proceedings.neurips.cc/paper/2020/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html">MINILM: Deep self-attention distillation for task-agnostic compression of pre-trained transformers</a>. In <em>Proceedings of the 34th international conference on neural information processing systems</em>, Red Hook, NY, USA. Curran Associates Inc.
+</div>
+<div id="ref-wang-etal-2023-controlling" class="csl-entry" role="listitem">
+Yifan Wang, Zewei Sun, Shanbo Cheng, Weiguo Zheng, and Mingxuan Wang. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-acl.163">Controlling styles in neural machine translation with activation prompt</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Findings of the association for computational linguistics: ACL 2023</em>, pages 2606–2620, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-wei-etal-2022-chain" class="csl-entry" role="listitem">
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed Chi, Quoc V. Le, and Denny Zhou. 2022. <a href="https://dl.acm.org/doi/10.5555/3600270.3602070">Chain-of-thought prompting elicits reasoning in large language models</a>. In S. Koyejo, S. Mohamed, A. Agarwal, D. Belgrave, K. Cho, and A. Oh, editors, <em>Advances in neural information processing systems</em>, volume 35, pages 24824–24837. Curran Associates, Inc.
+</div>
+<div id="ref-zhao-schutze-2021-discrete" class="csl-entry" role="listitem">
+Mengjie Zhao and Hinrich Schütze. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.672">Discrete and soft prompting for multilingual models</a>. In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing</em>, pages 8547–8555, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-zhou-etal-2023-enhancing" class="csl-entry" role="listitem">
+Meng Zhou, Xin Li, Yue Jiang, and Lidong Bing. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-acl.700">Enhancing cross-lingual prompting with dual prompt augmentation</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Findings of the association for computational linguistics: ACL 2023</em>, pages 11008–11020, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-zhu-etal-2010-monolingual" class="csl-entry" role="listitem">
+Zhemin Zhu, Delphine Bernhard, and Iryna Gurevych. 2010. <a href="https://aclanthology.org/C10-1152/">A monolingual tree-based translation model for sentence simplification</a>. In Chu-Ren Huang and Dan Jurafsky, editors, <em>Proceedings of the 23rd international conference on computational linguistics (coling 2010)</em>, pages 1353–1361, Beijing, China. Coling 2010 Organizing Committee.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>We employ the term <em>attribute</em> rather than <em>style</em>, since not all the attributes addressed here (e.g., gender) can be considered styles.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See <a href="#sec-chap6-limitations" class="quarto-xref"><span>Section 6.4</span></a> for ethical considerations.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>We adopt prompt templates similar to the one used by <span class="citation" data-cites="reif-etal-2022-recipe">Reif et al. (<a href="references.html#ref-reif-etal-2022-recipe" role="doc-biblioref">2022</a>)</span>, and we write the prompt template in English. Complete templates are provided in <a href="appendix-b.html#sec-ramp-prompt-templates" class="quarto-xref"><span>Section B.1.1</span></a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://huggingface.co/microsoft/mdeberta-v3-base"><code>microsoft/mdeberta-v3-base</code></a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://pypi.org/project/langdetect/" class="uri">https://pypi.org/project/langdetect/</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><span class="smallcaps">Bloom</span> 175B encountered out-of-memory errors with 32 in-context examples on 8 A100 40GB GPUs.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>We reduced the number of in-context examples in this setting to avoid out-of-memory errors with <span class="smallcaps">Bloom</span> 175B.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><span class="citation" data-cites="vilar-etal-2023-prompting">Vilar et al. (<a href="references.html#ref-vilar-etal-2023-prompting" role="doc-biblioref">2023</a>)</span> also observe hallucinations when the retrieved examples have bad translations (i.e., non-parallel sentences).<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/chap-7-sae-litmt.html" class="pagination-link" aria-label="Steering Language Models for Personalized Machine Translation">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Gabriele Sarti. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://www.rug.nl/?lang=en"><img src="../figures/logos/rug_eng_red.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/?lang=en"><img src="../figures/logos/clcg.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://projects.illc.uva.nl/indeep/"><img src="../figures/logos/indeep_logo_horizontal.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/research/cl/?lang=en"><img src="../figures/logos/gronlp.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+</div>
+    <div class="nav-footer-right">
+<p>Written with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

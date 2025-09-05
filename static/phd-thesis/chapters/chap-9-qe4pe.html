@@ -1,0 +1,2589 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Ph.D.&nbsp;Thesis, Center for Language and Cognition (CLCG), University of Groningen">
+
+<title>9&nbsp; Word-level Quality Estimation for Machine Translation Post-editing – From Insights to Impact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/chap-10-unsup-wqe.html" rel="next">
+<link href="../chapters/chap-8-divemt.html" rel="prev">
+<link href="../figures/logos/rug_crest_icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df7dc7f297c6c2c740a551c3cb7e1581.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../html/custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-8-divemt.html">Interpretability in Human Translation Workflows</a></li><li class="breadcrumb-item"><a href="../chapters/chap-9-qe4pe.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../figures/logos/rug_eng_red_hat_line.png" alt="RUG Coat of Arms" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Insights to Impact</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gsarti/phd-thesis" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://gsarti.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-person-circle"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-2-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Attributing Context Usage in Multilingual NLP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-3-inseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-4-pecore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-5-mirage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conditioning Generation for Personalized Machine Translation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-6-ramp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-7-sae-litmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Interpretability in Human Translation Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-8-divemt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-9-qe4pe.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-10-unsup-wqe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-11-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-qe4pe-intro" id="toc-sec-qe4pe-intro" class="nav-link active" data-scroll-target="#sec-qe4pe-intro"><span class="header-section-number">9.1</span> Introduction</a></li>
+  <li><a href="#sec-qe4pe-experiment-setup" id="toc-sec-qe4pe-experiment-setup" class="nav-link" data-scroll-target="#sec-qe4pe-experiment-setup"><span class="header-section-number">9.2</span> Experimental Setup</a>
+  <ul class="collapse">
+  <li><a href="#sec-qe4pe-structure" id="toc-sec-qe4pe-structure" class="nav-link" data-scroll-target="#sec-qe4pe-structure"><span class="header-section-number">9.2.1</span> Structure of the Study</a></li>
+  <li><a href="#sec-qe4pe-modalities" id="toc-sec-qe4pe-modalities" class="nav-link" data-scroll-target="#sec-qe4pe-modalities"><span class="header-section-number">9.2.2</span> Highlight Modalities</a></li>
+  <li><a href="#sec-qe4pe-data" id="toc-sec-qe4pe-data" class="nav-link" data-scroll-target="#sec-qe4pe-data"><span class="header-section-number">9.2.3</span> Data and MT model</a></li>
+  <li><a href="#sec-qe4pe-participants" id="toc-sec-qe4pe-participants" class="nav-link" data-scroll-target="#sec-qe4pe-participants"><span class="header-section-number">9.2.4</span> Participants</a></li>
+  <li><a href="#sec-qe4pe-interface" id="toc-sec-qe4pe-interface" class="nav-link" data-scroll-target="#sec-qe4pe-interface"><span class="header-section-number">9.2.5</span> Editing Interface</a></li>
+  </ul></li>
+  <li><a href="#sec-qe4pe-analysis" id="toc-sec-qe4pe-analysis" class="nav-link" data-scroll-target="#sec-qe4pe-analysis"><span class="header-section-number">9.3</span> Analysis</a>
+  <ul class="collapse">
+  <li><a href="#sec-qe4pe-productivity" id="toc-sec-qe4pe-productivity" class="nav-link" data-scroll-target="#sec-qe4pe-productivity"><span class="header-section-number">9.3.1</span> Productivity</a></li>
+  <li><a href="#sec-qe4pe-highlights-edits" id="toc-sec-qe4pe-highlights-edits" class="nav-link" data-scroll-target="#sec-qe4pe-highlights-edits"><span class="header-section-number">9.3.2</span> Highlights and Edits</a></li>
+  <li><a href="#sec-qe4pe-quality" id="toc-sec-qe4pe-quality" class="nav-link" data-scroll-target="#sec-qe4pe-quality"><span class="header-section-number">9.3.3</span> Quality Assessment</a></li>
+  <li><a href="#sec-qe4pe-usability" id="toc-sec-qe4pe-usability" class="nav-link" data-scroll-target="#sec-qe4pe-usability"><span class="header-section-number">9.3.4</span> Usability</a></li>
+  </ul></li>
+  <li><a href="#sec-qe4pe-limitations" id="toc-sec-qe4pe-limitations" class="nav-link" data-scroll-target="#sec-qe4pe-limitations"><span class="header-section-number">9.4</span> Limitations</a></li>
+  <li><a href="#sec-qe4pe-broader-impact" id="toc-sec-qe4pe-broader-impact" class="nav-link" data-scroll-target="#sec-qe4pe-broader-impact"><span class="header-section-number">9.5</span> Broader Impact and Ethical Considerations</a></li>
+  <li><a href="#sec-qe4pe-conclusion" id="toc-sec-qe4pe-conclusion" class="nav-link" data-scroll-target="#sec-qe4pe-conclusion"><span class="header-section-number">9.6</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-8-divemt.html">Interpretability in Human Translation Workflows</a></li><li class="breadcrumb-item"><a href="../chapters/chap-9-qe4pe.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chap-9-qe4pe" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chapter Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Building upon the user study of the previous chapter, we investigate the impact of word-level quality estimation methods, including the use of model predictive probabilities for uncertainty estimation, on machine translation post-editing. This chapter presents our QE4PE study, involving 42 professional post-editors across two translation directions and four error-span highlight modalities for identifying potential errors in the outputs of a state-of-the-art neural MT model. Post-editing effort and productivity are measured through behavioral logging techniques, while quality improvements are assessed through systematic human annotation. Results reveal that domain, language, and editors’ speed are critical factors in determining the effectiveness of highlights, with modest differences between human-made and automated highlights underscoring a gap between accuracy and usability in professional workflows.</p>
+<p></p>
+<p>This chapter is adapted from the paper <em>QE4PE: Word-level Quality Estimation for Human Post-Editing</em> <span class="citation" data-cites="sarti-etal-2025-qe4pe">(<a href="references.html#ref-sarti-etal-2025-qe4pe" role="doc-biblioref">Sarti et al., 2025</a>)</span>.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>That’s just what translation is, I think. That’s all speaking is. Listening to the other and trying to see past your own biases to glimpse what they’re trying to say. Showing yourself to the world, and hoping someone else understands.</em></p>
+<p><em>– Rebecca F. Kuang, Babel (2022)</em></p>
+</blockquote>
+<section id="sec-qe4pe-intro" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="sec-qe4pe-intro"><span class="header-section-number">9.1</span> Introduction</h2>
+<p>Recent years saw a steady increase in the quality of machine translation systems and their widespread adoption in professional translation workflows <span class="citation" data-cites="kocmi-etal-2024-findings">(<a href="references.html#ref-kocmi-etal-2024-findings" role="doc-biblioref">Kocmi et al., 2024a</a>)</span>. Still, human post-editing of MT outputs remains a fundamental step to ensure high-quality translations, particularly for challenging textual domains requiring native fluency and specialized terminology <span class="citation" data-cites="liu-etal-2024-beyond-human">(<a href="references.html#ref-liu-etal-2024-beyond-human" role="doc-biblioref">Liu et al., 2024</a>)</span>. Quality estimation (QE) techniques were introduced to reduce post-editing effort by automatically identifying problematic MT outputs without the need for human-written reference translations and were quickly integrated into industry platforms <span class="citation" data-cites="tamchyna-2021-deploying">(<a href="references.html#ref-tamchyna-2021-deploying" role="doc-biblioref">Tamchyna, 2021</a>)</span>.</p>
+<p><em>Segment-level</em> QE models correlate well with human perception of quality <span class="citation" data-cites="freitag-etal-2024-llms">(<a href="references.html#ref-freitag-etal-2024-llms" role="doc-biblioref">Freitag et al., 2024</a>)</span> and exceed the performance of reference-based metrics in specific settings <span class="citation" data-cites="rei-etal-2021-references amrhein-etal-2022-aces amrhein-etal-2023-aces">(<a href="references.html#ref-rei-etal-2021-references" role="doc-biblioref">Rei et al., 2021</a>; <a href="references.html#ref-amrhein-etal-2022-aces" role="doc-biblioref">Amrhein et al., 2022</a>; <a href="references.html#ref-amrhein-etal-2023-aces" role="doc-biblioref">Amrhein et al., 2023</a>)</span>. On the other hand, <em>word-level</em> QE methods for identifying error spans requiring revision have received less attention in the past due to their modest agreement with human annotations, despite their promise for more granular and interpretable quality assessment in line with modern MT practices <span class="citation" data-cites="zerva-etal-2024-findings">(<a href="references.html#ref-zerva-etal-2024-findings" role="doc-biblioref">Zerva et al., 2024</a>)</span>. In particular, while the accuracy of these approaches is regularly assessed in evaluation campaigns, research has rarely focused on assessing the impact of such techniques in realistic post-editing workflows, with notable exceptions suggesting limited benefits <span class="citation" data-cites="shenoy-etal-2021-investigating sugyeong-etal-2022-word">(<a href="references.html#ref-shenoy-etal-2021-investigating" role="doc-biblioref">Shenoy et al., 2021</a>; <a href="references.html#ref-sugyeong-etal-2022-word" role="doc-biblioref">Eo et al., 2022</a>)</span>. This hinders current QE evaluation practices: by foregoing experimental evaluation with human editors, it is implicitly assumed that word-level QE will become helpful once sufficient accuracy is achieved, without accounting for the additional challenges associated with successfully integrating these methods into post-editing workflows.</p>
+<div id="fig-qe4pe-highlevel" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qe4pe-highlevel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-9-qe4pe/highlevel_qe4pe.webp" class="img-fluid figure-img" style="width:65.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qe4pe-highlevel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.1: A summary of the QE4PE study. Documents are translated by a neural MT model and reviewed by professional editors across two translation directions and four highlight modalities. Editing effort, productivity and usability across modalities are estimated from editing logs and questionnaires. Finally, the quality of MT and edited outputs is assessed with MQM/ESA human annotations and automatic metrics.
+</figcaption>
+</figure>
+</div>
+<p>In this chapter, we present a study, which we dub QE4PE (<strong>Q</strong>uality <strong>E</strong>stimation for <strong>P</strong>ost <strong>E</strong>diting), addressing this gap through a large-scale study with 42 professional translators for the English<span class="math inline">\(\rightarrow\)</span>Italian and English<span class="math inline">\(\rightarrow\)</span>Dutch directions to measure the impact of word-level QE on editing quality, productivity and usability. We aim for a realistic and reproducible setup, employing the high-quality open-source NLLB 3.3B MT model <span class="citation" data-cites="nllb-2024-scaling">(<a href="references.html#ref-nllb-2024-scaling" role="doc-biblioref">NLLB Team et al., 2024</a>)</span> to translate challenging documents from biomedical and social media domains. We then conduct a controlled evaluation of post-editing with error spans in four <em>highlight modalities</em>, i.e.&nbsp;using highlights derived from four word-level QE methods: a <span class="light-content" style="color: #dc0d97;">supervised</span> state-of-the-art QE model trained on human error annotations <span class="citation" data-cites="guerreiro-etal-2024-xcomet">(<span class="smallcaps">xcomet</span>, <a href="references.html#ref-guerreiro-etal-2024-xcomet" role="doc-biblioref">Guerreiro et al., 2024</a>)</span>, an <span class="light-content" style="color: #e6950a;">unsupervised</span> method leveraging the uncertainty of the MT model during generation, <span class="light-content" style="color: #1c9a0e;">oracle</span> error spans obtained from the consensus of previous human post-editors, and a <span class="light-content" style="color: #3949f5;">no highlight</span> baseline. The human post-editing is performed using <span class="smallcaps">GroTE</span>, a simple online interface we built to support the real-time logging of granular editing data, enabling a quantitative assessment of editing effort and productivity across highlight modalities. We also survey professionals using an online questionnaire to collect qualitative feedback about the usability and quality of the MT model, as well as the interface and error span highlights. Finally, a subset of the original MT outputs and their post-edited variants is annotated following the MQM and ESA protocols <span class="citation" data-cites="burchardt-2013-multidimensional kocmi-etal-2024-error">(<a href="references.html#ref-burchardt-2013-multidimensional" role="doc-biblioref">Lommel et al., 2013</a>; <a href="references.html#ref-kocmi-etal-2024-error" role="doc-biblioref">Kocmi et al., 2024b</a>)</span> to verify quality improvements after post-editing. See <a href="#fig-qe4pe-highlevel" class="quarto-xref">Figure&nbsp;<span>9.1</span></a> for an overview of the study. Most similar to our study, <span class="citation" data-cites="shenoy-etal-2021-investigating">Shenoy et al. (<a href="references.html#ref-shenoy-etal-2021-investigating" role="doc-biblioref">2021</a>)</span> investigated the effect of synthetic word-level QE highlights for English<span class="math inline">\(\rightarrow\)</span>German post-editing on Wikipedia data, concluding that word-level QE accuracy was at the time still insufficient to produce tangible productivity benefits in human editing workflows. We expand the scope of such evaluation by including two translation directions, two challenging real-world text domains and state-of-the-art MT and QE systems and methods. In summary, our work represents a step towards evaluating translation technologies and methods that leverage model internals, centered on users’ experience <span class="citation" data-cites="guerberof-arenas-etal-2023-towards savoldi-etal-2025-translation">(<a href="references.html#ref-guerberof-arenas-etal-2023-towards" role="doc-biblioref">Guerberof-Arenas and Moorkens, 2023</a>; <a href="references.html#ref-savoldi-etal-2025-translation" role="doc-biblioref">Savoldi et al., 2025</a>)</span>.</p>
+<p>We release all data, code and the <span class="smallcaps">GroTE</span> editing interface to foster future studies on the usability of error span highlighting techniques for other word-level QE methods and translation directions.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</section>
+<section id="sec-qe4pe-experiment-setup" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="sec-qe4pe-experiment-setup"><span class="header-section-number">9.2</span> Experimental Setup</h2>
+<section id="sec-qe4pe-structure" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="sec-qe4pe-structure"><span class="header-section-number">9.2.1</span> Structure of the Study</h3>
+<p>Our study is organized in five stages:</p>
+<p><span class="paragraph">1) Oracle Post-editing</span> As a preliminary step, segments later used in the main assessment are post-edited by three professionals per direction using their preferred interface without logging. This allows us to obtain post-edits and produce <span class="light-content" style="color: #1c9a0e;">oracle</span> word-level spans based on the editing consensus of multiple human professionals. Translators involved in this stage are not involved further in the study.</p>
+<p><span class="paragraph">2) Pretask (<span class="smallcaps">Pre</span>)</span> The pretask allows the <strong>core translators</strong> (12 per language direction, see <a href="#sec-qe4pe-participants" class="quarto-xref"><span>Section 9.2.4</span></a>) to familiarize themselves with the <span class="smallcaps">GroTE</span> interface and text highlights. Before starting, all translators complete a questionnaire to provide demographic and professional information about their profile (<a href="#tbl-qe4pe-questionnaire" class="quarto-xref">Table&nbsp;<span>9.9</span></a>). In the pretask, all translators work in an identical setup, post-editing a small set of documents similar to those of the main task with <span class="light-content" style="color: #dc0d97;">Oracle</span> highlights. We assign core translators into three groups based on their speed, as determined by their editing logs (4 translators per group for <em>faster</em>, <em>average</em> and <em>slower</em> groups in each direction). Individuals from each group are then randomly assigned to each highlight modality to ensure an equal representation of editing speeds, resulting in 1 <em>faster</em>, 1 <em>average</em>, and 1 <em>slower</em> translator for each highlight modality. This procedure is repeated independently for both translation directions.</p>
+<p><span class="paragraph">3) Main Task (<span class="smallcaps">Main</span>)</span> This task, conducted in the two weeks following the pretask, covers the majority of the collected data and is the main object of study for the analyses of <a href="#sec-qe4pe-analysis" class="quarto-xref"><span>Section 9.3</span></a>. In the main task, 24 core translators work on the same texts using the <span class="smallcaps">GroTE</span> interface, with three translators per modality in each translation direction, as shown in <a href="#fig-qe4pe-highlevel" class="quarto-xref">Figure&nbsp;<span>9.1</span></a>. After the main task, translators complete a questionnaire on the quality and usability of the MT outputs, the interface and, where applicable, word highlights.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p><span class="paragraph">4) Post-Task (<span class="smallcaps">Post</span>)</span> After <span class="smallcaps">Main</span>, the 12 core translators per direction are asked to post-edit an additional small set of related documents with <span class="smallcaps">GroTE</span>, but this time working all with the <span class="light-content" style="color: #3949f5;">No Highlight</span> modality. This step lets us obtain baseline editing patterns for each translator, allowing us to estimate individual speed and editing differences across highlight modalities without the confounding effect of interface proficiency accounted for in the <span class="smallcaps">Pre</span> stage.</p>
+<p><span class="paragraph">5) Quality Assessment (QA)</span> Finally, a subset consisting of 148 main task segments is randomly selected for manual annotation by six new translators per direction (see <a href="#sec-qe4pe-participants" class="quarto-xref"><span>Section 9.2.4</span></a>). For each segment, the original MT output and all its post-edited versions are annotated with MQM error spans, including minor/major error severity and a subset of MQM error categories, including e.g., mistranslations, omissions, and stylistic errors <span class="citation" data-cites="burchardt-2013-multidimensional">(<a href="references.html#ref-burchardt-2013-multidimensional" role="doc-biblioref">Lommel et al., 2013</a>)</span>. <a href="#tbl-qe4pe-qa-guidelines" class="quarto-xref">Table&nbsp;<span>9.1</span></a> presents our annotation guidelines.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Moreover, the annotator proposes corrections for each error span, ultimately providing a 0-100 quality score, which matches the common DA scoring adopted in multiple WMT campaigns. We adopt this scoring system, which closely adheres to the ESA evaluation protocol <span class="citation" data-cites="kocmi-etal-2024-error">(<a href="references.html#ref-kocmi-etal-2024-error" role="doc-biblioref">Kocmi et al., 2024b</a>)</span>, following recent results showing its effectiveness and efficiency for ranking MT systems.</p>
+<p>In summary, for each translation direction, we collect three full sets of oracle post-edits, 12 full sets of edits with behavioral logs for <span class="smallcaps">pre</span>, <span class="smallcaps">main</span> and <span class="smallcaps">post</span> task data, and 13 subsets of main task data (12 post-edits, plus the original MT output) annotated with MQM error spans, corrections and segment-level ESA ratings. Moreover, we also collect 12 pre- and post-task questionnaire responses from <em>core set</em> translators to obtain a qualitative view of the editing process.</p>
+<div id="tbl-qe4pe-qa-guidelines" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-qe4pe-qa-guidelines-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Error category</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Subcategory</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="5"><strong>Accuracy</strong><br>Incorrect meaning has been transferred to the source text.</td>
+<td><strong>Addition</strong></td>
+<td>Translation includes the information that is not present in the source and it changes or distorts the original message.</td>
+</tr>
+<tr class="even">
+<td><strong>Omission</strong></td>
+<td>Translation is missing the information that is present in the source, which is important to convey the message.</td>
+</tr>
+<tr class="odd">
+<td><strong>Mistranslation</strong></td>
+<td>Translation does not accurately represent the source content meaning.</td>
+</tr>
+<tr class="even">
+<td><strong>Inconsistency</strong></td>
+<td>There are internal inconsistencies in the translation (for example, using different verb forms in the bullet list or in CTAs, calling the same UI element differently, terminology used inconsistently etc).</td>
+</tr>
+<tr class="midrule odd">
+<td><strong>Untranslated</strong></td>
+<td>Content that should have been translated has been left untranslated.</td>
+</tr>
+<tr class="even">
+<td rowspan="3"><strong>Linguistic</strong><br>Official linguistic reference sources such as grammar books.</td>
+<td><strong>Punctuation</strong></td>
+<td>Punctuation is used incorrectly (for the locale or style), including missing or extra white spaces and the incorrect use of space (non-breaking space). Violation of typographic conventions of the locale.</td>
+</tr>
+<tr class="odd">
+<td><strong>Spelling</strong></td>
+<td>Issues related to spelling of words, including typos, wrong word hyphenation, word breaks and capitalization.</td>
+</tr>
+<tr class="midrule even">
+<td><strong>Grammar</strong></td>
+<td>Issues related to the grammar or syntax of the text, other than spelling.</td>
+</tr>
+<tr class="odd">
+<td rowspan="3"><strong>Style</strong><br>Not suitable/native; too literal or awkward.</td>
+<td><strong>Inconsistent Style</strong></td>
+<td>Style is inconsistent within a text.</td>
+</tr>
+<tr class="even">
+<td><strong>Readability</strong></td>
+<td>Translation does not read well (due to heavy sentence structure, frequent repetitions, unidiomatic).</td>
+</tr>
+<tr class="odd">
+<td><strong>Wrong Register</strong></td>
+<td>Inappropriate style for the specific subject field, the level of formality, and the mode of discourse (e.g., written text versus transcribed speech).</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<table class="fullwidthtable table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Severity</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Major</strong></td>
+<td>The Severity Level of an error that seriously affects the understandability, reliability, or usability of the content for its intended purpose or hinders the proper use of the product or service due to a significant loss or change in meaning or because the error appears in a highly visible or important part of the content.</td>
+</tr>
+<tr class="even">
+<td><strong>Minor</strong></td>
+<td>The Severity Level of an error that does not seriously impede the usability, understandability, or reliability of the content for its intended purpose, but has a limited impact on, for example, accuracy, stylistic quality, consistency, fluency, clarity, or general appeal of the content.</td>
+</tr>
+<tr class="odd">
+<td><strong>Neutral</strong></td>
+<td>The Severity Level of an error that differs from a quality evaluator's preferential translation or that is flagged for the translator's attention but is an acceptable translation.</td>
+</tr>
+</tbody>
+</table>
+
+
+<style>
+.vertical-text {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    vertical-align: middle;
+    text-align: center;
+    width: 3cm;
+    padding: 8px;
+}
+</style>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-qe4pe-qa-guidelines-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.1: Annotation instructions for our MQM-inspired error taxonomy.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-qe4pe-modalities" class="level3" data-number="9.2.2">
+<h3 data-number="9.2.2" class="anchored" data-anchor-id="sec-qe4pe-modalities"><span class="header-section-number">9.2.2</span> Highlight Modalities</h3>
+<p>We conduct our study on four highlight modalities across two severity levels (<em>minor</em> and <em>major</em> errors). Using multiple severity levels aligns with current MT evaluation practices <span class="citation" data-cites="freitag-etal-2021-experts freitag-etal-2024-llms">(<a href="references.html#ref-freitag-etal-2021-experts" role="doc-biblioref">Freitag et al., 2021</a>; <a href="references.html#ref-freitag-etal-2024-llms" role="doc-biblioref">Freitag et al., 2024</a>)</span>, as well as previous results indicating that users tend to prefer more granular and informative word-level highlights <span class="citation" data-cites="shenoy-etal-2021-investigating vasconcelos-etal-2025-generation">(<a href="references.html#ref-shenoy-etal-2021-investigating" role="doc-biblioref">Shenoy et al., 2021</a>; <a href="references.html#ref-vasconcelos-etal-2025-generation" role="doc-biblioref">Vasconcelos et al., 2025</a>)</span>. The highlight modalities we employ are:</p>
+<p><span class="paragraph"><span class="light-content" style="color: #3949f5;">No Highlight</span></span> The text is presented as-is, without any highlighted spans. This setting serves as a baseline to estimate the default post-editing quality and productivity using our interface.</p>
+<p><span class="paragraph"><span class="light-content" style="color: #1c9a0e;">Oracle</span></span> Following the Oracle Post-editing phase, we produce oracle error spans from the editing consensus of human post-editors. We label text spans that were edited by two of the three translators as <em>minor</em>, and those edited by all three translators as <em>major</em>, following the intuition that more critical errors are more likely to be identified by several annotators, while minor changes will show more variance across subjects. This modality serves as a best-case scenario, providing an upper bound for future improvements in word-level QE quality.</p>
+<p><span class="paragraph"><span class="light-content" style="color: #dc0d97;">Supervised</span></span> In this setting, word-level error spans are obtained using <span class="smallcaps">xcomet-xxl</span> <span class="citation" data-cites="guerreiro-etal-2024-xcomet">(<a href="references.html#ref-guerreiro-etal-2024-xcomet" role="doc-biblioref">Guerreiro et al., 2024</a>)</span>, which is a multilingual transformer encoder <span class="citation" data-cites="goyal-etal-2021-larger">(<a href="references.html#ref-goyal-etal-2021-larger" role="doc-biblioref">Goyal et al., 2021</a>)</span> further trained for joint word- and sentence-level QE prediction. We select <span class="smallcaps">xcomet-xxl</span> in light of its broad adoption, open accessibility and state-of-the-art performance in QE across several translation directions <span class="citation" data-cites="zerva-etal-2024-findings">(<a href="references.html#ref-zerva-etal-2024-findings" role="doc-biblioref">Zerva et al., 2024</a>)</span>. For the severity levels, we use the labels predicted by the model, mapping <em>critical</em> labels to the <em>major</em> level.</p>
+<p><span class="paragraph"><span class="light-content" style="color: #e6950a;">Unsupervised</span></span> In this modality, we exploit the access to the MT model producing the original translations to obtain <em>uncertainty-based highlights</em>. As a preliminary evaluation to select a capable unsupervised word-level QE method, we evaluate two unsupervised QE methods employing token log-probabilities assigned by MT model to predict human post-edits: raw negative log-probabilities (<span class="smallcaps">Logprobs</span>), corresponding to the surprisal assigned by the MT model to every generated token, and their variance for 10 steps of Monte Carlo Dropout <span class="citation" data-cites="gal-ghahramani-2016-dropout">(<span class="smallcaps">Logprobs</span><span class="math inline">\(_\text{mcd var}\)</span>, <a href="references.html#ref-gal-ghahramani-2016-dropout" role="doc-biblioref">Gal and Ghahramani, 2016</a>)</span>. We employ surprisal-based metrics, following previous work that shows their effectiveness in predicting translation errors <span class="citation" data-cites="fomicheva-specia-2019-taking">(<a href="references.html#ref-fomicheva-specia-2019-taking" role="doc-biblioref">Fomicheva and Specia, 2019</a>)</span> and human editing time <span class="citation" data-cites="lim-etal-2024-predicting">(<a href="references.html#ref-lim-etal-2024-predicting" role="doc-biblioref">Lim et al., 2024</a>)</span>. We collect scores for the English<span class="math inline">\(\rightarrow\)</span>Italian and English<span class="math inline">\(\rightarrow\)</span>Dutch directions of QE4PE Oracle post-edits and our <span class="smallcaps">DivEMT</span> dataset <span class="citation" data-cites="sarti-etal-2022-divemt">(<a href="references.html#ref-sarti-etal-2022-divemt" role="doc-biblioref">Sarti et al., 2022</a>)</span> to identify the best-performing method, using metric scores extracted from the original models used for translation to predict human post-edits. We use average precision (AP) as a threshold-agnostic performance metric for the tested continuous methods. <span class="light-content" style="color: #1c9a0e;">Oracle</span> highlights obtained from the consensus of three annotators in the first stage of the study are used as reference for QE4PE, while a single set of post-edits is available for <span class="smallcaps">DivEMT</span>. The <span class="smallcaps">xcomet-xxl</span> model used for <span class="light-content" style="color: #dc0d97;">Supervised</span> highlights, and the average agreement of individual <span class="light-content" style="color: #1c9a0e;">Oracle</span> editors with the consensus label are also included for comparison.</p>
+<div id="tbl-qe4pe-unsup-selection" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-qe4pe-unsup-selection-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="3" data-quarto-table-cell-role="th"><strong>Method</strong></th>
+<th colspan="4" class="group-header" data-quarto-table-cell-role="th"><strong>DivEMT</strong></th>
+<th colspan="4" class="group-header" data-quarto-table-cell-role="th"><strong>QE4PE</strong></th>
+</tr>
+<tr class="subheader even">
+<th colspan="2" data-quarto-table-cell-role="th"><strong>en→it</strong></th>
+<th colspan="2" data-quarto-table-cell-role="th"><strong>en→nl</strong></th>
+<th colspan="2" data-quarto-table-cell-role="th"><strong>en→it</strong></th>
+<th colspan="2" data-quarto-table-cell-role="th"><strong>en→nl</strong></th>
+</tr>
+<tr class="subheader header">
+<th data-quarto-table-cell-role="th"><strong>AP</strong></th>
+<th data-quarto-table-cell-role="th"><strong>AU</strong></th>
+<th data-quarto-table-cell-role="th"><strong>AP</strong></th>
+<th data-quarto-table-cell-role="th"><strong>AU</strong></th>
+<th data-quarto-table-cell-role="th"><strong>AP</strong></th>
+<th data-quarto-table-cell-role="th"><strong>AU</strong></th>
+<th data-quarto-table-cell-role="th"><strong>AP</strong></th>
+<th data-quarto-table-cell-role="th"><strong>AU</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="verylongrow"><span class="smallcaps">Logprobs</span></td>
+<td>0.18</td>
+<td>0.18</td>
+<td>0.19</td>
+<td>0.19</td>
+<td>0.10</td>
+<td>0.09</td>
+<td>0.09</td>
+<td>0.09</td>
+</tr>
+<tr class="midrule even">
+<td><span class="smallcaps">Logprobs</span> <span class="math inline">\(_\text{mcd var}\)</span> (<span class="light-content" style="color: #e6950a;"><span class="smallcaps">Unsup.</span></span>)</td>
+<td>0.41</td>
+<td>0.41</td>
+<td>0.42</td>
+<td>0.42</td>
+<td>0.23</td>
+<td>0.23</td>
+<td>0.31</td>
+<td>0.31</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">xcomet-xxl</span> (<span class="light-content" style="color: #dc0d97;"><span class="smallcaps">Sup.</span></span>)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.16</td>
+<td>0.23</td>
+<td>0.19</td>
+<td>0.28</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Avg.</span> <span class="light-content" style="color: #1c9a0e;"><span class="smallcaps">Oracle</span></span> <span class="smallcaps">single translator</span></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>0.53</td>
+<td>0.73</td>
+<td>0.55</td>
+<td>0.75</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-qe4pe-unsup-selection-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.2: Average Precision (AP) and Area Under the Precision-Recall Curve (AU) between metrics and error spans derived from human post-editing. We use mBART 1-to-50 and NLLB 3B respectively for DivEMT and QE4PE. For DivEMT, a single post-editor is available for computing the agreement, while for QE4PE we use consensus-based <span class="smallcaps">Oracle</span> highlights. For QE4PE, we report the average agreement between individual oracle post-editors and their consensus as an agreement upper bound.
+</figcaption>
+</figure>
+</div>
+<p>Results in <a href="#tbl-qe4pe-unsup-selection" class="quarto-xref">Table&nbsp;<span>9.2</span></a> show a strong performance for the <span class="smallcaps">Logprobs</span><span class="math inline">\(_\text{mcd var}\)</span> method, even surpassing the accuracy of the supervised <span class="smallcaps">xcomet</span> model across both datasets.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Hence, we select it for the <span class="light-content" style="color: #e6950a;">Unsupervised</span> highlight modality, setting value thresholds for minor/major errors to match the respective highlighted word proportions in the <span class="light-content" style="color: #dc0d97;">Supervised</span> modality to ensure a fair comparison of their effectiveness in the post-editing task.</p>
+</section>
+<section id="sec-qe4pe-data" class="level3" data-number="9.2.3">
+<h3 data-number="9.2.3" class="anchored" data-anchor-id="sec-qe4pe-data"><span class="header-section-number">9.2.3</span> Data and MT model</h3>
+<p><span class="paragraph">MT Model</span> On the one hand, the MT model must achieve <em>high translation quality</em> in the selected languages to ensure our experimental setup applies to state-of-the-art proprietary systems. Still, the MT model should be <em>open-source</em> and have a <em>manageable size</em> to ensure reproducible findings and enable the computation of uncertainty for the unsupervised setting. All considered, we use NLLB 3.3B <span class="citation" data-cites="nllb-2024-scaling">(<a href="references.html#ref-nllb-2024-scaling" role="doc-biblioref">NLLB Team et al., 2024</a>)</span>, a widely used MT model achieving industry-level performances across 200 languages <span class="citation" data-cites="moslem-etal-2023-adaptive">(<a href="references.html#ref-moslem-etal-2023-adaptive" role="doc-biblioref">Moslem et al., 2023</a>)</span>.</p>
+<p><span class="paragraph">Data selection</span> We begin by selecting two translation directions, English<span class="math inline">\(\rightarrow\)</span>Italian and English<span class="math inline">\(\rightarrow\)</span>Dutch, according to the availability of professional translators from our industrial partners. We intentionally focus on out-of-English translations as they are generally more challenging for modern MT models <span class="citation" data-cites="kocmi-etal-2023-findings">(<a href="references.html#ref-kocmi-etal-2023-findings" role="doc-biblioref">Kocmi et al., 2023</a>)</span>. We aim to identify documents that are manageable for professional translators without domain-specific expertise but still prove challenging for our MT model to ensure a sufficient amount of error spans across modalities. Since original references for our selected translation direction were not available, we do not have a direct mean to compare MT quality in the two languages. However, according to our human MQM assessment in <a href="#sec-qe4pe-quality" class="quarto-xref"><span>Section 9.3.3</span></a> (<a href="#tbl-qe4pe-mqm-errors-full" class="quarto-xref">Table&nbsp;<span>9.7</span></a>), NLLB produces a comparable amount of errors across Dutch and Italian translations, suggesting similar quality.</p>
+<div id="tbl-qe4pe-data-stats" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-qe4pe-data-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Task</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Domain</strong></th>
+<th data-quarto-table-cell-role="th"><strong># Docs</strong></th>
+<th data-quarto-table-cell-role="th"><strong># Seg.</strong></th>
+<th data-quarto-table-cell-role="th"><strong># Words</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="2" class="rowspan"><span class="smallcaps">Pre</span></td>
+<td>Social</td>
+<td>4</td>
+<td>23</td>
+<td>539</td>
+</tr>
+<tr class="midrule even">
+<td>Biomed.</td>
+<td>2</td>
+<td>15</td>
+<td>348</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="rowspan"><span class="smallcaps">Main</span></td>
+<td>Social</td>
+<td>30</td>
+<td>160</td>
+<td>3375</td>
+</tr>
+<tr class="midrule even">
+<td>Biomed.</td>
+<td>21</td>
+<td>165</td>
+<td>3384</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="rowspan"><span class="smallcaps">Post</span></td>
+<td>Social</td>
+<td>6</td>
+<td>34</td>
+<td>841</td>
+</tr>
+<tr class="midrule even">
+<td>Biomed.</td>
+<td>2</td>
+<td>16</td>
+<td>257</td>
+</tr>
+<tr class="odd">
+<td colspan="2" class="bold">Total</td>
+<td class="bold">64</td>
+<td class="bold">413</td>
+<td class="bold">8744</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-qe4pe-data-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.3: Statistics for QE4PE data.
+</figcaption>
+</figure>
+</div>
+<p>We begin by translating 3,672 multi-segment English documents from the WMT23 General and Biomedical MT shared tasks <span class="citation" data-cites="kocmi-etal-2023-findings neves-etal-2023-findings">(<a href="references.html#ref-kocmi-etal-2023-findings" role="doc-biblioref">Kocmi et al., 2023</a>; <a href="references.html#ref-neves-etal-2023-findings" role="doc-biblioref">Neves et al., 2023</a>)</span> and MT test suites to Dutch and Italian. Our choice for these specialized domains, as opposed to e.g.&nbsp;generic news articles, is driven by the real-world needs of the translation industry for domain-specific post-editing support <span class="citation" data-cites="eschbach-dymanus-etal-2024-exploring li-etal-2025-transbench">(<a href="references.html#ref-eschbach-dymanus-etal-2024-exploring" role="doc-biblioref">Eschbach-Dymanus et al., 2024</a>; <a href="references.html#ref-li-etal-2025-transbench" role="doc-biblioref">Li et al., 2025</a>)</span>. Moreover, focusing on domains that are considerably more challenging for MT systems than news, as shown by recent WMT campaigns <span class="citation" data-cites="neves-etal-2024-findings">(<a href="references.html#ref-neves-etal-2024-findings" role="doc-biblioref">Neves et al., 2024</a>)</span>, ensures a sufficient amount of MT errors to support a sound comparison of word-level QE methods. Then, <span class="smallcaps">xcomet-xxl</span> is used to produce a first set of segment-level QE scores and word-level error spans for all segments. To make the study tractable, we further narrow down the selection of documents according to several heuristics to ensure a realistic editing experience and a balanced occurrence of error spans (details in <a href="appendix-c.html#sec-qe4pe-data-stats" class="quarto-xref"><span>Section C.2.1</span></a>). This procedure yields 351 documents, from which we manually select a subset of 64 documents (413 segments, 8,744 source words per post-editor) across two domains:</p>
+<ul>
+<li><strong>Social media posts</strong>, including Mastodon posts from the WMT23 General Task <span class="citation" data-cites="kocmi-etal-2023-findings">(<a href="references.html#ref-kocmi-etal-2023-findings" role="doc-biblioref">Kocmi et al., 2023</a>)</span> English<span class="math inline">\(\leftrightarrow\)</span>German evaluation and Reddit comments from the Robustness Challenge Set for Machine Translation <span class="citation" data-cites="bawden-sagot-2023-rocs">(RoCS-MT, <a href="references.html#ref-bawden-sagot-2023-rocs" role="doc-biblioref">Bawden and Sagot, 2023</a>)</span>, displaying atypical language use, such as slang or acronymization.</li>
+<li><strong>Biomedical abstracts</strong> extracted from PubMed from the WMT23 Biomedical Translation Task <span class="citation" data-cites="neves-etal-2023-findings">(<a href="references.html#ref-neves-etal-2023-findings" role="doc-biblioref">Neves et al., 2023</a>)</span>, including domain-specific terminology.</li>
+</ul>
+<p><a href="#tbl-qe4pe-data-stats" class="quarto-xref">Table&nbsp;<span>9.3</span></a> present statistics for the <span class="smallcaps">Pre</span>, <span class="smallcaps">Main</span> and <span class="smallcaps">Post</span> editing stages, and <a href="#tbl-qe4pe-example-highlights-edits" class="quarto-xref">Table&nbsp;<span>9.4</span></a> shows an example of highlights and edits. While including multiple domains in the same task can render our post-editing setup less realistic, we deem it essential to test the cross-domain validity of our findings.</p>
+<div id="tbl-qe4pe-example-highlights-edits" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-qe4pe-example-highlights-edits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td class="bold" style="width: 20%">Source<sub>en</sub></td>
+<td style="width: 80%">So why is it that people jump through extra hoops to install Google Maps?</td>
+</tr>
+<tr class="midrule even">
+<td><span class="smallcaps">No High.</span></td>
+<td>Quindi perché le persone devono fare un salto in più per installare Google Maps?</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Oracle</span></td>
+<td><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #e6bb00;">Quindi</span> perché le persone <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ed6a05;">devono fare</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ed6a05;">un salto in più</span> per installare Google Maps?</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Sup.</span></td>
+<td><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #e6bb00;">Quindi perché</span> le persone devono <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ed6a05;">fare un salto in più</span> per installare Google Maps?</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="smallcaps">Unsup.</span></td>
+<td>Quindi perché le persone <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ed6a05;">devono</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #e6bb00;">fare</span> un <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ed6a05;">salto</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #e6bb00;">in</span> più per installare Google Maps?</td>
+</tr>
+<tr class="even">
+<td>PE<span class="math inline">\(_{\text{No High.}}\)</span></td>
+<td>Quindi perché le persone devono fare un <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #98cc70;">passaggio</span> in più per installare Google Maps?</td>
+</tr>
+<tr class="odd">
+<td>PE<span class="math inline">\(_{\text{Oracle}}\)</span></td>
+<td><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #98cc70;">Allora,</span> perché le persone <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #98cc70;">fanno</span> un <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #98cc70;">passaggio</span> in più per installare Google Maps?</td>
+</tr>
+<tr class="even">
+<td>PE<span class="math inline">\(_{\text{Sup.}}\)</span></td>
+<td>Quindi perché le persone <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #98cc70;">fanno passaggi</span> in più per installare Google Maps?</td>
+</tr>
+<tr class="odd">
+<td>PE<span class="math inline">\(_{\text{Unsup.}}\)</span></td>
+<td>Quindi perché le persone <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #98cc70;">fanno i salti mortali</span> per installare Google Maps?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-qe4pe-example-highlights-edits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.4: <span class="smallcaps">en</span><span class="math inline">\(\rightarrow\)</span><span class="smallcaps">it</span> example from the QE4PE dataset, showing <span class="light-content" style="color: #e6bb00;">minor</span>/<span class="light-content" style="color: #ed6a05;">major</span> word highlights and a single post-edit per modality, with modified words <span class="light-content" style="color: #98cc70;">highlighted</span>.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Critical Errors</span> Before producing highlights, we manually introduce 13 critical errors into main task segments to assess post-editing thoroughness. Errors are produced, for example, by negating statements, inverting the polarity of adjectives, inverting numbers, and corrupting acronyms. We replicate the errors in both translation directions to enable direct comparison. Most of these errors were correctly identified across all three highlight modalities. <a href="#tbl-qe4pe-critical-errors-examples" class="quarto-xref">Table&nbsp;<span>9.5</span></a> presents some examples of critical errors in the dataset.</p>
+<div id="tbl-qe4pe-critical-errors-examples" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-qe4pe-critical-errors-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="bottomrule odd">
+<td colspan="2" class="bold">Remove negation (13-6)</td>
+</tr>
+<tr class="even">
+<td class="bold" style="width: 15%">English</td>
+<td style="width: 85%"><span class="light-content" style="color: red;">No significant differences</span> were found with respect to principal diagnoses […]</td>
+</tr>
+<tr class="midrule odd">
+<td class="bold">Dutch</td>
+<td>Er werden <span class="light-content" style="color: red;">geen significante verschillen → significante verschillen</span> gevonden met betrekking tot de belangrijkste diagnoses […]</td>
+</tr>
+<tr class="bottomrule even">
+<td colspan="2" class="bold">Title literal translation (16-3)</td>
+</tr>
+<tr class="odd">
+<td class="bold">English</td>
+<td><span class="light-content" style="color: red;">The Last of Us</span> is an easy and canonical example of dad-ification. […]</td>
+</tr>
+<tr class="midrule even">
+<td class="bold">Italian</td>
+<td><span class="light-content" style="color: red;">The Last of Us → L’ultimo di noi</span> è un esempio facile e canonico di dad-ification. […]</td>
+</tr>
+<tr class="bottomrule odd">
+<td colspan="2" class="bold">Wrong term (48-5)</td>
+</tr>
+<tr class="even">
+<td class="bold">English</td>
+<td>[…], , except for <span class="light-content" style="color: red;">alkaline phosphatase</span>.</td>
+</tr>
+<tr class="odd">
+<td class="bold">Italian</td>
+<td>[…], ad eccezione della <span class="light-content" style="color: red;">fosfatasi alcalina → chinasi proteica</span>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-qe4pe-critical-errors-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.5: Examples of original <span class="math inline">\(\rightarrow\)</span> manually inserted critical errors with document-segment ID from <a href="#tbl-qe4pe-critical-errors" class="quarto-xref">Table&nbsp;<span>9.8</span></a>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-qe4pe-participants" class="level3" data-number="9.2.4">
+<h3 data-number="9.2.4" class="anchored" data-anchor-id="sec-qe4pe-participants"><span class="header-section-number">9.2.4</span> Participants</h3>
+<p>For both directions, the professional translation companies <a href="https://translated.com">Translated</a> and <a href="https://www.globaltextware.nl/">Global Textware</a> recruited three translators for the Oracle post-editing stage, the core set of 12 translators working on <span class="smallcaps">Pre</span>, <span class="smallcaps">Main</span> and <span class="smallcaps">Post</span> tasks, and six more translators for the QA stage, for a total of 21 translators per direction. All translators were freelancers with native proficiency in their target language and self-assessed proficiency of at least C1 in English. Almost all translators had more than two years of professional translation experience and regularly post-edited MT outputs (details in <a href="#tbl-qe4pe-questionnaire" class="quarto-xref">Table&nbsp;<span>9.9</span></a>).</p>
+</section>
+<section id="sec-qe4pe-interface" class="level3" data-number="9.2.5">
+<h3 data-number="9.2.5" class="anchored" data-anchor-id="sec-qe4pe-interface"><span class="header-section-number">9.2.5</span> Editing Interface</h3>
+<p>We develop a custom interface, which we name <strong>Gro</strong>ningen <strong>T</strong>ranslation <strong>E</strong>nvironment (<span class="smallcaps">GroTE</span>, <a href="#fig-qe4pe-grote-interface" class="quarto-xref">Figure&nbsp;<span>9.2</span></a>), to support editing over texts with word-level highlights. While the MMPE tool used by <span class="citation" data-cites="shenoy-etal-2021-investigating">Shenoy et al. (<a href="references.html#ref-shenoy-etal-2021-investigating" role="doc-biblioref">2021</a>)</span> provide extensive multimodal functionalities <span class="citation" data-cites="herbig-etal-2020-mmpe">(<a href="references.html#ref-herbig-etal-2020-mmpe" role="doc-biblioref">Herbig et al., 2020</a>)</span>, we aim for a bare-bones setup to avoid confounders in the evaluation. <span class="smallcaps">GroTE</span> is a web interface based on Gradio <span class="citation" data-cites="abid-etal-2019-gradio">(<a href="references.html#ref-abid-etal-2019-gradio" role="doc-biblioref">Abid et al., 2019</a>)</span> and hosted on the <a href="https://hf.co/spaces">Hugging Face Spaces</a> to enable multi-user data collection online. Upon loading a document, source texts and MT outputs for all segments are presented in two columns, following standard industry practices. For modalities with highlights, the interface provides an informative message and supports removing all highlights from a segment via a button, with highlights on words disappearing automatically upon editing, as in <span class="citation" data-cites="shenoy-etal-2021-investigating">(<a href="references.html#ref-shenoy-etal-2021-investigating" role="doc-biblioref">Shenoy et al., 2021</a>)</span>. The interface supports real-time logging of user actions, allowing for the analysis of the editing process. In particular, we log the start and end times for each edited document, the accessing and exiting of segment textboxes, highlight removals, and individual keystrokes during editing.</p>
+<div id="fig-qe4pe-grote-interface" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qe4pe-grote-interface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-9-qe4pe/grote_teaser_small.webp" class="img-fluid figure-img" style="width:70.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qe4pe-grote-interface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.2: An example of the QE4PE <span class="smallcaps">GroTE</span> setup for two segments in an English<span class="math inline">\(\rightarrow\)</span>Italian document.
+</figcaption>
+</figure>
+</div>
+<p><span class="smallcaps">GroTE</span> intentionally lacks standard features such as translation memories, glossaries, and spellchecking to ensure equal familiarity among translators, ultimately controlling for editor proficiency with these tools, as done in previous studies <span class="citation" data-cites="shenoy-etal-2021-investigating sarti-etal-2022-divemt">(<a href="references.html#ref-shenoy-etal-2021-investigating" role="doc-biblioref">Shenoy et al., 2021</a>; <a href="references.html#ref-sarti-etal-2022-divemt" role="doc-biblioref">Sarti et al., 2022</a>)</span>. While most translators noted the lack of advanced features in our usability assessment, the majority also found the interface easy to set up, access, and use (<a href="#tbl-qe4pe-questionnaire" class="quarto-xref">Table&nbsp;<span>9.9</span></a>).</p>
+</section>
+</section>
+<section id="sec-qe4pe-analysis" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="sec-qe4pe-analysis"><span class="header-section-number">9.3</span> Analysis</h2>
+<section id="sec-qe4pe-productivity" class="level3" data-number="9.3.1">
+<h3 data-number="9.3.1" class="anchored" data-anchor-id="sec-qe4pe-productivity"><span class="header-section-number">9.3.1</span> Productivity</h3>
+<p>We obtain segment- and document-level edit times and compute editing <em>productivity</em> as the number of processed source characters divided by the sum of all document-level edit times, measured in characters per minute. To account for potential breaks taken by post-editors during editing, we filter out pauses between logged actions longer than 5 minutes. We note that this procedure does not significantly impact the overall ranking of translators, while ensuring a more robust evaluation of editing time.</p>
+<p><span class="paragraph">Do Highlights Make Post-editors Faster?</span> <a href="#fig-qe4pe-productivity" class="quarto-xref">Figure&nbsp;<span>9.3</span></a> shows translators’ productivity across stages, with every dot corresponding to the productivity of a single individual. We observe that no highlight modality consistently leads to faster editing across all speed groups and that the ordering of <span class="smallcaps">Pre</span>-task speed groups is maintained in the following stages despite the different highlight modalities. These results suggest that individual variability in editing speed is more critical than highlight modality in predicting editing speed. However, the fastest English<span class="math inline">\(\rightarrow\)</span>Dutch translators achieved outstanding productivity, i.e.&nbsp;<span class="math inline">\(&gt;2\)</span> standard deviations above the overall mean (entries with <span class="math inline">\(&gt;300\)</span> char/min, → in <a href="#fig-qe4pe-productivity" class="quarto-xref">Figure&nbsp;<span>9.3</span></a>) almost exclusively in <span class="light-content" style="color: #3949f5;">No Highlight</span>, and, <span class="light-content" style="color: #1c9a0e;">Oracle</span> modalities, suggesting that lower-quality highlights hinder editing speed.</p>
+<div id="fig-qe4pe-productivity" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qe4pe-productivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-9-qe4pe/productivity_edited.webp" class="img-fluid figure-img" style="width:60.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qe4pe-productivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.3: Productivity of post-editors across QE4PE stages (<span class="smallcaps">Pre</span>, <span class="smallcaps">Main</span>, <span class="smallcaps">Post</span>). The → marks entries with speed <span class="math inline">\(&gt;300\)</span> characters per minute and ❌ marks missing data. Each row corresponds to the same three translators across all stages.
+</figcaption>
+</figure>
+</div>
+<p>We validate these observations by fitting a negative binomial mixed-effect model on segment-level editing times (model details in <a href="appendix-c.html#tbl-qe4pe-edit-time-model" class="quarto-xref">Table&nbsp;<span>C.10</span></a>). Excluding random factors such as translator and segment identity from the model results in a significant drop in explained variance, confirming the inherent variability of editing times (<span class="math inline">\(R^2 = 0.93 \rightarrow 0.41\)</span>). Model coefficients indicate that the output length of MT and the proportion of highlighted characters are the primary factors driving an increase in editing times, possibly reflecting an increase in cognitive effort required to process additional information. We find that highlights have a significant impact on increasing the editing speed of English<span class="math inline">\(\rightarrow\)</span>Italian translators <span class="math inline">\((p &lt; 0.001)\)</span>, but a minimal impact for English<span class="math inline">\(\rightarrow\)</span>Dutch. Comparing the productivity of the same translator editing with and without highlights (<span class="smallcaps">Main</span> vs <span class="smallcaps">Post</span>), two-thirds of the translators editing with highlights were up to two times slower on biomedical texts. However, the same proportion of translators was up to three times faster on social media texts across both directions.</p>
+<p>In summary, we find that <strong>highlight modalities are not predictive of edit times on their own</strong>, but translation direction and domain play an important role in determining the effect of highlights on editing productivity. We attribute these results to two main factors, which will remain central in the analysis of the following sections: (1) the different <em>propensity of translators to act upon highlighted issues</em> in the two tested directions, and (2) the different <em>nature of errors highlighted across domains</em>.</p>
+</section>
+<section id="sec-qe4pe-highlights-edits" class="level3" data-number="9.3.2">
+<h3 data-number="9.3.2" class="anchored" data-anchor-id="sec-qe4pe-highlights-edits"><span class="header-section-number">9.3.2</span> Highlights and Edits</h3>
+<p>We then examine how highlights are distributed across modalities and how they influence the editing choices of human post-editors.</p>
+<p><span class="paragraph">Agreement Across Modalities</span> First, we quantify how different modalities agree in terms of highlights’ distribution and editing. We find that highlight overlaps across modalities range from 15% to 39% when comparing highlight modalities in a pairwise fashion, with the highest overlap for English<span class="math inline">\(\rightarrow\)</span>Italian social media and English<span class="math inline">\(\rightarrow\)</span>Dutch biomedical texts.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Despite the relatively low agreement on highlights, we find an average agreement of 73% for post-edited characters across modalities. This suggests that edits are generally uniform regardless of highlight modalities and are not necessarily restricted to highlighted spans.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<div id="tbl-qe4pe-highlights-edits" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-qe4pe-highlights-edits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable fs12 table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" class="group-header rline" data-quarto-table-cell-role="th"><strong>Base Freq.</strong></th>
+<th colspan="4" class="group-header rline" data-quarto-table-cell-role="th"><strong>Measured</strong></th>
+<th colspan="4" class="group-header" data-quarto-table-cell-role="th"><strong>Projected</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(P(H)\)</span></th>
+<th class="rline" data-quarto-table-cell-role="th"><span class="math inline">\(P(E)\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(P(E|H)\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(\Lambda_E\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(P(H|E)\)</span></th>
+<th class="rline" data-quarto-table-cell-role="th"><span class="math inline">\(\Lambda_H\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(\vec{P}(E|H)\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(\vec{\Lambda}_E\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(\vec{P}(H|E)\)</span></th>
+<th data-quarto-table-cell-role="th"><span class="math inline">\(\vec{\Lambda}_H\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="section-header odd">
+<td colspan="11" class="bold center" style="background-color: #f0f0f0"><strong>en→it</strong></td>
+</tr>
+<tr class="even">
+<td class="mediumrow"><span class="light-content" style="color: #3949f5;"><span class="smallcaps">No High.</span></span></td>
+<td>-</td>
+<td class="rline">0.05</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td class="rline">-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td><span class="light-content" style="color: #888888;"><span class="smallcaps">Random</span></span></td>
+<td>0.16</td>
+<td class="rline">-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td class="rline">-</td>
+<td>0.06</td>
+<td>1.20</td>
+<td>0.18</td>
+<td>1.20</td>
+</tr>
+<tr class="even">
+<td><span class="light-content" style="color: #1c9a0e;"><span class="smallcaps">Oracle</span></span></td>
+<td>0.15</td>
+<td class="rline">0.12</td>
+<td class="bold">0.37</td>
+<td class="bold">4.62</td>
+<td class="bold underline">0.45</td>
+<td class="bold rline">4.1</td>
+<td class="bold">0.18<span style="color: #dc143c; font-size: 1em;">₋₀.₁₉</span></td>
+<td class="bold">6.00<span style="color: #228b22; font-size: 1em;">₊₁.₃₈</span></td>
+<td class="bold underline">0.55<span style="color: #228b22; font-size: 1em;">₊₀.₁₀</span></td>
+<td class="bold">4.23<span style="color: #228b22; font-size: 1em;">₊₀.₁₄</span></td>
+</tr>
+<tr class="odd">
+<td><span class="light-content" style="color: #e6950a;"><span class="smallcaps">Unsup.</span></span></td>
+<td>0.16</td>
+<td class="rline">0.13</td>
+<td>0.25</td>
+<td>2.27</td>
+<td>0.21</td>
+<td class="rline">2.2</td>
+<td>0.11<span style="color: #dc143c; font-size: 1em;">₋₀.₁₄</span></td>
+<td>2.75<span style="color: #228b22; font-size: 1em;">₊₀.₄₈</span></td>
+<td>0.37<span style="color: #228b22; font-size: 1em;">₊₀.₁₆</span></td>
+<td>2.47<span style="color: #228b22; font-size: 1em;">₊₀.₂₆</span></td>
+</tr>
+<tr class="midrule even">
+<td><span class="light-content" style="color: #dc0d97;"><span class="smallcaps">Sup.</span></span></td>
+<td>0.12</td>
+<td class="rline">0.16</td>
+<td>0.28</td>
+<td>2.00</td>
+<td>0.22</td>
+<td class="rline">2.0</td>
+<td>0.14<span style="color: #dc143c; font-size: 1em;">₋₀.₁₄</span></td>
+<td>3.50<span style="color: #228b22; font-size: 1em;">₊₁.₅₀</span></td>
+<td>0.35<span style="color: #228b22; font-size: 1em;">₊₀.₁₃</span></td>
+<td>3.18<span style="color: #228b22; font-size: 1em;">₊₁.₁₈</span></td>
+</tr>
+<tr class="section-header odd">
+<td colspan="11" class="bold center" style="background-color: #f0f0f0"><strong>en→nl</strong></td>
+</tr>
+<tr class="even">
+<td><span class="light-content" style="color: #3949f5;"><span class="smallcaps">No High.</span></span></td>
+<td>-</td>
+<td class="rline">0.14</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td class="rline">-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td><span class="light-content" style="color: #888888;"><span class="smallcaps">Random</span></span></td>
+<td>0.17</td>
+<td class="rline">-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td class="rline">-</td>
+<td>0.16</td>
+<td>1.14</td>
+<td>0.19</td>
+<td>1.19</td>
+</tr>
+<tr class="even">
+<td><span class="light-content" style="color: #1c9a0e;"><span class="smallcaps">Oracle</span></span></td>
+<td>0.20</td>
+<td class="rline">0.10</td>
+<td class="bold">0.26</td>
+<td class="bold underline">4.33</td>
+<td class="bold underline">0.53</td>
+<td class="rline">3.12</td>
+<td class="bold">0.28<span style="color: #228b22; font-size: 1em;">₊₀.₀₂</span></td>
+<td class="bold">2.55<span style="color: #dc143c; font-size: 1em;">₋₁.₇₈</span></td>
+<td class="bold underline">0.40<span style="color: #dc143c; font-size: 1em;">₋₀.₁₃</span></td>
+<td>2.35<span style="color: #dc143c; font-size: 1em;">₋₀.₇₇</span></td>
+</tr>
+<tr class="odd">
+<td><span class="light-content" style="color: #e6950a;"><span class="smallcaps">Unsup.</span></span></td>
+<td>0.20</td>
+<td class="rline">0.11</td>
+<td>0.20</td>
+<td>2.50</td>
+<td>0.36</td>
+<td class="rline">2.00</td>
+<td>0.22<span style="color: #228b22; font-size: 1em;">₊₀.₀₂</span></td>
+<td>1.83<span style="color: #dc143c; font-size: 1em;">₋₀.₆₇</span></td>
+<td>0.31<span style="color: #dc143c; font-size: 1em;">₋₀.₀₅</span></td>
+<td>1.72<span style="color: #dc143c; font-size: 1em;">₋₀.₂₈</span></td>
+</tr>
+<tr class="even">
+<td><span class="light-content" style="color: #dc0d97;"><span class="smallcaps">Sup.</span></span></td>
+<td>0.12</td>
+<td class="rline">0.09</td>
+<td>0.24</td>
+<td>3.43</td>
+<td>0.33</td>
+<td class="bold rline">3.30</td>
+<td class="bold">0.28<span style="color: #228b22; font-size: 1em;">₊₀.₀₄</span></td>
+<td>2.33<span style="color: #dc143c; font-size: 1em;">₋₁.₁₀</span></td>
+<td>0.24<span style="color: #dc143c; font-size: 1em;">₋₀.₀₉</span></td>
+<td class="bold">2.40<span style="color: #dc143c; font-size: 1em;">₋₀.₉₀</span></td>
+</tr>
+</tbody>
+</table>
+
+
+<style>
+    .fs12 {
+        font-size: 12px;
+    }
+</style>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-qe4pe-highlights-edits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.6: Highlighting (<span class="math inline">\(H\)</span>) and editing (<span class="math inline">\(E\)</span>) average statistics across directions and highlight modalities. <strong>Measured</strong>: actual edits performed in the specified modality. <strong>Projected</strong>: using modality highlights over <span class="light-content" style="color: #3949f5;"><span class="smallcaps">No Highlight</span></span> edits to account for editing biases (<a href="#sec-qe4pe-highlights-edits" class="quarto-xref"><span>Section 9.3.2</span></a>). Random highlights matching average word frequencies are used as <span class="light-content" style="color: #888888;">random</span> baseline, and Projected <span class="light-content" style="color: #228b22;">increases<span class="math inline">\(_\uparrow\)</span></span>/<span class="light-content" style="color: #dc143c;">decreases<span class="math inline">\(_\downarrow\)</span></span> compared to Measured counterparts are shown. Significant <span class="light-content" style="color: #1c9a0e;">Oracle</span> gains over all other modalities are <u>underlined</u> (<span class="math inline">\(p&lt;0.05\)</span> with Bonferroni correction).
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Do Highlights Accurately Identify Potential Issues?</span> <a href="#tbl-qe4pe-highlights-edits" class="quarto-xref">Table&nbsp;<span>9.6</span></a> (Base Freq.) shows raw highlight and edit frequencies across modalities. We observe different trends across the two language pairs: for English<span class="math inline">\(\rightarrow\)</span>Italian, post-editors working with highlights edit more than twice as much as those working with <span class="light-content" style="color: #3949f5;">No Highlight</span>, regardless of the highlight modality. On the contrary, for English<span class="math inline">\(\rightarrow\)</span>Dutch they edit 33% less in the same setting. These results suggest a different attitude towards acting upon highlighted potential issues across the two translation directions, with English<span class="math inline">\(\rightarrow\)</span>Italian translators appearing to be more inclined to perform more edits when highlights are present. We introduce four metrics to quantify highlights-edits overlap:</p>
+<ul>
+<li><span class="math inline">\(P(E|H)\)</span> and <span class="math inline">\(P(H|E)\)</span>, reflecting highlights’ <em>precision</em> and <em>recall</em> in predicting edits, respectively.</li>
+<li><span class="math inline">\(\Lambda_E\,{\stackrel{\text{\tiny def}}{=}}\,P(E|H)/P(E|\neg H)\)</span> shows how much more likely an edit is to fall within rather than outside highlighted characters.</li>
+<li><span class="math inline">\(\Lambda_H\,{\stackrel{\text{\tiny def}}{=}}\,P(H|E)/P(H|\neg E)\)</span> shows how much more likely it is for a highlight to mark edited rather than unmodified spans.</li>
+</ul>
+<p>Intuitively, character-level recall <span class="math inline">\(P(H|E)\)</span> should be more indicative of highlight quality compared to precision <span class="math inline">\(P(E|H)\)</span>, provided that word-level highlights can be useful even when not minimal. For example, if the fully-highlighted word <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;"><em>tradutt<u>ore</u></em></span> is changed to its feminine version <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;"><em>tradutt<u>rice</u></em></span>, <span class="math inline">\(P(H|E) = 1\)</span> (edit correctly and fully predicted) but <span class="math inline">\(P(E|H) = 0.3\)</span> since word stem characters are left unchanged. <a href="#tbl-qe4pe-highlights-edits" class="quarto-xref">Table&nbsp;<span>9.6</span></a> (Measured) shows metric values across the three highlight modalities<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. As expected, <span class="light-content" style="color: #1c9a0e;">Oracle</span> highlights obtain the best performance in terms of precision and recall, with <span class="math inline">\(P(H|E)\)</span>, in particular, being significantly higher than the other two modalities across both directions.</p>
+<p>Surprisingly, <strong>we find no significant precision and recall differences between <span class="light-content" style="color: #dc0d97;">Oracle</span> and <span class="light-content" style="color: #e6950a;">Unsupervised</span> highlights</strong>, despite the word-level QE training of <span class="smallcaps">xcomet</span> used in the former modality. Moreover, they support the potential of unsupervised, model internals-based techniques to complement or substitute more expensive supervised approaches. Still, likelihood ratios <span class="math inline">\(\Lambda_E, \Lambda_H \gg  1\)</span> for all modalities and directions indicate that highlights are 2-4 times more likely to precisely and comprehensively encompass edits than non-highlighted texts. This suggests that even imperfect highlights that do not reach <span class="light-content" style="color: #1c9a0e;">Oracle</span>-level quality might effectively direct editing efforts toward potential issues. We validate these observations by fitting a zero-inflated negative binomial mixed-effects model to predict segment-level edit rates. Results confirm a significantly higher edit rate for English<span class="math inline">\(\rightarrow\)</span>Italian highlighted modalities and the social media domain with <span class="math inline">\(p&lt;0.001\)</span> (features and significances shown in Appendix <a href="appendix-c.html#tbl-qe4pe-edit-rate-model" class="quarto-xref">Table&nbsp;<span>C.11</span></a>). We find a significant zero inflation associated with translator identity, suggesting the choice of leaving MT outputs unedited is highly subjective.</p>
+<p><span class="paragraph">Do Highlights Influence Editing Choices?</span> Since we found in <a href="#sec-qe4pe-productivity" class="quarto-xref"><span>Section 9.3.1</span></a> that the proportion of highlighted characters affects the editing rate of translators, we question whether the relatively high <span class="math inline">\(P(E|H)\)</span> and <span class="math inline">\(P(H|E)\)</span> values might be artificially inflated by translators’ eagerness to intervene on highlighted spans. In other words, do highlights identify actual issues, or do they condition translators to edit when they otherwise would not? To answer this, we propose to <em>project</em> highlights from a selected modality—in which highlights were shown during editing—onto the edits performed by the <span class="light-content" style="color: #3949f5;">No Highlight</span> translators on the same segments. The resulting difference between measured and projected metrics can then be used as an estimate of the impact of highlight presentation on their resulting accuracy.</p>
+<p>To further ensure the soundness of our analysis, we use a set of projected <span class="light-content" style="color: #888888;">Random</span> highlights as a lower bound for highlight performance. To make the comparison fair, <span class="light-content" style="color: #888888;">Random</span> highlights are created by randomly highlighting words in MT outputs to match the average word-level highlight frequency across all highlighted modalities, given the current domain and translation direction. <a href="#tbl-qe4pe-highlights-edits" class="quarto-xref">Table&nbsp;<span>9.6</span></a> (Projected) shows results for the three highlighted modalities. First, all projected metrics remain consistently above the <span class="light-content" style="color: #888888;">Random</span> baseline, suggesting a higher-than-chance ability to identify errors even for worst-performing highlight modalities. Projected precision scores <span class="math inline">\(P(E|H)\)</span> depend on edit frequency, and hence see a major decrease for English<span class="math inline">\(\rightarrow\)</span>Italian, where the <span class="light-content" style="color: #3949f5;">No Highlight</span> edit rate <span class="math inline">\(P(E)\)</span> is much lower. However, the increase in <span class="math inline">\(\Lambda_E\)</span> across all English<span class="math inline">\(\rightarrow\)</span>Italian modalities confirms that, despite the lower edit proportion, highlighted texts remain notably more likely to be edited than non-highlighted ones. Conversely, the lower <span class="math inline">\(\Lambda_E\)</span>, <span class="math inline">\(P(H|E)\)</span> and <span class="math inline">\(\Lambda_H\)</span> for English<span class="math inline">\(\rightarrow\)</span>Dutch show that edits become much less skewed towards highlighted spans in this direction when accounting for presentation bias.</p>
+<p>Overall, while the presence of highlights makes English<span class="math inline">\(\rightarrow\)</span>Italian translators more likely to intervene in MT outputs, their location in the MT output often pinpoints issues that would be edited regardless of the highlighting. English<span class="math inline">\(\rightarrow\)</span>Dutch translators, on the contrary, intervene at roughly the same rate regardless of highlight presence, but their edits are focused mainly on highlighted spans when they are present. This difference is consistent across all subjects in both directions, despite the identical setup and comparable MT and QE quality across languages. This suggests that cultural factors may play a non-trivial role in determining the usability and influence of QE methods regardless of span accuracy, a phenomenon previously observed in human-AI interaction studies <span class="citation" data-cites="ge-etal-2024-culture">Ge et al. (<a href="references.html#ref-ge-etal-2024-culture" role="doc-biblioref">2024</a>)</span>.</p>
+</section>
+<section id="sec-qe4pe-quality" class="level3" data-number="9.3.3">
+<h3 data-number="9.3.3" class="anchored" data-anchor-id="sec-qe4pe-quality"><span class="header-section-number">9.3.3</span> Quality Assessment</h3>
+<p>We continue our assessment by inspecting the quality of MT and post-edited outputs along three dimensions. First, we use <span class="smallcaps">xcomet</span> segment-level QE ratings as an automatic approximation of quality and compare them to human-annotated quality scores collected in the last phase of our study. For efficiency, these are obtained for the 0-100 Direct Assessment scale commonly used in QE evaluation <span class="citation" data-cites="specia-etal-2020-findings-wmt">(<a href="references.html#ref-specia-etal-2020-findings-wmt" role="doc-biblioref">Specia et al., 2020</a>)</span>, but following an initial step of MQM error annotation to condition scoring on found errors, as prescribed by the ESA protocol <span class="citation" data-cites="kocmi-etal-2024-error">(<a href="references.html#ref-kocmi-etal-2024-error" role="doc-biblioref">Kocmi et al., 2024b</a>)</span>. Then, MQM error span annotations are used to analyze the distribution of error categories. Finally, we manually assess critical errors, which were inserted to quantify the effect of highlighting modalities on unambiguous issues.</p>
+<p><span class="paragraph">Do Highlights Influence Post-Editing Quality?</span> In this stage, we focus particularly on <em>edited quality improvements</em>, i.e.&nbsp;how post-editing the same MT outputs under different highlight conditions influences the resulting quality of translations. We operationalize this assessment using human ratings and automatic metrics to score MT and post-edited translations, using their difference as the effective quality gain after the post-editing stage. Scores for this metric are generally positive—that is, human post-editing improves quality—and are bounded by the maximal achievable quality gain given the initial MT quality. <a href="#fig-qe4pe-quality" class="quarto-xref">Figure&nbsp;<span>9.4</span></a> shows median improvement values across quality bins defined from the distribution of initial MT quality scores (shown in histograms), in which all post-edited versions of each MT output appear as separate observations. Positive median scores confirm that post-edits generally lead to improvements in quality across all tested settings. However, we observe different trends across the two metrics: across both domains, <span class="smallcaps">xcomet</span> greatly underestimates the human-assessed ESA quality improvement, especially for biomedical texts, where it shows negligible improvement regardless of the initial MT quality. These results echo recent findings cautioning users against the poor performance of trained MT metrics for unseen domains and high-quality translations <span class="citation" data-cites="agrawal-etal-2024-automatic-metrics zouhar-etal-2024-fine">(<a href="references.html#ref-agrawal-etal-2024-automatic-metrics" role="doc-biblioref">Agrawal et al., 2024</a>; <a href="references.html#ref-zouhar-etal-2024-fine" role="doc-biblioref">Zouhar et al., 2024</a>)</span>. Focusing on the more reliable ESA scores, we observe large quality improvements from post-editing, as indicated by near-maximal quality gains across most bins and highlight modalities. While <span class="light-content" style="color: #3949f5;">No Highlight</span> seems to underperform other modalities in the social media domain, the lack of more notable differences in gains across highlight modalities suggests that <strong>highlights’ quality impact might not be evident in terms of segment-level quality</strong>, motivating our next steps in the quality analysis.</p>
+<div id="fig-qe4pe-quality" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qe4pe-quality-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-9-qe4pe/quality_edited_horizontal.webp" class="img-fluid figure-img" style="width:100.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qe4pe-quality-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.4: Median quality improvement for post-edited segments at various initial MT quality levels across domains and highlight modalities. Quality scores are estimated using <span class="smallcaps">xcomet</span> segment-level QE (top) and professional ESA annotations (bottom). Histograms show example counts across quality bins for the two metrics. Dotted lines show upper bounds for quality improvements given starting MT quality.
+</figcaption>
+</figure>
+</div>
+<p>We also find no clear relationship between translator speed and improved edited quality, suggesting that higher productivity does not come at a cost for faster translators (<a href="#fig-qe4pe-quality-across-speed" class="quarto-xref">Figure&nbsp;<span>9.5</span></a>). This finding confirms that neglecting errors is not the cause of the different editing patterns observed in previous sections.</p>
+<div id="fig-qe4pe-quality-across-speed" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qe4pe-quality-across-speed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-9-qe4pe/esa_quality_speed.webp" class="img-fluid figure-img" style="width:70.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qe4pe-quality-across-speed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.5: Median ESA quality improvement following post-editing for segments at various initial MT quality levels across translators’ speed groups, showing no clear quality trends across editors’ productivity levels.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Which Error Types Do Highlights Identify?</span> <a href="#tbl-qe4pe-mqm-errors-full" class="quarto-xref">Table&nbsp;<span>9.7</span></a> shows a breakdown of MQM annotations for MT and all highlight modalities using the <em>Accuracy</em>, <em>Style</em> and <em>Linguistic</em> macro-categories of MQM errors.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> At this granularity, differences across modalities become visible, with overall error counts showing a clear relation to <span class="math inline">\(\Lambda_E\)</span> from <a href="#tbl-qe4pe-highlights-edits" class="quarto-xref">Table&nbsp;<span>9.6</span></a>, i.e.&nbsp;<span class="light-content" style="color: #1c9a0e;">Oracle</span> being remarkably better for English<span class="math inline">\(\rightarrow\)</span>Italian, with milder and more uniform trends in English<span class="math inline">\(\rightarrow\)</span>Dutch. At least for English<span class="math inline">\(\rightarrow\)</span>Italian, these results confirm that an observable quality improvement from editing with highlights is present in the best-case <span class="light-content" style="color: #1c9a0e;">Oracle</span> scenario. By contrast, for English<span class="math inline">\(\rightarrow\)</span>Dutch, the <span class="light-content" style="color: #e6950a;">Unsupervised</span> method is found to outperform even the <span class="light-content" style="color: #1c9a0e;">Oracle</span> setting in reducing the amount of errors, while it fares relatively poorly for English<span class="math inline">\(\rightarrow\)</span>Italian. We also observe a distinct distribution of Accuracy and Style errors, with the formers being more prevalent in biomedical texts, and the latters appearing more frequently in translated social media posts (<a href="appendix-c.html#fig-qe4pe-quality-mqm" class="quarto-xref">Figure&nbsp;<span>C.8</span></a>). We posit that differences in error types across domains might explain the opposite productivity trends observed in <a href="#sec-qe4pe-productivity" class="quarto-xref"><span>Section 9.3.1</span></a>. While highlighted accuracy errors might lead to time-consuming terminology verification in biomedical texts, style errors might be corrected more quickly and naturally in the social media domain.</p>
+<div id="tbl-qe4pe-mqm-errors-full" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-qe4pe-mqm-errors-full-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable smallfont table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"><strong>Language</strong></th>
+<th rowspan="2" data-quarto-table-cell-role="th"><strong>MQM Category</strong></th>
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><strong>MT</strong></th>
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><span class="light-content" style="color: #3949f5;"><span class="smallcaps">No Highlight</span></span></th>
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><span class="light-content" style="color: #1c9a0e;"><span class="smallcaps">Oracle</span></span></th>
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><span class="light-content" style="color: #e6950a;"><span class="smallcaps">Unsupervised</span></span></th>
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><span class="light-content" style="color: #dc0d97;"><span class="smallcaps">Supervised</span></span></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th"><strong>Maj.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Min.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Maj.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Min.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Maj.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Min.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Maj.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Min.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Maj.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Min.</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="12" class="rowspan"><strong>Italian</strong></td>
+<td class="longrow">Accuracy - Addition</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Accuracy - Mistranslation</td>
+<td>21</td>
+<td>22</td>
+<td>10</td>
+<td>12</td>
+<td>4</td>
+<td>8</td>
+<td>24</td>
+<td>17</td>
+<td>17</td>
+<td>17</td>
+</tr>
+<tr class="odd">
+<td>Accuracy - Inconsistency</td>
+<td>2</td>
+<td>4</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Accuracy - Omission</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="midrule odd">
+<td>Accuracy - Untranslated</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Style - Inconsistent Style</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Style - Readability</td>
+<td>17</td>
+<td>25</td>
+<td>5</td>
+<td>30</td>
+<td>0</td>
+<td>12</td>
+<td>4</td>
+<td>34</td>
+<td>1</td>
+<td>29</td>
+</tr>
+<tr class="midrule even">
+<td>Style - Wrong Register</td>
+<td>0</td>
+<td>8</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Linguistic - Grammar</td>
+<td>6</td>
+<td>15</td>
+<td>2</td>
+<td>16</td>
+<td>0</td>
+<td>5</td>
+<td>3</td>
+<td>12</td>
+<td>2</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>Linguistic - Punctuation</td>
+<td>1</td>
+<td>13</td>
+<td>0</td>
+<td>9</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>6</td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr class="midrule odd">
+<td>Linguistic - Spelling</td>
+<td>5</td>
+<td>3</td>
+<td>0</td>
+<td>4</td>
+<td>0</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="midrule even">
+<td class="bold">Total</td>
+<td class="bold">55</td>
+<td class="bold">95</td>
+<td class="bold">19</td>
+<td class="bold">79</td>
+<td class="bold">6</td>
+<td class="bold">38</td>
+<td class="bold">42</td>
+<td class="bold">77</td>
+<td class="bold">28</td>
+<td class="bold">71</td>
+</tr>
+<tr class="odd">
+<td rowspan="12" class="rowspan"><strong>Dutch</strong></td>
+<td>Accuracy - Addition</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Accuracy - Mistranslation</td>
+<td>25</td>
+<td>34</td>
+<td>18</td>
+<td>25</td>
+<td>23</td>
+<td>27</td>
+<td>12</td>
+<td>31</td>
+<td>16</td>
+<td>29</td>
+</tr>
+<tr class="odd">
+<td>Accuracy - Inconsistency</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Accuracy - Omission</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr class="midrule odd">
+<td>Accuracy - Untranslated</td>
+<td>4</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>3</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Style - Inconsistent Style</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+<td>1</td>
+<td>7</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>Style - Readability</td>
+<td>1</td>
+<td>27</td>
+<td>1</td>
+<td>20</td>
+<td>0</td>
+<td>13</td>
+<td>2</td>
+<td>15</td>
+<td>6</td>
+<td>41</td>
+</tr>
+<tr class="midrule even">
+<td>Style - Wrong Register</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Linguistic - Grammar</td>
+<td>3</td>
+<td>19</td>
+<td>2</td>
+<td>14</td>
+<td>3</td>
+<td>23</td>
+<td>2</td>
+<td>6</td>
+<td>3</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>Linguistic - Punctuation</td>
+<td>0</td>
+<td>6</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>4</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr class="midrule odd">
+<td>Linguistic - Spelling</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td class="bold">Total</td>
+<td class="bold">39</td>
+<td class="bold">95</td>
+<td class="bold">24</td>
+<td class="bold">77</td>
+<td class="bold">32</td>
+<td class="bold">88</td>
+<td class="bold">18</td>
+<td class="bold">66</td>
+<td class="bold">30</td>
+<td class="bold">104</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-qe4pe-mqm-errors-full-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.7: MQM error counts averaged across <span class="math inline">\(n = 3\)</span> translators per highlight modality for every translation direction. A description of MQM categories is available in <a href="#tbl-qe4pe-qa-guidelines" class="quarto-xref">Table&nbsp;<span>9.1</span></a>.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Do Highlights Detect Critical Errors?</span> We examine whether the critical errors we inserted were detected by different modalities, finding that while most modalities fare decently with more than 62% of critical errors highlighted, <span class="light-content" style="color: #e6950a;">Unsupervised</span> is the only setting for which all errors are correctly highlighted across both directions (<a href="#tbl-qe4pe-critical-errors" class="quarto-xref">Table&nbsp;<span>9.8</span></a>). Then, critical errors are manually verified in all outputs, finding that 16-20% more critical errors are edited in highlighted modalities compared to <span class="light-content" style="color: #3949f5;">No Highlight</span>. Hence, <strong>highlights might lead to narrow but tangible quality improvements that can go undetected in coarse quality assessments</strong>, and finer-grained evaluations might be needed to quantify future improvements in word-level QE quality.</p>
+<div id="tbl-qe4pe-critical-errors" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-qe4pe-critical-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"><strong># Doc.-Seg.</strong></th>
+<th rowspan="2" data-quarto-table-cell-role="th"><strong>Error Type</strong></th>
+<th colspan="3" class="group-header rline" data-quarto-table-cell-role="th"><strong>Has Highlight</strong></th>
+<th colspan="4" class="group-header" data-quarto-table-cell-role="th"><strong>% Post-edited</strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th"><span class="light-content" style="color: #1c9a0e;"><span class="smallcaps">Oracle</span></span></th>
+<th data-quarto-table-cell-role="th"><span class="light-content" style="color: #e6950a;"><span class="smallcaps">Unsup.</span></span></th>
+<th class="rline" data-quarto-table-cell-role="th"><span class="light-content" style="color: #dc0d97;"><span class="smallcaps">Sup.</span></span></th>
+<th data-quarto-table-cell-role="th"><span class="light-content" style="color: #3949f5;"><span class="smallcaps">No High.</span></span></th>
+<th data-quarto-table-cell-role="th"><span class="light-content" style="color: #1c9a0e;"><span class="smallcaps">Oracle</span></span></th>
+<th data-quarto-table-cell-role="th"><span class="light-content" style="color: #e6950a;"><span class="smallcaps">Unsup.</span></span></th>
+<th data-quarto-table-cell-role="th"><span class="light-content" style="color: #dc0d97;"><span class="smallcaps">Sup.</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1-8</td>
+<td>Wrong number</td>
+<td><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld Only</span></span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td>67</td>
+<td class="bold">83</td>
+<td class="bold">83</td>
+<td class="bold">83</td>
+</tr>
+<tr class="even">
+<td>13-6</td>
+<td>Remove negation</td>
+<td><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Ita Only</span></span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="bold">50</td>
+<td>33</td>
+<td>33</td>
+<td class="bold">50</td>
+</tr>
+<tr class="odd">
+<td>16-3</td>
+<td>Title literal translation</td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td>83</td>
+<td class="bold">100</td>
+<td class="bold">100</td>
+<td class="bold">100</td>
+</tr>
+<tr class="even">
+<td>20-1</td>
+<td>Wrong acronym</td>
+<td><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld Only</span></span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Ita Only</span></span></td>
+<td>0</td>
+<td class="bold">33</td>
+<td class="bold">33</td>
+<td class="bold">33</td>
+</tr>
+<tr class="odd">
+<td>20-7</td>
+<td class="longrow">Wrong acronym (1)</td>
+<td><span class="light-content" style="color: #e06666;">Neither</span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #e06666;">Neither</span></td>
+<td>0</td>
+<td class="bold">58</td>
+<td>50</td>
+<td>25</td>
+</tr>
+<tr class="even">
+<td>20-7</td>
+<td>Wrong acronym (2)</td>
+<td class="mediumrow"><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld Only</span></span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Ita Only</span></span></td>
+<td>0</td>
+<td class="bold">58</td>
+<td>50</td>
+<td>25</td>
+</tr>
+<tr class="odd">
+<td>22-1</td>
+<td>Name literal translation</td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline mediumrow"><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td>50</td>
+<td>50</td>
+<td class="bold">83</td>
+<td>67</td>
+</tr>
+<tr class="even">
+<td>23-4</td>
+<td>Addition</td>
+<td><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld Only</span></span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #e06666;">Neither</span></td>
+<td class="bold">100</td>
+<td class="bold">100</td>
+<td>83</td>
+<td>50</td>
+</tr>
+<tr class="odd">
+<td>31-2</td>
+<td>Wrong acronym</td>
+<td><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld Only</span></span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #e06666;">Neither</span></td>
+<td>17</td>
+<td class="bold">33</td>
+<td>17</td>
+<td class="bold">33</td>
+</tr>
+<tr class="even">
+<td>34-7</td>
+<td>Numbers swapped</td>
+<td><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld Only</span></span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld Only</span></span></td>
+<td>17</td>
+<td>50</td>
+<td>33</td>
+<td class="bold">67</td>
+</tr>
+<tr class="odd">
+<td>37-4</td>
+<td>Verb polarity inverted</td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td>67</td>
+<td class="bold">83</td>
+<td>67</td>
+<td class="bold">83</td>
+</tr>
+<tr class="even">
+<td>43-5</td>
+<td>Wrong name</td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td>50</td>
+<td class="bold">83</td>
+<td>67</td>
+<td class="bold">83</td>
+</tr>
+<tr class="midrule odd">
+<td>48-5</td>
+<td>Wrong term</td>
+<td><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld Only</span></span></td>
+<td><span class="light-content" style="color: #b6d7a8;">Both</span></td>
+<td class="rline"><span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld Only</span></span></td>
+<td>67</td>
+<td>50</td>
+<td class="bold">83</td>
+<td class="bold">83</td>
+</tr>
+<tr class="even">
+<td></td>
+<td class="bold">Total (%)</td>
+<td>65</td>
+<td class="bold">100</td>
+<td class="rline">62</td>
+<td>44</td>
+<td class="bold">63</td>
+<td>60</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-qe4pe-critical-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.8: Highlighting and post-editing statistics for manual critical errors (<a href="#sec-qe4pe-data" class="quarto-xref"><span>Section 9.2.3</span></a>). Labels in <strong>Has Highlight</strong> columns indicate whether the error was highlighted in <span class="light-content" style="color: #b6d7a8;">Both</span>, only one (<span class="light-content" style="color: #ffb366;"><span class="smallcaps">Ita</span></span> / <span class="light-content" style="color: #ffb366;"><span class="smallcaps">Nld</span></span>) only or <span class="light-content" style="color: #e06666;">Neither</span> directions. Total scores represent the percentage of detected errors (13 errors, 6 editors per highlight modality).
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-qe4pe-usability" class="level3" data-number="9.3.4">
+<h3 data-number="9.3.4" class="anchored" data-anchor-id="sec-qe4pe-usability"><span class="header-section-number">9.3.4</span> Usability</h3>
+<p>In the post-task questionnaire answers (<a href="#tbl-qe4pe-questionnaire" class="quarto-xref">Table&nbsp;<span>9.9</span></a>), most translators stated that the MT outputs had an average-to-high quality and that the provided texts were challenging to translate. Highlights were generally found to be reasonably accurate, but they were generally not found helpful to improve either productivity or quality (including <span class="light-content" style="color: #1c9a0e;">Oracle</span> ones). Interestingly, despite the convincing gains for critical errors measured in the last section, most translators stated that highlights did not influence their editing and did not help them identify errors that would have otherwise been missed. Specifically, this suggests that translators may not readily perceive potential quality improvements and may consider them secondary to the extra cognitive load elicited by highlighted spans. When asked to comment about highlights, several translators called them <em>“more of an eye distraction, as they often weren’t actual mistakes”</em> and <em>“not quite accurate enough to rely on them as a suggestion”</em>. Some translators also stated that missed errors led them to <em>“disregarding the highlights to focus on checking each sentence”</em>. Despite their high quality, only one editor working with <span class="light-content" style="color: #1c9a0e;">Oracle</span> highlights found highlights helpful in <em>“making the editing process faster and somehow easier”</em>. Taken together, these comments convincingly suggest a negative perception of the quality and usefulness of highlights, indicating that <strong>improvement in QE accuracy may not be sufficient to enhance QE usefulness</strong> in editors’ eyes.</p>
+<div id="tbl-qe4pe-questionnaire" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-qe4pe-questionnaire-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p style="font-weight: bold;font-style: italic;font-size: 0.8em">Hover bars to see avg. response values.</p>
+
+<table class="center-table leftalign table" data-quarto-postprocess="true">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Question</strong></th>
+<th class="bar-chart-cell" data-quarto-table-cell-role="th"><strong>Italian</strong></th>
+<th class="bar-chart-cell" data-quarto-table-cell-role="th"><strong>Dutch</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="longrow">MT outputs were generally of high quality.</td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group">
+<div class="bar" style="height: 66.6%; background-color: #3949f5;" title="No Highlight: 3.33">
+
+</div>
+<div class="bar" style="height: 73.2%; background-color: #1c9a0e;" title="Oracle: 3.66">
+
+</div>
+<div class="bar" style="height: 60%; background-color: #e6950a;" title="Unsupervised: 3">
+
+</div>
+<div class="bar" style="height: 60%; background-color: #dc0d97;" title="Supervised: 3">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group">
+<div class="bar" style="height: 46.6%; background-color: #3949f5;" title="No Highlight: 2.33">
+
+</div>
+<div class="bar" style="height: 60%; background-color: #1c9a0e;" title="Oracle: 3">
+
+</div>
+<div class="bar" style="height: 46.6%; background-color: #e6950a;" title="Unsupervised: 2.33">
+
+</div>
+<div class="bar" style="height: 73.2%; background-color: #dc0d97;" title="Supervised: 3.66">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+</tr>
+<tr class="midrule even">
+<td>Provided texts were challenging to translate.</td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group">
+<div class="bar" style="height: 66.6%; background-color: #3949f5;" title="No Highlight: 3.33">
+
+</div>
+<div class="bar" style="height: 73.4%; background-color: #1c9a0e;" title="Oracle: 3.67">
+
+</div>
+<div class="bar" style="height: 73.4%; background-color: #e6950a;" title="Unsupervised: 3.67">
+
+</div>
+<div class="bar" style="height: 86.6%; background-color: #dc0d97;" title="Supervised: 4.33">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group">
+<div class="bar" style="height: 93.4%; background-color: #3949f5;" title="No Highlight: 4.67">
+
+</div>
+<div class="bar" style="height: 73.4%; background-color: #1c9a0e;" title="Oracle: 3.67">
+
+</div>
+<div class="bar" style="height: 86.6%; background-color: #e6950a;" title="Unsupervised: 4.33">
+
+</div>
+<div class="bar" style="height: 60%; background-color: #dc0d97;" title="Supervised: 3.00">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+</tr>
+<tr class="odd">
+<td class="bold">Highlights ...</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>... were generally accurate in detecting potential issues.</td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 53.4%; background-color: #1c9a0e;" title="Oracle: 2.67">
+
+</div>
+<div class="bar" style="height: 53.4%; background-color: #e6950a;" title="Unsupervised: 2.67">
+
+</div>
+<div class="bar" style="height: 40%; background-color: #dc0d97;" title="Supervised: 2">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 60%; background-color: #1c9a0e;" title="Oracle: 3">
+
+</div>
+<div class="bar" style="height: 60%; background-color: #e6950a;" title="Unsupervised: 3">
+
+</div>
+<div class="bar" style="height: 53.4%; background-color: #dc0d97;" title="Supervised: 2.67">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+</tr>
+<tr class="odd">
+<td>... were generally useful during editing.</td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 46.6%; background-color: #1c9a0e;" title="Oracle: 2.33">
+
+</div>
+<div class="bar" style="height: 46.6%; background-color: #e6950a;" title="Unsupervised: 2.33">
+
+</div>
+<div class="bar" style="height: 33.4%; background-color: #dc0d97;" title="Supervised: 1.67">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 33.4%; background-color: #1c9a0e;" title="Oracle: 1.67">
+
+</div>
+<div class="bar" style="height: 60%; background-color: #e6950a;" title="Unsupervised: 3">
+
+</div>
+<div class="bar" style="height: 46.6%; background-color: #dc0d97;" title="Supervised: 2.33">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<td>... improved my editing productivity.</td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 46.6%; background-color: #1c9a0e;" title="Oracle: 2.33">
+
+</div>
+<div class="bar" style="height: 46.6%; background-color: #e6950a;" title="Unsupervised: 2.33">
+
+</div>
+<div class="bar" style="height: 40%; background-color: #dc0d97;" title="Supervised: 2.00">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 40%; background-color: #1c9a0e;" title="Oracle: 2.0">
+
+</div>
+<div class="bar" style="height: 53.4%; background-color: #e6950a;" title="Unsupervised: 2.67">
+
+</div>
+<div class="bar" style="height: 33.4%; background-color: #dc0d97;" title="Supervised: 1.67">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+</tr>
+<tr class="odd">
+<td>... improved the quality of my translations.</td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 26.6%; background-color: #1c9a0e;" title="Oracle: 1.33">
+
+</div>
+<div class="bar" style="height: 53.4%; background-color: #e6950a;" title="Unsupervised: 2.67">
+
+</div>
+<div class="bar" style="height: 26.6%; background-color: #dc0d97;" title="Supervised: 1.33">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 40%; background-color: #1c9a0e;" title="Oracle: 2">
+
+</div>
+<div class="bar" style="height: 66.6%; background-color: #e6950a;" title="Unsupervised: 3.33">
+
+</div>
+<div class="bar" style="height: 33.4%; background-color: #dc0d97;" title="Supervised: 1.67">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<td>... required additional editing effort on my part.</td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 40%; background-color: #1c9a0e;" title="Oracle: 2.00">
+
+</div>
+<div class="bar" style="height: 53.4%; background-color: #e6950a;" title="Unsupervised: 2.67">
+
+</div>
+<div class="bar" style="height: 53.4%; background-color: #dc0d97;" title="Supervised: 2.67">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 40%; background-color: #1c9a0e;" title="Oracle: 2.00">
+
+</div>
+<div class="bar" style="height: 53.4%; background-color: #e6950a;" title="Unsupervised: 2.67">
+
+</div>
+<div class="bar" style="height: 53.4%; background-color: #dc0d97;" title="Supervised: 2.67">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+</tr>
+<tr class="odd">
+<td>... influenced my choices regarding edits.</td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 20%; background-color: #1c9a0e;" title="Oracle: 1">
+
+</div>
+<div class="bar" style="height: 40%; background-color: #e6950a;" title="Unsupervised: 2.00">
+
+</div>
+<div class="bar" style="height: 53.4%; background-color: #dc0d97;" title="Supervised: 2.67">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 33.4%; background-color: #1c9a0e;" title="Oracle: 1.67">
+
+</div>
+<div class="bar" style="height: 40%; background-color: #e6950a;" title="Unsupervised: 2.00">
+
+</div>
+<div class="bar" style="height: 40%; background-color: #dc0d97;" title="Supervised: 2.00">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<td>... helped identify errors I'd have otherwise missed.</td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 40%; background-color: #1c9a0e;" title="Oracle: 2">
+
+</div>
+<div class="bar" style="height: 46.6%; background-color: #e6950a;" title="Unsupervised: 2.33">
+
+</div>
+<div class="bar" style="height: 60%; background-color: #dc0d97;" title="Supervised: 3">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+<td class="bar-chart-cell"><div class="bar-chart">
+<div class="bar-group-3">
+<div class="bar" style="height: 26.6%; background-color: #1c9a0e;" title="Oracle: 1.33">
+
+</div>
+<div class="bar" style="height: 40%; background-color: #e6950a;" title="Unsupervised: 2">
+
+</div>
+<div class="bar" style="height: 33.4%; background-color: #dc0d97;" title="Supervised: 1.67">
+
+</div>
+</div>
+<div class="midline">
+
+</div>
+</div></td>
+</tr>
+</tbody>
+</table>
+
+
+<style>
+.bar-chart {
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.bar-group {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    width: 80px;
+    gap: 2px;
+}
+
+.bar-group-3 {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    width: 60px;
+    gap: 2px;
+}
+
+.bar {
+    width: 18px;
+    min-height: 2px;
+    transition: opacity 0.3s ease;
+}
+
+.bar:hover {
+    opacity: 0.8;
+}
+
+.midline {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-style: dashed;
+    border-width: 2px 0 0 0;
+    width: 80px;
+}
+</style>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-qe4pe-questionnaire-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.9: Post-task questionnaire responses. Bars represent responses ranging from 1–Strongly disagree (no bar) to 5–Strongly agree (full bar), averaged across <span class="math inline">\(n=3\)</span> translators per language for <span class="smallcaps">No Highlight</span>, <span class="smallcaps">Oracle</span>, <span class="smallcaps">Unsupervised</span>, and <span class="smallcaps">Supervised</span>. Dotted line mark avg. judgments of 3–Neither agree nor disagree.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-qe4pe-limitations" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="sec-qe4pe-limitations"><span class="header-section-number">9.4</span> Limitations</h2>
+<p>Our study presents certain limitations that warrant consideration when interpreting its findings and guiding future research.</p>
+<p>Firstly, while we included two domains and translation directions to improve the generalizability of our findings, our results suggest that language and domain play a crucial role in determining the effectiveness of word-level QE for human post-editing. While we observed mild gains from word-level QE on our tested mid-resourced translation directions (English<span class="math inline">\(\rightarrow\)</span>Italian and English<span class="math inline">\(\rightarrow\)</span>Dutch), we expect limited, if any, benefit of such approaches in low-resource languages and domains for which MT systems and QE methods are likely to underperform <span class="citation" data-cites="sarti-etal-2022-divemt zouhar-etal-2024-fine">(<a href="references.html#ref-sarti-etal-2022-divemt" role="doc-biblioref">Sarti et al., 2022</a>; <a href="references.html#ref-zouhar-etal-2024-fine" role="doc-biblioref">Zouhar et al., 2024</a>)</span>. Furthermore, the domains tested in our study (biomedical and social media posts) provided concrete challenges in the form of specialized terminology and idiomatic expressions, respectively, which are known to hinder the quality of MT outputs <span class="citation" data-cites="neves-etal-2024-findings bawden-sagot-2023-rocs">(<a href="references.html#ref-neves-etal-2024-findings" role="doc-biblioref">Neves et al., 2024</a>; <a href="references.html#ref-bawden-sagot-2023-rocs" role="doc-biblioref">Bawden and Sagot, 2023</a>)</span>. While future work should ensure that our findings can be extended to other domains and languages, the limited benefits brought by the tested word-level QE methods in challenging settings suggest a limited usefulness for higher-resource languages and more standard domains, such as news or Wikipedia texts.</p>
+<p>Secondly, we acknowledge that several design choices in our evaluation setup, rather than about the QE methods themselves, may have influenced our results. These include, for instance, the specific procedure for discretizing continuous scores from the <span class="light-content" style="color: #e6950a;">Unsupervised</span> method into error spans, and the method of obtaining <span class="light-content" style="color: #1c9a0e;">Oracle</span> highlights via majority voting among post-editors. While we believe these choices are justified within the context of our study, their impact on the outcomes cannot be entirely discounted. Future studies might benefit from a more fine-grained assessment of how such low-level decisions influence the perceived accuracy and usability of word-level QE.</p>
+<p>Finally, subjective factors such as the translators’ inherent propensity to edit, their prior opinions on the role of MT in post-editing, and their individual editing styles inevitably influenced both quantitative and qualitative assessments in this study. We attempted to mitigate these effects by ensuring a uniform and controlled evaluation setup for all 42 professional translators and by employing averaged judgments for translators working on the same highlight modality. However, we acknowledge that post-editor subjectivity might limit the reproducibility of our findings.</p>
+</section>
+<section id="sec-qe4pe-broader-impact" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="sec-qe4pe-broader-impact"><span class="header-section-number">9.5</span> Broader Impact and Ethical Considerations</h2>
+<p>Our study explicitly centers the experience of professional translators, responding to recent calls for user-centered evaluation of translation technologies. By prioritizing translators’ perspectives and productivity, we aim to contribute to methods that complement rather than replace human expertise. Our findings highlight a gap between user perception and measured quality improvements, suggesting that future efforts should focus primarily on improving the usability of these methods in editing interfaces. In particular, new assistive approaches for post-editing should not only strive to increase productivity but also reduce the cognitive burden associated with post-editing work. This insight is crucial for designing more user-centered quality estimation tools that genuinely support human work. Ultimately, our results suggest that subjective norms across different domains and cultures play an important role in determining the effectiveness of proposed methodologies, underscoring the importance of accounting for human factors when designing such evaluations. All participants in this study were professional translators who provided informed consent. The research protocol ensured anonymity and voluntary participation, with translators recruited and remunerated through professional translation providers. The study’s open data release further promotes transparency, enabling other researchers to reproduce and build upon our findings.</p>
+</section>
+<section id="sec-qe4pe-conclusion" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="sec-qe4pe-conclusion"><span class="header-section-number">9.6</span> Conclusion</h2>
+<p>Our QE4PE study evaluated the impact of various error-span highlighting modalities, including automatic and human-made ones, on the productivity and quality of human post-editing in a realistic professional setting. Our findings highlight the importance of domain, language and editors’ speed in determining the effect of highlights on productivity and quality, underscoring the need for broad evaluations encompassing diverse settings. The limited gains of human-made highlights over automatic QE and their indistinguishable perception from editors’ assessment indicate that further gains in the accuracy of these techniques might not be the determining factor in improving their integration into post-editing workflows. In particular, future work might explore other directions to further assess and improve the usability of word-level QE highlights, for example, by studying their impact on non-professional translators and language learners, or by combining them with edit suggestions to justify the presence of error spans.</p>
+<p>While our QE4PE study included a preliminary assessment of unsupervised methods for word-level QE, the next chapter expands our investigation by conducting a broad evaluation of unsupervised word-level QE methods for post-editing, including a comparison with state-of-the-art supervised approaches. In light of our results showing the user-dependent effectiveness of quality estimation, we also inspect how the presence of multiple human annotations influences the quality assessment of identified error spans.</p>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-abid-etal-2019-gradio" class="csl-entry" role="listitem">
+Abubakar Abid, Ali Abdalla, Ali Abid, Dawood Khan, Abdulrahman Alfozan, and James Y. Zou. 2019. <a href="https://arxiv.org/abs/1906.02569">Gradio: Hassle-free sharing and testing of <span>ML</span> models in the wild</a>. <em>ArXiv</em>, abs/1906.02569.
+</div>
+<div id="ref-agrawal-etal-2024-automatic-metrics" class="csl-entry" role="listitem">
+Sweta Agrawal, António Farinhas, Ricardo Rei, and Andre Martins. 2024. <a href="https://doi.org/10.18653/v1/2024.emnlp-main.802">Can automatic metrics assess high-quality translations?</a> In Yaser Al-Onaizan, Mohit Bansal, and Yun-Nung Chen, editors, <em>Proceedings of the 2024 conference on empirical methods in natural language processing</em>, pages 14491–14502, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-amrhein-etal-2022-aces" class="csl-entry" role="listitem">
+Chantal Amrhein, Nikita Moghe, and Liane Guillou. 2022. <a href="https://aclanthology.org/2022.wmt-1.44/"><span>ACES</span>: Translation accuracy challenge sets for evaluating machine translation metrics</a>. In Philipp Koehn, Loïc Barrault, Ondřej Bojar, Fethi Bougares, Rajen Chatterjee, Marta R. Costa-jussà, Christian Federmann, Mark Fishel, Alexander Fraser, Markus Freitag, Yvette Graham, Roman Grundkiewicz, Paco Guzman, Barry Haddow, Matthias Huck, Antonio Jimeno Yepes, Tom Kocmi, André Martins, Makoto Morishita, et al., editors, <em>Proceedings of the seventh conference on machine translation (WMT)</em>, pages 479–513, Abu Dhabi, United Arab Emirates (Hybrid). Association for Computational Linguistics.
+</div>
+<div id="ref-amrhein-etal-2023-aces" class="csl-entry" role="listitem">
+Chantal Amrhein, Nikita Moghe, and Liane Guillou. 2023. <a href="https://doi.org/10.18653/v1/2023.wmt-1.57"><span>ACES</span>: Translation accuracy challenge sets at <span>WMT</span> 2023</a>. In Philipp Koehn, Barry Haddow, Tom Kocmi, and Christof Monz, editors, <em>Proceedings of the eighth conference on machine translation</em>, pages 695–712, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-bawden-sagot-2023-rocs" class="csl-entry" role="listitem">
+Rachel Bawden and Benoît Sagot. 2023. <a href="https://doi.org/10.18653/v1/2023.wmt-1.21"><span>R</span>o<span>CS</span>-<span>MT</span>: Robustness challenge set for machine translation</a>. In Philipp Koehn, Barry Haddow, Tom Kocmi, and Christof Monz, editors, <em>Proceedings of the eighth conference on machine translation</em>, pages 198–216, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-sugyeong-etal-2022-word" class="csl-entry" role="listitem">
+Sugyeong Eo, Chanjun Park, Hyeonseok Moon, Jaehyung Seo, and Heuiseok Lim. 2022. <a href="https://doi.org/10.1109/ACCESS.2022.3169155">Word-level quality estimation for korean-english neural machine translation</a>. <em>IEEE Access</em>, 10:44964–44973.
+</div>
+<div id="ref-eschbach-dymanus-etal-2024-exploring" class="csl-entry" role="listitem">
+Johannes Eschbach-Dymanus, Frank Essenberger, Bianka Buschbeck, and Miriam Exel. 2024. <a href="https://aclanthology.org/2024.eamt-1.51/">Exploring the effectiveness of <span>LLM</span> domain adaptation for business <span>IT</span> machine translation</a>. In Carolina Scarton, Charlotte Prescott, Chris Bayliss, Chris Oakley, Joanna Wright, Stuart Wrigley, Xingyi Song, Edward Gow-Smith, Rachel Bawden, Víctor M Sánchez-Cartagena, Patrick Cadwell, Ekaterina Lapshinova-Koltunski, Vera Cabarrão, Konstantinos Chatzitheodorou, Mary Nurminen, Diptesh Kanojia, and Helena Moniz, editors, <em>Proceedings of the 25th annual conference of the european association for machine translation (volume 1)</em>, pages 610–622, Sheffield, UK. European Association for Machine Translation (EAMT).
+</div>
+<div id="ref-fomicheva-specia-2019-taking" class="csl-entry" role="listitem">
+Marina Fomicheva and Lucia Specia. 2019. <a href="https://doi.org/10.1162/coli_a_00356">Taking <span>MT</span> evaluation metrics to extremes: Beyond correlation with human judgments</a>. <em>Computational Linguistics</em>, 45(3):515–558.
+</div>
+<div id="ref-freitag-etal-2021-experts" class="csl-entry" role="listitem">
+Markus Freitag, George Foster, David Grangier, Viresh Ratnakar, Qijun Tan, and Wolfgang Macherey. 2021. <a href="https://doi.org/10.1162/tacl_a_00437">Experts, errors, and context: A large-scale study of human evaluation for machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 9:1460–1474.
+</div>
+<div id="ref-freitag-etal-2024-llms" class="csl-entry" role="listitem">
+Markus Freitag, Nitika Mathur, Daniel Deutsch, Chi-Kiu Lo, Eleftherios Avramidis, Ricardo Rei, Brian Thompson, Frederic Blain, Tom Kocmi, Jiayi Wang, David Ifeoluwa Adelani, Marianna Buchicchio, Chrysoula Zerva, and Alon Lavie. 2024. <a href="https://doi.org/10.18653/v1/2024.wmt-1.2">Are <span>LLM</span>s breaking <span>MT</span> metrics? Results of the <span>WMT</span>24 metrics shared task</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 47–81, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-gal-ghahramani-2016-dropout" class="csl-entry" role="listitem">
+Yarin Gal and Zoubin Ghahramani. 2016. <a href="https://proceedings.mlr.press/v48/gal16.html">Dropout as a bayesian approximation: Representing model uncertainty in deep learning</a>. In Maria Florina Balcan and Kilian Q. Weinberger, editors, <em>Proceedings of the 33rd international conference on machine learning</em>, volume 48, pages 1050–1059, New York, NY, USA. Proceedings of Machine Learning Research (PLMR).
+</div>
+<div id="ref-ge-etal-2024-culture" class="csl-entry" role="listitem">
+Xiao Ge, Chunchen Xu, Daigo Misaki, Hazel Rose Markus, and Jeanne L Tsai. 2024. <a href="https://doi.org/10.1145/3613904.3642660">How culture shapes what people want from AI</a>. In <em>Proceedings of the 2024 CHI conference on human factors in computing systems</em>, New York, NY, USA. Association for Computing Machinery.
+</div>
+<div id="ref-goyal-etal-2021-larger" class="csl-entry" role="listitem">
+Naman Goyal, Jingfei Du, Myle Ott, Giri Anantharaman, and Alexis Conneau. 2021. <a href="https://doi.org/10.18653/v1/2021.repl4nlp-1.4">Larger-scale transformers for multilingual masked language modeling</a>. In Anna Rogers, Iacer Calixto, Ivan Vulić, Naomi Saphra, Nora Kassner, Oana-Maria Camburu, Trapit Bansal, and Vered Shwartz, editors, <em>Proceedings of the 6th workshop on representation learning for NLP (RepL4NLP-2021)</em>, pages 29–33, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-guerberof-arenas-etal-2023-towards" class="csl-entry" role="listitem">
+Ana Guerberof-Arenas and Joss Moorkens. 2023. <a href="https://doi.org/10.1007/978-3-031-14689-3_7">Ethics and machine translation: The end user perspective</a>. In <em>Towards responsible machine translation: Ethical and legal considerations in machine translation</em>, pages 113–133. Springer International Publishing, Cham.
+</div>
+<div id="ref-guerreiro-etal-2024-xcomet" class="csl-entry" role="listitem">
+Nuno M. Guerreiro, Ricardo Rei, Daan van Stigt, Luisa Coheur, Pierre Colombo, and André F. T. Martins. 2024. <a href="https://doi.org/10.1162/tacl_a_00683">Xcomet: Transparent machine translation evaluation through fine-grained error detection</a>. <em>Transactions of the Association for Computational Linguistics</em>, 12:979–995.
+</div>
+<div id="ref-herbig-etal-2020-mmpe" class="csl-entry" role="listitem">
+Nico Herbig, Tim Düwel, Santanu Pal, Kalliopi Meladaki, Mahsa Monshizadeh, Antonio Krüger, and Josef van Genabith. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.155"><span>MMPE</span>: <span>A</span> <span>M</span>ulti-<span>M</span>odal <span>I</span>nterface for <span>P</span>ost-<span>E</span>diting <span>M</span>achine <span>T</span>ranslation</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 1691–1702, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-kocmi-etal-2024-findings" class="csl-entry" role="listitem">
+Tom Kocmi, Eleftherios Avramidis, Rachel Bawden, Ondřej Bojar, Anton Dvorkovich, Christian Federmann, Mark Fishel, Markus Freitag, Thamme Gowda, Roman Grundkiewicz, Barry Haddow, Marzena Karpinska, Philipp Koehn, Benjamin Marie, Christof Monz, Kenton Murray, Masaaki Nagata, Martin Popel, Maja Popović, et al. 2024a. <a href="https://doi.org/10.18653/v1/2024.wmt-1.1">Findings of the <span>WMT</span>24 general machine translation shared task: The <span>LLM</span> era is here but <span>MT</span> is not solved yet</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 1–46, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-kocmi-etal-2023-findings" class="csl-entry" role="listitem">
+Tom Kocmi, Eleftherios Avramidis, Rachel Bawden, Ondřej Bojar, Anton Dvorkovich, Christian Federmann, Mark Fishel, Markus Freitag, Thamme Gowda, Roman Grundkiewicz, Barry Haddow, Philipp Koehn, Benjamin Marie, Christof Monz, Makoto Morishita, Kenton Murray, Masaaki Nagata, Toshiaki Nakazawa, Martin Popel, et al. 2023. <a href="https://doi.org/10.18653/v1/2023.wmt-1.1">Findings of the 2023 conference on machine translation (<span>WMT</span>23): <span>LLM</span>s are here but not quite there yet</a>. In Philipp Koehn, Barry Haddow, Tom Kocmi, and Christof Monz, editors, <em>Proceedings of the eighth conference on machine translation</em>, pages 1–42, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-kocmi-etal-2024-error" class="csl-entry" role="listitem">
+Tom Kocmi, Vilém Zouhar, Eleftherios Avramidis, Roman Grundkiewicz, Marzena Karpinska, Maja Popović, Mrinmaya Sachan, and Mariya Shmatova. 2024b. <a href="https://doi.org/10.18653/v1/2024.wmt-1.131">Error span annotation: A balanced approach for human evaluation of machine translation</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 1440–1453, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-li-etal-2025-transbench" class="csl-entry" role="listitem">
+Haijun Li, Tianqi Shi, Zifu Shang, Yuxuan Han, Xueyu Zhao, Hao Wang, Yu Qian, Zhiqiang Qian, Linlong Xu, Minghao Wu, Chenyang Lyu, Longyue Wang, Gongbo Tang, Weihua Luo, Zhao Xu, and Kaifu Zhang. 2025. <a href="https://arxiv.org/abs/2505.14244">TransBench: Benchmarking machine translation for industrial-scale applications</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-lim-etal-2024-predicting" class="csl-entry" role="listitem">
+Zheng Wei Lim, Ekaterina Vylomova, Charles Kemp, and Trevor Cohn. 2024. <a href="https://doi.org/10.1162/tacl_a_00714">Predicting human translation difficulty with neural machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 12:1479–1496.
+</div>
+<div id="ref-liu-etal-2024-beyond-human" class="csl-entry" role="listitem">
+Zhongtao Liu, Parker Riley, Daniel Deutsch, Alison Lui, Mengmeng Niu, Apurva Shah, and Markus Freitag. 2024. <a href="https://doi.org/10.18653/v1/2024.wmt-1.110">Beyond human-only: Evaluating human-machine collaboration for collecting high-quality translation data</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 1095–1106, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-burchardt-2013-multidimensional" class="csl-entry" role="listitem">
+Arle Richard Lommel, Aljoscha Burchardt, and Hans Uszkoreit. 2013. <a href="https://aclanthology.org/2013.tc-1.6/">Multidimensional quality metrics: A flexible system for assessing translation quality</a>. In <em>Proceedings of translating and the computer 35</em>, London, UK. Aslib.
+</div>
+<div id="ref-moslem-etal-2023-adaptive" class="csl-entry" role="listitem">
+Yasmin Moslem, Rejwanul Haque, John D. Kelleher, and Andy Way. 2023. <a href="https://aclanthology.org/2023.eamt-1.22/">Adaptive machine translation with large language models</a>. In Mary Nurminen, Judith Brenner, Maarit Koponen, Sirkku Latomaa, Mikhail Mikhailov, Frederike Schierl, Tharindu Ranasinghe, Eva Vanmassenhove, Sergi Alvarez Vidal, Nora Aranberri, Mara Nunziatini, Carla Parra Escartín, Mikel Forcada, Maja Popovic, Carolina Scarton, and Helena Moniz, editors, <em>Proceedings of the 24th annual conference of the european association for machine translation</em>, pages 227–237, Tampere, Finland. European Association for Machine Translation.
+</div>
+<div id="ref-neves-etal-2024-findings" class="csl-entry" role="listitem">
+Mariana Neves, Cristian Grozea, Philippe Thomas, Roland Roller, Rachel Bawden, Aurélie Névéol, Steffen Castle, Vanessa Bonato, Giorgio Maria Di Nunzio, Federica Vezzani, Maika Vicente Navarro, Lana Yeganova, and Antonio Jimeno Yepes. 2024. <a href="https://doi.org/10.18653/v1/2024.wmt-1.6">Findings of the <span>WMT</span> 2024 biomedical translation shared task: Test sets on abstract level</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 124–138, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-neves-etal-2023-findings" class="csl-entry" role="listitem">
+Mariana Neves, Antonio Jimeno Yepes, Aurélie Névéol, Rachel Bawden, Giorgio Maria Di Nunzio, Roland Roller, Philippe Thomas, Federica Vezzani, Maika Vicente Navarro, Lana Yeganova, Dina Wiemann, and Cristian Grozea. 2023. <a href="https://doi.org/10.18653/v1/2023.wmt-1.2">Findings of the <span>WMT</span> 2023 biomedical translation shared task: Evaluation of <span>C</span>hat<span>GPT</span> 3.5 as a comparison system</a>. In Philipp Koehn, Barry Haddow, Tom Kocmi, and Christof Monz, editors, <em>Proceedings of the eighth conference on machine translation</em>, pages 43–54, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-nllb-2024-scaling" class="csl-entry" role="listitem">
+NLLB Team, Marta R. Costa-jussà, James Cross, Onur Çelebi, Maha Elbayad, Kenneth Heafield, Kevin Heffernan, Elahe Kalbassi, Janice Lam, Daniel Licht, Jean Maillard, Anna Sun, Skyler Wang, Guillaume Wenzek, Al Youngblood, Bapi Akula, Loic Barrault, Gabriel Mejia Gonzalez, Prangthip Hansanti, et al. 2024. <a href="https://doi.org/10.1038/s41586-024-07335-x">Scaling neural machine translation to 200 languages</a>. <em>Nature</em>, 630(8018):841–846.
+</div>
+<div id="ref-rei-etal-2021-references" class="csl-entry" role="listitem">
+Ricardo Rei, Ana C Farinha, Chrysoula Zerva, Daan van Stigt, Craig Stewart, Pedro Ramos, Taisiya Glushkova, André F. T. Martins, and Alon Lavie. 2021. <a href="https://aclanthology.org/2021.wmt-1.111/">Are references really needed? Unbabel-<span>IST</span> 2021 submission for the metrics shared task</a>. In Loic Barrault, Ondrej Bojar, Fethi Bougares, Rajen Chatterjee, Marta R. Costa-jussa, Christian Federmann, Mark Fishel, Alexander Fraser, Markus Freitag, Yvette Graham, Roman Grundkiewicz, Paco Guzman, Barry Haddow, Matthias Huck, Antonio Jimeno Yepes, Philipp Koehn, Tom Kocmi, Andre Martins, Makoto Morishita, et al., editors, <em>Proceedings of the sixth conference on machine translation</em>, pages 1030–1040, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-sarti-etal-2022-divemt" class="csl-entry" role="listitem">
+Gabriele Sarti, Arianna Bisazza, Ana Guerberof-Arenas, and Antonio Toral. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.532"><span>D</span>iv<span>EMT</span>: Neural machine translation post-editing effort across typologically diverse languages</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 7795–7816, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-sarti-etal-2025-qe4pe" class="csl-entry" role="listitem">
+Gabriele Sarti, Vilém Zouhar, Grzegorz Chrupała, Ana Guerberof-Arenas, Malvina Nissim, and Arianna Bisazza. 2025. <a href="https://arxiv.org/abs/2503.03044"><span>QE4PE</span>: Word-level quality estimation for human post-editing</a>. <em>Arxiv Preprint</em>.
+</div>
+<div id="ref-savoldi-etal-2025-translation" class="csl-entry" role="listitem">
+Beatrice Savoldi, Alan Ramponi, Matteo Negri, and Luisa Bentivogli. 2025. <a href="https://arxiv.org/abs/2502.13780">Translation in the hands of many: Centering lay users in machine translation interactions</a>.
+</div>
+<div id="ref-shenoy-etal-2021-investigating" class="csl-entry" role="listitem">
+Raksha Shenoy, Nico Herbig, Antonio Krüger, and Josef van Genabith. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.799">Investigating the helpfulness of word-level quality estimation for post-editing machine translation output</a>. In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing</em>, pages 10173–10185, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-specia-etal-2020-findings-wmt" class="csl-entry" role="listitem">
+Lucia Specia, Frédéric Blain, Marina Fomicheva, Erick Fonseca, Vishrav Chaudhary, Francisco Guzmán, and André F. T. Martins. 2020. <a href="https://aclanthology.org/2020.wmt-1.79/">Findings of the <span>WMT</span> 2020 shared task on quality estimation</a>. In Loïc Barrault, Ondřej Bojar, Fethi Bougares, Rajen Chatterjee, Marta R. Costa-jussà, Christian Federmann, Mark Fishel, Alexander Fraser, Yvette Graham, Paco Guzman, Barry Haddow, Matthias Huck, Antonio Jimeno Yepes, Philipp Koehn, André Martins, Makoto Morishita, Christof Monz, Masaaki Nagata, Toshiaki Nakazawa, et al., editors, <em>Proceedings of the fifth conference on machine translation</em>, pages 743–764, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-tamchyna-2021-deploying" class="csl-entry" role="listitem">
+Aleš Tamchyna. 2021. <a href="https://aclanthology.org/2021.mtsummit-up.21/">Deploying <span>MT</span> quality estimation on a large scale: Lessons learned and open questions</a>. In Janice Campbell, Ben Huyck, Stephen Larocca, Jay Marciano, Konstantin Savenkov, and Alex Yanishevsky, editors, <em>Proceedings of machine translation summit XVIII: Users and providers track</em>, pages 291–305, Virtual. Association for Machine Translation in the Americas.
+</div>
+<div id="ref-vasconcelos-etal-2025-generation" class="csl-entry" role="listitem">
+Helena Vasconcelos, Gagan Bansal, Adam Fourney, Q. Vera Liao, and Jennifer Wortman Vaughan. 2025. <a href="https://doi.org/10.1145/3702320">Generation probabilities are not enough: Uncertainty highlighting in AI code completions</a>. <em>ACM Trans. Comput.-Hum. Interact.</em>, 32(1).
+</div>
+<div id="ref-zerva-etal-2024-findings" class="csl-entry" role="listitem">
+Chrysoula Zerva, Frederic Blain, José G. C. De Souza, Diptesh Kanojia, Sourabh Deoghare, Nuno M. Guerreiro, Giuseppe Attanasio, Ricardo Rei, Constantin Orasan, Matteo Negri, Marco Turchi, Rajen Chatterjee, Pushpak Bhattacharyya, Markus Freitag, and André Martins. 2024. <a href="https://doi.org/10.18653/v1/2024.wmt-1.3">Findings of the quality estimation shared task at <span>WMT</span> 2024: Are <span>LLM</span>s closing the gap in <span>QE</span>?</a> In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 82–109, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-zouhar-etal-2024-fine" class="csl-entry" role="listitem">
+Vilém Zouhar, Shuoyang Ding, Anna Currey, Tatyana Badeka, Jenyuan Wang, and Brian Thompson. 2024. <a href="https://doi.org/10.18653/v1/2024.acl-short.45">Fine-tuned machine translation metrics struggle in unseen domains</a>. In Lun-Wei Ku, Andre Martins, and Vivek Srikumar, editors, <em>Proceedings of the 62nd annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 488–500, Bangkok, Thailand. Association for Computational Linguistics.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Dataset: <a href="https://huggingface.co/datasets/gsarti/qe4pe"><code>gsarti/qe4pe</code></a>; Interface: <a href="https://huggingface.co/spaces/gsarti/grote"><code>gsarti/grote</code></a>; Code: <a href="https://github.com/gsarti/qe4pe" class="uri">https://github.com/gsarti/qe4pe</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We do not disclose the highlight modality to translators to avoid biasing their judgment in the evaluation.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>See <a href="appendix-c.html#tbl-qe4pe-qa-example" class="quarto-xref">Table&nbsp;<span>C.15</span></a> for annotation examples.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Highlights are extended from tokens to words to match the granularity of other modalities.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Scores are normalized to account for highlight frequencies across modalities. Agreement is shown in <a href="appendix-c.html#tbl-qe4pe-highlight-agreement" class="quarto-xref">Table&nbsp;<span>C.12</span></a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Editing agreement is shown in <a href="appendix-c.html#fig-qe4pe-edit-agreement" class="quarto-xref">Figure&nbsp;<span>C.6</span></a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Breakdowns by domain and speed shown in <a href="appendix-c.html#tbl-qe4pe-edit-highlights-stats-domain-modality" class="quarto-xref">Table&nbsp;<span>C.14</span></a> and <a href="appendix-c.html#tbl-qe4pe-edit-highlights-stats-domain-speed" class="quarto-xref">Table&nbsp;<span>C.13</span></a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Per-domain breakdown in <a href="appendix-c.html#fig-qe4pe-quality-mqm" class="quarto-xref">Figure&nbsp;<span>C.8</span></a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/chap-8-divemt.html" class="pagination-link" aria-label="Machine Translation Post-editing for Typologically Diverse Languages">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/chap-10-unsup-wqe.html" class="pagination-link" aria-label="Unsupervised MT Error Detection and Human Disagreement">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Gabriele Sarti. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://www.rug.nl/?lang=en"><img src="../figures/logos/rug_eng_red.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/?lang=en"><img src="../figures/logos/clcg.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://projects.illc.uva.nl/indeep/"><img src="../figures/logos/indeep_logo_horizontal.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/research/cl/?lang=en"><img src="../figures/logos/gronlp.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+</div>
+    <div class="nav-footer-right">
+<p>Written with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

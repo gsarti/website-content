@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Ph.D.&nbsp;Thesis, Center for Language and Cognition (CLCG), University of Groningen">
+
+<title>8&nbsp; Machine Translation Post-editing for Typologically Diverse Languages – From Insights to Impact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/chap-9-qe4pe.html" rel="next">
+<link href="../figures/logos/rug_crest_icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df7dc7f297c6c2c740a551c3cb7e1581.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../html/custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-8-divemt.html">Interpretability in Human Translation Workflows</a></li><li class="breadcrumb-item"><a href="../chapters/chap-8-divemt.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../figures/logos/rug_eng_red_hat_line.png" alt="RUG Coat of Arms" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Insights to Impact</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gsarti/phd-thesis" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://gsarti.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-person-circle"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-2-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Attributing Context Usage in Multilingual NLP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-3-inseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-4-pecore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-5-mirage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conditioning Generation for Personalized Machine Translation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-6-ramp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-7-sae-litmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Interpretability in Human Translation Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-8-divemt.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-9-qe4pe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-10-unsup-wqe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-11-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">8.1</span> Introduction</a></li>
+  <li><a href="#related-work" id="toc-related-work" class="nav-link" data-scroll-target="#related-work"><span class="header-section-number">8.2</span> Related Work</a></li>
+  <li><a href="#the-divemt-dataset" id="toc-the-divemt-dataset" class="nav-link" data-scroll-target="#the-divemt-dataset"><span class="header-section-number">8.3</span> The <span class="smallcaps">DivEMT</span> Dataset</a>
+  <ul class="collapse">
+  <li><a href="#subjects-and-task-scheduling" id="toc-subjects-and-task-scheduling" class="nav-link" data-scroll-target="#subjects-and-task-scheduling"><span class="header-section-number">8.3.1</span> Subjects and Task Scheduling</a></li>
+  <li><a href="#choice-of-source-texts" id="toc-choice-of-source-texts" class="nav-link" data-scroll-target="#choice-of-source-texts"><span class="header-section-number">8.3.2</span> Choice of Source Texts</a></li>
+  <li><a href="#sec-choice-languages" id="toc-sec-choice-languages" class="nav-link" data-scroll-target="#sec-choice-languages"><span class="header-section-number">8.3.3</span> Choice of Languages</a></li>
+  <li><a href="#sec-choice-systems" id="toc-sec-choice-systems" class="nav-link" data-scroll-target="#sec-choice-systems"><span class="header-section-number">8.3.4</span> Choice of MT Systems</a></li>
+  <li><a href="#translation-platform-and-collected-data" id="toc-translation-platform-and-collected-data" class="nav-link" data-scroll-target="#translation-platform-and-collected-data"><span class="header-section-number">8.3.5</span> Translation Platform and Collected Data</a></li>
+  </ul></li>
+  <li><a href="#sec-pe_effort" id="toc-sec-pe_effort" class="nav-link" data-scroll-target="#sec-pe_effort"><span class="header-section-number">8.4</span> Post-Editing Effort Across Languages</a>
+  <ul class="collapse">
+  <li><a href="#temporal-effort-and-productivity-gains" id="toc-temporal-effort-and-productivity-gains" class="nav-link" data-scroll-target="#temporal-effort-and-productivity-gains"><span class="header-section-number">8.4.1</span> Temporal Effort and Productivity Gains</a></li>
+  <li><a href="#sec-pe-rate" id="toc-sec-pe-rate" class="nav-link" data-scroll-target="#sec-pe-rate"><span class="header-section-number">8.4.2</span> Post-Editing Rate</a></li>
+  <li><a href="#perception-of-productivity-gain" id="toc-perception-of-productivity-gain" class="nav-link" data-scroll-target="#perception-of-productivity-gain"><span class="header-section-number">8.4.3</span> Perception of Productivity Gain</a></li>
+  </ul></li>
+  <li><a href="#sec-limitations" id="toc-sec-limitations" class="nav-link" data-scroll-target="#sec-limitations"><span class="header-section-number">8.5</span> Limitations</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">8.6</span> Conclusions</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-8-divemt.html">Interpretability in Human Translation Workflows</a></li><li class="breadcrumb-item"><a href="../chapters/chap-8-divemt.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chap-8-divemt" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chapter Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This chapter begins our investigation into the application of interpretability methods in user-facing translation settings. As an initial step in this direction, we introduce <span class="smallcaps">DivEMT</span>, the first publicly available post-editing dataset spanning six typologically diverse target languages. We evaluate the impact of MT quality and translation directions on post-editing effectiveness in a controlled setup involving 18 professional editors through comprehensive behavioral logging of edits, keystrokes, timing, and pauses. While we find that post-editing machine translation is consistently faster than translation from scratch, our results show significant disparities across languages with different typological relationships to English, even when controlling for system architecture and data size, highlighting the need for tailored approaches in MT for diverse languages.</p>
+<p></p>
+<p>This chapter is adapted from the paper <em>DivEMT: Neural Machine Translation Post-Editing Effort Across Typologically Diverse Languages</em> <span class="citation" data-cites="sarti-etal-2022-divemt">(<a href="references.html#ref-sarti-etal-2022-divemt" role="doc-biblioref">Sarti et al., 2022</a>)</span>.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>Language was just difference. A thousand different ways of seeing, of moving through the world. No, a thousand worlds within one. And translation, a necessary endeavor however futile, to move between them.</em></p>
+<p><em>– Rebecca F. Kuang, Babel (2022)</em></p>
+</blockquote>
+<section id="introduction" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
+<p>Recent advances in neural language modeling and multilingual training have led to the widespread adoption of machine translation (MT) technologies across an unprecedented range of languages worldwide. While the benefits of state-of-the-art MT for cross-lingual information access are undisputed <span class="citation" data-cites="gene-2021-post">(<a href="references.html#ref-gene-2021-post" role="doc-biblioref">Gene, 2021</a>)</span>, its usefulness as an aid to professional translators varies considerably across domains, subjects and language combinations <span class="citation" data-cites="zouhar-etal-2021-neural">(<a href="references.html#ref-zouhar-etal-2021-neural" role="doc-biblioref">Zouhar et al., 2021</a>)</span>. In the last decade, the MT community has been including an increasing number of languages in its automatic and human evaluation efforts <span class="citation" data-cites="bojar-etal-2013-findings wmt-2021-machine">(<a href="references.html#ref-bojar-etal-2013-findings" role="doc-biblioref">Bojar et al., 2013</a>; <a href="references.html#ref-wmt-2021-machine" role="doc-biblioref">Barrault et al., 2021</a>)</span>. However, the results of these evaluations are typically not directly comparable across different language pairs for several reasons. First, reference-based automatic quality metrics are hardly comparable across different target languages <span class="citation" data-cites="bugliarello-etal-2020-easier">(<a href="references.html#ref-bugliarello-etal-2020-easier" role="doc-biblioref">Bugliarello et al., 2020</a>)</span>. Second, human judgments are collected independently for different language pairs, making their cross-lingual comparison vulnerable to confounding factors such as tested domains and training data sizes. Similarly, recent work on NMT post-editing efficiency has focused on specific language pairs such as English-Czech <span class="citation" data-cites="zouhar-etal-2021-neural">(<a href="references.html#ref-zouhar-etal-2021-neural" role="doc-biblioref">Zouhar et al., 2021</a>)</span>, German-Italian, German-French <span class="citation" data-cites="laubli-etal-2019-post">(<a href="references.html#ref-laubli-etal-2019-post" role="doc-biblioref">Läubli et al., 2019</a>)</span> and English-Hindi <span class="citation" data-cites="ahsan-etal-2021-assessing">(<a href="references.html#ref-ahsan-etal-2021-assessing" role="doc-biblioref">Ahsan et al., 2021</a>)</span>. However, a controlled comparison across a set of typologically diverse languages is still lacking.</p>
+<div id="fig-divemt-overview" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-divemt-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-8-divemt/divemt.webp" class="img-fluid figure-img" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-divemt-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: The <span class="smallcaps">DivEMT</span> data collection process. For every English source document, 18 professional translators are tasked with translating it from scratch (HT) or post-editing NMT systems’ outputs (PE<span class="math inline">\(_1\)</span>/PE<span class="math inline">\(_2\)</span>) into six typologically diverse target languages. Behavioral data and qualitative assessments are collected during and after the process, respectively.
+</figcaption>
+</figure>
+</div>
+<p>In this chapter, we conduct an initial assessment of the usefulness of state-of-the-art NMT in professional translation with a strictly controlled cross-language setup (<a href="#fig-divemt-overview" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>). Specifically, professionals were asked to translate the same English documents into six typologically distinct languages—Arabic, Dutch, Italian, Turkish, Ukrainian, and Vietnamese—using the same platform and guidelines. Three <strong>translation modalities</strong> were adopted: human translation from scratch (HT), post-editing of Google Translate’s translation (PE<span class="math inline">\(_1\)</span>), and post-editing of mBART-50’s translation (PE<span class="math inline">\(_2\)</span>), the latter being a state-of-the-art open-source, multilingual NMT system. In addition to post-editing results, subjects’ fine-grained editing behavior, including keystrokes and time information, was logged to measure productivity and effort across languages, systems and translation modalities. Finally, translators were asked to complete a qualitative assessment regarding their perceptions of MT quality and post-editing effort. The resulting <span class="smallcaps">DivEMT</span> dataset, to our best knowledge, is the first public resource that allows a direct comparison of professional translators’ productivity and fine-grained editing information across a set of typologically diverse languages. All collected data are publicly released<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> alongside this paper to foster further research in the language- and system-dependent nature of NMT advances in real-world translation scenarios.</p>
+</section>
+<section id="related-work" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="related-work"><span class="header-section-number">8.2</span> Related Work</h2>
+<p><span class="paragraph">Cross-lingual MT Evaluation</span> Before the advent of NMT, <span class="citation" data-cites="birch-etal-2008-predicting">Birch et al. (<a href="references.html#ref-birch-etal-2008-predicting" role="doc-biblioref">2008</a>)</span> studied how various language properties affected the quality of Statistical MT (SMT) across a sizeable sample of European language pairs. The comparison, however, was solely based on BLEU, which is not directly comparable across different target languages <span class="citation" data-cites="bugliarello-etal-2020-easier">(<a href="references.html#ref-bugliarello-etal-2020-easier" role="doc-biblioref">Bugliarello et al., 2020</a>)</span>. Recent work on neural models introduced more principled ways to measure the intrinsic difficulty of language-modeling <span class="citation" data-cites="gerz-etal-2018-relation cotterell-etal-2018-languages mielke-etal-2019-kind">(<a href="references.html#ref-gerz-etal-2018-relation" role="doc-biblioref">Gerz et al., 2018</a>; <a href="references.html#ref-cotterell-etal-2018-languages" role="doc-biblioref">Cotterell et al., 2018</a>; <a href="references.html#ref-mielke-etal-2019-kind" role="doc-biblioref">Mielke et al., 2019</a>)</span> and machine-translating <span class="citation" data-cites="bugliarello-etal-2020-easier bisazza-etal-2021-difficulty">(<a href="references.html#ref-bugliarello-etal-2020-easier" role="doc-biblioref">Bugliarello et al., 2020</a>; <a href="references.html#ref-bisazza-etal-2021-difficulty" role="doc-biblioref">Bisazza et al., 2021</a>)</span> different languages. However, reliably achieving this without human evaluation remains an open research question. Concurrently to our research, <span class="citation" data-cites="licht-etal-2022-consistent">Licht et al. (<a href="references.html#ref-licht-etal-2022-consistent" role="doc-biblioref">2022</a>)</span> proposed a new human evaluation protocol to improve consistency in cross-lingual MT quality assessment.</p>
+<p><span class="paragraph">Post-editing NMT</span> Recent work highlighted the productivity gains driven by NMT post-editing on a broader array of languages that were previously challenging for MT, such as English-Dutch <span class="citation" data-cites="daems-etal-2017-translation">(<a href="references.html#ref-daems-etal-2017-translation" role="doc-biblioref">Daems et al., 2017</a>)</span>, English-Hindi <span class="citation" data-cites="ahsan-etal-2021-assessing">(<a href="references.html#ref-ahsan-etal-2021-assessing" role="doc-biblioref">Ahsan et al., 2021</a>)</span>, English-Greek <span class="citation" data-cites="stasimioti-sosoni-2020-translation">(<a href="references.html#ref-stasimioti-sosoni-2020-translation" role="doc-biblioref">Stasimioti and Sosoni, 2020</a>)</span>, English-Finnish and English-Swedish <span class="citation" data-cites="koponen-etal-2020-mt">(<a href="references.html#ref-koponen-etal-2020-mt" role="doc-biblioref">Koponen et al., 2020</a>)</span>, all showing a considerable variance among language pairs and subjects. Interestingly, <span class="citation" data-cites="zouhar-etal-2021-neural">Zouhar et al. (<a href="references.html#ref-zouhar-etal-2021-neural" role="doc-biblioref">2021</a>)</span> found that NMT post-editing speed was comparable to translation from scratch in English-Czech, and highlighted a disconnect between moderate increases in automatic MT quality metrics and improved post-editing productivity. In summary, research on post-editing NMT generally reports increased fluency and output quality; however, productivity gains are hardly generalizable across language pairs and domains. Importantly, to our knowledge, no previous work has studied NMT post-editing over a set of typologically different languages while controlling for the effects of content types and domains, NMT engines, and translation interfaces.</p>
+</section>
+<section id="the-divemt-dataset" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="the-divemt-dataset"><span class="header-section-number">8.3</span> The <span class="smallcaps">DivEMT</span> Dataset</h2>
+<p><span class="smallcaps">DivEMT</span>’s primary purpose is to assess the usefulness of state-of-the-art NMT for professional translators and to study how this usefulness varies across target languages with different typological properties. We present below our data collection setup, which strikes a balance between simulating a realistic professional translation workflow and maximizing the comparability of results across languages.</p>
+<section id="subjects-and-task-scheduling" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="subjects-and-task-scheduling"><span class="header-section-number">8.3.1</span> Subjects and Task Scheduling</h3>
+<p>To control for the effect of individual translators’ preferences and styles, we involve a total of 18 subjects (three per target language). During the experiment, each subject receives a series of short <em>documents</em> (3 to 5 sentences each) where the source text is presented in isolation (HT) or alongside a translation proposal produced by one of the NMT systems (PE<span class="math inline">\(_1\)</span>, PE<span class="math inline">\(_2\)</span>). The experiment comprises two phases: during the <strong>warm-up phase</strong> a set of 5 documents is translated by all subjects following the same, randomly sampled sequence of modalities (HT, PE<span class="math inline">\(_1\)</span> or PE<span class="math inline">\(_2\)</span>). This phase allows the subjects to become accustomed to the setup and enables us to identify potential issues in the logged behavioral data before proceeding.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> In the <strong>main collection phase</strong>, each subject is asked to translate documents in a pseudo-random sequence of modalities. This time, however, the sequence is different for each translator and chosen so that each document gets translated in all three modalities. This allows us to measure translation productivity independently from the subject’s productivity and document-specific difficulties.</p>
+<p><a href="#tbl-schedule" class="quarto-xref">Table&nbsp;<span>8.1</span></a> shows an example of the adopted modality scheduling. The modality of document docM<span class="math inline">\(_i\)</span> for translator T<span class="math inline">\(_j\)</span> in the main task is picked randomly among the two modalities that were not seen by the same translator for docM<span class="math inline">\(_{i-1}\)</span>, enforcing consecutive documents given to the same translator to be assigned different modalities to avoid periodicity in repetition and enable same-language comparisons. Importantly, although all three modes were collected for every document, we did not enforce mode consistency across the same translator identifier across languages (i.e.&nbsp;T<span class="math inline">\(_1\)</span> for Italian does not have the same sequence of modalities of translator T<span class="math inline">\(_1\)</span> in Arabic, for example). For this reason, individual subjects are not directly comparable across languages. This is relevant since comparable editing behavior should be attributed to similar personal preferences rather than an identical modality assignment of the same sentences. Despite modality scheduling, we have no guarantees that translators consistently follow the order of documents presented in PET, and thus possibly operate on documents assigned to the same modality consecutively. However, this possibility reduces to random guessing due to a lack of any identifying information related to the modality until the document is entered for editing. The sequence of modalities for the warmup task is fixed and is: HT, PE<span class="math inline">\(_2\)</span>, PE<span class="math inline">\(_1\)</span>, HT, PE<span class="math inline">\(_2\)</span>.</p>
+<div id="tbl-schedule" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-schedule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">T<span class="math inline">\(_1\)</span></th>
+<th data-quarto-table-cell-role="th">T<span class="math inline">\(_2\)</span></th>
+<th data-quarto-table-cell-role="th">T<span class="math inline">\(_3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="4" class="rowspan">warm-up</td>
+<td>docW<span class="math inline">\(_1\)</span></td>
+<td>HT</td>
+<td>HT</td>
+<td>HT</td>
+</tr>
+<tr class="even">
+<td>docW<span class="math inline">\(_2\)</span></td>
+<td>PE<span class="math inline">\(_1\)</span></td>
+<td>PE<span class="math inline">\(_1\)</span></td>
+<td>PE<span class="math inline">\(_1\)</span></td>
+</tr>
+<tr class="odd">
+<td>...</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="midrule even">
+<td>docW<span class="math inline">\(_N\)</span></td>
+<td>PE<span class="math inline">\(_2\)</span></td>
+<td>PE<span class="math inline">\(_2\)</span></td>
+<td>PE<span class="math inline">\(_2\)</span></td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="rowspan">main</td>
+<td>docM<span class="math inline">\(_1\)</span></td>
+<td>HT</td>
+<td>PE<span class="math inline">\(_1\)</span></td>
+<td>PE<span class="math inline">\(_2\)</span></td>
+</tr>
+<tr class="even">
+<td>docM<span class="math inline">\(_2\)</span></td>
+<td>PE<span class="math inline">\(_2\)</span></td>
+<td>HT</td>
+<td>PE<span class="math inline">\(_1\)</span></td>
+</tr>
+<tr class="odd">
+<td>docM<span class="math inline">\(_3\)</span></td>
+<td>HT</td>
+<td>PE<span class="math inline">\(_2\)</span></td>
+<td>PE<span class="math inline">\(_1\)</span></td>
+</tr>
+<tr class="even">
+<td>...</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>docM<span class="math inline">\(_N\)</span></td>
+<td>PE<span class="math inline">\(_2\)</span></td>
+<td>PE<span class="math inline">\(_1\)</span></td>
+<td>HT</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-schedule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.1: Modality scheduling overview. For each language, each subject (T<span class="math inline">\(_i\)</span>) works with a pseudo-random sequence of modalities (HT, PE<span class="math inline">\(_1\)</span>, PE<span class="math inline">\(_2\)</span>). For the warm-up task (<em>N</em>=5), all translators are provided with the same documents in the same modalities. For the main task (<em>N</em>=107), each translator is assigned a modality at random. Each document is translated once for every modality. The same procedure is repeated independently for all the languages.
+</figcaption>
+</figure>
+</div>
+<p>As productivity and other behavioral metrics can only be estimated with a sizable sample, we prioritize the number of documents over the number of subjects per language during budget allocation. In future analyses, a larger set of post-edited documents would also provide more insight into the error type distribution of NMT systems across different language pairs.</p>
+<p>All subjects are professional translators with at least 3 years of professional experience, including at least 1 year of post-editing experience, and strong proficiency in CAT tools.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Translators were provided with links to the source articles to facilitate contextualization, were asked to produce translations of publishable quality and were instructed not to use any external MT engine to produce their translations. Assessing the final quality of the post-edited material is out of the scope of the current study, although we realize that this is an important consideration to assess usability in a professional context.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+<section id="choice-of-source-texts" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="choice-of-source-texts"><span class="header-section-number">8.3.2</span> Choice of Source Texts</h3>
+<p>The selected documents represent a subset of the FLORES-101 benchmark <span class="citation" data-cites="goyal-etal-2022-flores">(<a href="references.html#ref-goyal-etal-2022-flores" role="doc-biblioref">Goyal et al., 2022</a>)</span> consisting of sentences taken from English Wikipedia, and covering a mix of topics and domains.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> While professional translators generally specialize in one or a few domains, we opt for a mixed-domain dataset to minimize domain adaptation efforts by the subjects and maximize the generalizability of our results. Importantly, FLORES-101 includes high-quality human translations into 101 languages, which enables the automatic estimation of NMT quality and the discarding of excessively low-scoring models or language pairs before our experiment. FLORES-101 also provides valuable metadata, e.g.&nbsp;source URL, which allows us to ensure the absence of public translations of the selected contents, which could be leveraged by translators and compromise the validity of our setup. The documents used for our study are fragments of contiguous sentences extracted from Wikipedia articles that compose the original FLORES-101 corpus. Even if small, the context provided by document structure allows us to simulate a more realistic translation workflow if compared to out-of-context sentences.</p>
+<p>Based on our available budget, we selected 112 English documents from the <em>devtest</em> portion of FLORES-101, corresponding to 450 sentences and 9,626 words. More details on the data selection process are provided in <a href="appendix-c.html#sec-divemt-doc-select" class="quarto-xref"><span>Section C.1.3</span></a>.</p>
+<div id="tbl-languages-small" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-languages-small-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"><strong>Genus:Family</strong></th>
+<th data-quarto-table-cell-role="th"><strong><em>d</em><span class="math inline">\(_{syn}\)</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong>Morphology</strong></th>
+<th data-quarto-table-cell-role="th"><strong>MSP</strong></th>
+<th data-quarto-table-cell-role="th"><strong>TTR</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Script</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td><span class="smallcaps">Eng</span></td>
+<td class="longrow">Indo-European:Germanic</td>
+<td>--</td>
+<td>Fusional</td>
+<td class="bg-red-b">1.17</td>
+<td class="bg-red-c">0.28</td>
+<td>latin</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Ara</span></td>
+<td>Afro-Asiatic:Semitic</td>
+<td class="bg-blue-b smallrow">0.57</td>
+<td>Introflexive</td>
+<td class="bg-red-d">1.67</td>
+<td class="bg-red-e">0.46</td>
+<td>arabic</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Nld</span></td>
+<td>Indo-European:Germanic</td>
+<td class="bg-blue-aa">0.49</td>
+<td>Fusional</td>
+<td class="bg-red-b">1.16</td>
+<td class="bg-red-c">0.28</td>
+<td>latin</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Ita</span></td>
+<td>Indo-European:Romance</td>
+<td class="bg-blue-a">0.51</td>
+<td>Fusional</td>
+<td class="bg-red-c">1.30</td>
+<td class="bg-red-c">0.30</td>
+<td>latin</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Tur</span></td>
+<td>Altaic:Turkic</td>
+<td class="bg-blue-c">0.70</td>
+<td>Agglutinative</td>
+<td class="bg-red-f">2.28</td>
+<td class="bg-red-e">0.50</td>
+<td>latin</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Ukr</span></td>
+<td>Indo-European:Slavic</td>
+<td class="bg-blue-a">0.51</td>
+<td>Fusional</td>
+<td class="bg-red-c">1.42</td>
+<td class="bg-red-e">0.47</td>
+<td>cyrillic</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Vie</span></td>
+<td>Austro-Asiatic:VietMuong</td>
+<td class="bg-blue-b">0.57</td>
+<td>Isolating</td>
+<td class="bg-red-a">1.00</td>
+<td class="bg-red-a">0.12</td>
+<td>latin</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-languages-small-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.2: Typological diversity of our language sample. <strong><em>d</em><span class="math inline">\(_{syn}\)</span></strong>: Syntactic distance w.r.t. English <span class="citation" data-cites="lin-etal-2019-choosing">Lin et al. (<a href="references.html#ref-lin-etal-2019-choosing" role="doc-biblioref">2019</a>)</span>. <strong>MSP</strong>: Mean size of paradigm, from <span class="citation" data-cites="coltekin-rama-2023-complexity">Çöltekin and Rama (<a href="references.html#ref-coltekin-rama-2023-complexity" role="doc-biblioref">2023</a>)</span>. <strong>TTR</strong>: Type-token ratio measured on FLORES-101. Shading indicates <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #99ccff;">genetic/syntactic relatedness to English</span> and <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffb3b3;">morphological complexity/lexical richness</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-choice-languages" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="sec-choice-languages"><span class="header-section-number">8.3.3</span> Choice of Languages</h3>
+<p>Training data is one of the most important factors in determining the quality of an NMT system. Unfortunately, using strictly comparable or multi-parallel datasets, such as Europarl <span class="citation" data-cites="koehn-2005-europarl">(<a href="references.html#ref-koehn-2005-europarl" role="doc-biblioref">Koehn, 2005</a>)</span> or the Bible corpus <span class="citation" data-cites="mayer-cysouw-2014-creating">(<a href="references.html#ref-mayer-cysouw-2014-creating" role="doc-biblioref">Mayer and Cysouw, 2014</a>)</span>, would dramatically restrict the diversity of languages available to our study or imply prohibitively low translation quality on general-domain text. In order to minimize the effect of training data disparity while maximizing language diversity, we choose representatives of six different language families for which comparable amounts of training data are available in our open-source model, namely <strong>Arabic</strong>, <strong>Dutch</strong>, <strong>Italian</strong>, <strong>Turkish</strong>, <strong>Ukrainian</strong>, and <strong>Vietnamese</strong>. As shown in <a href="#tbl-languages-small" class="quarto-xref">Table&nbsp;<span>8.2</span></a>, our language sample exhibits a good diversity in terms of language family, relatedness to English, type of morphological system, morphological complexity, measured by the mean size of paradigm <span class="citation" data-cites="xanthos-etal-2011-role">(MSP, <a href="references.html#ref-xanthos-etal-2011-role" role="doc-biblioref">Xanthos et al., 2011</a>)</span>, and script. We also report the type-token ratio (TTR), the only language property found to correlate significantly with translation difficulty in a sample of European languages <span class="citation" data-cites="bugliarello-etal-2020-easier">(<a href="references.html#ref-bugliarello-etal-2020-easier" role="doc-biblioref">Bugliarello et al., 2020</a>)</span>. While the amount of language-specific parallel sentence pairs used for the multilingual fine-tuning of mBART-50 varies widely (4K <span class="math inline">\(&lt; N &lt;\)</span> 45M), all our selected language pairs fall within the 100K-250K range (mid-resourced, see <a href="#tbl-flores-perf" class="quarto-xref">Table&nbsp;<span>8.3</span></a>), enabling a fair cross-lingual performance comparison.</p>
+<div id="tbl-flores-perf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-flores-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"><strong>Google Translate (PE<span class="math inline">\(_1\)</span>)</strong></th>
+<th data-quarto-table-cell-role="th"><strong>mBART-50 (PE<span class="math inline">\(_2\)</span>)</strong></th>
+<th data-quarto-table-cell-role="th"><strong># Pairs</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Ara</span></td>
+<td><strong>34.1</strong> / <strong>65.6</strong> / <strong>.737</strong></td>
+<td>17.0 / 48.5 / .452</td>
+<td>226K</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Nld</span></td>
+<td><strong>29.1</strong> / <strong>60.0</strong> / <strong>.667</strong></td>
+<td>22.6 / 53.9 / .532</td>
+<td>226K</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Ita</span></td>
+<td><strong>32.8</strong> / <strong>61.4</strong> / <strong>.781</strong></td>
+<td>24.4 / 54.7 / .648</td>
+<td>233K</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Tur</span></td>
+<td><strong>35.0</strong> / <strong>65.5</strong> / <strong>1.00</strong></td>
+<td>18.8 / 52.7 / .755</td>
+<td>204K</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Ukr</span></td>
+<td><strong>31.1</strong> / <strong>59.8</strong> / <strong>.758</strong></td>
+<td>21.9 / 50.7 / .587</td>
+<td>104K</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Vie</span></td>
+<td><strong>45.1</strong> / <strong>61.9</strong> / <strong>.724</strong></td>
+<td>34.7 / 54.0 / .608</td>
+<td>127K</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-flores-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.3: MT quality of the selected NMT systems for English-to-Target translation on the full FLORES-101 devtest split, in <span class="smallcaps">Bleu</span> / <span class="smallcaps">ChrF</span> / <span class="smallcaps">Comet</span> format. Best scores are highlighted in <strong>bold</strong>. We report the number of sentence pairs used for mBART-50 multilingual fine-tuning by <span class="citation" data-cites="tang-etal-2021-multilingual">Tang et al. (<a href="references.html#ref-tang-etal-2021-multilingual" role="doc-biblioref">2021</a>)</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-choice-systems" class="level3" data-number="8.3.4">
+<h3 data-number="8.3.4" class="anchored" data-anchor-id="sec-choice-systems"><span class="header-section-number">8.3.4</span> Choice of MT Systems</h3>
+<p>While most of the best-performing general-domain NMT systems are commercial, experiments based on such systems are not replicable, as their backends are silently updated over time. Moreover, without knowing the exact training specifics, we cannot attribute differences in the cross-lingual results to intrinsic language properties. We balance these observations by including two NMT systems in our study: <strong>Google Translate</strong> (GTrans)<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> as a representative of commercial quality, and <strong>mBART-50 one-to-Many</strong><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> <span class="citation" data-cites="tang-etal-2021-multilingual">(<a href="references.html#ref-tang-etal-2021-multilingual" role="doc-biblioref">Tang et al., 2021</a>)</span> as a representative of state-of-the-art open-source multilingual NMT technology. The original multilingual BART model <span class="citation" data-cites="liu-etal-2020-multilingual-denoising">(<a href="references.html#ref-liu-etal-2020-multilingual-denoising" role="doc-biblioref">Liu et al., 2020</a>)</span> is an encoder-decoder transformer model pre-trained on monolingual documents in 25 languages. <span class="citation" data-cites="tang-etal-2021-multilingual">Tang et al. (<a href="references.html#ref-tang-etal-2021-multilingual" role="doc-biblioref">2021</a>)</span> extend mBART by further pre-training on 25 new languages and performing <em>multilingual translation fine-tuning</em> for the full set of 50 languages, producing three configurations of multilingual NMT models: many-to-one, one-to-many, and many-to-many. Our choice of mBART-50 is primarily motivated by its manageable size, good performance across the set of evaluated languages (see <a href="#tbl-flores-perf" class="quarto-xref">Table&nbsp;<span>8.3</span></a>), and its adoption for other NMT studies <span class="citation" data-cites="liu-etal-2021-continual">(<a href="references.html#ref-liu-etal-2021-continual" role="doc-biblioref">Liu et al., 2021</a>)</span> and post-editing evaluations <span class="citation" data-cites="fomicheva-etal-2022-mlqe">(<a href="references.html#ref-fomicheva-etal-2022-mlqe" role="doc-biblioref">Fomicheva et al., 2022</a>)</span>. Although mBART-50 performances are usually comparable or slightly worse than those of tested bilingual NMT models,<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> using a multilingual model allows us to evaluate the downstream effectiveness of a single, unified system trained on pairs evenly distributed across tested languages. Finally, adopting two systems with marked differences in automatic evaluation scores allows us to estimate how a significant increase in metrics such as BLEU, ChrF and <span class="smallcaps">comet</span> <span class="citation" data-cites="papineni-etal-2002-bleu popovic-2015-chrf rei-etal-2020-comet">(<a href="references.html#ref-papineni-etal-2002-bleu" role="doc-biblioref">Papineni et al., 2002</a>; <a href="references.html#ref-popovic-2015-chrf" role="doc-biblioref">Popović, 2015</a>; <a href="references.html#ref-rei-etal-2020-comet" role="doc-biblioref">Rei et al., 2020</a>)</span> impacts downstream productivity across languages in a realistic post-editing scenario.</p>
+</section>
+<section id="translation-platform-and-collected-data" class="level3" data-number="8.3.5">
+<h3 data-number="8.3.5" class="anchored" data-anchor-id="translation-platform-and-collected-data"><span class="header-section-number">8.3.5</span> Translation Platform and Collected Data</h3>
+<p>Translators were asked to use PET <span class="citation" data-cites="aziz-etal-2012-pet">(<a href="references.html#ref-aziz-etal-2012-pet" role="doc-biblioref">Aziz et al., 2012</a>)</span>, a computer-assisted translation tool that supports both translating from scratch and post-editing. This tool was chosen because (i) it logs information about the post-editing process, which we use to assess effort (see <a href="#sec-pe_effort" class="quarto-xref"><span>Section 8.4</span></a>); and (ii) it is a mature research-oriented tool that has been successfully used in several previous studies <span class="citation" data-cites="koponen2012post toral-etal-2018-postediting">(<a href="references.html#ref-koponen2012post" role="doc-biblioref">Koponen et al., 2012</a>; <a href="references.html#ref-toral-etal-2018-postediting" role="doc-biblioref">Toral et al., 2018</a>)</span>, and we modify it slightly to support right-to-left languages like Arabic. Using PET, we collect three types of data:</p>
+<ul>
+<li><strong>Resulting translations</strong> produced by translators in either HT or PE modes, constituting a multilingual corpus with one source text and 18 translations (one per language-modality combination) exemplified in <a href="#tbl-data_example_small" class="quarto-xref">Table&nbsp;<span>8.4</span></a>.</li>
+<li><strong>Behavioral data</strong> for translated sentences, including editing time, amount and type of keystrokes (content, navigation, erase, etc.), and number and duration of pauses above 300/1000 milliseconds <span class="citation" data-cites="lacruz-etal-2014-cognitive">(<a href="references.html#ref-lacruz-etal-2014-cognitive" role="doc-biblioref">Lacruz et al., 2014</a>)</span>.</li>
+<li><strong>Pre- and post-task questionnaire</strong>. The former focuses on demographics, education, and work experience with translation and post-editing. The latter elicits subjective assessments of post-editing quality, effort and enjoyability compared to translating from scratch.</li>
+</ul>
+<div id="tbl-data_example_small" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-data_example_small-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="midrule odd">
+<td><span class="smallcaps">Eng</span></td>
+<td><span class="smallcaps">Src</span></td>
+<td>Inland waterways can be a good theme to base a holiday around.</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Ara</span></td>
+<td>HT</td>
+<td style="font-size: 18px">يمكن أن تكون الممرات المائية الداخلية خياراً جيداً لتخطيط عطلة حولها</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>MT</td>
+<td style="font-size: 18px"><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">يمكن</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">أن</span> تكون <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">السكك الحديدية</span> الداخلية <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">موضوعًا</span> جيدًا <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">لإقامة</span> عطلة <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">حول</span></td>
+</tr>
+<tr class="midrule even">
+<td></td>
+<td>PE</td>
+<td style="font-size: 18px"><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">قد</span>تكون<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">الممرات</span><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">المائية</span>الداخلية<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">مكانًا</span>جيدًا<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">لقضاء</span>عطلة<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">حولها</span></td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Nld</span></td>
+<td>HT</td>
+<td>Binnenlandse waterwegen kunnen een goed thema zijn voor een vakantie.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>MT</td>
+<td>Binnenwaterwegen kunnen een goed thema zijn om een vakantie rond te <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">zetten</span>.</td>
+</tr>
+<tr class="midrule odd">
+<td></td>
+<td>PE</td>
+<td>Binnenwaterwegen kunnen een goed thema zijn om een vakantie rond te <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">organiseren</span>.</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Ita</span></td>
+<td>HT</td>
+<td>I corsi d'acqua dell'entroterra possono essere un ottimo punto di partenza da cui organizzare una vacanza.</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>MT</td>
+<td>I corsi d’acqua interni possono essere un buon tema <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">per fondare</span> una vacanza.</td>
+</tr>
+<tr class="midrule even">
+<td></td>
+<td>PE</td>
+<td>I corsi d’acqua interni possono essere un buon tema <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">su</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">cui basare</span> una vacanza.</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Tur</span></td>
+<td>HT</td>
+<td>İç bölgelerdeki su yolları, tatil planı için iyi bir tema olabilir.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>MT</td>
+<td>İç <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">suyolları,</span> tatil için uygun bir tema olabilir.</td>
+</tr>
+<tr class="midrule odd">
+<td></td>
+<td>PE</td>
+<td>İç <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">sular</span> tatil için uygun bir tema olabilir.</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Ukr</span></td>
+<td>HT</td>
+<td>Можна спланувати вихідні, взявши за основу подорож внутрішніми водними шляхами.</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>MT</td>
+<td><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">Водні шляхи можуть</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #6fa8dc;">бути</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">хорошим об ’єктом</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #6fa8dc;">для</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">базування відпочинку навколо</span>.</td>
+</tr>
+<tr class="midrule even">
+<td></td>
+<td>PE</td>
+<td><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">Місцевість</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">навколо внутрішніх водних шляхів може</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #6fa8dc;">бути</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">гарним вибором</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #6fa8dc;">для</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">організації відпочинку.</span></td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Vie</span></td>
+<td>HT</td>
+<td>Du lịch trên sông có thể là một lựa chọn phù hợp cho kỳ nghỉ.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>MT</td>
+<td><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">Các tuyến nước</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #6fa8dc;">nội địa</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">có thể</span> là một <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">chủ đề tốt</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">để xây dựng một kì nghỉ.</span></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>PE</td>
+<td><span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">Du lịch bằng đường thủy</span> <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #6fa8dc;">nội địa</span> là một <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">ý tưởng nghỉ dưỡng không tồi.</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-data_example_small-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.4: A DivEMT corpus entry, including the English source (<span class="smallcaps">Src</span>), its translation from scratch (HT), the MT output of mBART-50 (MT) and its post-edited version (PE) for all languages. We highlight <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">insertions</span>, <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">deletions</span>, <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffe6b2;">substitutions</span> and <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #6fa8dc;">shifts</span> computed with Tercom <span class="citation" data-cites="snover-etal-2006-study">Snover et al. (<a href="references.html#ref-snover-etal-2006-study" role="doc-biblioref">2006</a>)</span>. Full examples available in <a href="appendix-c.html#tbl-data_example_full_1" class="quarto-xref">Table&nbsp;<span>C.5</span></a>.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-pe_effort" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="sec-pe_effort"><span class="header-section-number">8.4</span> Post-Editing Effort Across Languages</h2>
+<p>In this section, we use the <span class="smallcaps">DivEMT</span> dataset to quantify the post-editing effort of professional translators across our diverse set of target languages. We consider two main objective indicators of editing effort: <em>temporal measurements</em> (and related productivity gains) and <em>post-editing rates</em>, measured by the Human-targeted Translation Edit Rate (HTER, <span class="citation" data-cites="snover-etal-2006-study">Snover et al. (<a href="references.html#ref-snover-etal-2006-study" role="doc-biblioref">2006</a>)</span>). Finally, we assess the subjective perception of PE gains by examining the post-task questionnaires. We reiterate that all scores in this section are computed on the same set of source sentences for all languages, resulting in a faithful cross-lingual comparison of post-editing effort thanks to <span class="smallcaps">DivEMT</span>’s controlled setup.</p>
+<section id="temporal-effort-and-productivity-gains" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="temporal-effort-and-productivity-gains"><span class="header-section-number">8.4.1</span> Temporal Effort and Productivity Gains</h3>
+<p>We begin by comparing <em>task time</em> (seconds per processed source word) across languages and modalities. For this purpose, edit times are computed for every document in every language without considering the presence of multiple translators for every language. As shown in <a href="#fig-time-per-src-word" class="quarto-xref">Figure&nbsp;<span>8.2</span></a>, translation time varies considerably across languages even when no MT system is involved (HT), suggesting an intrinsic variability in translation complexity for different subjects and language pairs. Indeed, for the HT modality, the time required for the “slowest” target languages (Italian, Ukrainian) is roughly twice that of the “fastest” one (Turkish). This pattern cannot be easily explained and contrasts with factors commonly tied to MT complexity, such as source-target morphological richness and language relatedness <span class="citation" data-cites="birch-etal-2008-predicting belinkov-etal-2017-neural">(<a href="references.html#ref-birch-etal-2008-predicting" role="doc-biblioref">Birch et al., 2008</a>; <a href="references.html#ref-belinkov-etal-2017-neural" role="doc-biblioref">Belinkov et al., 2017</a>)</span>. On the other hand, we find that the relation PE<span class="math inline">\(_1\)</span> &lt; PE<span class="math inline">\(_2\)</span> &lt; HT (where PE<span class="math inline">\(_1\)</span> is the fastest, PE<span class="math inline">\(_2\)</span> has a medium speed, and HT is the slowest) holds for all the evaluated languages.</p>
+<div id="fig-time-per-src-word" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-time-per-src-word-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-8-divemt/time_per_src_word_small.webp" class="img-fluid figure-img" style="width:65.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-time-per-src-word-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.2: Temporal effort across languages and translation modalities, measured in seconds per processed source word. Each point represents a document, with higher scores denoting slower editing. <span class="math inline">\(\uparrow\)</span>: amount of data points per language not shown in the plot.
+</figcaption>
+</figure>
+</div>
+<p>For a measure of productivity gains that is easier to interpret and more in line with translation industry practices, we turn to <em>productivity</em> expressed in source words processed per minute and compute the <em>speed-up</em> induced by the two post-editing modalities over translating from scratch (<span class="math inline">\(\Delta\)</span>HT). <a href="#tbl-productivity" class="quarto-xref">Table&nbsp;<span>8.5</span></a> presents our results. <strong>Across systems</strong>, we find that <em>large</em> differences among automatic MT quality metrics indeed reflect post-editing effort, suggesting a nuanced picture that complements the findings of <span class="citation" data-cites="zouhar-etal-2021-neural">Zouhar et al. (<a href="references.html#ref-zouhar-etal-2021-neural" role="doc-biblioref">2021</a>)</span>. While post-editing time gains were observed to quickly saturate for slight changes in high-quality MT, we find that moving from medium-quality to high-quality MT yields meaningful productivity improvements across most evaluated languages. <strong>Across languages</strong>, too, the magnitude of productivity gains ranges widely, from doubling in some languages (Dutch PE<span class="math inline">\(_1\)</span>, Italian PE<span class="math inline">\(_1\)</span> and PE<span class="math inline">\(_2\)</span>) to only about 10% (Arabic, Turkish and Ukrainian PE<span class="math inline">\(_2\)</span>). When only considering the better-performing system (PE<span class="math inline">\(_1\)</span>), post-editing remains clearly beneficial in all languages despite the high variability in <span class="math inline">\(\Delta\)</span>HT scores. Results are more nuanced for the open-source system (PE<span class="math inline">\(_2\)</span>), with three out of six languages displaying only marginal gains (&lt;15% in Arabic, Turkish and Ukrainian). Despite its overall inferior performance, mBART-50 (PE<span class="math inline">\(_2\)</span>) is the only system that enables a fair comparison across languages (in terms of training data size and architecture, see <a href="#sec-choice-systems" class="quarto-xref"><span>Section 8.3.4</span></a>). Interestingly, when focusing on the productivity gains achieved by this system, factors such as language relatedness and morphological complexity become relevant. Specifically, Italian (+95%), Dutch (+61%) and Ukrainian (+14%) are genetically and syntactically related to English, but Ukrainian has a richer morphology (see <a href="#tbl-languages-small" class="quarto-xref">Table&nbsp;<span>8.2</span></a>). On the other hand, Vietnamese (+23%), Turkish (+12%) and Arabic (+10%) all belong to different families. However, Vietnamese is isolating (little to no morphology), while Turkish and Arabic have rich morphological systems (respectively agglutinative and introflexive, the latter of which is especially problematic for subword segmentation, <span class="citation" data-cites="amrhein-sennrich-2021-suitable-subword">Amrhein and Sennrich (<a href="references.html#ref-amrhein-sennrich-2021-suitable-subword" role="doc-biblioref">2021</a>)</span>). Other differences, however, are more difficult to explain. For instance, Dutch is closely related to English and has a simpler morphology than Italian, but its productivity gain with mBART-50 is lower (61% vs 95%). This finding is accompanied by an important gap in BLEU and <span class="smallcaps">comet</span> scores achieved by mBART-50 on the two languages (22.6 vs 24.4 BLEU and 0.532 vs 0.648 <span class="smallcaps">comet</span> for Dutch vs Italian, resp.), which cannot be explained by training data size.</p>
+<div id="tbl-productivity" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-productivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" data-quarto-table-cell-role="th"></th>
+<th colspan="3" class="group-header" data-quarto-table-cell-role="th"><strong><span class="smallcaps">Prod</span> <span class="math inline">\(\uparrow\)</span></strong></th>
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><strong><span class="math inline">\(\Delta\)</span>HT <span class="math inline">\(\uparrow\)</span></strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th">HT</th>
+<th data-quarto-table-cell-role="th">PE<span class="math inline">\(_1\)</span></th>
+<th data-quarto-table-cell-role="th">PE<span class="math inline">\(_2\)</span></th>
+<th data-quarto-table-cell-role="th">PE<span class="math inline">\(_1\)</span></th>
+<th data-quarto-table-cell-role="th">PE<span class="math inline">\(_2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Ara</span></td>
+<td>13.1</td>
+<td>21.7</td>
+<td>16.3</td>
+<td>+84%</td>
+<td>+10%</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Nld</span></td>
+<td>13.6</td>
+<td>28.7</td>
+<td>21.7</td>
+<td>+119%</td>
+<td>+61%</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Ita</span></td>
+<td>8.8</td>
+<td>18.6</td>
+<td>15.6</td>
+<td>+96%</td>
+<td>+95%</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Tur</span></td>
+<td>17.9</td>
+<td>25.5</td>
+<td>21.0</td>
+<td>+34%</td>
+<td>+12%</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Ukr</span></td>
+<td>8.0</td>
+<td>12.3</td>
+<td>9.8</td>
+<td>+71%</td>
+<td>+14%</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Vie</span></td>
+<td>10.2</td>
+<td>13.0</td>
+<td>11.1</td>
+<td>+32%</td>
+<td>+23%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-productivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.5: Median productivity (<span class="smallcaps">Prod</span>, # processed source words per minute) and median % post-editing speedup (<span class="math inline">\(\Delta\)</span>HT) for all analyzed languages and modalities. Arrows denote the direction of improvement.
+</figcaption>
+</figure>
+</div>
+<p>In summary, our findings confirm the overall positive impact of NMT post-editing on translation productivity observed in previous PE studies. However, we note that <em>the magnitude of this impact is highly variable across systems and languages</em>, with inter-subject variability also playing an important role, in line with previous studies <span class="citation" data-cites="koponen-etal-2020-mt">(<a href="references.html#ref-koponen-etal-2020-mt" role="doc-biblioref">Koponen et al., 2020</a>)</span> (see <a href="#sec-limitations" class="quarto-xref"><span>Section 8.5</span></a> for more details). The small size of our language sample does not allow us to draw direct causal links between specific typological properties and post-editing efficiency. That said, we believe these results have important implications for the claimed `universality’ of current state-of-the-art MT and NLP systems, primarily based on the transformer architecture <span class="citation" data-cites="vaswani-etal-2017-attention">(<a href="references.html#ref-vaswani-etal-2017-attention" role="doc-biblioref">Vaswani et al., 2017</a>)</span> and BPE-style subword segmentation techniques <span class="citation" data-cites="sennrich-etal-2016-neural">(<a href="references.html#ref-sennrich-etal-2016-neural" role="doc-biblioref">Sennrich et al., 2016</a>)</span>.</p>
+<section id="modeling-temporal-effort" class="level4" data-number="8.4.1.1">
+<h4 data-number="8.4.1.1" class="anchored" data-anchor-id="modeling-temporal-effort"><span class="header-section-number">8.4.1.1</span> Modeling Temporal Effort</h4>
+<p>Given the high variability among translators, segments and translation modalities, we assess the validity of our observations via statistical analysis of temporal effort using a linear mixed-effects regression model (LMER, <span class="citation" data-cites="lindstrom-bates-1988-lmer">Lindstrom and Bates (<a href="references.html#ref-lindstrom-bates-1988-lmer" role="doc-biblioref">1988</a>)</span>), following <span class="citation" data-cites="green-etal-2013-efficacy">Green et al. (<a href="references.html#ref-green-etal-2013-efficacy" role="doc-biblioref">2013</a>)</span> and <span class="citation" data-cites="toral-etal-2018-postediting">Toral et al. (<a href="references.html#ref-toral-etal-2018-postediting" role="doc-biblioref">2018</a>)</span>. Linear Mixed Effects models (LMER) are used for regression analyses involving dependent data, such as longitudinal studies with multiple observations per subject. We fit our model on <span class="math inline">\(n=7434\)</span> instances, corresponding to 413 sentences translated by 18 translators, using translation time as the dependent variable, and translation modality, target language, their interaction and length of source segment in characters as fixed predictors:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>edit_time <span class="op">~</span> src_len_chr <span class="op">+</span> lang_id <span class="op">*</span> task_type <span class="op">+</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="op">|</span>subject_id) <span class="op">+</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="op">|</span> document_id<span class="op">/</span>item_id) <span class="op">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span> <span class="op">+</span> task_type <span class="op">|</span> document_id<span class="op">/</span>item_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We log-transform the dependent variable, edit time in seconds, given its long right tail. The models are built by adding one element at a time and checking whether such an addition leads to a significantly better model, as indicated by a reduction in AIC (i.e., a decrease of at least 2). Our random effects structure includes random intercepts for different segments (nested with documents) and translators, as well as a random slope for modality over individual segments. We start with an initial model that includes only the two random intercepts (by-translator and by-segment) and proceed by (i) finding significance for nested document/segment random effect; (ii) adding fixed predictors one by one; (iii) adding interactions between fixed predictors; and (iv) adding the random slopes.[^8-8]</p>
+<p><a href="#tbl-significance" class="quarto-xref">Table&nbsp;<span>8.6</span></a> presents the set of predictors included in the final model, along with an estimate of their impact on edit times and their corresponding significance. We find that both PE modalities significantly reduce translation times (<span class="math inline">\(p &lt; 0.001\)</span>), with PE<span class="math inline">\(_1\)</span> being significantly faster than PE<span class="math inline">\(_2\)</span> (<span class="math inline">\(p &lt; 0.001\)</span>) across all languages. Considering Ukrainian—the language for which HT is slowest—as the reference level, the reduction in time brought by Google is significantly more pronounced for Italian, Dutch (<span class="math inline">\(p&lt;0.001\)</span>), and Turkish (<span class="math inline">\(p&lt;0.05\)</span>). For mBART-50, however, we only observe significantly more pronounced increases in productivity for Italian and Dutch (<span class="math inline">\(p&lt;0.001\)</span>) compared to the reference. We find these results to corroborate the observations of the previous section.</p>
+<div id="tbl-significance" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-significance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Predictor</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Estim.</strong></th>
+<th data-quarto-table-cell-role="th"><strong>p-value</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Sig.</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>(intercept)</code></td>
+<td>4.92</td>
+<td>1.12e-11</td>
+<td>***</td>
+</tr>
+<tr class="midrule even">
+<td><code>source length</code></td>
+<td>0.38</td>
+<td>&lt; 2e-16</td>
+<td>***</td>
+</tr>
+<tr class="odd">
+<td><code>lang_ara</code></td>
+<td>-0.49</td>
+<td>0.1209</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>lang_ita</code></td>
+<td>-0.14</td>
+<td>0.6407</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>lang_nld</code></td>
+<td>-0.58</td>
+<td>0.0733</td>
+<td>x</td>
+</tr>
+<tr class="even">
+<td><code>lang_tur</code></td>
+<td>-0.82</td>
+<td>0.0162</td>
+<td>*</td>
+</tr>
+<tr class="midrule odd">
+<td><code>lang_vie</code></td>
+<td>-0.24</td>
+<td>0.4254</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>task_pe1</code></td>
+<td>-0.49</td>
+<td>&lt; 2e-16</td>
+<td>***</td>
+</tr>
+<tr class="midrule odd">
+<td><code>task_pe2</code></td>
+<td>-0.22</td>
+<td>1.77e-07</td>
+<td>***</td>
+</tr>
+<tr class="even">
+<td><code>lang_ara:task_pe1</code></td>
+<td>-0.11</td>
+<td>0.0505</td>
+<td>x</td>
+</tr>
+<tr class="odd">
+<td><code>lang_ita:task_pe1</code></td>
+<td>-0.40</td>
+<td>8.97e-12</td>
+<td>***</td>
+</tr>
+<tr class="even">
+<td><code>lang_nld:task_pe1</code></td>
+<td>-0.41</td>
+<td>5.74e-12</td>
+<td>***</td>
+</tr>
+<tr class="odd">
+<td><code>lang_tur:task_pe1</code></td>
+<td>-0.14</td>
+<td>0.0194</td>
+<td>*</td>
+</tr>
+<tr class="midrule even">
+<td><code>lang_vie:task_pe1</code></td>
+<td>0.13</td>
+<td>0.0290</td>
+<td>*</td>
+</tr>
+<tr class="odd">
+<td><code>lang_ara:task_pe2</code></td>
+<td>0.05</td>
+<td>0.3535</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>lang_ita:task_pe2</code></td>
+<td>-0.39</td>
+<td>3.30e-11</td>
+<td>***</td>
+</tr>
+<tr class="odd">
+<td><code>lang_nld:task_pe2</code></td>
+<td>-0.29</td>
+<td>4.46e-07</td>
+<td>***</td>
+</tr>
+<tr class="even">
+<td><code>lang_tur:task_pe2</code></td>
+<td>0.03</td>
+<td>0.5811</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>lang_vie:task_pe2</code></td>
+<td>0.04</td>
+<td>0.5289</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-significance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.6: LMER modeling results using translation time as the dependent variable. The reference levels for predictors <code>lang</code> and <code>task</code> are Ukrainian and Translation from scratch (HT), respectively. Estimate impact on edit time for every predictor is provided in log seconds. Significance: *** = &lt; 0.001, * = &lt; 0.05, x = &lt; 0.1
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-pe-rate" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="sec-pe-rate"><span class="header-section-number">8.4.2</span> Post-Editing Rate</h3>
+<p>We proceed to study the post-editing patterns using the widely adopted Human-targeted Translation Edit Rate (HTER, <span class="citation" data-cites="snover-etal-2006-study">Snover et al. (<a href="references.html#ref-snover-etal-2006-study" role="doc-biblioref">2006</a>)</span>), which is computed as the length-normalized sum of word-level substitutions, insertions, deletions, and shift operations performed during post-editing.</p>
+<p>As shown in <a href="#fig-hter" class="quarto-xref">Figure&nbsp;<span>8.3</span></a>, PE<span class="math inline">\(_1\)</span> required less editing than PE<span class="math inline">\(_2\)</span> for all languages, and a high variability is observed across the two systems and all languages. Because translators were not informed about the presence of two MT systems, we exclude the possibility that these results reflect an over-reliance or distrust towards a specific MT system. For Google Translate, Ukrainian shows the heaviest edit rate, followed by Vietnamese, whereas Arabic, Dutch, Italian and Turkish all show relatively low amounts of edits. Focusing again on mBART-50 for a more fair cross-lingual comparison, Ukrainian is by far the most heavily edited language, followed by a medium-tier group composed of Vietnamese, Arabic and Turkish, and finally by Dutch and Italian as low-edit languages. Results show that several of our observations on linguistic relatedness and morphology type also apply to edit rates, with languages less related to English or having richer morphology requiring more post-edits on average.</p>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-hter" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-8-divemt/hter_per_system.webp" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.3: Human-targeted Translation Edit Rate (HTER) for Google Translate and mBART-50 post-editing across available languages.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-errorless-sentences" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-errorless-sentences-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-8-divemt/errorless_outputs_small.webp" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-errorless-sentences-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.4: Distribution of error-less machine translation sentence outputs (no edits performed during post-editing) for each translator and every language.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-errorless-sentences" class="quarto-xref">Figure&nbsp;<span>8.4</span></a> visualizes the large gap in edit rates across languages and subjects by presenting the amount of ‘errorless’ MT sentences that were accepted directly, i.e.&nbsp;without any post-editing. We note again how the NMT system significantly influences the rate of occurrence of such sentences, yet nonetheless shows that Dutch and Italian generally present more error-free sentences than Ukrainian and Vietnamese. In particular, for Google Translate outputs, the average rate of error-free sentences is roughly 25% for the former target languages, while for the latter, it accounts for only 3% of total translations. Surprisingly, the English-Turkish pair also fares well, despite the low relatedness between the source and target languages. We note that post-editing effort appears to correlate poorly with the automatic MT quality metrics reported in <a href="#tbl-flores-perf" class="quarto-xref">Table&nbsp;<span>8.3</span></a> (e.g., see the high scores of Vietnamese and the low scores of Dutch PE<span class="math inline">\(_1\)</span>), highlighting a difficulty in predicting the benefits of MT post-editing over HT for new language pairs.</p>
+<p>While HTER is a standard metric adopted in both academic and industrial settings, we also evaluated its character-level variant, CharacTER <span class="citation" data-cites="wang-etal-2016-character">(<a href="references.html#ref-wang-etal-2016-character" role="doc-biblioref">Wang et al., 2016</a>)</span>, to assess whether it could better account for the editing process of morphologically rich languages. <a href="#fig-character" class="quarto-xref">Figure&nbsp;<span>8.5</span></a> presents the CharacTER results. When comparing this plot to the HTER one (<a href="#fig-hter" class="quarto-xref">Figure&nbsp;<span>8.3</span></a>), we notice that CharacTER preserves the overall trends but slightly improves the edit rate for Arabic and Turkish compared to other languages. Nevertheless, we find that HTER correlates slightly better with productivity scores across all tested languages, both at the sentence and document levels.</p>
+<div id="fig-character" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-character-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-8-divemt/cer_per_system.webp" class="img-fluid figure-img" style="width:60.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-character-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.5: Character-level Human-targeted Translation Edit Rate (CharacTER) for Google Translate and mBART-50 post-editing across available languages.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="perception-of-productivity-gain" class="level3" data-number="8.4.3">
+<h3 data-number="8.4.3" class="anchored" data-anchor-id="perception-of-productivity-gain"><span class="header-section-number">8.4.3</span> Perception of Productivity Gain</h3>
+<p>We conclude our analysis by examining the post-task questionnaires, in which participants expressed their perceptions of MT quality and translation speed across HT and PE modalities (HT<span class="math inline">\(_s\)</span>, PE<span class="math inline">\(_s\)</span>)<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> using a 1-7 Likert scale (where 1 is the slowest and 7 is the fastest). We use these to compute the Perceived Productivity Gain (PPG) as <span class="math inline">\(\textrm{PPG} = \textrm{PE}_s - \textrm{HT}_s\)</span> and visualize it in <a href="#fig-perceived-pe-speedup" class="quarto-xref">Figure&nbsp;<span>8.6</span></a>. We observe that Italian and Dutch, the only target languages with marked productivity gains (<span class="math inline">\(\Delta\)</span>HT) regardless of the PE system in <a href="#tbl-productivity" class="quarto-xref">Table&nbsp;<span>8.5</span></a>, are also the only ones having consistently high (<span class="math inline">\(\geq 2\)</span>) PPG scores across all subjects. Moreover, we remark how PPG for target languages with a wide gap in <span class="math inline">\(\Delta\)</span>HT scores between high-PE<span class="math inline">\(_1\)</span> and low-PE<span class="math inline">\(_2\)</span> (Arabic, Ukrainian) are hardly distinguishable from those of languages in which <span class="math inline">\(\Delta\)</span>HT is low for both PE systems (Turkish, Vietnamese). Notably, 4 out of 18 subjects attribute negative PPGs to the PE modality, despite productivity gains being reported across all subjects and languages. These results suggest that worst-case usage scenarios may play an important role in driving PPG, i.e.&nbsp;that <em>subjects’ perception of quality is shaped mainly by particularly challenging or unsatisfying interactions with the NMT system, rather than the average case</em>. Finally, from the post-task questionnaire, PPG scores exhibit a strong positive correlation with the perception of MT adequacy (<span class="math inline">\(\rho\)</span>=0.66), fluency (<span class="math inline">\(\rho\)</span>=0.46) and overall quality (<span class="math inline">\(\rho\)</span>=0.69), and more generally with a higher enjoyability of PE (<span class="math inline">\(\rho\)</span>=0.60), while being inversely correlated with the perception of problematic mistranslations (<span class="math inline">\(\rho\)</span>=-0.60).</p>
+<div id="fig-perceived-pe-speedup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-perceived-pe-speedup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-8-divemt/perceived_pe_speedup.webp" class="img-fluid figure-img" style="width:70.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perceived-pe-speedup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.6: Perceived productivity gains (PPG) between the HT and PE translation modalities, assessed for all subjects after task completion.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-limitations" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="sec-limitations"><span class="header-section-number">8.5</span> Limitations</h2>
+<p>The subjective component introduced by the presence of multiple translators is an important confounding factor in our setup, particularly given the relatively small number of subjects for each language. In our study, we aimed to strike a balance between thorough control of other noise components and faithful reproduction of a realistic translation scenario. However, we recognize that the combination of the limited document context provided by FLORES-101, the variety of topics covered in the texts, and the experimental nature of the PET platform constitutes an atypical setting that may have impacted the translators’ natural productivity. Moreover, variability in the content of mBART-50 fine-tuning data, despite their comparable sizes, may have played a role in the observed variability in automatic MT evaluation and PE gains across languages.</p>
+</section>
+<section id="conclusions" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="conclusions"><span class="header-section-number">8.6</span> Conclusions</h2>
+<p>We introduced <span class="smallcaps">DivEMT</span>, the outcome of a post-editing study that spanned two state-of-the-art NMT systems, involved 18 professional translators, and employed six typologically diverse target languages under a unified setup. We leveraged <span class="smallcaps">DivEMT</span>’s behavioral data to perform a controlled cross-language analysis of NMT post-editing effort along its temporal and editing effort dimensions. The analysis reveals that NMT drives significant improvements in productivity across all evaluated languages; however, the magnitude of these improvements depends heavily on the language and the underlying NMT system. In this setting, productivity measurements across modalities were found to be generally consistent with the recorded editing patterns. Our results indicate that translators working on language pairs with significant post-editing productivity gains, on average, perform fewer edits and accept more machine-generated translations without any editing. We have also observed a disconnect between post-editing productivity gains and MT quality metrics collected for the same NMT systems. Finally, low source-language relatedness and target morphological complexity seem to hinder productivity when NMT is adopted, even in settings where system architecture and training data are controlled for.</p>
+<p>In our qualitative analysis, translators’ perception of post-editing usefulness was found to be strongly shaped by problematic mistranslations. Languages showing large productivity gains for both NMT systems were the only ones associated with a positive perception of PE-mediated gains, as opposed to mixed or negative opinions for other translation directions.</p>
+<p>Overall, our findings reveal significant variation in post-editing effectiveness across languages and systems, highlighting the need for fine-grained quality assessment tools. In the next chapter, we build upon these insights by conducting a second study with professional post-editors, assessing the impact of word-level error detection methods—including unsupervised approaches that leverage model internals—on the quality and productivity of human post-editing.</p>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-ahsan-etal-2021-assessing" class="csl-entry" role="listitem">
+Arafat Ahsan, Vandan Mujadia, and Dipti Misra Sharma. 2021. <a href="https://aclanthology.org/2021.icon-main.7/">Assessing post-editing effort in the <span>E</span>nglish-<span>H</span>indi direction</a>. In Sivaji Bandyopadhyay, Sobha Lalitha Devi, and Pushpak Bhattacharyya, editors, <em>Proceedings of the 18th international conference on natural language processing (ICON)</em>, pages 44–53, National Institute of Technology Silchar, Silchar, India. NLP Association of India (NLPAI).
+</div>
+<div id="ref-amrhein-sennrich-2021-suitable-subword" class="csl-entry" role="listitem">
+Chantal Amrhein and Rico Sennrich. 2021. <a href="https://doi.org/10.18653/v1/2021.findings-emnlp.60">How suitable are subword segmentation strategies for translating non-concatenative morphology?</a> In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Findings of the association for computational linguistics: EMNLP 2021</em>, pages 689–705, Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-aziz-etal-2012-pet" class="csl-entry" role="listitem">
+Wilker Aziz, Sheila Castilho, and Lucia Specia. 2012. <a href="https://aclanthology.org/L12-1587/"><span>PET</span>: A tool for post-editing and assessing machine translation</a>. In Nicoletta Calzolari, Khalid Choukri, Thierry Declerck, Mehmet Uğur Doğan, Bente Maegaard, Joseph Mariani, Asuncion Moreno, Jan Odijk, and Stelios Piperidis, editors, <em>Proceedings of the eighth international conference on language resources and evaluation (<span>LREC</span>‘12)</em>, pages 3982–3987, Istanbul, Turkey. European Language Resources Association (ELRA).
+</div>
+<div id="ref-wmt-2021-machine" class="csl-entry" role="listitem">
+Loic Barrault, Ondrej Bojar, Fethi Bougares, Rajen Chatterjee, Marta R. Costa-jussa, Christian Federmann, Mark Fishel, Alexander Fraser, Markus Freitag, Yvette Graham, Roman Grundkiewicz, Paco Guzman, Barry Haddow, Matthias Huck, Antonio Jimeno Yepes, Philipp Koehn, Tom Kocmi, Andre Martins, Makoto Morishita, et al., editors. 2021. <em><a href="https://aclanthology.org/2021.wmt-1.0/">Proceedings of the sixth conference on machine translation</a></em>. Association for Computational Linguistics, Online.
+</div>
+<div id="ref-belinkov-etal-2017-neural" class="csl-entry" role="listitem">
+Yonatan Belinkov, Nadir Durrani, Fahim Dalvi, Hassan Sajjad, and James Glass. 2017. <a href="https://doi.org/10.18653/v1/P17-1080">What do neural machine translation models learn about morphology?</a> In Regina Barzilay and Min-Yen Kan, editors, <em>Proceedings of the 55th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 861–872, Vancouver, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-birch-etal-2008-predicting" class="csl-entry" role="listitem">
+Alexandra Birch, Miles Osborne, and Philipp Koehn. 2008. <a href="https://aclanthology.org/D08-1078/">Predicting success in machine translation</a>. In Mirella Lapata and Hwee Tou Ng, editors, <em>Proceedings of the 2008 conference on empirical methods in natural language processing</em>, pages 745–754, Honolulu, Hawaii. Association for Computational Linguistics.
+</div>
+<div id="ref-bisazza-etal-2021-difficulty" class="csl-entry" role="listitem">
+Arianna Bisazza, Ahmet Üstün, and Stephan Sportel. 2021. <a href="https://doi.org/10.1162/tacl_a_00424">On the difficulty of translating free-order case-marking languages</a>. <em>Transactions of the Association for Computational Linguistics</em>, 9:1233–1248.
+</div>
+<div id="ref-bojar-etal-2013-findings" class="csl-entry" role="listitem">
+Ondřej Bojar, Christian Buck, Chris Callison-Burch, Christian Federmann, Barry Haddow, Philipp Koehn, Christof Monz, Matt Post, Radu Soricut, and Lucia Specia. 2013. <a href="https://aclanthology.org/W13-2201/">Findings of the 2013 <span>W</span>orkshop on <span>S</span>tatistical <span>M</span>achine <span>T</span>ranslation</a>. In Ondrej Bojar, Christian Buck, Chris Callison-Burch, Barry Haddow, Philipp Koehn, Christof Monz, Matt Post, Herve Saint-Amand, Radu Soricut, and Lucia Specia, editors, <em>Proceedings of the eighth workshop on statistical machine translation</em>, pages 1–44, Sofia, Bulgaria. Association for Computational Linguistics.
+</div>
+<div id="ref-bugliarello-etal-2020-easier" class="csl-entry" role="listitem">
+Emanuele Bugliarello, Sabrina J. Mielke, Antonios Anastasopoulos, Ryan Cotterell, and Naoaki Okazaki. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.149">It‘s easier to translate out of <span>E</span>nglish than into it: <span>M</span>easuring neural translation difficulty by cross-mutual information</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 1640–1649, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-coltekin-rama-2023-complexity" class="csl-entry" role="listitem">
+Çağrı Çöltekin and Taraka Rama. 2023. <a href="https://doi.org/doi:10.1515/lingvan-2021-0007">What do complexity measures measure? Correlating and validating corpus-based measures of morphological complexity</a>. <em>Linguistics Vanguard</em>, 9(s1):27–43.
+</div>
+<div id="ref-cotterell-etal-2018-languages" class="csl-entry" role="listitem">
+Ryan Cotterell, Sabrina J. Mielke, Jason Eisner, and Brian Roark. 2018. <a href="https://doi.org/10.18653/v1/N18-2085">Are all languages equally hard to language-model?</a> In Marilyn Walker, Heng Ji, and Amanda Stent, editors, <em>Proceedings of the 2018 conference of the north <span>A</span>merican chapter of the association for computational linguistics: Human language technologies, volume 2 (short papers)</em>, pages 536–541, New Orleans, Louisiana. Association for Computational Linguistics.
+</div>
+<div id="ref-daems-etal-2017-translation" class="csl-entry" role="listitem">
+Joke Daems, Sonia Vandepitte, Robert Hartsuiker, and Lieve Macken. 2017. <a href="https://doi.org/10.7202/1041023ar">Translation methods and experience: A comparative analysis of human translation and post-editing with students and professional translators</a>. <em>Meta : journal des traducteurs / Meta: Translators’ Journal</em>, 62(2):245–270.
+</div>
+<div id="ref-fomicheva-etal-2022-mlqe" class="csl-entry" role="listitem">
+Marina Fomicheva, Shuo Sun, Erick Fonseca, Chrysoula Zerva, Frédéric Blain, Vishrav Chaudhary, Francisco Guzmán, Nina Lopatina, Lucia Specia, and André F. T. Martins. 2022. <a href="https://aclanthology.org/2022.lrec-1.530/"><span>MLQE</span>-<span>PE</span>: A multilingual quality estimation and post-editing dataset</a>. In Nicoletta Calzolari, Frédéric Béchet, Philippe Blache, Khalid Choukri, Christopher Cieri, Thierry Declerck, Sara Goggi, Hitoshi Isahara, Bente Maegaard, Joseph Mariani, Hélène Mazo, Jan Odijk, and Stelios Piperidis, editors, <em>Proceedings of the thirteenth language resources and evaluation conference</em>, pages 4963–4974, Marseille, France. European Language Resources Association.
+</div>
+<div id="ref-gene-2021-post" class="csl-entry" role="listitem">
+Viveta Gene. 2021. <a href="https://aclanthology.org/2021.triton-1.22/">The post-editing workflow: Training challenges for <span>LSP</span>s, post-editors and academia</a>. In Ruslan Mitkov, Vilelmini Sosoni, Julie Christine Giguère, Elena Murgolo, and Elizabeth Deysel, editors, <em>Proceedings of the translation and interpreting technology online conference</em>, pages 187–198, Held Online. INCOMA Ltd.
+</div>
+<div id="ref-gerz-etal-2018-relation" class="csl-entry" role="listitem">
+Daniela Gerz, Ivan Vulić, Edoardo Maria Ponti, Roi Reichart, and Anna Korhonen. 2018. <a href="https://doi.org/10.18653/v1/D18-1029">On the relation between linguistic typology and (limitations of) multilingual language modeling</a>. In Ellen Riloff, David Chiang, Julia Hockenmaier, and Jun’ichi Tsujii, editors, <em>Proceedings of the 2018 conference on empirical methods in natural language processing</em>, pages 316–327, Brussels, Belgium. Association for Computational Linguistics.
+</div>
+<div id="ref-goyal-etal-2022-flores" class="csl-entry" role="listitem">
+Naman Goyal, Cynthia Gao, Vishrav Chaudhary, Peng-Jen Chen, Guillaume Wenzek, Da Ju, Sanjana Krishnan, Marc’Aurelio Ranzato, Francisco Guzmán, and Angela Fan. 2022. <a href="https://doi.org/10.1162/tacl_a_00474">The <span>F</span>lores-101 evaluation benchmark for low-resource and multilingual machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 10:522–538.
+</div>
+<div id="ref-green-etal-2013-efficacy" class="csl-entry" role="listitem">
+Spence Green, Jeffrey Heer, and Christopher D. Manning. 2013. <a href="https://doi.org/10.1145/2470654.2470718">The efficacy of human post-editing for language translation</a>. In <em>Proceedings of the <span>SIGCHI</span> <span>Conference</span> on <span>Human</span> <span>Factors</span> in <span>Computing</span> <span>Systems</span></em>, pages 439–448, New York, NY, USA. Association for Computing Machinery.
+</div>
+<div id="ref-koehn-2005-europarl" class="csl-entry" role="listitem">
+Philipp Koehn. 2005. <a href="https://aclanthology.org/2005.mtsummit-papers.11/"><span>E</span>uroparl: A parallel corpus for statistical machine translation</a>. In <em>Proceedings of machine translation summit x: papers</em>, pages 79–86, Phuket, Thailand.
+</div>
+<div id="ref-koponen2012post" class="csl-entry" role="listitem">
+Maarit Koponen, Wilker Aziz, Luciana Ramos, and Lucia Specia. 2012. <a href="https://aclanthology.org/www.mt-archive.info/AMTA-2012-Koponen.pdf">Post-editing time as a measure of cognitive effort</a>. In <em>Workshop on post-editing technology and practice</em>.
+</div>
+<div id="ref-koponen-etal-2020-mt" class="csl-entry" role="listitem">
+Maarit Koponen, Umut Sulubacak, Kaisa Vitikainen, and Jörg Tiedemann. 2020. <a href="https://aclanthology.org/2020.eamt-1.13/"><span>MT</span> for subtitling: User evaluation of post-editing productivity</a>. In André Martins, Helena Moniz, Sara Fumega, Bruno Martins, Fernando Batista, Luisa Coheur, Carla Parra, Isabel Trancoso, Marco Turchi, Arianna Bisazza, Joss Moorkens, Ana Guerberof, Mary Nurminen, Lena Marg, and Mikel L. Forcada, editors, <em>Proceedings of the 22nd annual conference of the european association for machine translation</em>, pages 115–124, Lisboa, Portugal. European Association for Machine Translation.
+</div>
+<div id="ref-lacruz-etal-2014-cognitive" class="csl-entry" role="listitem">
+Isabel Lacruz, Michael Denkowski, and Alon Lavie. 2014. <a href="https://aclanthology.org/2014.amta-wptp.6/">Cognitive demand and cognitive effort in post-editing</a>. In Sharon O’Brien, Michel Simard, and Lucia Specia, editors, <em>Proceedings of the 11th conference of the association for machine translation in the americas</em>, pages 73–84, Vancouver, Canada. Association for Machine Translation in the Americas.
+</div>
+<div id="ref-laubli-etal-2019-post" class="csl-entry" role="listitem">
+Samuel Läubli, Chantal Amrhein, Patrick Düggelin, Beatriz Gonzalez, Alena Zwahlen, and Martin Volk. 2019. <a href="https://aclanthology.org/W19-6626/">Post-editing productivity with neural machine translation: An empirical assessment of speed and quality in the banking and finance domain</a>. In Mikel Forcada, Andy Way, Barry Haddow, and Rico Sennrich, editors, <em>Proceedings of machine translation summit XVII: Research track</em>, pages 267–272, Dublin, Ireland. European Association for Machine Translation.
+</div>
+<div id="ref-licht-etal-2022-consistent" class="csl-entry" role="listitem">
+Daniel Licht, Cynthia Gao, Janice Lam, Francisco Guzman, Mona Diab, and Philipp Koehn. 2022. <a href="https://aclanthology.org/2022.amta-research.24/">Consistent human evaluation of machine translation across language pairs</a>. In Kevin Duh and Francisco Guzmán, editors, <em>Proceedings of the 15th biennial conference of the association for machine translation in the americas (volume 1: Research track)</em>, pages 309–321, Orlando, USA. Association for Machine Translation in the Americas.
+</div>
+<div id="ref-lin-etal-2019-choosing" class="csl-entry" role="listitem">
+Yu-Hsiang Lin, Chian-Yu Chen, Jean Lee, Zirui Li, Yuyan Zhang, Mengzhou Xia, Shruti Rijhwani, Junxian He, Zhisong Zhang, Xuezhe Ma, Antonios Anastasopoulos, Patrick Littell, and Graham Neubig. 2019. <a href="https://doi.org/10.18653/v1/P19-1301">Choosing transfer languages for cross-lingual learning</a>. In Anna Korhonen, David Traum, and Lluís Màrquez, editors, <em>Proceedings of the 57th annual meeting of the association for computational linguistics</em>, pages 3125–3135, Florence, Italy. Association for Computational Linguistics.
+</div>
+<div id="ref-lindstrom-bates-1988-lmer" class="csl-entry" role="listitem">
+Mary J. Lindstrom and Douglas M. Bates. 1988. <a href="https://doi.org/10.1080/01621459.1988.10478693">Newton—raphson and EM algorithms for linear mixed-effects models for repeated-measures data</a>. <em>Journal of the American Statistical Association</em>, 83(404):1014–1022.
+</div>
+<div id="ref-liu-etal-2020-multilingual-denoising" class="csl-entry" role="listitem">
+Yinhan Liu, Jiatao Gu, Naman Goyal, Xian Li, Sergey Edunov, Marjan Ghazvininejad, Mike Lewis, and Luke Zettlemoyer. 2020. <a href="https://doi.org/10.1162/tacl_a_00343">Multilingual denoising pre-training for neural machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 8:726–742.
+</div>
+<div id="ref-liu-etal-2021-continual" class="csl-entry" role="listitem">
+Zihan Liu, Genta Indra Winata, and Pascale Fung. 2021. <a href="https://doi.org/10.18653/v1/2021.findings-acl.239">Continual mixed-language pre-training for extremely low-resource neural machine translation</a>. In Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli, editors, <em>Findings of the association for computational linguistics: ACL-IJCNLP 2021</em>, pages 2706–2718, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-mayer-cysouw-2014-creating" class="csl-entry" role="listitem">
+Thomas Mayer and Michael Cysouw. 2014. <a href="https://aclanthology.org/L14-1215/">Creating a massively parallel <span>B</span>ible corpus</a>. In Nicoletta Calzolari, Khalid Choukri, Thierry Declerck, Hrafn Loftsson, Bente Maegaard, Joseph Mariani, Asuncion Moreno, Jan Odijk, and Stelios Piperidis, editors, <em>Proceedings of the ninth international conference on language resources and evaluation (<span>LREC</span>‘14)</em>, pages 3158–3163, Reykjavik, Iceland. European Language Resources Association (ELRA).
+</div>
+<div id="ref-mielke-etal-2019-kind" class="csl-entry" role="listitem">
+Sabrina J. Mielke, Ryan Cotterell, Kyle Gorman, Brian Roark, and Jason Eisner. 2019. <a href="https://doi.org/10.18653/v1/P19-1491">What kind of language is hard to language-model?</a> In Anna Korhonen, David Traum, and Lluís Màrquez, editors, <em>Proceedings of the 57th annual meeting of the association for computational linguistics</em>, pages 4975–4989, Florence, Italy. Association for Computational Linguistics.
+</div>
+<div id="ref-papineni-etal-2002-bleu" class="csl-entry" role="listitem">
+Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu. 2002. <a href="https://doi.org/10.3115/1073083.1073135"><span>B</span>leu: A method for automatic evaluation of machine translation</a>. In Pierre Isabelle, Eugene Charniak, and Dekang Lin, editors, <em>Proceedings of the 40th annual meeting of the association for computational linguistics</em>, pages 311–318, Philadelphia, Pennsylvania, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-popovic-2015-chrf" class="csl-entry" role="listitem">
+Maja Popović. 2015. <a href="https://doi.org/10.18653/v1/W15-3049">Chr<span>F</span>: Character n-gram <span>F</span>-score for automatic <span>MT</span> evaluation</a>. In Ondřej Bojar, Rajan Chatterjee, Christian Federmann, Barry Haddow, Chris Hokamp, Matthias Huck, Varvara Logacheva, and Pavel Pecina, editors, <em>Proceedings of the tenth workshop on statistical machine translation</em>, pages 392–395, Lisbon, Portugal. Association for Computational Linguistics.
+</div>
+<div id="ref-rei-etal-2020-comet" class="csl-entry" role="listitem">
+Ricardo Rei, Craig Stewart, Ana C Farinha, and Alon Lavie. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-main.213"><span>COMET</span>: A neural framework for <span>MT</span> evaluation</a>. In Bonnie Webber, Trevor Cohn, Yulan He, and Yang Liu, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing (EMNLP)</em>, pages 2685–2702, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-sarti-etal-2022-divemt" class="csl-entry" role="listitem">
+Gabriele Sarti, Arianna Bisazza, Ana Guerberof-Arenas, and Antonio Toral. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.532"><span>D</span>iv<span>EMT</span>: Neural machine translation post-editing effort across typologically diverse languages</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 7795–7816, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-sennrich-etal-2016-neural" class="csl-entry" role="listitem">
+Rico Sennrich, Barry Haddow, and Alexandra Birch. 2016. <a href="https://doi.org/10.18653/v1/P16-1162">Neural machine translation of rare words with subword units</a>. In Katrin Erk and Noah A. Smith, editors, <em>Proceedings of the 54th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 1715–1725, Berlin, Germany. Association for Computational Linguistics.
+</div>
+<div id="ref-snover-etal-2006-study" class="csl-entry" role="listitem">
+Matthew Snover, Bonnie Dorr, Rich Schwartz, Linnea Micciulla, and John Makhoul. 2006. <a href="https://aclanthology.org/2006.amta-papers.25/">A study of translation edit rate with targeted human annotation</a>. In <em>Proceedings of the 7th conference of the association for machine translation in the americas: Technical papers</em>, pages 223–231, Cambridge, Massachusetts, USA. Association for Machine Translation in the Americas.
+</div>
+<div id="ref-stasimioti-sosoni-2020-translation" class="csl-entry" role="listitem">
+Maria Stasimioti and Vilelmini Sosoni. 2020. <a href="https://aclanthology.org/2020.amta-pemdt.8/">Translation vs post-editing of <span>NMT</span> output: Insights from the <span>E</span>nglish-<span>G</span>reek language pair</a>. In John E. Ortega, Marcello Federico, Constantin Orasan, and Maja Popovic, editors, <em>Proceedings of 1st workshop on post-editing in modern-day translation</em>, pages 109–124, Virtual. Association for Machine Translation in the Americas.
+</div>
+<div id="ref-tang-etal-2021-multilingual" class="csl-entry" role="listitem">
+Yuqing Tang, Chau Tran, Xian Li, Peng-Jen Chen, Naman Goyal, Vishrav Chaudhary, Jiatao Gu, and Angela Fan. 2021. <a href="https://doi.org/10.18653/v1/2021.findings-acl.304">Multilingual translation from denoising pre-training</a>. In Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli, editors, <em>Findings of the association for computational linguistics: ACL-IJCNLP 2021</em>, pages 3450–3466, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-toral-etal-2018-postediting" class="csl-entry" role="listitem">
+Antonio Toral, Martijn Wieling, and Andy Way. 2018. <a href="https://doi.org/10.3389/fdigh.2018.00009">Post-editing effort of a novel with statistical and neural machine translation</a>. <em>Frontiers in Digital Humanities</em>, 5:1–11.
+</div>
+<div id="ref-vaswani-etal-2017-attention" class="csl-entry" role="listitem">
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <a href="https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf">Attention is all you need</a>. In I. Guyon, U. Von Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, editors, <em>Advances in neural information processing systems</em>, volume 30. Curran Associates, Inc.
+</div>
+<div id="ref-wang-etal-2016-character" class="csl-entry" role="listitem">
+Weiyue Wang, Jan-Thorsten Peter, Hendrik Rosendahl, and Hermann Ney. 2016. <a href="https://doi.org/10.18653/v1/W16-2342"><span>C</span>harac<span>T</span>er: Translation edit rate on character level</a>. In Ondřej Bojar, Christian Buck, Rajen Chatterjee, Christian Federmann, Liane Guillou, Barry Haddow, Matthias Huck, Antonio Jimeno Yepes, Aurélie Névéol, Mariana Neves, Pavel Pecina, Martin Popel, Philipp Koehn, Christof Monz, Matteo Negri, Matt Post, Lucia Specia, Karin Verspoor, Jörg Tiedemann, et al., editors, <em>Proceedings of the first conference on machine translation: Volume 2, shared task papers</em>, pages 505–510, Berlin, Germany. Association for Computational Linguistics.
+</div>
+<div id="ref-xanthos-etal-2011-role" class="csl-entry" role="listitem">
+Aris Xanthos, Sabine Laaha, Steven Gillis, Ursula Stephany, Ayhan Aksu-Koç, Anastasia Christofidou, Natalia Gagarina, Gordana Hrzica, F. Nihan Ketrez, Marianne Kilani-Schoch, Katharina Korecky-Kröll, Melita Kovačević, Klaus Laalo, Marijan Palmović, Barbara Pfeiler, Maria D. Voeikova, and Wolfgang U. Dressler. 2011. <a href="https://doi.org/10.1177/0142723711409976">On the role of morphological richness in the early development of noun and verb inflection</a>. <em>First Language</em>, 31(4):461–479.
+</div>
+<div id="ref-zouhar-etal-2021-neural" class="csl-entry" role="listitem">
+Vilém Zouhar, Martin Popel, Ondřej Bojar, and Aleš Tamchyna. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.801">Neural machine translation quality and post-editing performance</a>. In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing</em>, pages 10204–10214, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://huggingface.co/datasets/GroNLP/divemt"><code>GroNLP/divemt</code></a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Warm-up data are excluded from the analysis of <a href="#sec-pe_effort" class="quarto-xref"><span>Section 8.4</span></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Additional subjects’ details are available in <a href="appendix-c.html#sec-divemt-subject-info" class="quarto-xref"><span>Section C.1.1</span></a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>A summary of our translation guidelines is provided in <a href="appendix-c.html#sec-divemt-guidelines" class="quarto-xref"><span>Section C.1.2</span></a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>We use a balanced sample of articles sourced from WikiNews, WikiVoyage and WikiBooks.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Evaluation performed in October 2021.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://huggingface.co/facebook/mbart-large-50-one-to-many"><code>mbart-large-50-one-to-many</code></a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>See <a href="appendix-c.html#sec-divemt-other" class="quarto-xref"><span>Section C.1.4</span></a> for automatic MT quality results by five different models over a larger set of 10 target languages.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>We reemphasize that subjects were unaware of the presence of two distinct MT systems.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/chap-9-qe4pe.html" class="pagination-link" aria-label="Word-level Quality Estimation for Machine Translation Post-editing">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Gabriele Sarti. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://www.rug.nl/?lang=en"><img src="../figures/logos/rug_eng_red.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/?lang=en"><img src="../figures/logos/clcg.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://projects.illc.uva.nl/indeep/"><img src="../figures/logos/indeep_logo_horizontal.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/research/cl/?lang=en"><img src="../figures/logos/gronlp.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+</div>
+    <div class="nav-footer-right">
+<p>Written with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

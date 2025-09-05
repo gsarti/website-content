@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Ph.D.&nbsp;Thesis, Center for Language and Cognition (CLCG), University of Groningen">
+
+<title>7&nbsp; Steering Language Models for Personalized Machine Translation – From Insights to Impact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/chap-6-ramp.html" rel="prev">
+<link href="../figures/logos/rug_crest_icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df7dc7f297c6c2c740a551c3cb7e1581.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../html/custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-6-ramp.html">Conditioning Generation for Personalized Machine Translation</a></li><li class="breadcrumb-item"><a href="../chapters/chap-7-sae-litmt.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../figures/logos/rug_eng_red_hat_line.png" alt="RUG Coat of Arms" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Insights to Impact</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gsarti/phd-thesis" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://gsarti.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-person-circle"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-2-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Attributing Context Usage in Multilingual NLP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-3-inseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-4-pecore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-5-mirage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conditioning Generation for Personalized Machine Translation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-6-ramp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-7-sae-litmt.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Interpretability in Human Translation Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-8-divemt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-9-qe4pe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-10-unsup-wqe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-11-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">7.1</span> Introduction</a></li>
+  <li><a href="#sec-chap7-sota" id="toc-sec-chap7-sota" class="nav-link" data-scroll-target="#sec-chap7-sota"><span class="header-section-number">7.2</span> Related Work</a></li>
+  <li><a href="#sec-chap7-preliminary" id="toc-sec-chap7-preliminary" class="nav-link" data-scroll-target="#sec-chap7-preliminary"><span class="header-section-number">7.3</span> Preliminaries</a>
+  <ul class="collapse">
+  <li><a href="#sec-chap7-discern" id="toc-sec-chap7-discern" class="nav-link" data-scroll-target="#sec-chap7-discern"><span class="header-section-number">7.3.1</span> Are Personalized Translations Discernible?</a></li>
+  <li><a href="#sec-chap7-produce" id="toc-sec-chap7-produce" class="nav-link" data-scroll-target="#sec-chap7-produce"><span class="header-section-number">7.3.2</span> Can LLMs Reproduce Human Translation Styles?</a></li>
+  <li><a href="#sec-chap7-probing" id="toc-sec-chap7-probing" class="nav-link" data-scroll-target="#sec-chap7-probing"><span class="header-section-number">7.3.3</span> Finding Personalization Information in LLM Representations</a></li>
+  </ul></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">7.4</span> Methods</a>
+  <ul class="collapse">
+  <li><a href="#sec-chap7-prompting" id="toc-sec-chap7-prompting" class="nav-link" data-scroll-target="#sec-chap7-prompting"><span class="header-section-number">7.4.1</span> Prompting Baselines</a></li>
+  <li><a href="#steering-baselines" id="toc-steering-baselines" class="nav-link" data-scroll-target="#steering-baselines"><span class="header-section-number">7.4.2</span> Steering Baselines</a></li>
+  <li><a href="#contrastive-sae-steering" id="toc-contrastive-sae-steering" class="nav-link" data-scroll-target="#contrastive-sae-steering"><span class="header-section-number">7.4.3</span> Contrastive SAE Steering</a></li>
+  </ul></li>
+  <li><a href="#sec-chap7-exp" id="toc-sec-chap7-exp" class="nav-link" data-scroll-target="#sec-chap7-exp"><span class="header-section-number">7.5</span> Experiments</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">7.5.1</span> Setup</a></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion"><span class="header-section-number">7.5.2</span> Results and Discussion</a></li>
+  </ul></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">7.6</span> Limitations</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">7.7</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-6-ramp.html">Conditioning Generation for Personalized Machine Translation</a></li><li class="breadcrumb-item"><a href="../chapters/chap-7-sae-litmt.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chap-7-sae-litmt" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chapter Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This chapter expands our evaluation of machine translation conditioning approaches by assessing the effectiveness of efficient inference-time interventions on model internals for personalizing large language models’ outputs. Focusing on the challenging domain of literary translation, we explore prompting strategies and inference-time interventions using sparse autoencoders to steer model generations toward personalized translator styles. We propose a contrastive framework that exploits interpretable latent concepts from SAEs to identify salient personalization properties, and demonstrate that its strong personalization accuracy, comparable to and at times better than few-shot prompting, does not come at the cost of translation quality. Our analyses further reveal that successful SAE steering and multi-shot prompting impact similar model layers, suggesting similar mechanisms at play.</p>
+<p></p>
+<p>This chapter is adapted from the paper <em>Steering Large Language Models for Machine Translation Personalization</em> <span class="citation" data-cites="scalena-sarti-etal-2025-steering">(<a href="references.html#ref-scalena-sarti-etal-2025-steering" role="doc-biblioref">Scalena^* et al., 2025</a>)</span>.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>I don’t speak, I operate a machine called language. It creaks and groans, but is mine own.</em></p>
+<p><em>– Frank Herbert, Dune Messiah (1969)</em></p>
+</blockquote>
+<section id="introduction" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> Introduction</h2>
+<p>When we read a translated book, we do not simply read the story in a new language; we also experience the translator’s personal voice through their stylistic choices. Past efforts in the automatic translation of literary works have historically been constrained by the limited capabilities and flexibility of machine translation systems. The recent popularization of MT systems based on large language models has significantly improved their capacity to handle the long contexts typical of literary translations, but mimicking the creative and rich language that characterizes the translators’ own style remains an open issue. In this context, several works have explored the use of prompting and tuning-based strategies to ensure that translations are stylistically appropriate <span class="citation" data-cites="michel-neubig-2018-extreme wang-etal-2021-towards">(<a href="references.html#ref-michel-neubig-2018-extreme" role="doc-biblioref">Michel and Neubig, 2018</a>; <a href="references.html#ref-wang-etal-2021-towards" role="doc-biblioref">Wang et al., 2021</a>)</span>. However, their influence on model internal representations is rarely explored, making their impact less controllable and often unpredictable. Building upon the prompting techniques demonstrated in <a href="chap-6-ramp.html" class="quarto-xref"><span>Chapter 6</span></a>, this chapter tackles the more complex challenge of personalizing machine translation to match individual translator styles. While <span class="smallcaps">Ramp</span> focused on explicit attributes like formality and gender, literary translation requires capturing the subtle, implicit stylistic preferences that characterize individual translators’ voices. For this purpose, we compare prompting approaches with <em>steering</em> methods proposed in interpretability literature. These techniques can be used to surgically intervene on LLMs’ intermediate representation to generate personalized translations when few examples are available, using the <span class="smallcaps">Par3</span> dataset <span class="citation" data-cites="thai-etal-2022-exploring">(<a href="references.html#ref-thai-etal-2022-exploring" role="doc-biblioref">Thai et al., 2022</a>)</span> with multiple human translations for novels translated into English from 7 typologically diverse languages.</p>
+<p>We begin with preliminary assessments by verifying whether translators’ styles are discernible by automatic systems, finding that trained classifiers can distinguish writing styles with high accuracy, while the task is notoriously challenging for human annotators <span class="citation" data-cites="youyou-etal-2015-computer flekova-etal-2016-analyzing">(<a href="references.html#ref-youyou-etal-2015-computer" role="doc-biblioref">Youyou et al., 2015</a>; <a href="references.html#ref-flekova-etal-2016-analyzing" role="doc-biblioref">Flekova et al., 2016</a>)</span>. We also find a simple prompting setting with in-context personalization examples to improve the style accuracy of LLM translation, suggesting personalized translation styles are reproducible. We connect the conditioning induced by prompting to the inner workings of the model, identifying activations with high discriminative capacity for style differences in intermediate model layers. We then propose a contrastive steering approach based on sparse autoencoders (SAEs, <span class="citation" data-cites="huben-etal-2024-sparse">Huben et al. (<a href="references.html#ref-huben-etal-2024-sparse" role="doc-biblioref">2024</a>)</span>) to condition model generations by upweighting sparse, interpretable latents at inference time. We validate the effectiveness of our method across three LLMs of various sizes on <span class="smallcaps">Par3</span> novels, comparing our results with established prompting and steering methods.</p>
+<div id="fig-chap7-teaser" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap7-teaser-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-7-sae-litmt/teaser.webp" class="img-fluid figure-img" style="width:65.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap7-teaser-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: We compare <span class="promptingC">prompt-based approaches</span> with <span class="steeringC">steering techniques</span> intervening on model internals for personalizing MT outputs in literary machine translation, employing MT quality metrics and style classifiers to disentangle the effect of steering on outputs fluency and personalization adequacy.
+</figcaption>
+</figure>
+</div>
+<p>Our results show that contrastive SAE steering is a promising approach for MT personalization, resulting in translations that not only align more closely with general human translation features but also with the desired personalized style compared to other methods. Importantly, these results are achieved with no degradation in translation quality, according to established MT quality metrics. We conclude by comparing the impact of our method on model representations with the outcome of multi-shot prompting, finding that probes trained on prompt-conditioned activations can predict the effectiveness of SAE steering with high precision. These results confirm that tested prompting and steering techniques converge to similar solutions for conditioning model behavior, enabling future investigations into the mechanistic impact of prompting through the study of learned SAE latents and other interpretable components.</p>
+</section>
+<section id="sec-chap7-sota" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-chap7-sota"><span class="header-section-number">7.2</span> Related Work</h2>
+<p><span class="paragraph">Machine Translation of Literary Texts</span> The literary domain has historically been challenging for automatic MT systems due to their limited ability in handling rich linguistic and cultural contexts <span class="citation" data-cites="matusov-2019-challenges">(<a href="references.html#ref-matusov-2019-challenges" role="doc-biblioref">Matusov, 2019</a>)</span> and their propensity to produce overly literal outputs <span class="citation" data-cites="guerberof-toral-2022-creativity">(<a href="references.html#ref-guerberof-toral-2022-creativity" role="doc-biblioref">Guerberof-Arenas and Toral, 2022</a>)</span>. Automatic literary translation has a long history dating back to pre-neural MT approaches <span class="citation" data-cites="voigt-jurafsky-2012-towards toral-way-2015-translating toral-way-2018-what moorkens-etal-2018-translators">(<a href="references.html#ref-voigt-jurafsky-2012-towards" role="doc-biblioref">Voigt and Jurafsky, 2012</a>; <a href="references.html#ref-toral-way-2015-translating" role="doc-biblioref">Toral and Way, 2015</a>; <a href="references.html#ref-toral-way-2018-what" role="doc-biblioref">Toral and Way, 2018</a>; <a href="references.html#ref-moorkens-etal-2018-translators" role="doc-biblioref">Moorkens et al., 2018</a>)</span> with two recent dedicated evaluation campaigns <span class="citation" data-cites="wang-etal-2023-findings wang-etal-2024-findings">(<a href="references.html#ref-wang-etal-2023-findings" role="doc-biblioref">Wang et al., 2023b</a>; <a href="references.html#ref-wang-etal-2024-findings" role="doc-biblioref">Wang et al., 2024a</a>)</span>. The advent of LLMs has brought new opportunities in processing longer contexts for document-level translation <span class="citation" data-cites="wang-etal-2023-document-level briakou-etal-2024-translating wu-etal-2024-perhaps">(<a href="references.html#ref-wang-etal-2023-document-level" role="doc-biblioref">Wang et al., 2023a</a>; <a href="references.html#ref-briakou-etal-2024-translating" role="doc-biblioref">Briakou et al., 2024</a>; <a href="references.html#ref-wu-etal-2024-perhaps" role="doc-biblioref">Wu et al., 2025</a>)</span>, but critical errors requiring human translators’ intervention nonetheless persist <span class="citation" data-cites="karpinska-iyyer-2023-large">(<a href="references.html#ref-karpinska-iyyer-2023-large" role="doc-biblioref">Karpinska and Iyyer, 2023</a>)</span>. Here, we use the <span class="smallcaps">Par3</span> dataset <span class="citation" data-cites="thai-etal-2022-exploring">(<a href="references.html#ref-thai-etal-2022-exploring" role="doc-biblioref">Thai et al., 2022</a>)</span> containing multiple human translations of novels to evaluate MT personalization in the literary domain.</p>
+<p><span class="paragraph">Personalization for Machine Translation</span> Advances in MT quality recently led to a growing interest in personalization approaches to ensure a consistent format and appropriate stylistic choices in model generations <span class="citation" data-cites="rabinovich-etal-2017-personalized lin-etal-2021-towards">(<a href="references.html#ref-rabinovich-etal-2017-personalized" role="doc-biblioref">Rabinovich et al., 2017</a>; <a href="references.html#ref-lin-etal-2021-towards" role="doc-biblioref">Lin et al., 2021</a>)</span>. Previous approaches for controlling attributes such as formality <span class="citation" data-cites="sennrich-etal-2016-controlling niu-etal-2017-study nadejde-etal-2022-cocoa">(<a href="references.html#ref-sennrich-etal-2016-controlling" role="doc-biblioref">Sennrich et al., 2016</a>; <a href="references.html#ref-niu-etal-2017-study" role="doc-biblioref">Niu et al., 2017</a>; <a href="references.html#ref-nadejde-etal-2022-cocoa" role="doc-biblioref">Nadejde et al., 2022</a>)</span> or gender <span class="citation" data-cites="vanmassenhove-etal-2018-getting saunders-byrne-2020-reducing">(<a href="references.html#ref-vanmassenhove-etal-2018-getting" role="doc-biblioref">Vanmassenhove et al., 2018</a>; <a href="references.html#ref-saunders-byrne-2020-reducing" role="doc-biblioref">Saunders and Byrne, 2020</a>)</span> typically required tuning existing models on pre-defined properties of interest, with few works attempting a real data-driven adaptation from unlabeled demonstrations <span class="citation" data-cites="michel-neubig-2018-extreme wang-etal-2021-towards zhang-etal-2022-building">(<a href="references.html#ref-michel-neubig-2018-extreme" role="doc-biblioref">Michel and Neubig, 2018</a>; <a href="references.html#ref-wang-etal-2021-towards" role="doc-biblioref">Wang et al., 2021</a>; <a href="references.html#ref-zhang-etal-2022-building" role="doc-biblioref">Zhang et al., 2022</a>)</span>. More recently, several studies employed prompting <span class="citation" data-cites="garcia-firat-2022-using sarti-etal-2023-ramp">(<a href="references.html#ref-garcia-firat-2022-using" role="doc-biblioref">Garcia and Firat, 2022</a>; <a href="references.html#ref-sarti-etal-2023-ramp" role="doc-biblioref">Sarti et al., 2023</a>)</span> or preference optimization from post-editing behavior <span class="citation" data-cites="lee-etal-2023-pepe berger-etal-2024-post">(<a href="references.html#ref-lee-etal-2023-pepe" role="doc-biblioref">Lee et al., 2023</a>; <a href="references.html#ref-berger-etal-2024-post" role="doc-biblioref">Berger et al., 2024</a>)</span> to render MT personalization more effective and data-efficient. We complement established prompt methodologies with steering approaches to personalize MT outputs using a few user-provided examples.</p>
+</section>
+<section id="sec-chap7-preliminary" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sec-chap7-preliminary"><span class="header-section-number">7.3</span> Preliminaries</h2>
+<div id="tbl-chap7-data-examples" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap7-data-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><strong>ZH → EN</strong> || 道人道：「既如此，便隨你去來。」</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="light-content" style="color: #466362;"><strong>H<span class="math inline">\(_1\)</span></strong></span></td>
+<td><em>"Such being the case," the Taoist acquiesced, "I am ready to follow you, whenever you please to go."</em></td>
+</tr>
+<tr class="midrule even">
+<td><span class="light-content" style="color: #6fa8dc;"><strong>H<span class="math inline">\(_2\)</span></strong></span></td>
+<td><em>"Very good, I will go with you then," said the Taoist.</em></td>
+</tr>
+<tr class="odd">
+<td><span class="light-content" style="color: #CB793A;"><strong>Gemma 2 2B</strong></span></td>
+<td><em>"If that's the case, then go ahead" said the Taoist.</em></td>
+</tr>
+<tr class="even">
+<td><span class="light-content" style="color: #CB793A;"><strong>Gemma 2 9B</strong></span></td>
+<td><em>"If so, then I will go with you" the Taoist said</em></td>
+</tr>
+<tr class="odd">
+<td><span class="light-content" style="color: #CB793A;"><strong>Llama 3.1 8B</strong></span></td>
+<td><em>The Taoist said: "If you insist on going, then go ahead."</em></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<table class="fullwidthtable table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><strong>IT → EN</strong> || Sarà l’effetto dell’acqua del mare. Il mare ne fa di questi scherzi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="light-content" style="color: #466362;"><strong>H<span class="math inline">\(_1\)</span></strong></span></td>
+<td><em>"The salt water must have done it. The sea plays funny tricks."</em></td>
+</tr>
+<tr class="midrule even">
+<td><span class="light-content" style="color: #6fa8dc;"><strong>H<span class="math inline">\(_2\)</span></strong></span></td>
+<td><em>"It must have been the effect of sea-water. The sea makes extraordinary changes."</em></td>
+</tr>
+<tr class="odd">
+<td><span class="light-content" style="color: #CB793A;"><strong>Gemma 2 2B</strong></span></td>
+<td><em>"It will be the effect of the sea water. The sea makes of these jokes."</em></td>
+</tr>
+<tr class="even">
+<td><span class="light-content" style="color: #CB793A;"><strong>Gemma 2 9B</strong></span></td>
+<td><em>It will be the effect of the sea water. The sea plays these tricks.</em></td>
+</tr>
+<tr class="odd">
+<td><span class="light-content" style="color: #CB793A;"><strong>Llama 3.1 8B</strong></span></td>
+<td><em>It will be the effect of the sea water. The sea does things like this.</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap7-data-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.1: ZH<span class="math inline">\(\rightarrow\)</span>EN and IT<span class="math inline">\(\rightarrow\)</span>EN examples for <span class="smallcaps">Par3</span> segments translated by humans (<span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>,<span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>) and LLMs with zero-shot prompting (<span class="light-content" style="color: #CB793A;">MT</span>). More examples in <a href="appendix-b.html#tbl-chap7-examples-all-it" class="quarto-xref">Table&nbsp;<span>B.8</span></a>, <a href="appendix-b.html#tbl-chap7-examples-all-zh" class="quarto-xref">Table&nbsp;<span>B.7</span></a>.
+</figcaption>
+</figure>
+</div>
+<p>Before testing the effectiveness of personalization strategies, we validate some key assumptions: <strong>i)</strong> Whether the personalized translation style is <em>discernible</em>, i.e., if it is possible to tell apart human- and machine-generated translations; <strong>ii)</strong> Whether different translation styles are automatically <em>reproducible</em>, i.e., if LLMs can mimic a specific translator’s style when provided with some examples; and <strong>iii)</strong> Whether style distinctions are reflected in the model’s internal representations, to motivate the interest in steering approaches for personalization.</p>
+<p>We use the <span class="smallcaps">Par3</span> dataset by <span class="citation" data-cites="thai-etal-2022-exploring">Thai et al. (<a href="references.html#ref-thai-etal-2022-exploring" role="doc-biblioref">2022</a>)</span>, which contains multiple non-English novels, as a benchmark to evaluate personalization. Novels are segmented into paragraphs with translations into English by two professional literary translators. To ensure a diverse and representative evaluation, we select novels spanning a variety of linguistic families and cultural backgrounds. Our dataset includes Romance languages such as Italian (<em>Pinocchio</em>) and French (<em>Around the World in Eighty Days</em>), as well as Germanic languages like Dutch (<em>The Diary of a Young Girl</em>) and German (<em>Beware of Pity</em>). To evaluate our setup on non-Latin scripts and distinct linguistic structures, we also include Russian (<em>Crime and Punishment</em>), Japanese (<em>No Longer Human</em>), and Chinese (<em>Dream of the Red Chamber</em>). <a href="#tbl-chap7-novels-details" class="quarto-xref">Table&nbsp;<span>7.2</span></a> summarizes the number of paragraphs employed in the evaluation of each language.</p>
+<div id="tbl-chap7-novels-details" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap7-novels-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Lang</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Novel name</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Train</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Val</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Test</strong></th>
+<th data-quarto-table-cell-role="th"><strong>ICL Ex.</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="mediumrow"><strong>Italian (IT)</strong></td>
+<td>Pinocchio</td>
+<td>745</td>
+<td>82</td>
+<td>107</td>
+<td class="smallrow">20</td>
+</tr>
+<tr class="even">
+<td><strong>French (FR)</strong></td>
+<td class="verylongrow">Around the World in Eighty Days</td>
+<td>829</td>
+<td>92</td>
+<td>120</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td><strong>Dutch (NL)</strong></td>
+<td>The Diary of a Young Girl</td>
+<td>769</td>
+<td>85</td>
+<td>110</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td><strong>German (DE)</strong></td>
+<td>Beware of Pity</td>
+<td>606</td>
+<td>67</td>
+<td>96</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td><strong>Russian (RU)</strong></td>
+<td>Crime and Punishment</td>
+<td>1517</td>
+<td>168</td>
+<td>224</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td><strong>Japanese (JA)</strong></td>
+<td>No Longer Human</td>
+<td>652</td>
+<td>40</td>
+<td>81</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td><strong>Chinese (ZH)</strong></td>
+<td>Dream of the Red Chamber</td>
+<td>694</td>
+<td>76</td>
+<td>92</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap7-novels-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.2: Languages and novels used in our evaluation. Numbers corresponds to a single paragraph in the dataset. In training, each paragraph is associated with three distinct translations: <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>,<span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>, and <span class="light-content" style="color: #CB793A;">MT</span>. 20 additional in-context examples are left aside for each language for prompting and steering methods.
+</figcaption>
+</figure>
+</div>
+<p>Examples for a subset of languages are shown in <a href="#tbl-chap7-data-examples" class="quarto-xref">Table&nbsp;<span>7.1</span></a>. We name the two available human translations <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span> and <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>, and compare them with <span class="light-content" style="color: #CB793A;">MT</span> outputs produced by LLMs, which we denote as <span class="math inline">\(\text{MT}_{\text{model}}\)</span>. We use three LLMs, namely Llama 3.1 8B Instruct <span class="citation" data-cites="grattafiori2024llama3herdmodels">(<a href="references.html#ref-grattafiori2024llama3herdmodels" role="doc-biblioref">Team, 2024b</a>)</span> and Gemma 2 <span class="citation" data-cites="gemmateam2024gemma2improvingopen">(<a href="references.html#ref-gemmateam2024gemma2improvingopen" role="doc-biblioref">Team, 2024a</a>)</span> in its 2B and 9B instruction-tuned variants. Our model selection is motivated by our steering requirements, discussed in <a href="#sec-chap7-exp" class="quarto-xref"><span>Section 7.5</span></a>.</p>
+<section id="sec-chap7-discern" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-chap7-discern"><span class="header-section-number">7.3.1</span> Are Personalized Translations Discernible?</h3>
+<p>Following prior work on personalization <span class="citation" data-cites="wang-etal-2024-m4gt liu-etal-2023-coco">(<a href="references.html#ref-wang-etal-2024-m4gt" role="doc-biblioref">Wang et al., 2024c</a>; <a href="references.html#ref-liu-etal-2023-coco" role="doc-biblioref">Liu et al., 2023</a>)</span>, we train a series of classifiers based on multilingual XLM transformer encoders <span class="citation" data-cites="conneau-etal-2020-unsupervised">(<a href="references.html#ref-conneau-etal-2020-unsupervised" role="doc-biblioref">Conneau et al., 2020</a>)</span> to distinguish between <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>, <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>, and <span class="light-content" style="color: #CB793A;">MT</span> translations. If those systems can reliably separate these three classes, it suggests the presence of reasonably distinct stylistic signals differentiating them. In particular, the ability to distinguish between <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span> and <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span> would denote not only the possibility to discern a human-like style from human-made and automatic translations, but also a <em>personalized style</em> from different human translators.</p>
+<p>We train a classifier for each language and each model in our evaluation suite. All classifiers are fine-tuned from the <code>xlm-roberta-large</code> model<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, using a linear classification head. Training is conducted for 6 epochs with a learning rate of 2e-5 and a batch size of 32, selecting the best model checkpoint based on validation accuracy. Training data only includes generations from models and the translator without any source text. It is also perfectly balanced, as each paragraph provides one instance for all three labels: <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>, <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>, and <span class="light-content" style="color: #CB793A;">MT</span>. The total size of the training set varies depending on the number of paragraphs in the chosen novel. On average, we obtain approximately 830 instances, resulting in a total of around 2,490 labeled examples for training (see <a href="#tbl-chap7-novels-details" class="quarto-xref">Table&nbsp;<span>7.2</span></a>). Validation and test sets are strictly held out and never seen during training. Additionally, they do not include the small 20-example subsets used for prompting or steering. Results in <a href="#tbl-chap7-classifiers-perf" class="quarto-xref">Table&nbsp;<span>7.3</span></a> indicate that translation styles are discernible with high accuracy. On average, across all models and languages, the classifiers achieve an accuracy ranging from 77% (Japanese) to 99% (Chinese), with an overall average of 86%. These results suggest that personalization information is abundant in the literary setting and can plausibly be exploited for modeling. These findings corroborate previous results showing the high learnability of this task by machines while remaining intrinsically difficult for human annotators <span class="citation" data-cites="youyou-etal-2015-computer flekova-etal-2016-analyzing wang-etal-2024-semeval-2024">(<a href="references.html#ref-youyou-etal-2015-computer" role="doc-biblioref">Youyou et al., 2015</a>; <a href="references.html#ref-flekova-etal-2016-analyzing" role="doc-biblioref">Flekova et al., 2016</a>; <a href="references.html#ref-wang-etal-2024-semeval-2024" role="doc-biblioref">Wang et al., 2024b</a>)</span>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div id="tbl-chap7-classifiers-perf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap7-classifiers-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><strong>Lang</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Gemma 2 2B</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Gemma 2 9B</strong></th>
+<th data-quarto-table-cell-role="th"><strong>Llama 3.1 8B</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td><strong>DE</strong></td>
+<td>0.89</td>
+<td>0.90</td>
+<td>0.84</td>
+</tr>
+<tr class="even">
+<td><strong>RU</strong></td>
+<td>0.92</td>
+<td>0.90</td>
+<td>0.91</td>
+</tr>
+<tr class="odd">
+<td><strong>ZH</strong></td>
+<td>0.99</td>
+<td>0.98</td>
+<td>0.98</td>
+</tr>
+<tr class="even">
+<td><strong>IT</strong></td>
+<td>0.78</td>
+<td>0.85</td>
+<td>0.80</td>
+</tr>
+<tr class="odd">
+<td><strong>NL</strong></td>
+<td>0.79</td>
+<td>0.78</td>
+<td>0.82</td>
+</tr>
+<tr class="even">
+<td><strong>FR</strong></td>
+<td>0.88</td>
+<td>0.87</td>
+<td>0.90</td>
+</tr>
+<tr class="odd">
+<td><strong>JA</strong></td>
+<td>0.76</td>
+<td>0.79</td>
+<td>0.76</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap7-classifiers-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.3: Accuracy of model- and language-specific 3-way (<span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>,<span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>, <span class="light-content" style="color: #CB793A;">MT</span>) classifiers on balanced held-out sets for every language. Random baseline: 0.33.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-chap7-produce" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="sec-chap7-produce"><span class="header-section-number">7.3.2</span> Can LLMs Reproduce Human Translation Styles?</h3>
+<p>To confirm whether MT personalization can be achieved, we test the LLM’s ability to mimic the stylistic choices of a particular translator in a multi-shot (MS) prompting setup. For each translator available across tested novels, we provide the model with 20 in-context examples selected from the original pool of translated paragraphs by that translator, asking it to generate a consistent translation. We compare MS results with the default zero-shot (ZS) prompting, which uses no examples from the translator, to quantify the effect of in-context examples. <a href="#tbl-chap7-zs-ms-perf" class="quarto-xref">Table&nbsp;<span>7.4</span></a> presents results for <em>personalization accuracy</em>, automatically evaluated using our high-scoring classifiers from the previous section; and <em>translation quality</em>, estimated via the widely used <span class="smallcaps">comet</span> MT metric <span class="citation" data-cites="rei-etal-2020-comet">(<a href="references.html#ref-rei-etal-2020-comet" role="doc-biblioref">Rei et al., 2020</a>)</span>. The proportion of outputs categorized as matching the translator’s style is increased two- to four-fold following MS prompting, suggesting that LLMs can employ implicit clues in small sets of user examples to produce personalized translations. Stable scores for <span class="smallcaps">comet</span> also confirm that translation quality is maintained during style adaptations.</p>
+<div id="tbl-chap7-zs-ms-perf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap7-zs-ms-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><strong>Gemma 2 2B</strong></th>
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><strong>Gemma 2 9B</strong></th>
+<th colspan="2" class="group-header" data-quarto-table-cell-role="th"><strong>Llama 3.1 8B</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td></td>
+<td>📊</td>
+<td>☄️</td>
+<td>📊</td>
+<td>☄️</td>
+<td>📊</td>
+<td>☄️</td>
+</tr>
+<tr class="midrule even">
+<td><strong>ZS</strong></td>
+<td>0.10</td>
+<td>0.69</td>
+<td>0.08</td>
+<td>0.71</td>
+<td>0.08</td>
+<td>0.70</td>
+</tr>
+<tr class="odd">
+<td><strong>MS</strong></td>
+<td><strong>0.24</strong></td>
+<td>0.69</td>
+<td><strong>0.31</strong></td>
+<td>0.73</td>
+<td><strong>0.32</strong></td>
+<td>0.73</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap7-zs-ms-perf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.4: Classifier-based personalization accuracy (📊) and Comet-based translation quality (☄️) for zero-shot (ZS) and multi-shot (MS) prompting with 20 in-context examples averaged across all translators and languages.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-chap7-probing" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="sec-chap7-probing"><span class="header-section-number">7.3.3</span> Finding Personalization Information in LLM Representations</h3>
+<p>In light of these results, we set out to test how the model encodes information reflecting a stylistic shift when style-appropriate examples are provided. To this purpose, we train <em>linear probes</em> <span class="citation" data-cites="belinkov-2022-probing">(<a href="references.html#ref-belinkov-2022-probing" role="doc-biblioref">Belinkov, 2022</a>)</span> using model activations as input features to predict the style label (<span class="light-content" style="color: #CB793A;">MT</span>, <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>, or <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>) that the style classifier (from <a href="#sec-chap7-discern" class="quarto-xref"><span>Section 7.3.1</span></a>) would assign to the eventual translation, based purely on the prompt’s internal representation. Probing accuracy is measured by testing the model’s ability to predict the classified outcome before generation, using only the prompt representation formed by the model. Given a test set of human-translated paragraphs, we train our probes on a set of examples using an MS prompt with 20 in-context examples. The set is balanced between prompts that showcase personalization with gold in-context examples from a human translator and non-personalized prompts with MT-generated examples previously produced by the same tested model in a ZS setup. Test examples are selected from the respective novels to ensure for the classifier prediction shifts from <span class="light-content" style="color: #CB793A;">MT</span> in the ZS setting to the style of in-context examples when MS is used, signaling a causal influence of demonstrations on output personalization.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> This balanced setup prevents the leakage of task information, such as the number of in-context examples, to learned probes, ensuring that stylistic differences between human- and machine-generated in-context examples are the sole factor determining differences in model activations. We focus specifically on Gemma models, extracting activations after the attention block at each model layer for the last token of the prompt, which was previously shown to encode key task-relevant information <span class="citation" data-cites="hendel-etal-2023-context todd-etal-2024-function scalena-etal-2024-multi">(<a href="references.html#ref-hendel-etal-2023-context" role="doc-biblioref">Hendel et al., 2023</a>; <a href="references.html#ref-todd-etal-2024-function" role="doc-biblioref">Todd et al., 2024</a>; <a href="references.html#ref-scalena-etal-2024-multi" role="doc-biblioref">Scalena et al., 2024</a>)</span>. <a href="#fig-chap7-probing" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> reports probe accuracies across all layers of Gemma 2 2B and 9B. We find a peak in probe accuracy of <span class="math inline">\(\sim95\%\)</span> around intermediate model layers, suggesting that these layers encode stylistic information with near-perfect precision.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> These results confirm that personalization is discernible from LLMs’ internal representation, motivating our experiments towards the design of inference-time interventions to steer models towards personalized MT outputs.</p>
+<div id="fig-chap7-probing" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap7-probing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row quarto-layout-valign-bottom">
+<div class="quarto-layout-cell" style="flex-basis: 47.4%;justify-content: center;">
+<p><img src="../figures/chap-7-sae-litmt/probing_gemma-2-2b-it.webp" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.3%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 47.4%;justify-content: center;">
+<p><img src="../figures/chap-7-sae-litmt/probing_gemma-2-9b-it.webp" class="img-fluid figure-img"></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap7-probing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.2: Probing classifier performance on the human translation detection task across Gemma 2 2B (left) and 9B (right) layers. Activations in intermediate layers are found to capture translation style information with high precision.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="methods" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="methods"><span class="header-section-number">7.4</span> Methods</h2>
+<p>We begin by introducing the prompting and steering methods that we use as baselines and outline our own proposed SAE-based steering approach for personalized translation.</p>
+<section id="sec-chap7-prompting" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="sec-chap7-prompting"><span class="header-section-number">7.4.1</span> Prompting Baselines</h3>
+<p><span class="paragraph">Zero-Shot (ZS)</span> The ZS setup used in our main experiment corresponds to the one from <a href="#sec-chap7-discern" class="quarto-xref"><span>Section 7.3.1</span></a>, in which the model is simply asked to produce a translation with no conditioning from examples or explanations towards the target translation style. We use this setting to establish a baseline style and translation quality performance for the models.</p>
+<p><span class="paragraph">Zero-Shot Explain (ZS-Exp)</span> Building upon the ZS setting, we experiment with a prompting strategy where LLMs are provided with detailed explanations of the most salient elements that characterize the desired translation style. We obtain such descriptions by prompting a capable proprietary model, GPT-4o <span class="citation" data-cites="openai-2023-gpt4">(<a href="references.html#ref-openai-2023-gpt4" role="doc-biblioref">OpenAI, 2023</a>)</span>, with 20 translations matching the desired style, asking it to synthesize a set of guidelines to match the examples. We evaluate two contrastive variants of this approach, providing GPT-4o with either MT examples (ZS-Exp<span class="math inline">\(_\text{HT}\)</span>) or alternative human translations (ZS-Exp<span class="math inline">\(_\text{PT}\)</span>) alongside examples matching the desired style, and asking to describe what characterizes the latter compared to the former. To avoid data leakage, all generated explanations are manually reviewed to ensure they do not contain any verbatim content or direct excerpts from the input examples.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Tested models are then prompted with GPT-4o explanations in a ZS setting, to verify whether interpretable directives synthesized from a set of examples matching the desired behavior can produce reliable personalization results.</p>
+<p><span class="paragraph">Multi-Shot (MS)</span> Following <a href="#sec-chap7-produce" class="quarto-xref"><span>Section 7.3.2</span></a>’s findings, we adopt the same MS setup using 20 in-context translation examples matching the style of a target human translator (<span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span> or <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>).</p>
+</section>
+<section id="steering-baselines" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="steering-baselines"><span class="header-section-number">7.4.2</span> Steering Baselines</h3>
+<p>We employ the Activation Addition (ActAdd) and Representation Fine-tuning (<span class="smallcaps">ReFT</span>) methods introduced in <a href="chap-2-background.html#sec-chap2-steer-activations" class="quarto-xref"><span>Section 2.3.2</span></a> as baselines for comparing the effectiveness of our proposed method. For ActAdd, we employ the standard contrastive formulation by <span class="citation" data-cites="rimsky-etal-2024-steering">Rimsky et al. (<a href="references.html#ref-rimsky-etal-2024-steering" role="doc-biblioref">2024</a>)</span> and <span class="citation" data-cites="scalena-etal-2024-multi">Scalena et al. (<a href="references.html#ref-scalena-etal-2024-multi" role="doc-biblioref">2024</a>)</span> to extract two sets of style-relevant (<span class="math inline">\(\{z\}^+\)</span>) and default (<span class="math inline">\(\{z\}^-\)</span>) activations from a given model layer using 20 in-context examples demonstrating default behavior (<span class="light-content" style="color: #CB793A;">MT</span>) and the desired behavior (<span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span> or <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span> translations), respectively. We then compute the average <span class="math inline">\(\Delta\)</span> steering vector between the two sets of activations, scale it by a factor of <span class="math inline">\(\alpha\)</span> = 2, which was found to be effective by previous research <span class="citation" data-cites="scalena-etal-2024-multi">(<a href="references.html#ref-scalena-etal-2024-multi" role="doc-biblioref">Scalena et al., 2024</a>)</span>, and apply it additively to the same model layer during inference. For <span class="smallcaps">ReFT</span>, we apply learned interventions to the same personalization-relevant layers identified in <a href="#sec-chap7-probing" class="quarto-xref"><span>Section 7.3.3</span></a> and limit confounding factors by tuning ReFT interventions with the set of 20 examples used for MS prompting.</p>
+</section>
+<section id="contrastive-sae-steering" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="contrastive-sae-steering"><span class="header-section-number">7.4.3</span> Contrastive SAE Steering</h3>
+<p>Given the SAE formulation we present in <a href="chap-2-background.html#sec-chap2-steer-activations" class="quarto-xref"><span>Section 2.3.2</span></a>, our primary interest lies in the sparse latents <span class="math inline">\(h(z_l) \in \mathbb{R}^m\)</span> learned by the SAE encoder, which were empirically found to capture monosemantic and interpretable properties of model inputs.</p>
+<p><span class="paragraph">Contrastive prompt setup</span> Given a set of paragraphs <span class="math inline">\(\mathcal{D}\)</span> for a novel in the <span class="smallcaps">Par3</span> dataset, each instance in it is a tuple:</p>
+<p><span class="math display">\[
+\mathcal{D} = \left\{ \left&lt; s, \text{H}_1, \text{H}_2, \text{MT}_{\text{model}} \right&gt; \right\}
+\]</span></p>
+<p>with s being the non-English source sentence, <span class="math inline">\(\text{H}_1\)</span> and <span class="math inline">\(\text{H}_2\)</span> translations from two distinct human translators and <span class="math inline">\(\text{MT}_{\text{model}}\)</span> the machine translation from the model under evaluation. Similar to previous methods, we employ a contrastive approach to extract SAE latents that are most active in the presence of the desired personalization style, while simultaneously controlling for more generic features that capture the generic properties of the task. We define two sets of contrastive prompts:</p>
+<p><span class="math display">\[
+\mathcal{D}^+ = \left\{ \left&lt; s, e^{+} \right&gt; \right\}\;\;\text{and}\;\;\mathcal{D}^- = \left\{ \left&lt; s, e^{-} \right&gt; \right\}
+\]</span></p>
+<p>capturing the personalized style of interest and baseline properties of the task, respectively. Similarly to the ZS-Exp setup from <a href="#sec-chap7-prompting" class="quarto-xref"><span>Section 7.4.1</span></a>, we explore two <span class="math inline">\(\mathcal{D}^-\)</span> configurations using either <span class="math inline">\(e^- =\)</span> <span class="light-content" style="color: #CB793A;">MT</span> (SAE Cont.<span class="math inline">\(_\text{HT}\)</span>) or <span class="math inline">\(e^- =\)</span> <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span> (or <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>, if <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span> is the personalization target; SAE Cont.<span class="math inline">\(_\text{PT}\)</span>) to assess the effect of baseline choice on steering effectiveness.</p>
+<p><span class="paragraph">Feature extraction</span> First, we gather activations <span class="math inline">\(z^+_l\)</span> and <span class="math inline">\(z^-_l\)</span> by prompting the model with inputs from the two contrastive sets <span class="math inline">\(\mathcal{D}^+\)</span> and <span class="math inline">\(\mathcal{D}^-\)</span>. Activations are extracted at the last prompt token position from its most informative layer, as identified in <a href="#sec-chap7-probing" class="quarto-xref"><span>Section 7.3.3</span></a>. Activations are then converted into sparse latent representations <span class="math inline">\(x^+ = h(z^+)\)</span> and <span class="math inline">\(x^- = h(z^-)\)</span>, with <span class="math inline">\(x^+, x^- \in \mathbb{R}^m\)</span> by the SAE encoder. This procedure is repeated across 20 contrastive examples, resulting in two collections of SAE latent vectors for positive/negative examples:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathcal{X}^+ &amp;= \left\{x^{+}_1, x^{+}_2, \dots, x^{+}_{20} \right\} \\
+\mathcal{X}^- &amp;= \left\{x^{-}_1, x^{-}_2, \dots, x^{-}_{20} \right\}
+\end{aligned}
+\]</span></p>
+<p><span class="paragraph">Relevance-based Feature Selection</span> To identify discriminative features for personalization in the large set of latents, we employ an information-theoretic approach adapted from <span class="citation" data-cites="zhao-etal-2025-steering">Zhao et al. (<a href="references.html#ref-zhao-etal-2025-steering" role="doc-biblioref">2025</a>)</span>. For each of the inputs, we identify the subset of size <span class="math inline">\(n &lt; m\)</span> that includes only the SAE active features, i.e., the latent dimensions for which the logit is greater than 0. We consider logit values in this subset as instances of a random variable <span class="math inline">\(X_i \in x\)</span>, and calculate the mutual information <span class="math inline">\(I(X_i, Y)\)</span> between each feature <span class="math inline">\(X_i\)</span> and the target binary variable <span class="math inline">\(Y = \{+, -\}\)</span> corresponding to the style of the provided examples (personalized or non-personalized). A higher <span class="math inline">\(I(X_i, Y)\)</span> indicates that the <span class="math inline">\(i\)</span>-th feature is more informative for discriminating between personalized and default inputs, and can hence be used for steering. A representative sample of 40 latents showing the highest mutual information scores for both personalized (<span class="math inline">\(\{X_i\}^+\)</span>) and non-personalized (<span class="math inline">\(\{X_i\}^-\)</span>) examples is selected using this procedure.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> For every selected latent, we compute its expected logit when personalization is present or absent in provided examples, i.e.&nbsp;<span class="math inline">\(\mathbb{E}^+[X_i]\)</span> and <span class="math inline">\(\mathbb{E}^-[X_i]\)</span>.</p>
+<p><span class="paragraph">Inference-time intervention</span> Finally, activations are steered by setting selected latents to their expected value whenever their observed score is below (for the promoted personalized case) or above (for the demoted non-personalized case) the pre-computed average. Hence, in the SAE Cont.<span class="math inline">\(_\text{HT}\)</span> setting we enhance the features relevant to a target personalized style, e.g.&nbsp;<span class="math inline">\(\{X_i\}^{H_1}\)</span> for <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>, and suppress the features <span class="math inline">\(\{X_i\}^{MT}\)</span>, corresponding to the model’s default <span class="light-content" style="color: #CB793A;">MT</span>. In SAE Cont.<span class="math inline">\(_\text{PT}\)</span>, instead, we promote the same <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>-related latents while suppressing <span class="math inline">\(\{X_i\}^{H_2}\)</span> to steer the model towards <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span> personal style. Additionally, we modulate the magnitude of the resulting vector with an <span class="math inline">\(\alpha\)</span> <em>coefficient</em>, which was found to play an essential role in steering effectiveness in previous research <span class="citation" data-cites="scalena-etal-2024-multi ferrando-etal-2025-do">(<a href="references.html#ref-scalena-etal-2024-multi" role="doc-biblioref">Scalena et al., 2024</a>; <a href="references.html#ref-ferrando-etal-2025-do" role="doc-biblioref">Ferrando et al., 2025</a>)</span>. <a href="#alg-saesteer" class="quarto-xref">Algorithm 1</a> outlines the procedure for our proposed latent-based steering. It enhances features identified as relevant to personalization while simultaneously suppressing those negatively correlated with the task.</p>
+<div id="alg-saesteer" class="pseudocode-container quarto-float" data-caption-prefix="Algorithm" data-pseudocode-number="1">
+<div class="pseudocode">
+\begin{algorithm} \caption{Contrastive SAE Steering} \begin{algorithmic} \Require Input activation $z$, SAE model, target latents expected value $\mathbb{E}^+[X_i]$, contrast latents expected value $\mathbb{E}^-[X_i]$, steering coefficient $\alpha$ \Ensure Steered activation $z_{\text{new}}$ \Procedure{ContrastiveSteering}{$z, \text{SAE}, \mathbb{E}^+[X_i], \mathbb{E}^-[X_i], \alpha$} \State $x = \text{SAE.encode}(z)$ \State $m = \text{length}(x)$ \For{$i \gets 1$ to $m$} \If{$\mathbb{E}^+[X_i] &gt; x[i]$} \State $x[i] = \mathbb{E}^+[X_i]$ \EndIf \If{$\mathbb{E}^-[X_i] &lt; x[i]$} \State $x[i] =\mathbb{E}^-[X_i]$ \EndIf \EndFor \State $z_{\text{new}} = \alpha \cdot \text{SAE.decode}(x)$ \State \textbf{return} $z_{\text{new}}$ \EndProcedure \end{algorithmic} \end{algorithm}
+</div>
+</div>
+</section>
+</section>
+<section id="sec-chap7-exp" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="sec-chap7-exp"><span class="header-section-number">7.5</span> Experiments</h2>
+<section id="setup" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">7.5.1</span> Setup</h3>
+<p><span class="paragraph">Model selection</span> We evaluate our methods on the same three models used for our preliminary evaluation of <a href="#sec-chap7-preliminary" class="quarto-xref"><span>Section 7.3</span></a>. Our selection is guided by the availability of open-source pre-trained SAEs, which can be computationally expensive to train otherwise. For Gemma models, we employ SAEs from the GemmaScope suite <span class="citation" data-cites="lieberum-etal-2024-gemma">(<a href="references.html#ref-lieberum-etal-2024-gemma" role="doc-biblioref">Lieberum et al., 2024</a>)</span>; for the Llama 3.1 model, we employ the SAE released by <span class="citation" data-cites="mcgrath-etal-2024-understanding">McGrath et al. (<a href="references.html#ref-mcgrath-etal-2024-understanding" role="doc-biblioref">2024</a>)</span>. GemmaScope SAEs are available for every model layer, enabling us to steer Gemma models on their most informative layers for the task, which we identified in <a href="#sec-chap7-probing" class="quarto-xref"><span>Section 7.3.3</span></a>. On the contrary, a single SAE for the 19th layer is available for Llama, hence limiting our evaluation of SAE steering and potentially producing sub-optimal steering results for that model.</p>
+<p><span class="paragraph">Metrics</span> We evaluate our approaches on a held-out test set sourced from the <span class="smallcaps">Par3</span> dataset for personalization and output quality. For personalization, we use the classifiers described in <a href="#sec-chap7-discern" class="quarto-xref"><span>Section 7.3.1</span></a>. We define three submetrics employing the classifier probability distribution over the three classes (<span class="light-content" style="color: #CB793A;">MT</span>, <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>, <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>) to better analyze different aspects of classifiers’ predictions. First, we compute <strong>H</strong> accuracy as the classifier’s total probability assigned to human-like translations, <span class="math inline">\(p(\)</span><span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span><span class="math inline">\() + p(\)</span><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span><span class="math inline">\()\)</span>, thereby measuring the generic <em>human-like</em> style of the text. To measure personalization, we employ the personalization <strong>P</strong>, corresponding only to the human translation currently selected as target (<span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span> or <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span>). Finally, the more stringent <strong>P<span class="math inline">\(_\text{flip}\)</span></strong> metric measures the proportion of examples for which the applied conditioning procedure (either prompting or steering) causally influences the resulting classifier prediction, identifying examples for which the label flips from <span class="light-content" style="color: #CB793A;">MT</span> to the desired target.</p>
+<p>To ensure that our interventions do not result in a degradation of overall translation quality, we also employ <span class="smallcaps">comet</span><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> <span class="citation" data-cites="rei-etal-2020-comet">(<a href="references.html#ref-rei-etal-2020-comet" role="doc-biblioref">Rei et al., 2020</a>)</span> using the personalized translation as reference.</p>
+<div id="tbl-chap7-extreme-alphas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap7-extreme-alphas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Source/Method</th>
+<th data-quarto-table-cell-role="th">Translation</th>
+<th data-quarto-table-cell-role="th">📊 Classifier</th>
+<th data-quarto-table-cell-role="th">☄️ COMET</th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td class="mediumsmallrow"><strong>Source (FR)</strong></td>
+<td>Cette somme vous sera restituée à votre sortie de prison, dit le juge. En attendant, vous êtes libres sous caution.</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="light-content" style="color: #466362;">H<sub>1</sub></span></td>
+<td><em>This sum of money will be returned to you when you leave prison,' said the judge. 'In the meantime you are free on bail.</em></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="light-content" style="color: #CB793A;">ZS</span></td>
+<td><em>This amount will be returned to you upon your release from prison, the judge said. Meanwhile, you are free on bail.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.79</td>
+</tr>
+<tr class="even">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span> (<span class="math inline">\(\alpha\)</span>=5)</strong></td>
+<td><em>This sum will be repaid to you at your departure from prison, the judge declared. In the meantime, you are released under bond.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.85</td>
+</tr>
+<tr class="odd">
+<td style="color: #800080"><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span> (<span class="math inline">\(\alpha\)</span>=50)</strong></td>
+<td><em>#echo all ought to goodness too was put moreover goodness behaving goodness goodness goodness goodness</em> [...]</td>
+<td><span class="light-content" style="color: #466362;">H<sub>1</sub></span></td>
+<td>0.20</td>
+</tr>
+<tr class="midrule even">
+<td style="color: #800080"><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span> (<span class="math inline">\(\alpha\)</span>=150)</strong></td>
+<td><em>GURL callers goodness_Noneummy amid'ala Reportedaps Beaverishlor Decompiled_unset queer headquarters Headquarters twe ...</em> [...]</td>
+<td><span class="light-content" style="color: #466362;">H<sub>1</sub></span></td>
+<td>0.23</td>
+</tr>
+<tr class="midrule odd">
+<td><strong>Source (DE)</strong></td>
+<td>Nein – was Sie lieber haben, Herr Leutnant! Nur keine Zeremonien, es ist doch ganz einerlei.</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="light-content" style="color: #6fa8dc;">H<sub>2</sub></span></td>
+<td><em>"No, no-whatever you would rather have, Lieutenant Hofmiller! Please don't stand on ceremony, it makes no difference to us."</em></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="light-content" style="color: #CB793A;">ZS</span></td>
+<td><em>No, whatever you prefer, Lieutenant! Just no ceremonies, it doesn't matter.</em></td>
+<td><span class="light-content" style="color: #CB793A;">MT</span></td>
+<td>0.76</td>
+</tr>
+<tr class="even">
+<td><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span> (<span class="math inline">\(\alpha\)</span>=5)</strong></td>
+<td><em>No, anything at all you want, sir! Just don't make a fuss about it, it really doesn't matter.</em></td>
+<td><span class="light-content" style="color: #6fa8dc;">H<sub>2</sub></span></td>
+<td>0.79</td>
+</tr>
+<tr class="odd">
+<td style="color: #800080"><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span> (<span class="math inline">\(\alpha\)</span>=50)</strong></td>
+<td><em>"&gt;I Don't worry about that... I don't want a ceremony for this one. It's not important...</em></td>
+<td>[H<sub>2</sub>]{color=‘brand-color.lightbluedim’]</td>
+<td>0.46</td>
+</tr>
+<tr class="even">
+<td style="color: #800080"><strong>SAE Cont.<span class="math inline">\(_\text{HT}\)</span> (<span class="math inline">\(\alpha\)</span>=150)</strong></td>
+<td><em>IWhenInWhatItDonIf Sometimes AIs Celebrating cerimonies... Sosir please don't have parties ey'</em> [...]</td>
+<td><span class="light-content" style="color: #6fa8dc;">H<sub>2</sub></span></td>
+<td>0.24</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap7-extreme-alphas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.5: Examples from different languages being classified as Human when using <span class="light-content" style="color: #800080;">extreme <span class="math inline">\(\alpha\)</span> values</span>.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Quality-accuracy trade-off</span> We begin by verifying the optimal steering intensity <span class="math inline">\(\alpha\)</span> for our SAE steering technique. We primarily focus on results from Gemma 2 2B, for which we ran a comprehensive sweep over all relevant hyperparameters.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> <a href="#fig-chap7-alpha-sel" class="quarto-xref">Figure&nbsp;<span>7.3</span></a> illustrates the influence of <span class="math inline">\(\alpha\)</span> on MT personalization accuracy and fluency averaged across all translators for all tested languages. For values of <span class="math inline">\(\alpha \leq 3\)</span>, performance remains close to that of the MS baseline, indicating that the contrastive method is effectively isolating latents associated with human-like style. As <span class="math inline">\(\alpha\)</span> increases, performance generally exceeds the MS approach, achieving greater control and flexibility in guiding the model’s output with minimal impact on translation quality. However, for <span class="math inline">\(\alpha \geq 10\)</span>, we observe a notable degradation in <span class="smallcaps">comet</span>, suggesting an important drop in translation fluency. <a href="#tbl-chap7-extreme-alphas" class="quarto-xref">Table&nbsp;<span>7.5</span></a> shows some examples of models generating output aligned with the Human translator according to the classifier, but with a low <span class="smallcaps">comet</span> score corresponding to an almost unreadable output due to extreme <span class="math inline">\(\alpha\)</span> values. False positive classifications in such settings suggest that steering methods and classifiers are aligned with potentially spurious stylistic features, which are not necessarily indicative of high-quality translations. We leave the investigation of these spurious features to future work, focusing here on the trade-off between personalization and translation quality.</p>
+<p>Following <span class="citation" data-cites="ferrando-etal-2025-do">Ferrando et al. (<a href="references.html#ref-ferrando-etal-2025-do" role="doc-biblioref">2025</a>)</span>, which also employ SAEs for steering, we experiment with very high alpha values (up to 150), finding the classifier’s <strong>H</strong> accuracy approaching 100% for some languages. While this indicates that the contrastive steering is aggressively optimizing toward classifier preferences (<a href="#fig-chap7-alpha-high" class="quarto-xref">Figure&nbsp;<span>7.4</span></a>), the consequent drop in <span class="smallcaps">comet</span> scores reveals a steep decline in translation quality, often resulting in incoherent or nonsensical generations from a human perspective. Ultimately, we identify <span class="math inline">\(\alpha\)</span> = 5 as an appropriate steering intensity to balance personalization and fluency, and employ it for our main evaluation.</p>
+<div id="fig-chap7-alpha-sel" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap7-alpha-sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-7-sae-litmt/gemma-2-2b-it_improvements.webp" class="img-fluid figure-img" style="width:60.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap7-alpha-sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.3: Personalization <strong>P</strong> and <span class="smallcaps">comet</span> across various steering intensity <span class="math inline">\(\alpha\)</span> for SAE Cont.<span class="math inline">\(_\text{HT}\)</span> on Gemma 2 2B. The performance of zero-shot multi-shot (MS), zero-shot explain (Exp) and zero-shot (ZS = 0) baselines is also reported.
+</figcaption>
+</figure>
+</div>
+<div id="fig-chap7-alpha-high" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap7-alpha-high-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-7-sae-litmt/gemma-2-2b-it_alpha_vs_H_accuracy_and_COMET.webp" class="img-fluid figure-img" style="width:60.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap7-alpha-high-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.4: <span class="smallcaps">comet</span> and <strong>H</strong> accuracy across <span class="math inline">\(\alpha\)</span> steering intensity values for Gemma 2 2B, showing a major drop in translation quality for very high intensities (<span class="math inline">\(\alpha \geq 50\)</span>).
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="results-and-discussion" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="results-and-discussion"><span class="header-section-number">7.5.2</span> Results and Discussion</h3>
+<p><a href="#tbl-chap7-results-averaged" class="quarto-xref">Table&nbsp;<span>7.6</span></a> presents performances of tested models across prompting and steering setups, averaged across all languages and personalization targets (<span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span> and <span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span> for each language). We find that <em>our SAE Cont.<span class="math inline">\(_\text{HT}\)</span> and SAE Cont.<span class="math inline">\(_\text{PT}\)</span> methods generally achieve the best trade-off between personalization accuracy and translation quality</em>, especially for the smaller Gemma 2 2B model. This could be due to the larger models’ superior ability to incorporate in-context information naturally, reducing the relative benefit of explicit steering. Comparing the two contrastive setups (HT and PT) for the ZS-Exp and SAE Cont. methods, we find that <em>using different human demonstrations as a contrastive baseline in PT generally produces better results for larger models</em>. As for general performance, we conjecture this could be due to the larger models’ improved ability to disentangle personalization-critical factors without explicit guidance. For the smaller Gemma 2 2B, the difference between the two approaches is minimal, suggesting that the model cannot fully exploit the differences between the examples.</p>
+<div id="tbl-chap7-results-averaged" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap7-results-averaged-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="4" class="group-header" data-quarto-table-cell-role="th"><strong>Gemma 2 2B</strong></th>
+<th colspan="4" class="group-header" data-quarto-table-cell-role="th"><strong>Gemma 2 9B</strong></th>
+<th colspan="4" class="group-header" data-quarto-table-cell-role="th"><strong>Llama 3.1 8B</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td></td>
+<td><strong>H</strong></td>
+<td><strong>P</strong></td>
+<td><strong>P<sub>flip</sub></strong></td>
+<td>☄️</td>
+<td><strong>H</strong></td>
+<td><strong>P</strong></td>
+<td><strong>P<sub>flip</sub></strong></td>
+<td>☄️</td>
+<td><strong>H</strong></td>
+<td><strong>P</strong></td>
+<td><strong>P<sub>flip</sub></strong></td>
+<td>☄️</td>
+</tr>
+<tr class="midrule even">
+<td class="mediumrow"><strong>ZS</strong></td>
+<td>0.21</td>
+<td>0.10</td>
+<td>0.05</td>
+<td>0.69</td>
+<td>0.15</td>
+<td>0.08</td>
+<td>0.04</td>
+<td>0.71</td>
+<td>0.24</td>
+<td>0.08</td>
+<td>0.05</td>
+<td>0.70</td>
+</tr>
+<tr class="odd">
+<td><strong>ZS-Exp.<sub>HT</sub></strong></td>
+<td>0.30</td>
+<td>0.22</td>
+<td>0.16</td>
+<td>0.68</td>
+<td>0.41</td>
+<td>0.22</td>
+<td>0.18</td>
+<td>0.72</td>
+<td>0.56</td>
+<td>0.23</td>
+<td>0.21</td>
+<td>0.69</td>
+</tr>
+<tr class="even">
+<td><strong>ZS-Exp.<sub>PT</sub></strong></td>
+<td>--</td>
+<td>0.20</td>
+<td>0.14</td>
+<td>0.69</td>
+<td>--</td>
+<td>0.23</td>
+<td>0.19</td>
+<td><strong>0.73</strong></td>
+<td>--</td>
+<td>0.30</td>
+<td>0.26</td>
+<td>0.70</td>
+</tr>
+<tr class="odd">
+<td><strong>MS</strong></td>
+<td>0.37</td>
+<td>0.24</td>
+<td>0.16</td>
+<td>0.69</td>
+<td><strong>0.48</strong></td>
+<td>0.31</td>
+<td>0.27</td>
+<td><strong>0.73</strong></td>
+<td>0.58</td>
+<td>0.32</td>
+<td><strong>0.28</strong></td>
+<td><strong>0.73</strong></td>
+</tr>
+<tr class="midrule even">
+<td><strong>ActAdd</strong></td>
+<td>0.27</td>
+<td>0.22</td>
+<td>0.12</td>
+<td>0.67</td>
+<td>0.32</td>
+<td>0.24</td>
+<td>0.20</td>
+<td>0.70</td>
+<td>0.55</td>
+<td>0.36</td>
+<td><strong>0.28</strong></td>
+<td>0.70</td>
+</tr>
+<tr class="odd">
+<td><strong>ReFT</strong></td>
+<td>0.31</td>
+<td>0.22</td>
+<td>0.18</td>
+<td><strong>0.70</strong></td>
+<td>0.46</td>
+<td>0.34</td>
+<td>0.27</td>
+<td>0.67</td>
+<td>0.53</td>
+<td><strong>0.38</strong></td>
+<td>0.26</td>
+<td>0.70</td>
+</tr>
+<tr class="even">
+<td><strong>SAE Cont.<sub>HT</sub></strong></td>
+<td><strong>0.39</strong></td>
+<td><strong>0.27</strong></td>
+<td><strong>0.19</strong></td>
+<td><strong>0.70</strong></td>
+<td>0.46</td>
+<td>0.33</td>
+<td><strong>0.29</strong></td>
+<td>0.72</td>
+<td><strong>0.59</strong></td>
+<td>0.31</td>
+<td>0.27</td>
+<td>0.72</td>
+</tr>
+<tr class="odd">
+<td><strong>SAE Cont.<sub>PT</sub></strong></td>
+<td>--</td>
+<td><strong>0.27</strong></td>
+<td>0.18</td>
+<td>0.69</td>
+<td>--</td>
+<td><strong>0.35</strong></td>
+<td><strong>0.29</strong></td>
+<td><strong>0.73</strong></td>
+<td>--</td>
+<td>0.33</td>
+<td><strong>0.28</strong></td>
+<td>0.72</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap7-results-averaged-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.6: Averaged metric scores across all tested languages (per-language breakdown in appendix). <strong>H</strong>: human style accuracy, i.e.&nbsp;<span class="math inline">\(p(\)</span><span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span><span class="math inline">\() + p(\)</span><span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span><span class="math inline">\()\)</span>. <strong>P</strong>: personalization accuracy p(H<span class="math inline">\(_x\)</span>) for the target style. <strong>P<span class="math inline">\(_\text{flip}\)</span></strong>: Proportion of segments for which steering has a causal impact on personalization. <span class="math inline">\(\alpha\)</span> = 5 is used for SAE Cont. results.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Do SAE Steering and MS Prompting Impact Activations in a Similar Way?</span> Since SAE-based approaches perform on par or better than MS, we set out to investigate whether the two methods result in a similar impact on model representations. We collect the modified activations <span class="math inline">\(z_{\text{steer}}\)</span> obtained from the SAE Cont.<span class="math inline">\(_\text{HT}\)</span> steering setting and evaluate them using the <em>probing classifier</em> trained on MS-conditioned activations, as introduced in <a href="#sec-chap7-probing" class="quarto-xref"><span>Section 7.3.3</span></a>, for detecting personalization information. <a href="#tbl-chap7-prober-steer" class="quarto-xref">Table&nbsp;<span>7.7</span></a> shows probe accuracy in detecting the positive impact of SAE steering across the three possible outcomes of the steering procedure. We find that the <em>probe</em> trained on the SAE layer effectively distinguishes between activations corresponding to successful and unsuccessful SAE steering, despite having been exposed only to MS conditioning during training. This includes both instances where the classifier prediction is flipped after steering (MT <span class="math inline">\(\to\)</span> H<em>) and settings where the conditioning fails (MT <span class="math inline">\(\to\)</span> MT). In settings where the original output already matches human style (H</em> <span class="math inline">\(\to\)</span> H*), the probe obtains lower accuracy with broader confidence intervals, denoting higher uncertainty. These findings suggest that the <strong>SAE’s latents we extract through our contrastive method are meaningfully connected to the stylistic patterns embedded in the multi-shot examples</strong>, providing evidence that our intervention influences the internal representations of the model, aligning them to the natural effect of the MS approach.</p>
+<div id="tbl-chap7-prober-steer" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-chap7-prober-steer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">MT → H*</th>
+<th data-quarto-table-cell-role="th">MT → MT</th>
+<th data-quarto-table-cell-role="th">H* → H*</th>
+</tr>
+</thead>
+<tbody>
+<tr class="midrule odd">
+<td><strong>Gemma 2 2B</strong></td>
+<td>0.94 <span class="small">±0.01</span></td>
+<td>0.07 <span class="small">±0.02</span></td>
+<td>0.72 <span class="small">±0.15</span></td>
+</tr>
+<tr class="even">
+<td><strong>Gemma 2 9B</strong></td>
+<td>0.93 <span class="small">±0.02</span></td>
+<td>0.12 <span class="small">±0.10</span></td>
+<td>0.68 <span class="small">±0.19</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-chap7-prober-steer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.7: Probing accuracy on Cont<sub>HT</sub>-steered activations averaged across languages and <span class="light-content" style="color: #466362;">H<span class="math inline">\(_1\)</span></span>/<span class="light-content" style="color: #6fa8dc;">H<span class="math inline">\(_2\)</span></span> translators. Probes trained on MS activations reliably detect the impact of SAE Cont. steering over model generations, suggesting similar mechanisms.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="limitations" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="limitations"><span class="header-section-number">7.6</span> Limitations</h2>
+<p>While we demonstrates the potential of steering LLMs for MT personalization using sparse autoencoders, we acknowledge several limitations.</p>
+<p>Firstly, the generalizability of our findings is constrained by the scope of our experiments. We focused on literary translation from seven specific source languages into English and evaluated three LLMs of relatively small size. Consequently, the observed effectiveness of SAE-based steering and the identified optimal layers for intervention may not directly transfer to other language pairs, significantly different model architectures or sizes, or distinct domains beyond literary texts. Further research is needed to assess the robustness of our approach across a broader range of linguistic and modeling contexts.</p>
+<p>Secondly, the computational overhead associated with sparse autoencoders presents a practical challenge. Although we utilized pre-trained SAEs in our study, the initial training of these components is resource-intensive. This could limit the accessibility and scalability of our proposed method, particularly for researchers or practitioners with limited computational resources or when frequent retraining for new models or tasks is required. The current availability of pre-trained SAEs also restricts model choice, as seen with the Llama 3.1 8B model, where an SAE was only available for a potentially sub-optimal layer.</p>
+<p>Finally, our investigation primarily focused on downstream performance and the impact of various personalization strategies on model representations. However, we did not pursue a mechanistic understanding of the “personalization circuits” within the LLMs. Future work could adopt a more fine-grained mechanistic interpretability approach to study how specific SAE latents or combinations thereof encode and manipulate nuanced stylistic features, thereby providing deeper insights into the underlying processes of LLM personalization.</p>
+</section>
+<section id="conclusion" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7.7</span> Conclusion</h2>
+<p>We conducted a broad evaluation of various prompting and steering approaches for personalizing LLM-generated translations. Our evaluation targets a practical, real-world application of literary translation and addresses the underexplored challenge of steering LLM generations in a linguistically rich and stylistically sensitive domain. Through comprehensive evaluation across multiple languages, novels, and models, we demonstrate that our proposed SAE-based approach outperforms prompting and alternative steering techniques.</p>
+<p>Although faithfully replicating individual human translation styles remains a highly challenging task, our approach achieves strong alignment with human translation quality, as reflected in both general human-likeness and translator-specific personalization metrics. These results highlight the method’s robustness and its potential to support high-fidelity translation workflows in real-world settings. Concretely, these results have important implications in the development of personalized MT systems based on LLMs. In particular, the notable effectiveness of our proposed approach on smaller models might enable MT customization when few examples are available, facilitating further research on how personalization information is encoded and produced by language models. Despite their effectiveness, the interpretability of the learned SAE latents and their potential use with larger LLMs—where increased capacity may further enhance the precision and fluency of personalized translations—remain open questions for future investigation.</p>
+<p>The success of SAE-based steering for personalized translation highlights the effectiveness of internals-based interventions for controlling model generation. However, the practical deployment of such approaches requires a careful evaluation of their impact on users’ trust and behaviors. The first two parts of this thesis focused on developing methods for analyzing and steering model generation. The third and final part, beginning with the next chapter, focuses instead on the <em>users</em> of machine translation systems, specifically professional post-editors and translators, to explore how their interactions with machine-translated content are shaped by factors such as language similarity and translation quality. Finally, we investigate whether these interactions can be improved using the trove of information available from the inner workings of MT models.</p>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-arditi-etal-2024-refusal" class="csl-entry" role="listitem">
+Andy Arditi, Oscar Obeso, Aaquib Syed, Daniel Paleka, Nina Panickssery, Wes Gurnee, and Neel Nanda. 2024. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/f545448535dfde4f9786555403ab7c49-Paper-Conference.pdf">Refusal in language models is mediated by a single direction</a>. In A. Globerson, L. Mackey, D. Belgrave, A. Fan, U. Paquet, J. Tomczak, and C. Zhang, editors, <em>Advances in neural information processing systems</em>, volume 37, pages 136037–136083, Red Hook, NY, USA. Curran Associates, Inc.
+</div>
+<div id="ref-belinkov-2022-probing" class="csl-entry" role="listitem">
+Yonatan Belinkov. 2022. <a href="https://doi.org/10.1162/coli_a_00422">Probing classifiers: Promises, shortcomings, and advances</a>. <em>Computational Linguistics</em>, 48(1):207–219.
+</div>
+<div id="ref-berger-etal-2024-post" class="csl-entry" role="listitem">
+Nathaniel Berger, Stefan Riezler, Miriam Exel, and Matthias Huck. 2024. <a href="https://doi.org/10.18653/v1/2024.wmt-1.122">Post-edits are preferences too</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 1289–1300, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-briakou-etal-2024-translating" class="csl-entry" role="listitem">
+Eleftheria Briakou, Jiaming Luo, Colin Cherry, and Markus Freitag. 2024. <a href="https://doi.org/10.18653/v1/2024.wmt-1.123">Translating step-by-step: Decomposing the translation process for improved translation quality of long-form texts</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 1301–1317, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-chalnev-etal-2024-improving" class="csl-entry" role="listitem">
+Sviatoslav Chalnev, Matthew Siu, and Arthur Conmy. 2024. <a href="https://arxiv.org/abs/2411.02193">Improving steering vectors by targeting sparse autoencoder features</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-conneau-etal-2020-unsupervised" class="csl-entry" role="listitem">
+Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume Wenzek, Francisco Guzmán, Edouard Grave, Myle Ott, Luke Zettlemoyer, and Veselin Stoyanov. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.747">Unsupervised cross-lingual representation learning at scale</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 8440–8451, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-ferrando-etal-2025-do" class="csl-entry" role="listitem">
+Javier Ferrando, Oscar Balcells Obeso, Senthooran Rajamanoharan, and Neel Nanda. 2025. <a href="https://openreview.net/forum?id=WCRQFlji2q">Do i know this entity? Knowledge awareness and hallucinations in language models</a>. In <em>The thirteenth international conference on learning representations</em>.
+</div>
+<div id="ref-flekova-etal-2016-analyzing" class="csl-entry" role="listitem">
+Lucie Flekova, Jordan Carpenter, Salvatore Giorgi, Lyle Ungar, and Daniel Preoţiuc-Pietro. 2016. <a href="https://doi.org/10.18653/v1/P16-1080">Analyzing biases in human perception of user age and gender from text</a>. In Katrin Erk and Noah A. Smith, editors, <em>Proceedings of the 54th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 843–854, Berlin, Germany. Association for Computational Linguistics.
+</div>
+<div id="ref-garcia-firat-2022-using" class="csl-entry" role="listitem">
+Xavier Garcia and Orhan Firat. 2022. <a href="https://arxiv.org/abs/2202.11822">Using natural language prompts for machine translation</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-guerberof-toral-2022-creativity" class="csl-entry" role="listitem">
+Ana Guerberof-Arenas and Antonio Toral. 2022. <a href="https://doi.org/10.1075/ts.21025.gue">Creativity in translation: Machine translation as a constraint for literary texts</a>. <em>Translation Spaces</em>, 11(2):184–212.
+</div>
+<div id="ref-hendel-etal-2023-context" class="csl-entry" role="listitem">
+Roee Hendel, Mor Geva, and Amir Globerson. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-emnlp.624">In-context learning creates task vectors</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Findings of the association for computational linguistics: EMNLP 2023</em>, pages 9318–9333, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-huben-etal-2024-sparse" class="csl-entry" role="listitem">
+Robert Huben, Hoagy Cunningham, Logan Riggs Smith, Aidan Ewart, and Lee Sharkey. 2024. <a href="https://openreview.net/forum?id=F76bwRSLeK">Sparse autoencoders find highly interpretable features in language models</a>. In <em>The twelfth international conference on learning representations</em>.
+</div>
+<div id="ref-karpinska-iyyer-2023-large" class="csl-entry" role="listitem">
+Marzena Karpinska and Mohit Iyyer. 2023. <a href="https://doi.org/10.18653/v1/2023.wmt-1.41">Large language models effectively leverage document-level context for literary translation, but critical errors persist</a>. In Philipp Koehn, Barry Haddow, Tom Kocmi, and Christof Monz, editors, <em>Proceedings of the eighth conference on machine translation</em>, pages 419–451, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-lee-etal-2023-pepe" class="csl-entry" role="listitem">
+Jihyeon Lee, Taehee Kim, Yunwon Tae, Cheonbok Park, and Jaegul Choo. 2023. <a href="https://doi.org/10.18653/v1/2023.findings-eacl.18"><span>P</span>e<span>P</span>e: Personalized post-editing model utilizing user-generated post-edits</a>. In Andreas Vlachos and Isabelle Augenstein, editors, <em>Findings of the association for computational linguistics: EACL 2023</em>, pages 239–253, Dubrovnik, Croatia. Association for Computational Linguistics.
+</div>
+<div id="ref-lieberum-etal-2024-gemma" class="csl-entry" role="listitem">
+Tom Lieberum, Senthooran Rajamanoharan, Arthur Conmy, Lewis Smith, Nicolas Sonnerat, Vikrant Varma, Janos Kramar, Anca Dragan, Rohin Shah, and Neel Nanda. 2024. <a href="https://doi.org/10.18653/v1/2024.blackboxnlp-1.19">Gemma scope: Open sparse autoencoders everywhere all at once on gemma 2</a>. In Yonatan Belinkov, Najoung Kim, Jaap Jumelet, Hosein Mohebbi, Aaron Mueller, and Hanjie Chen, editors, <em>Proceedings of the 7th BlackboxNLP workshop: Analyzing and interpreting neural networks for NLP</em>, pages 278–300, Miami, Florida, US. Association for Computational Linguistics.
+</div>
+<div id="ref-lin-etal-2021-towards" class="csl-entry" role="listitem">
+Huan Lin, Liang Yao, Baosong Yang, Dayiheng Liu, Haibo Zhang, Weihua Luo, Degen Huang, and Jinsong Su. 2021. <a href="https://doi.org/10.18653/v1/2021.acl-long.310">Towards user-driven neural machine translation</a>. In Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli, editors, <em>Proceedings of the 59th annual meeting of the association for computational linguistics and the 11th international joint conference on natural language processing (volume 1: Long papers)</em>, pages 4008–4018, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-liu-etal-2023-coco" class="csl-entry" role="listitem">
+Xiaoming Liu, Zhaohan Zhang, Yichen Wang, Hang Pu, Yu Lan, and Chao Shen. 2023. <a href="https://doi.org/10.18653/v1/2023.emnlp-main.1005"><span>C</span>o<span>C</span>o: Coherence-enhanced machine-generated text detection under low resource with contrastive learning</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Proceedings of the 2023 conference on empirical methods in natural language processing</em>, pages 16167–16188, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-matusov-2019-challenges" class="csl-entry" role="listitem">
+Evgeny Matusov. 2019. <a href="https://aclanthology.org/W19-7302/">The challenges of using neural machine translation for literature</a>. In James Hadley, Maja Popović, Haithem Afli, and Andy Way, editors, <em>Proceedings of the qualities of literary machine translation</em>, pages 10–19, Dublin, Ireland. European Association for Machine Translation.
+</div>
+<div id="ref-mcgrath-etal-2024-understanding" class="csl-entry" role="listitem">
+Thomas McGrath, Daniel Balsam, Myra Deng, and Eric Ho. 2024. <a href="https://www.goodfire.ai/papers/understanding-and-steering-llama-3">Understanding and steering llama 3 with sparse autoencoders</a>. <em>Goodfire Blog</em>.
+</div>
+<div id="ref-michel-neubig-2018-extreme" class="csl-entry" role="listitem">
+Paul Michel and Graham Neubig. 2018. <a href="https://doi.org/10.18653/v1/P18-2050">Extreme adaptation for personalized neural machine translation</a>. In Iryna Gurevych and Yusuke Miyao, editors, <em>Proceedings of the 56th annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 312–318, Melbourne, Australia. Association for Computational Linguistics.
+</div>
+<div id="ref-moorkens-etal-2018-translators" class="csl-entry" role="listitem">
+Joss Moorkens, Antonio Toral, Sheila Castilho, and Andy Way. 2018. <a href="https://doi.org/10.1075/ts.18014.moo">Translators’ perceptions of literary post-editing using statistical and neural machine translation</a>. <em>Translation Spaces</em>, 7(2):240–262.
+</div>
+<div id="ref-nadejde-etal-2022-cocoa" class="csl-entry" role="listitem">
+Maria Nadejde, Anna Currey, Benjamin Hsu, Xing Niu, Marcello Federico, and Georgiana Dinu. 2022. <a href="https://doi.org/10.18653/v1/2022.findings-naacl.47"><span>C</span>o<span>C</span>o<span>A</span>-<span>MT</span>: A dataset and benchmark for contrastive controlled <span>MT</span> with application to formality</a>. In Marine Carpuat, Marie-Catherine de Marneffe, and Ivan Vladimir Meza Ruiz, editors, <em>Findings of the association for computational linguistics: NAACL 2022</em>, pages 616–632, Seattle, United States. Association for Computational Linguistics.
+</div>
+<div id="ref-niu-etal-2017-study" class="csl-entry" role="listitem">
+Xing Niu, Marianna Martindale, and Marine Carpuat. 2017. <a href="https://doi.org/10.18653/v1/D17-1299">A study of style in machine translation: Controlling the formality of machine translation output</a>. In Martha Palmer, Rebecca Hwa, and Sebastian Riedel, editors, <em>Proceedings of the 2017 conference on empirical methods in natural language processing</em>, pages 2814–2819, Copenhagen, Denmark. Association for Computational Linguistics.
+</div>
+<div id="ref-openai-2023-gpt4" class="csl-entry" role="listitem">
+OpenAI. 2023. <a href="https://arxiv.org/abs/2303.08774">Gpt-4 technical report</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-rabinovich-etal-2017-personalized" class="csl-entry" role="listitem">
+Ella Rabinovich, Raj Nath Patel, Shachar Mirkin, Lucia Specia, and Shuly Wintner. 2017. <a href="https://aclanthology.org/E17-1101/">Personalized machine translation: Preserving original author traits</a>. In Mirella Lapata, Phil Blunsom, and Alexander Koller, editors, <em>Proceedings of the 15th conference of the <span>E</span>uropean chapter of the association for computational linguistics: Volume 1, long papers</em>, pages 1074–1084, Valencia, Spain. Association for Computational Linguistics.
+</div>
+<div id="ref-rei-etal-2020-comet" class="csl-entry" role="listitem">
+Ricardo Rei, Craig Stewart, Ana C Farinha, and Alon Lavie. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-main.213"><span>COMET</span>: A neural framework for <span>MT</span> evaluation</a>. In Bonnie Webber, Trevor Cohn, Yulan He, and Yang Liu, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing (EMNLP)</em>, pages 2685–2702, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-rimsky-etal-2024-steering" class="csl-entry" role="listitem">
+Nina Rimsky, Nick Gabrieli, Julian Schulz, Meg Tong, Evan Hubinger, and Alexander Turner. 2024. <a href="https://doi.org/10.18653/v1/2024.acl-long.828">Steering llama 2 via contrastive activation addition</a>. In Lun-Wei Ku, Andre Martins, and Vivek Srikumar, editors, <em>Proceedings of the 62nd annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 15504–15522, Bangkok, Thailand. Association for Computational Linguistics.
+</div>
+<div id="ref-sarti-etal-2023-ramp" class="csl-entry" role="listitem">
+Gabriele Sarti, Phu Mon Htut, Xing Niu, Benjamin Hsu, Anna Currey, Georgiana Dinu, and Maria Nadejde. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-short.126"><span>RAMP</span>: Retrieval and attribute-marking enhanced prompting for attribute-controlled translation</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 1476–1490, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-saunders-byrne-2020-reducing" class="csl-entry" role="listitem">
+Danielle Saunders and Bill Byrne. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.690">Reducing gender bias in neural machine translation as a domain adaptation problem</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 7724–7736, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-scalena-etal-2024-multi" class="csl-entry" role="listitem">
+Daniel Scalena, Gabriele Sarti, and Malvina Nissim. 2024. <a href="https://doi.org/10.18653/v1/2024.blackboxnlp-1.34">Multi-property steering of large language models with dynamic activation composition</a>. In Yonatan Belinkov, Najoung Kim, Jaap Jumelet, Hosein Mohebbi, Aaron Mueller, and Hanjie Chen, editors, <em>Proceedings of the 7th BlackboxNLP workshop: Analyzing and interpreting neural networks for NLP</em>, pages 577–603, Miami, Florida, US. Association for Computational Linguistics.
+</div>
+<div id="ref-scalena-sarti-etal-2025-steering" class="csl-entry" role="listitem">
+Daniel Scalena^*, Gabriele Sarti^*, Arianna Bisazza, Elisabetta Fersini, and Malvina Nissim. 2025. <a href="https://arxiv.org/abs/2505.16612">Steering large language models for machine translation personalization</a>. <em>Arxiv Preprint</em>.
+</div>
+<div id="ref-sennrich-etal-2016-controlling" class="csl-entry" role="listitem">
+Rico Sennrich, Barry Haddow, and Alexandra Birch. 2016. <a href="https://doi.org/10.18653/v1/N16-1005">Controlling politeness in neural machine translation via side constraints</a>. In Kevin Knight, Ani Nenkova, and Owen Rambow, editors, <em>Proceedings of the 2016 conference of the north <span>A</span>merican chapter of the association for computational linguistics: Human language technologies</em>, pages 35–40, San Diego, California. Association for Computational Linguistics.
+</div>
+<div id="ref-gemmateam2024gemma2improvingopen" class="csl-entry" role="listitem">
+Gemma Team. 2024a. <a href="https://arxiv.org/abs/2408.00118">Gemma 2: Improving open language models at a practical size</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-grattafiori2024llama3herdmodels" class="csl-entry" role="listitem">
+Llama Team. 2024b. <a href="https://arxiv.org/abs/2407.21783">The llama 3 herd of models</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-thai-etal-2022-exploring" class="csl-entry" role="listitem">
+Katherine Thai, Marzena Karpinska, Kalpesh Krishna, Bill Ray, Moira Inghilleri, John Wieting, and Mohit Iyyer. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.672">Exploring document-level literary machine translation with parallel paragraphs from world literature</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 9882–9902, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-todd-etal-2024-function" class="csl-entry" role="listitem">
+Eric Todd, Millicent L. Li, Arnab Sen Sharma, Aaron Mueller, Byron C. Wallace, and David Bau. 2024. <a href="https://openreview.net/forum?id=AwyxtyMwaG">Function vectors in large language models</a>. In <em>Proceedings of the 2024 international conference on learning representations</em>.
+</div>
+<div id="ref-toral-way-2015-translating" class="csl-entry" role="listitem">
+Antonio Toral and Andy Way. 2015. <a href="https://doi.org/10.3115/v1/W15-0714">Translating literary text between related languages using <span>SMT</span></a>. In Anna Feldman, Anna Kazantseva, Stan Szpakowicz, and Corina Koolen, editors, <em>Proceedings of the fourth workshop on computational linguistics for literature</em>, pages 123–132, Denver, Colorado, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-toral-way-2018-what" class="csl-entry" role="listitem">
+Antonio Toral and Andy Way. 2018. <a href="https://doi.org/10.1007/978-3-319-91241-7_12">What level of quality can neural machine translation attain on literary text?</a> In <em>Translation quality assessment: From principles to practice</em>, pages 263–287. Springer International Publishing, Cham.
+</div>
+<div id="ref-vanmassenhove-etal-2018-getting" class="csl-entry" role="listitem">
+Eva Vanmassenhove, Christian Hardmeier, and Andy Way. 2018. <a href="https://doi.org/10.18653/v1/D18-1334">Getting gender right in neural machine translation</a>. In Ellen Riloff, David Chiang, Julia Hockenmaier, and Jun’ichi Tsujii, editors, <em>Proceedings of the 2018 conference on empirical methods in natural language processing</em>, pages 3003–3008, Brussels, Belgium. Association for Computational Linguistics.
+</div>
+<div id="ref-voigt-jurafsky-2012-towards" class="csl-entry" role="listitem">
+Rob Voigt and Dan Jurafsky. 2012. <a href="https://aclanthology.org/W12-2503/">Towards a literary machine translation: The role of referential cohesion</a>. In David Elson, Anna Kazantseva, Rada Mihalcea, and Stan Szpakowicz, editors, <em>Proceedings of the <span>NAACL</span>-<span>HLT</span> 2012 workshop on computational linguistics for literature</em>, pages 18–25, Montr<span>é</span>al, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-wang-etal-2024-findings" class="csl-entry" role="listitem">
+Longyue Wang, Siyou Liu, Chenyang Lyu, Wenxiang Jiao, Xing Wang, Jiahao Xu, Zhaopeng Tu, Yan Gu, Weiyu Chen, Minghao Wu, Liting Zhou, Philipp Koehn, Andy Way, and Yulin Yuan. 2024a. <a href="https://doi.org/10.18653/v1/2024.wmt-1.58">Findings of the <span>WMT</span> 2024 shared task on discourse-level literary translation</a>. In Barry Haddow, Tom Kocmi, Philipp Koehn, and Christof Monz, editors, <em>Proceedings of the ninth conference on machine translation</em>, pages 699–700, Miami, Florida, USA. Association for Computational Linguistics.
+</div>
+<div id="ref-wang-etal-2023-document-level" class="csl-entry" role="listitem">
+Longyue Wang, Chenyang Lyu, Tianbo Ji, Zhirui Zhang, Dian Yu, Shuming Shi, and Zhaopeng Tu. 2023a. <a href="https://doi.org/10.18653/v1/2023.emnlp-main.1036">Document-level machine translation with large language models</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Proceedings of the 2023 conference on empirical methods in natural language processing</em>, pages 16646–16661, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-wang-etal-2023-findings" class="csl-entry" role="listitem">
+Longyue Wang, Zhaopeng Tu, Yan Gu, Siyou Liu, Dian Yu, Qingsong Ma, Chenyang Lyu, Liting Zhou, Chao-Hong Liu, Yufeng Ma, Weiyu Chen, Yvette Graham, Bonnie Webber, Philipp Koehn, Andy Way, Yulin Yuan, and Shuming Shi. 2023b. <a href="https://doi.org/10.18653/v1/2023.wmt-1.3">Findings of the <span>WMT</span> 2023 shared task on discourse-level literary translation: A fresh orb in the cosmos of <span>LLM</span>s</a>. In Philipp Koehn, Barry Haddow, Tom Kocmi, and Christof Monz, editors, <em>Proceedings of the eighth conference on machine translation</em>, pages 55–67, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-wang-etal-2021-towards" class="csl-entry" role="listitem">
+Yue Wang, Cuong Hoang, and Marcello Federico. 2021. <a href="https://doi.org/10.18653/v1/2021.naacl-main.94">Towards modeling the style of translators in neural machine translation</a>. In Kristina Toutanova, Anna Rumshisky, Luke Zettlemoyer, Dilek Hakkani-Tur, Iz Beltagy, Steven Bethard, Ryan Cotterell, Tanmoy Chakraborty, and Yichao Zhou, editors, <em>Proceedings of the 2021 conference of the north american chapter of the association for computational linguistics: Human language technologies</em>, pages 1193–1199, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-wang-etal-2024-semeval-2024" class="csl-entry" role="listitem">
+Yuxia Wang, Jonibek Mansurov, Petar Ivanov, Jinyan Su, Artem Shelmanov, Akim Tsvigun, Osama Mohammed Afzal, Tarek Mahmoud, Giovanni Puccetti, and Thomas Arnold. 2024b. <a href="https://doi.org/10.18653/v1/2024.semeval-1.279"><span>S</span>em<span>E</span>val-2024 task 8: Multidomain, multimodel and multilingual machine-generated text detection</a>. In Atul Kr. Ojha, A. Seza Doğruöz, Harish Tayyar Madabushi, Giovanni Da San Martino, Sara Rosenthal, and Aiala Rosá, editors, <em>Proceedings of the 18th international workshop on semantic evaluation (SemEval-2024)</em>, pages 2057–2079, Mexico City, Mexico. Association for Computational Linguistics.
+</div>
+<div id="ref-wang-etal-2024-m4gt" class="csl-entry" role="listitem">
+Yuxia Wang, Jonibek Mansurov, Petar Ivanov, Jinyan Su, Artem Shelmanov, Akim Tsvigun, Osama Mohammed Afzal, Tarek Mahmoud, Giovanni Puccetti, Thomas Arnold, Alham Aji, Nizar Habash, Iryna Gurevych, and Preslav Nakov. 2024c. <a href="https://doi.org/10.18653/v1/2024.acl-long.218"><span>M</span>4<span>GT</span>-bench: Evaluation benchmark for black-box machine-generated text detection</a>. In Lun-Wei Ku, Andre Martins, and Vivek Srikumar, editors, <em>Proceedings of the 62nd annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 3964–3992, Bangkok, Thailand. Association for Computational Linguistics.
+</div>
+<div id="ref-wu-etal-2024-perhaps" class="csl-entry" role="listitem">
+Minghao Wu, Jiahao Xu, Yulin Yuan, Gholamreza Haffari, Longyue Wang, Weihua Luo, and Kaifu Zhang. 2025. <a href="https://arxiv.org/abs/2405.11804">(<span>P</span>erhaps) beyond human translation: Harnessing multi-agent collaboration for translating ultra-long literary texts</a>. <em>Arxiv</em>.
+</div>
+<div id="ref-youyou-etal-2015-computer" class="csl-entry" role="listitem">
+Wu Youyou, Michal Kosinski, and David Stillwell. 2015. Computer-based personality judgments are more accurate than those made by humans. <em>Proceedings of the National Academy of Sciences</em>, 112(4):1036–1040.
+</div>
+<div id="ref-zhang-etal-2022-building" class="csl-entry" role="listitem">
+Peng Zhang, Zhengqing Guan, Baoxi Liu, Xianghua (Sharon) Ding, Tun Lu, Hansu Gu, and Ning Gu. 2022. <a href="https://doi.org/10.1145/3555171">Building user-oriented personalized machine translator based on user-generated textual content</a>. <em>Proc. ACM Hum.-Comput. Interact.</em>, 6(CSCW2).
+</div>
+<div id="ref-zhao-etal-2025-steering" class="csl-entry" role="listitem">
+Yu Zhao, Alessio Devoto, Giwon Hong, Xiaotang Du, Aryo Pradipta Gema, Hongru Wang, Xuanli He, Kam-Fai Wong, and Pasquale Minervini. 2025. <a href="https://aclanthology.org/2025.naacl-long.264/">Steering knowledge selection behaviours in <span>LLM</span>s via <span>SAE</span>-based representation engineering</a>. In Luis Chiruzzo, Alan Ritter, and Lu Wang, editors, <em>Proceedings of the 2025 conference of the nations of the americas chapter of the association for computational linguistics: Human language technologies (volume 1: Long papers)</em>, pages 5117–5136, Albuquerque, New Mexico. Association for Computational Linguistics.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://huggingface.co/facebookai/xlm-roberta-large"><code>FacebookAI/xlm-roberta-large</code></a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Two human annotators were asked to label 100 translated paragraphs from the novel Pinocchio (IT<span class="math inline">\(\rightarrow\)</span>EN) as either human or MT, resulting in an accuracy of <span class="math inline">\(\sim60\%\)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Examples are resampled for every test paragraph to prevent the probe from overfitting on spurious prompt features.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>We find probes for layers 13 and 21 to perform best for the 2B and 9B models, respectively.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Details on the prompt templates are in <a href="appendix-b.html#sec-sae-litmt-explain" class="quarto-xref"><span>Section B.2.1.4</span></a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>By contrast, traditional SAE-based steering methods only employ features associated with the positive class <span class="citation" data-cites="chalnev-etal-2024-improving arditi-etal-2024-refusal">(<a href="references.html#ref-chalnev-etal-2024-improving" role="doc-biblioref">Chalnev et al., 2024</a>; <a href="references.html#ref-arditi-etal-2024-refusal" role="doc-biblioref">Arditi et al., 2024</a>)</span>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://huggingface.co/Unbabel/wmt22-comet-da%60"><code>Unbabel/wmt22-comet-da</code></a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Larger models were evaluated using a subset of the best-performing configurations. Details in <a href="appendix-b.html#sec-sae-litmt-all-models" class="quarto-xref"><span>Section B.2.2</span></a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/chap-6-ramp.html" class="pagination-link" aria-label="Retrieval and Marking for Attribute-Controlled Translation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Gabriele Sarti. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://www.rug.nl/?lang=en"><img src="../figures/logos/rug_eng_red.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/?lang=en"><img src="../figures/logos/clcg.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://projects.illc.uva.nl/indeep/"><img src="../figures/logos/indeep_logo_horizontal.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/research/cl/?lang=en"><img src="../figures/logos/gronlp.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+</div>
+    <div class="nav-footer-right">
+<p>Written with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

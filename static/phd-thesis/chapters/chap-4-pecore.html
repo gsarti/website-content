@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Ph.D.&nbsp;Thesis, Center for Language and Cognition (CLCG), University of Groningen">
+
+<title>4&nbsp; Quantifying Context Usage in Neural Machine Translation – From Insights to Impact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/chap-5-mirage.html" rel="next">
+<link href="../chapters/chap-3-inseq.html" rel="prev">
+<link href="../figures/logos/rug_crest_icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df7dc7f297c6c2c740a551c3cb7e1581.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../html/custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-3-inseq.html">Attributing Context Usage in Multilingual NLP</a></li><li class="breadcrumb-item"><a href="../chapters/chap-4-pecore.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../figures/logos/rug_eng_red_hat_line.png" alt="RUG Coat of Arms" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Insights to Impact</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gsarti/phd-thesis" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://gsarti.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-person-circle"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-2-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Attributing Context Usage in Multilingual NLP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-3-inseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-4-pecore.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-5-mirage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conditioning Generation for Personalized Machine Translation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-6-ramp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Retrieval and Marking for Attribute-Controlled Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-7-sae-litmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Steering Language Models for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Interpretability in Human Translation Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-8-divemt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Translation Post-editing for Typologically Diverse Languages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-9-qe4pe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Word-level Quality Estimation for Machine Translation Post-editing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-10-unsup-wqe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Unsupervised MT Error Detection and Human Disagreement</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/chap-11-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Attributing Context Usage in Multilingual NLP</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Conditioning Generation for Personalized Machine Translation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/appendix-c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Interpretability in Human Translation Workflows</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-chap4-intro" id="toc-sec-chap4-intro" class="nav-link active" data-scroll-target="#sec-chap4-intro"><span class="header-section-number">4.1</span> Introduction</a></li>
+  <li><a href="#sec-chap4-related-work" id="toc-sec-chap4-related-work" class="nav-link" data-scroll-target="#sec-chap4-related-work"><span class="header-section-number">4.2</span> Related Work</a></li>
+  <li><a href="#sec-chap4-pecore-framework" id="toc-sec-chap4-pecore-framework" class="nav-link" data-scroll-target="#sec-chap4-pecore-framework"><span class="header-section-number">4.3</span> The <span class="smallcaps">PECoRe</span> Framework</a>
+  <ul class="collapse">
+  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation"><span class="header-section-number">4.3.1</span> Notation</a></li>
+  <li><a href="#sec-chap4-cti" id="toc-sec-chap4-cti" class="nav-link" data-scroll-target="#sec-chap4-cti"><span class="header-section-number">4.3.2</span> Context-sensitive Token Identification (CTI)</a></li>
+  <li><a href="#sec-chap4-cci" id="toc-sec-chap4-cci" class="nav-link" data-scroll-target="#sec-chap4-cci"><span class="header-section-number">4.3.3</span> Contextual Cues Imputation (CCI)</a></li>
+  </ul></li>
+  <li><a href="#context-reliance-plausibility-in-context-aware-mt" id="toc-context-reliance-plausibility-in-context-aware-mt" class="nav-link" data-scroll-target="#context-reliance-plausibility-in-context-aware-mt"><span class="header-section-number">4.4</span> Context Reliance Plausibility in Context-aware MT</a>
+  <ul class="collapse">
+  <li><a href="#sec-chap4-setup" id="toc-sec-chap4-setup" class="nav-link" data-scroll-target="#sec-chap4-setup"><span class="header-section-number">4.4.1</span> Experimental Setup</a></li>
+  <li><a href="#sec-chap4-cti-metrics" id="toc-sec-chap4-cti-metrics" class="nav-link" data-scroll-target="#sec-chap4-cti-metrics"><span class="header-section-number">4.4.2</span> Metrics for Context-sensitive Target Identification</a></li>
+  <li><a href="#plausibility-evaluation-metrics" id="toc-plausibility-evaluation-metrics" class="nav-link" data-scroll-target="#plausibility-evaluation-metrics"><span class="header-section-number">4.4.3</span> Plausibility Evaluation Metrics</a></li>
+  <li><a href="#sec-chap4-cti-results" id="toc-sec-chap4-cti-results" class="nav-link" data-scroll-target="#sec-chap4-cti-results"><span class="header-section-number">4.4.4</span> CTI Plausibility Results</a></li>
+  <li><a href="#sec-chap4-cci-metrics" id="toc-sec-chap4-cci-metrics" class="nav-link" data-scroll-target="#sec-chap4-cci-metrics"><span class="header-section-number">4.4.5</span> Methods for Contextual Cues Imputation</a></li>
+  <li><a href="#sec-chap4-cci-results" id="toc-sec-chap4-cci-results" class="nav-link" data-scroll-target="#sec-chap4-cci-results"><span class="header-section-number">4.4.6</span> CCI Plausibility Results</a></li>
+  </ul></li>
+  <li><a href="#sec-chap4-analysis" id="toc-sec-chap4-analysis" class="nav-link" data-scroll-target="#sec-chap4-analysis"><span class="header-section-number">4.5</span> Detecting Context Reliance in the Wild</a></li>
+  <li><a href="#sec-chap4-inseq-integration" id="toc-sec-chap4-inseq-integration" class="nav-link" data-scroll-target="#sec-chap4-inseq-integration"><span class="header-section-number">4.6</span> Integrating <span class="smallcaps">PECoRe</span> in Inseq</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">4.7</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/chap-3-inseq.html">Attributing Context Usage in Multilingual NLP</a></li><li class="breadcrumb-item"><a href="../chapters/chap-4-pecore.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chap-4-pecore" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantifying Context Usage in Neural Machine Translation</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chapter Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This chapter investigates how context-aware machine translation models leverage contextual information. For this purpose, we introduce <strong>P</strong>lausibility <strong>E</strong>valuation of <strong>Co</strong>ntext <strong>Re</strong>liance (<span class="smallcaps">PECoRe</span>), an end-to-end interpretability framework designed to quantify context usage in language models’ generations. Our approach leverages model internals to contrastively identify context-sensitive target tokens in generated texts and link them to contextual cues justifying their prediction. We demonstrate the framework’s effectiveness by assessing the plausibility of context-aware machine translation models, comparing model rationales with human annotations across several discourse-level phenomena. We integrate <span class="smallcaps">PECoRe</span> in the Inseq toolkit API and apply it to unannotated model outputs to identify context-mediated predictions and highlight instances of (im)plausible context usage throughout generation.</p>
+<p></p>
+<p>This chapter is adapted from the paper <em>Quantifying the Plausibility of Context Reliance in Neural Machine Translation</em> <span class="citation" data-cites="sarti-etal-2024-quantifying">(<a href="references.html#ref-sarti-etal-2024-quantifying" role="doc-biblioref">Sarti et al., 2024a</a>)</span>. <a href="#sec-chap4-inseq-integration" class="quarto-xref"><span>Section 4.6</span></a> is adapted from the case study in <em>Democratizing Advanced Attribution Analyses of Generative Language Models with the Inseq Toolkit</em> <span class="citation" data-cites="sarti-etal-2024-democratizing">(<a href="references.html#ref-sarti-etal-2024-democratizing" role="doc-biblioref">Sarti et al., 2024b</a>)</span>.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>An interpretation will be meaningful to the extent that it accurately reflects some isomorphism to the real world.</em></p>
+<p><em>– Douglas R. Hofstadter, Gödel, Escher, Bach: An Eternal Golden Braid (1979)</em></p>
+</blockquote>
+<section id="sec-chap4-intro" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-chap4-intro"><span class="header-section-number">4.1</span> Introduction</h2>
+<p>Research in NLP interpretability defines various desiderata for rationales of model behaviors, i.e.&nbsp;the contributions of input tokens toward model predictions computed using input attribution <span class="citation" data-cites="madsen-etal-2022-posthoc">(<a href="references.html#ref-madsen-etal-2022-posthoc" role="doc-biblioref">Madsen et al., 2022</a>)</span>. One such property is <em>plausibility</em>, corresponding to the alignment between model rationales and salient input words identified by human annotators <span class="citation" data-cites="jacovi-goldberg-2020-towards">(<a href="references.html#ref-jacovi-goldberg-2020-towards" role="doc-biblioref">Jacovi and Goldberg, 2020</a>)</span>. Low-plausibility rationales typically occur alongside generalization failures or biased predictions and can be helpful in identifying cases where models are “right for the wrong reasons” <span class="citation" data-cites="mccoy-etal-2019-right">(<a href="references.html#ref-mccoy-etal-2019-right" role="doc-biblioref">McCoy et al., 2019</a>)</span>.</p>
+<p>However, while plausibility has an intuitive interpretation for classification tasks involving a single prediction, extending this methodology to generative language models presents several challenges. First, LMs have a large output space in which semantically equivalent tokens (e.g.&nbsp;“PC” and “computer”) are competing candidates for next-word prediction <span class="citation" data-cites="holtzman-etal-2021-surface">(<a href="references.html#ref-holtzman-etal-2021-surface" role="doc-biblioref">Holtzman et al., 2021</a>)</span>. Moreover, LMs’ generations are the product of optimization pressures to ensure independent properties such as semantic relatedness, topical coherence and grammatical correctness, which can hardly be captured by a single attribution score <span class="citation" data-cites="yin-neubig-2022-interpreting">(<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">Yin and Neubig, 2022</a>)</span>. Finally, since autoregressive generation involves an iterative prediction process, model rationales could be extracted for every generated token. This raises the issue of <em>which generated tokens</em> can have plausible contextual explanations.</p>
+<p>Recent attribution techniques for explaining language models incorporate contrastive alternatives to disentangle different aspects of model predictions (e.g.&nbsp;the choice of “meowing” over “screaming” for “<em>The cat is ___</em>” is motivated by semantic appropriateness, but not by grammaticality) <span class="citation" data-cites="ferrando-etal-2023-explaining sarti-etal-2023-inseq-fixed">(<a href="references.html#ref-ferrando-etal-2023-explaining" role="doc-biblioref">Ferrando et al., 2023</a>; <a href="references.html#ref-sarti-etal-2023-inseq-fixed" role="doc-biblioref">Sarti et al., 2023</a>)</span>. However, these studies circumvent the issues above by focusing their evaluation on a single generation step matching a phenomenon of interest. For example, given the sentence “<em>The pictures of the cat ___</em>”, a plausible rationale for the prediction of the word “are” should reflect the role of “pictures” in subject-verb agreement. While this approach can be helpful to validate model rationales, it confines plausibility assessment to a small set of handcrafted benchmarks where tokens with plausible explanations are known in advance. Moreover, it risks overlooking important patterns of context usage, including those that do not immediately match linguistic intuitions. In light of this, we suggest that identifying <em>which</em> generated tokens were most affected by contextual input information should be an integral part of plausibility evaluation for language generation tasks.</p>
+<p>To achieve this goal, we propose a novel interpretability framework, which we dub <strong>P</strong>lausibility <strong>E</strong>valuation of <strong>Co</strong>ntext <strong>Re</strong>liance (<span class="smallcaps">PECoRe</span>). <span class="smallcaps">PECoRe</span> enables the end-to-end extraction of <em>cue-target token pairs</em> consisting of context-sensitive generated tokens and their respective influential contextual cues from language model generations, as shown in <a href="#fig-pecore-example" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. These pairs can uncover context dependence in naturally occurring generations and, for cases where human annotations are available, help quantify the plausibility of context usage in language models. Importantly, our approach is compatible with modern attribution methods using contrastive targets <span class="citation" data-cites="yin-neubig-2022-interpreting">(<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">Yin and Neubig, 2022</a>)</span>, avoids relying on reference translations to avoid problematic distributional shifts <span class="citation" data-cites="vamvas-sennrich-2021-limits">(<a href="references.html#ref-vamvas-sennrich-2021-limits" role="doc-biblioref">Vamvas and Sennrich, 2021b</a>)</span>, and can be applied to unannotated inputs to identify context usage in model generations.</p>
+<div id="fig-pecore-example" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pecore-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-4-pecore/example.webp" class="img-fluid figure-img" style="width:60.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pecore-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: Examples of sentence-level English<span class="math inline">\(\rightarrow\)</span>Italian translation with [lack-of-context errors]{bg-color= “brand-color.lightredclear”} and their correct contextual counterpart. In the contextual case [context-sensitive source tokens]{bg-color= “brand-color.lightorange”} are disambiguated using source (ⓢ) or target-based (ⓣ) [contextual cues]{color=” brand-color.lightbluedim”} to produce correct [context-sensitive target tokens]{bg-color= “brand-color.lightgreen”}. <span class="smallcaps">PECoRe</span> enables the end-to-end extraction of [cue]{color=” brand-color.lightbluedim”}-<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">target</span> pairs (e.g.&nbsp;<span class="light-content" style="color: #6fa8dc;">she</span>-<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">alla pastorella</span>, <span class="light-content" style="color: #6fa8dc;">le pecore</span>-<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">le</span>).
+</figcaption>
+</figure>
+</div>
+<p>After formalizing our proposed approach in <a href="#sec-chap4-pecore-framework" class="quarto-xref"><span>Section 4.3</span></a>, we apply <span class="smallcaps">PECoRe</span> to contextual machine translation to study the plausibility of context reliance in bilingual and multilingual MT models. While <span class="smallcaps">PECoRe</span> can easily be used alongside encoder-decoder and decoder-only language models for interpreting context usage in any text generation task, we focus our evaluation on MT because of its constrained output space facilitating automatic assessment and the availability of MT datasets annotated with human rationales of context usage. We thoroughly test <span class="smallcaps">PECoRe</span> on well-known discourse phenomena, benchmarking several context sensitivity metrics and attribution methods to identify cue-target pairs. We conclude by applying <span class="smallcaps">PECoRe</span> to unannotated examples and showcasing some reasonable and questionable cases of context reliance in MT model translations.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>In sum, we make the following contributions:</p>
+<ul>
+<li>We introduce <span class="smallcaps">PECoRe</span>, an interpretability framework to detect and attribute context reliance in language models. <span class="smallcaps">PECoRe</span> enables a quantitative evaluation of plausibility for language generation beyond the limited artificial settings explored in previous literature.</li>
+<li>We compare the effectiveness of context sensitivity metrics and input attribution methods for context-aware MT, showing the limitations of metrics currently in use.</li>
+<li>We apply <span class="smallcaps">PECoRe</span> to naturally-occurring translations to identify interesting discourse-level phenomena and discuss issues in the context usage abilities of context-aware MT models.</li>
+</ul>
+</section>
+<section id="sec-chap4-related-work" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-chap4-related-work"><span class="header-section-number">4.2</span> Related Work</h2>
+<p><span class="paragraph">Context Usage in Language Generation</span> An appropriate<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> usage of input information is fundamental in tasks such as summarization <span class="citation" data-cites="maynez-etal-2020-faithfulness">(<a href="references.html#ref-maynez-etal-2020-faithfulness" role="doc-biblioref">Maynez et al., 2020</a>)</span> to ensure the soundness of generated texts. While appropriateness is traditionally verified post-hoc using trained models <span class="citation" data-cites="durmus-etal-2020-feqa kryscinski-etal-2020-evaluating goyal-durrett-2021-annotating">(<a href="references.html#ref-durmus-etal-2020-feqa" role="doc-biblioref">Durmus et al., 2020</a>; <a href="references.html#ref-kryscinski-etal-2020-evaluating" role="doc-biblioref">Kryscinski et al., 2020</a>; <a href="references.html#ref-goyal-durrett-2021-annotating" role="doc-biblioref">Goyal and Durrett, 2021</a>)</span>, recent interpretability works aim to gauge input influence on model predictions using internal properties of language models, such as the mixing of contextual information across model layers <span class="citation" data-cites="kobayashi-etal-2020-attention ferrando-etal-2022-measuring mohebbi-etal-2023-quantifying">(<a href="references.html#ref-kobayashi-etal-2020-attention" role="doc-biblioref">Kobayashi et al., 2020</a>; <a href="references.html#ref-ferrando-etal-2022-measuring" role="doc-biblioref">Ferrando et al., 2022b</a>; <a href="references.html#ref-mohebbi-etal-2023-quantifying" role="doc-biblioref">Mohebbi et al., 2023</a>)</span> or the layer-by-layer refinement of next token predictions <span class="citation" data-cites="geva-etal-2022-transformer belrose-etal-2023-eliciting">(<a href="references.html#ref-geva-etal-2022-transformer" role="doc-biblioref">Geva et al., 2022</a>; <a href="references.html#ref-belrose-etal-2023-eliciting" role="doc-biblioref">Belrose et al., 2023</a>)</span>. Recent attribution methods can disentangle factors influencing generation in language models <span class="citation" data-cites="yin-neubig-2022-interpreting">(<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">Yin and Neubig, 2022</a>)</span> and were successfully used to detect and mitigate hallucinatory behaviors <span class="citation" data-cites="tang-etal-2022-reducing dale-etal-2023-detecting dale-etal-2023-halomi">(<a href="references.html#ref-tang-etal-2022-reducing" role="doc-biblioref">Tang et al., 2022</a>; <a href="references.html#ref-dale-etal-2023-detecting" role="doc-biblioref">Dale et al., 2023a</a>; <a href="references.html#ref-dale-etal-2023-halomi" role="doc-biblioref">Dale et al., 2023b</a>)</span>. Our proposed method adopts this intrinsic perspective to identify context reliance without ad hoc trained components.</p>
+<p><span class="paragraph">Context Usage in Neural Machine Translation</span> Despite advances in context-aware MT <span class="citation" data-cites="voita-etal-2018-context voita-etal-2019-context lopes-etal-2020-document majumder-etal-2022-baseline jin-etal-2023-challenges maruf-etal-2021-survey">(<a href="references.html#ref-voita-etal-2018-context" role="doc-biblioref">Voita et al., 2018</a>; <a href="references.html#ref-voita-etal-2019-context" role="doc-biblioref">Voita et al., 2019</a>; <a href="references.html#ref-lopes-etal-2020-document" role="doc-biblioref">Lopes et al., 2020</a>; <a href="references.html#ref-majumder-etal-2022-baseline" role="doc-biblioref">Majumder et al., 2022</a>; <a href="references.html#ref-jin-etal-2023-challenges" role="doc-biblioref">Jin et al., 2023</a>; <em>inter alia</em>, surveyed by <a href="references.html#ref-maruf-etal-2021-survey" role="doc-biblioref">Maruf et al., 2021</a>)</span>, only a few works explored whether context usage in MT models aligns with human intuition. Notably, some studies focused on <em>which parts of context</em> inform model predictions, finding that supposedly context-aware MT models are often incapable of using contextual information <span class="citation" data-cites="kim-etal-2019-document fernandes-etal-2021-measuring">(<a href="references.html#ref-kim-etal-2019-document" role="doc-biblioref">Kim et al., 2019</a>; <a href="references.html#ref-fernandes-etal-2021-measuring" role="doc-biblioref">Fernandes et al., 2021</a>)</span> and tend to pay attention to irrelevant words <span class="citation" data-cites="voita-etal-2018-context">(<a href="references.html#ref-voita-etal-2018-context" role="doc-biblioref">Voita et al., 2018</a>)</span>, with an overall poor agreement between human annotations and model rationales <span class="citation" data-cites="yin-etal-2021-context">(<a href="references.html#ref-yin-etal-2021-context" role="doc-biblioref">Yin et al., 2021</a>)</span>. Other works instead investigated <em>which parts of generated texts</em> are influenced by context, proposing various contrastive methods to detect gender biases, over- and under-translations <span class="citation" data-cites="vamvas-sennrich-2021-contrastive vamvas-sennrich-2022-little">(<a href="references.html#ref-vamvas-sennrich-2021-contrastive" role="doc-biblioref">Vamvas and Sennrich, 2021a</a>; <a href="references.html#ref-vamvas-sennrich-2022-little" role="doc-biblioref">Vamvas and Sennrich, 2022</a>)</span>, and to identify various discourse-level phenomena in MT corpora <span class="citation" data-cites="fernandes-etal-2023-translation">(<a href="references.html#ref-fernandes-etal-2023-translation" role="doc-biblioref">Fernandes et al., 2023</a>)</span>. While these two directions have generally been investigated separately, our work proposes a unified framework to enable an end-to-end evaluation of context-reliance plausibility in language models.</p>
+<p><span class="paragraph">Plausibility evaluation in NLP</span> Plausibility evaluation for NLP models has primarily focused on classification models <span class="citation" data-cites="deyoung-etal-2020-eraser atanasova-etal-2020-diagnostic attanasio-etal-2023-ferret">(<a href="references.html#ref-deyoung-etal-2020-eraser" role="doc-biblioref">DeYoung et al., 2020</a>; <a href="references.html#ref-atanasova-etal-2020-diagnostic" role="doc-biblioref">Atanasova et al., 2020</a>; <a href="references.html#ref-attanasio-etal-2023-ferret" role="doc-biblioref">Attanasio et al., 2023</a>)</span>. While few works investigate plausibility in language generation <span class="citation" data-cites="vafa-etal-2021-rationales ferrando-etal-2023-explaining">(<a href="references.html#ref-vafa-etal-2021-rationales" role="doc-biblioref">Vafa et al., 2021</a>; <a href="references.html#ref-ferrando-etal-2023-explaining" role="doc-biblioref">Ferrando et al., 2023</a>)</span>, such evaluations typically involve a single generation step to complete a target sentence with a token connected to preceding information (e.g.&nbsp;subject/verb agreement, as in “<em>The pictures of the cat [is/are]</em>”), effectively biasing the evaluation by using a pre-selected token of interest. On the contrary, our framework proposes a more comprehensive evaluation of generation plausibility that includes the identification of context-sensitive generated tokens as an important prerequisite.</p>
+</section>
+<section id="sec-chap4-pecore-framework" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="sec-chap4-pecore-framework"><span class="header-section-number">4.3</span> The <span class="smallcaps">PECoRe</span> Framework</h2>
+<p><span class="smallcaps">PECoRe</span> is a two-step framework for identifying context dependence in generative language models. First, <em>context-sensitive tokens identification</em> (CTI) selects which tokens among those generated by the model were influenced by the presence of the preceding context (e.g.&nbsp;the feminine options “alla pastorella, le” in <a href="#fig-pecore-example" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>). Then, <em>contextual cues imputation</em> (CCI) attributes the prediction of context-sensitive tokens to specific cues in the provided context (e.g.&nbsp;the feminine cues “she, Le pecore” in <a href="#fig-pecore-example" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>). <strong>Cue-target pairs</strong> formed by influenced target tokens and their respective influential context cues can then be compared to human rationales to assess the models’ plausibility of context reliance for contextual phenomena of interest. <a href="#fig-pecore" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> provides an overview of the two steps applied to the context-aware MT setting discussed by this work. A more general formalization of the framework for language generation is proposed in the following sections.</p>
+<div id="fig-pecore" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pecore-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-4-pecore/pecore.webp" class="img-fluid figure-img" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pecore-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: The <span class="smallcaps">PECoRe</span> framework applied to an encoder-decoder MT model. <strong>Left:</strong> Context-sensitive token identification (CTI). ⓵: A context-aware MT model translates source context (<span class="math inline">\(C_x\)</span>) and current (<span class="math inline">\(x\)</span>) sentences into target context (<span class="math inline">\(C_{\hat y}\)</span>) and current (<span class="math inline">\(\hat y\)</span>) outputs. ⓶: <span class="math inline">\(\hat y\)</span> is force-decoded in the non-contextual setting instead of natural output <span class="math inline">\(\tilde y\)</span>. ⓷: Contrastive metrics are collected throughout the model for every <span class="math inline">\(\hat y\)</span> token to compare the two settings. ⓸: Selector <span class="math inline">\(s_\text{cti}\)</span> maps metrics to binary context-sensitive labels for every <span class="math inline">\(\hat y_i\)</span>. <strong>Right:</strong> Contextual cues imputation (CCI). ⓵: Non-contextual target <span class="math inline">\(\tilde y^*\)</span> is generated from contextual prefix <span class="math inline">\(\hat y_{&lt;t}\)</span>. ⓶: Function <span class="math inline">\(f_\text{tgt}\)</span> is selected to contrast model predictions with (<span class="math inline">\(\hat y_t\)</span>) and without (<span class="math inline">\(\tilde y_t^*\)</span>) input context. ⓷: Attribution method <span class="math inline">\(f_\text{att}\)</span> using <span class="math inline">\(f_\text{tgt}\)</span> as target scores contextual cues driving <span class="math inline">\(\hat y_t\)</span> prediction. ⓸: Selector <span class="math inline">\(s_\text{cci}\)</span> selects relevant cues, and cue-target pairs are assembled.
+</figcaption>
+</figure>
+</div>
+<section id="notation" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="notation"><span class="header-section-number">4.3.1</span> Notation</h3>
+<p>Let <span class="math inline">\(X_\text{ctx}^{i}\)</span> be the sequence of contextual inputs containing <span class="math inline">\(N\)</span> tokens from vocabulary <span class="math inline">\(\mathcal{V}\)</span>, composed by current input <span class="math inline">\(x\)</span>, generation prefix <span class="math inline">\(y_{&lt;i}\)</span> and context <span class="math inline">\(C\)</span>. Let <span class="math inline">\(X_\text{no-ctx}^{i}\)</span> be the non-contextual input in which <span class="math inline">\(C\)</span> tokens are excluded.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> <span class="math inline">\(P_\text{ctx}^{i} = P\left(x,\, y_{&lt;i},\,C,\,\theta\right)\)</span> is the discrete probability distribution over <span class="math inline">\(\mathcal{V}\)</span> at generation step <span class="math inline">\(i\)</span> of a language model with <span class="math inline">\(\theta\)</span> parameters receiving contextual inputs <span class="math inline">\(X_\text{ctx}^{i}\)</span>. Similarly, <span class="math inline">\(P_\text{no-ctx}^{i} = P\left(x,\, y_{&lt;i},\,\theta\right)\)</span> is the distribution obtained from the same model for non-contextual input <span class="math inline">\(X_\text{no-ctx}^{i}\)</span>. Both distributions are equivalent to vectors in the probability simplex in <span class="math inline">\(\mathbb{R}^{|\mathcal{V}|}\)</span>, and we use <span class="math inline">\(P_\text{ctx}(y_i)\)</span> to denote the probability of next token <span class="math inline">\(y_i\)</span> in <span class="math inline">\(P_\text{ctx}^{i}\)</span>, i.e.&nbsp;<span class="math inline">\(P(y_i\,|\,x,\,y_{&lt;i},\,C)\)</span>.</p>
+</section>
+<section id="sec-chap4-cti" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="sec-chap4-cti"><span class="header-section-number">4.3.2</span> Context-sensitive Token Identification (CTI)</h3>
+<p>CTI adapts the contrastive conditioning paradigm proposed by <span class="citation" data-cites="vamvas-sennrich-2021-contrastive">Vamvas and Sennrich (<a href="references.html#ref-vamvas-sennrich-2021-contrastive" role="doc-biblioref">2021a</a>)</span> to detect input context influence on model predictions using the contrastive pair <span class="math inline">\(P_\text{ctx}^{i}, P_\text{no-ctx}^{i}\)</span>. Both distributions are relative to the <strong>contextual target sentence</strong> <span class="math inline">\(\hat y = \{\hat y_1 \dots \hat y_n\}\)</span>, corresponding to the sequence produced by a decoding strategy of choice in the presence of input context. In <a href="#fig-pecore" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>, the contextual target sentence <span class="math inline">\(\hat y=\)</span> “Sont-elles à l’hôtel?” is generated when <span class="math inline">\(x\)</span> and contexts <span class="math inline">\(C_x, C_{\hat y}\)</span> are provided as inputs, while <strong>non-contextual target sentence</strong> <span class="math inline">\(\tilde y =\)</span> “Ils sont à l’hôtel?” would be produced when only <span class="math inline">\(x\)</span> is provided. In the latter case, <span class="math inline">\(\hat y\)</span> is instead force-decoded from the non-contextual setting to enable a direct comparison of matching outputs. We define a set of <strong>contrastive metrics</strong> <span class="math inline">\(\mathcal{M} = \{m_1, \dots, m_M\}\)</span>, where each <span class="math inline">\(m: \displaystyle \Delta_{|\mathcal{V}|} \times \Delta_{|\mathcal{V}|} \mapsto \mathbb{R}\)</span> maps a contrastive pair of probability vectors to a continuous score. For example, the difference in next token probabilities for contextual and non-contextual settings, i.e.&nbsp;<span class="math inline">\(P_\text{diff}(\hat y_i) = P_\text{ctx}(\hat y_i) - P_\text{no-ctx}(\hat y_i)\)</span>, might be used for this purpose.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Target tokens with high contrastive metric scores can be identified as <em>context-sensitive</em>, provided <span class="math inline">\(C\)</span> is the only added parameter in the contextual setting. Finally, a <strong>selector</strong> function <span class="math inline">\(s_\text{cti}: \displaystyle \mathbb{R}^{| \mathcal{M} |} \mapsto \{0,1\}\)</span> (e.g.&nbsp;a statistical threshold selecting salient scores) is used to classify every <span class="math inline">\(\hat y_i\)</span> as context-sensitive or not.</p>
+</section>
+<section id="sec-chap4-cci" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="sec-chap4-cci"><span class="header-section-number">4.3.3</span> Contextual Cues Imputation (CCI)</h3>
+<p>CCI applies the contrastive attribution paradigm <span class="citation" data-cites="yin-neubig-2022-interpreting">(<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">Yin and Neubig, 2022</a>)</span> to trace the generation of every context-sensitive token in <span class="math inline">\(\hat y\)</span> back to the context <span class="math inline">\(C\)</span>, identifying the cues that drive model predictions.</p>
+<div id="def-target-dependent-attribution" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.1</strong></span> Let <span class="math inline">\(s, s'\)</span> be the resulting scores of two attribution target functions <span class="math inline">\(f_\text{tgt}, f'_\text {tgt}\)</span>. An attribution method <span class="math inline">\(f_\text{att}\)</span> is if importance scores <span class="math inline">\(A\)</span> are computed in relation to the outcome of its attribution target function, i.e.&nbsp;whenever the following condition is verified.</p>
+<p><span class="math display">\[f_\text{att}(x, y_{&lt;t}, C, \theta, s) \neq f_\text{att}(x, y_{&lt;t}, C, \theta, s') \;\; \forall s \neq s'\]</span></p>
+</div>
+<p>In practice, common gradient-based attribution approaches <span class="citation" data-cites="simonyan-etal-2014-saliency sundararajan-etal-2017-ig">(<a href="references.html#ref-simonyan-etal-2014-saliency" role="doc-biblioref">Simonyan et al., 2014</a>; <a href="references.html#ref-sundararajan-etal-2017-ig" role="doc-biblioref">Sundararajan et al., 2017</a>)</span> are target-dependent as they rely on the outcome predicted by the model (typically the logit or the probability of the predicted class) as the differentiation target to backpropagate importance to model input features. Similarly, perturbation-based approaches <span class="citation" data-cites="zeiler-fergus-2014-visualizing">(<a href="references.html#ref-zeiler-fergus-2014-visualizing" role="doc-biblioref">Zeiler and Fergus, 2014</a>)</span> use the variation in prediction probability for the predicted class when noise is added to some of the model inputs to quantify the importance of the noised features.</p>
+<p>On the contrary, recent approaches that rely solely on model internals to define input importance are generally <em>target-insensitive</em>. For example, attention weights used as model rationales, either in their raw form or after a rollout procedure to obtain a unified score <span class="citation" data-cites="abnar-zuidema-2020-quantifying">(<a href="references.html#ref-abnar-zuidema-2020-quantifying" role="doc-biblioref">Abnar and Zuidema, 2020</a>)</span>, are independent of the predicted outcome. Similarly, value zeroing scores <span class="citation" data-cites="mohebbi-etal-2023-quantifying">(<a href="references.html#ref-mohebbi-etal-2023-quantifying" role="doc-biblioref">Mohebbi et al., 2023</a>)</span> reflect only the representational dissimilarity across model layers before and after zeroing value vectors, and as such do not explicitly account for model predictions.</p>
+<div id="def-contrastive-attribution-method" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.2</strong></span> Let <span class="math inline">\(\mathcal{T}\)</span> be the set of indices corresponding to context-sensitive tokens identified by the CTI step, such that <span class="math inline">\(t \in \hat y\)</span> and <span class="math inline">\(\forall t \in \mathcal{T}, s_\text{cti}(m_1^{t}, \dots, m_M^{t}) = 1\)</span>. Let also <span class="math inline">\(f_\text{tgt}: \Delta_{|\mathcal{V}|} \times \dots \mapsto \mathbb{R}\)</span> be a <strong>contrastive attribution target</strong> function representing an attribution target of interest, for example, the difference in next-token probabilities between the contextual option <span class="math inline">\(\hat y_t\)</span> and the non-contextual option <span class="math inline">\(\tilde y^*_t\)</span> from the same contextual distribution <span class="math inline">\(P_\text{ctx}^{t}\)</span>, plus any additional required parameter. The <strong>contrastive attribution method</strong> <span class="math inline">\(f_\text{att}\)</span> is a composite function quantifying the importance of contextual inputs to determine the output of <span class="math inline">\(f_\text{tgt}\)</span> for a given model with <span class="math inline">\(\theta\)</span> parameters.</p>
+</div>
+<p><span class="math display">\[f_\text{att}(\hat y_{t}) = f_\text{att}(x, \hat y_{&lt;t}, C, \theta, f_\text{tgt}) = f_\text{att}\big(x, \hat y_{&lt;t}, C, \theta, f_\text{tgt}(P_\text{ctx}^t, \dots)\big)\]</span></p>
+<div id="rem-contrastive-attribution-method" class="proof remark">
+<p><span class="proof-title"><em>Remark 4.1</em>. </span>The non-contextual next token <span class="math inline">\(\tilde y^*_t\)</span> can be computed using the contextual prefix <span class="math inline">\(\hat y_{&lt;t} = \{ \hat y_1, \dots, \hat y_{t - 1}\}\)</span> (e.g.&nbsp;<span class="math inline">\(\hat y_{&lt;t} =\)</span>“Sont-” in <a href="#fig-pecore" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>) and non-contextual inputs <span class="math inline">\(X_\text{no-ctx}^{t}\)</span>. This is conceptually equivalent to predicting the next token of a new non-contextual sequence <span class="math inline">\(\tilde y^*\)</span> which, contrary to the original <span class="math inline">\(\tilde y\)</span>, starts from a forced contextual prefix <span class="math inline">\(\hat y_{&lt;t}\)</span> (e.g.&nbsp;“ils” in <span class="math inline">\(\tilde y^* =\)</span> “ils à l’hôtel?” in <a href="#fig-pecore" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>).</p>
+</div>
+<div id="rem-different-prob-for-same-target" class="proof remark">
+<p><span class="proof-title"><em>Remark 4.2</em>. </span>A <span class="math inline">\(f_\text{tgt}\)</span> making use of both <span class="math inline">\(P_\text{ctx}^{t}\)</span> and <span class="math inline">\(P_\text{no-ctx}^{t}\)</span>, e.g.&nbsp;the KL divergence between the contextual and non-contextual probability distributions <span class="citation" data-cites="kullback-leibler-1951-information">(<a href="references.html#ref-kullback-leibler-1951-information" role="doc-biblioref">Kullback and Leibler, 1951</a>)</span>, can ultimately result in non-zero <span class="math inline">\(f_\text{att}(\hat y_t)\)</span> scores, even when <span class="math inline">\(\hat y_t = \tilde y^*_t\)</span>, i.e.&nbsp;even when the next predicted token is the same, since probabilities <span class="math inline">\(P_\text{ctx}(\hat y_t), P_{no-ctx}(\tilde y^*_t)\)</span> are likely to differ beyond top-1 predictions. This is a desirable property of <span class="math inline">\(f_\text{att}\)</span>, as it allows the attribution method to capture the influence of context on the model’s decision-making process, even in the case where the predicted token remains unchanged.</p>
+</div>
+<div id="rem-generalized-contrastive-attribution" class="proof remark">
+<p><span class="proof-title"><em>Remark 4.3</em>. </span>Our formalization of <span class="math inline">\(f_\text{att}\)</span> generalizes the method proposed by <span class="citation" data-cites="yin-neubig-2022-interpreting">Yin and Neubig (<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">2022</a>)</span> to support any target-dependent attribution method, such as popular gradient-based approaches <span class="citation" data-cites="simonyan-etal-2014-saliency sundararajan-etal-2017-ig">(<a href="references.html#ref-simonyan-etal-2014-saliency" role="doc-biblioref">Simonyan et al., 2014</a>; <a href="references.html#ref-sundararajan-etal-2017-ig" role="doc-biblioref">Sundararajan et al., 2017</a>)</span>, and any contrastive attribution target <span class="math inline">\(f_\text{tgt}\)</span>.</p>
+</div>
+<p><span class="math inline">\(f_\text{att}\)</span> produces a sequence of attribution scores <span class="math inline">\(A_t = \{a_1, \dots, a_N\}\)</span> matching contextual input length <span class="math inline">\(N\)</span>. From those, only the subset <span class="math inline">\(A_{t\,\text{ctx}}\)</span> of scores corresponding to context input sequence <span class="math inline">\(C\)</span> are passed to <strong>selector</strong> function <span class="math inline">\(s_\text{cci}: \displaystyle \mathbb{R} \mapsto \{0,1\}\)</span>, which predicts a set <span class="math inline">\(\mathcal{C}_{t}\)</span> of indices corresponding to contextual cues identified by CCI, such that <span class="math inline">\(\forall c \in \mathcal{C}_t, \forall a \in A_{t\,\text{ctx}}, s_\text{cci}(a_{c}) = 1\)</span>.</p>
+<p>Having collected all context-sensitive generated token indices <span class="math inline">\(\mathcal{T}\)</span> using CTI and their contextual cues through CCI (<span class="math inline">\(C_t\)</span>), <span class="smallcaps">PECoRe</span> ultimately returns a sequence <span class="math inline">\(S_\text{ct}\)</span> of all identified cue-target pairs:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathcal{T} &amp;= \text{CTI}(C, x, \hat y, \theta, \mathcal{M}, s_\text{cti}) = \{t \;|\; s_\text{cti}(m_1^t, \dots, m_M^t) = 1 \} \\
+\mathcal{C} &amp;= \text{CCI}(\mathcal{T}, C, x, \hat y, \theta,  f_\text{att}, f_\text{tgt}, s_\text{cci}) = \{ c \;|\; s_\text{cci}(a_c) = 1 \,\forall a_c \in A_{t\,\text{ctx}}, \forall t \in \mathcal{T}\} \\
+S &amp;= \texttt{PECoRe}(C, x, \theta, s_\text{cti}, s_\text{cci}, \mathcal{M}, f_\text{att}, f_\text{tgt}) = \{ (C_c, \hat y_t) \;|\; \forall t \in \mathcal{T}, \forall c \in \mathcal{C}_t, \forall \mathcal{C}_t \in \mathcal{C} \}
+\end{aligned}
+\]</span></p>
+<p>A pseudocode implementation for the <span class="smallcaps">PECoRe</span> algorithm is provided in <a href="#alg-pecore" class="quarto-xref">Algorithm 1</a>.</p>
+<div id="alg-pecore" class="pseudocode-container quarto-float" data-pseudocode-number="1" data-caption-prefix="Algorithm">
+<div class="pseudocode">
+\begin{algorithm} \caption{PECoRe cue-target extraction process} \begin{algorithmic} \Require $C, x$ (Input context and current sequences), $\theta$ (Model parameters), $s_{\text{cti}}, s_{\text{cci}}$ (Selector functions), $\mathcal{M}$ (Contrastive metrics), $f_\text{att}$ (Contrastive attribution method), $f_\text{tgt}$ (Contrastive attribution target function) \Procedure{PECoRe}{$C, x, \theta, s_\text{cti}, s_\text{cci}, \mathcal{M}, f_\text{att}, f_\text{tgt}$} \State $\hat y = \textnormal{generate(}C, x, \theta$) using any decoding strategy and parameters \State $\mathcal{T} = \textnormal{CTI(}C, x, \hat y, \theta, \mathcal{M}, s_\text{cti}\textnormal{)}$ \ForAll{$t \in \mathcal{T}$} \State $\mathcal{C}_t = \textnormal{CCI(}t, C, x, \hat y, \theta, f_\text{att}, f_\text{tgt}, s_\text{cci}\textnormal{)}$ \ForAll{$c \in \mathcal{C}_t$} \State Store $(C_t^c, \hat y_t)$ in $S_\text{ct}$ \EndFor \EndFor \State \textbf{return} $S_\text{ct}$ // Set of cue-target pairs \EndProcedure \Procedure{CTI}{$C, x, \hat y, \theta, \mathcal{M}, s_\text{cti}$} \State $\mathcal{T} = \emptyset$ // Empty set for context-sensitive indices of $\hat y$ tokens \ForAll{$\hat{y}_i \in \hat{y}$} \ForAll{$m \in \mathcal{M}$} \State $m^i = m \big(P_{\text{ctx}}(\hat{y}_i), P_{\text{no-ctx}}(\hat{y}_i) \big)$ \EndFor \If{$(s_{\text{cti}}(m_1^i, \dots, m_M^i) = 1$)} \State Store $i$ in set $\mathcal{T}$ \EndIf \EndFor \State \textbf{return} $\mathcal{T}$ \EndProcedure \Procedure{CCI}{$t, C, x, \hat y, \theta, f_\text{att}, f_\text{tgt}, s_\text{cci}$} \State $\mathcal{C}_t = \emptyset$ // Empty set for contextual cues for target token $t$ \State Generate constrained non-contextual target current sequence $\tilde y^*$ from $\hat y_{&lt;t}$ \State Use attribution method $f_\text{att}$ with target $f_\text{tgt}$ to get importance scores $A_t$ \State Identify the subset $A_{t\,\text{ctx}}$ corresponding to tokens of context $C = \{ C_1, \dots, C_K\}$ \ForAll{$a_i \in A_{t\,\text{ctx}} = \{a_1, \dots, a_K\}$} \If{$s_\text{cci}(a_i) = 1$} \State Store $C_i$ in $\mathcal{C}_t$ \EndIf \EndFor \State \textbf{return} $\mathcal{C}_t$ \EndProcedure \end{algorithmic} \end{algorithm}
+</div>
+</div>
+<p></p><div style="page-break-after: always;"></div> <p></p>
+</section>
+</section>
+<section id="context-reliance-plausibility-in-context-aware-mt" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="context-reliance-plausibility-in-context-aware-mt"><span class="header-section-number">4.4</span> Context Reliance Plausibility in Context-aware MT</h2>
+<p>This section describes our evaluation of <span class="smallcaps">PECoRe</span> in a controlled setup. We experiment with several contrastive metrics and attribution methods for CTI and CCI (<a href="#sec-chap4-cti-metrics" class="quarto-xref"><span>Section 4.4.2</span></a>, <a href="#sec-chap4-cci-metrics" class="quarto-xref"><span>Section 4.4.5</span></a>), evaluating them in isolation to quantify the performance of individual components. An end-to-end evaluation is also performed in <a href="#sec-chap4-cci-metrics" class="quarto-xref"><span>Section 4.4.5</span></a> to establish the applicability of <span class="smallcaps">PECoRe</span> in a naturalistic setting.</p>
+<section id="sec-chap4-setup" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="sec-chap4-setup"><span class="header-section-number">4.4.1</span> Experimental Setup</h3>
+<p><span class="paragraph">Evaluation Datasets</span> Evaluating generation plausibility requires human annotations for context-sensitive tokens in target sentences and disambiguating cues in their preceding context. To our knowledge, the SCAT dataset <span class="citation" data-cites="yin-etal-2021-context">(<a href="references.html#ref-yin-etal-2021-context" role="doc-biblioref">Yin et al., 2021</a>)</span> is the only resource matching these requirements. SCAT is an English<span class="math inline">\(\rightarrow\)</span>French corpus with human annotations of anaphoric pronouns and disambiguating context on OpenSubtitles2018 dialogue translations <span class="citation" data-cites="lison-etal-2018-opensubtitles2018 lopes-etal-2020-document">(<a href="references.html#ref-lison-etal-2018-opensubtitles2018" role="doc-biblioref">Lison et al., 2018</a>; <a href="references.html#ref-lopes-etal-2020-document" role="doc-biblioref">Lopes et al., 2020</a>)</span>. SCAT examples were extracted automatically using lexical heuristics and thus contain only a limited set of anaphoric pronouns (<em>it, they</em> <span class="math inline">\(\rightarrow\)</span> <em>il/elle, ils/elles</em>), with no guarantees of contextual cues being found in preceding context.</p>
+<p>The original SCAT test set contains 1000 examples with automatically identified context-sensitive pronouns <em>it/they</em> (marked by <code>&lt;p&gt;...&lt;/p&gt;</code>) and human-annotated contextual cues aiding their disambiguation (marked by <code>&lt;hon&gt;...&lt;/hoff&gt;</code>). Of these, we find 38 examples containing malformed tags and several more examples where an unrelated word containing <em>it</em> or <em>they</em> was wrongly marked as context-sensitive (e.g.&nbsp;<code>the soccer ball h&lt;p&gt;it&lt;/p&gt; your chest</code>). Moreover, due to the original extraction process adopted for SCAT, there is no guarantee that contextual cues will be contained in the preceding context, as they could also appear in the same sentence, defeating the purpose of our context usage evaluation. Thus, we prefilter the entire corpus to retain only sentences with well-formed tags and inter-sentential contextual cues identified by the original annotators. Moreover, a manual inspection procedure is carried out to validate the original cue tags and discard problematic sentences, obtaining a final set of 250 examples with inter-sentential pronoun coreference, which we name SCAT+<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<p>Additionally, we manually annotate contextual cues in <span class="smallcaps">DiscEval-MT</span> <span class="citation" data-cites="bawden-etal-2018-evaluating">(<a href="references.html#ref-bawden-etal-2018-evaluating" role="doc-biblioref">Bawden et al., 2018</a>)</span>, another English<span class="math inline">\(\rightarrow\)</span>French corpus containing handcrafted examples for <em>anaphora resolution</em> (<span class="smallcaps">ana</span>) and <em>lexical choice</em> (<span class="smallcaps">lex</span>). In the case of <span class="smallcaps">DiscEval-MT</span>, we use minimal pairs in the original dataset to automatically mark differing tokens as context-sensitive. Then, contextual cues are manually labeled separately by two annotators with good familiarity with both English and French. Cue annotations are compared across the two splits, resulting in very high agreement due the simplicity of the corpus (<span class="math inline">\(97\%\)</span> overlap for <span class="smallcaps">ana</span>, <span class="math inline">\(90\%\)</span> for <span class="smallcaps">lex</span>).<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<p>Our final evaluation set contains 250 SCAT+ and 400 <span class="smallcaps">DiscEval-MT</span> translations across two discourse phenomena. <a href="#tbl-scat-demt-examples" class="quarto-xref">Table&nbsp;<span>4.1</span></a> provides some examples for the three data splits.</p>
+<div id="tbl-scat-demt-examples" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-scat-demt-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="bottomrule odd">
+<td><strong>SCAT+</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: I loathe that <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">song</span>. But why did you bite poor Birdie’s head off? Because I’ve heard it more times than I care to. <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">It</span> haunts me. Just stop, for a moment.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: Je hais cette <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">chanson</span> <span class="light-content" style="color: #bebebe;">(<em>song</em>, <strong>feminine</strong>)</span>. Mais pourquoi avoir parlé ainsi à la pauvre Birdie ? Parce que j’ai entendu ce chant plus que de fois que je ne le peux. <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">Elle</span> <span class="light-content" style="color: #bebebe;">(<em>she</em>)</span> me hante. Arrêtez-vous un moment.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: How does <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">it</span> haunt you?</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="math inline">\(y\)</span>: Comment peut-<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">elle</span> <span class="light-content" style="color: #bebebe;">(<em>she</em>)</span> vous hanter?</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: - Ah! Sven! It’s been so long. - Riley, it’s good to see you. - You, too. How’s the <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">boat</span>? Uh, <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">it</span> creaks, <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">it</span> groans.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: Sven ! - Riley, contente de te voir. - Content aussi. Comment va le <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">bateau</span> <span class="light-content" style="color: #bebebe;">(<em>boat</em>, <strong>masculine</strong>)</span>? <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">Il</span> <span class="light-content" style="color: #bebebe;">(<em>he</em>)</span> craque de partout.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: Not as fast as <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">it</span> used to be.</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="math inline">\(y\)</span>: <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">Il</span> <span class="light-content" style="color: #bebebe;">(<em>he</em>)</span> n’est pas aussi rapide qu’avant.</td>
+</tr>
+<tr class="bottomrule even">
+<td><strong><span class="smallcaps">DiscEval-MT ana</span></strong></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_x\)</span>: But how do you know the <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">woman</span> isn’t going to turn out like all the others?</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_y\)</span>: Mais comment tu sais que la <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">femme</span> <span class="light-content" style="color: #bebebe;">(<em>woman</em>, <strong>feminine</strong>)</span> ne finira pas comme toutes les autres?</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(x\)</span>: <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">This one</span>’s different.</td>
+</tr>
+<tr class="midrule even">
+<td><span class="math inline">\(y\)</span>: <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">Celle-ci</span> <span class="light-content" style="color: #bebebe;">(<em>This one</em>, <strong>feminine</strong>)</span> est différente.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_x\)</span>: Can you authenticate these <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">signatures</span>, please?</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_y\)</span>: Pourriez-vous authentifier ces <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">signatures</span> <span class="light-content" style="color: #bebebe;">(<strong>feminine</strong>)</span>, s’il vous plaît?</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(x\)</span>: Yes, they’re <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">mines</span>.</td>
+</tr>
+<tr class="midrule even">
+<td><span class="math inline">\(y\)</span>: Oui, ce sont les <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">miennes</span> <span class="light-content" style="color: #bebebe;">(<em>mines</em>, <strong>feminine</strong>)</span>.</td>
+</tr>
+<tr class="bottomrule odd">
+<td><strong><span class="smallcaps">DiscEval-MT lex</span></strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: Do you think you can <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">shoot</span> it from here?</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: Tu penses que tu peux le <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">tirer</span> <span class="light-content" style="color: #bebebe;">(<em>shoot</em>)</span> dessus à partir d’ici?</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: Hand me that <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">bow</span>.</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="math inline">\(y\)</span>: Passe-moi cet <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">arc</span> <span class="light-content" style="color: #bebebe;">(<em>bow</em>, <strong>weapon</strong>)</span>.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: Can I help you with the <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">wrapping</span>?</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: Est-ce que je peux t’aider pour l’<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">emballage</span> <span class="light-content" style="color: #bebebe;">(<em>wrapping</em>)</span>?</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: Hand me that <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">bow</span>.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(y\)</span>: Passe-moi ce <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">ruban</span> <span class="light-content" style="color: #bebebe;">(<em>bow</em>, <strong>gift wrap</strong>)</span>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-scat-demt-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.1: Examples from the SCAT+ and <span class="smallcaps">DiscEval-MT</span> datasets used in our analysis with highlighted <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">context-sensitive tokens</span> and <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">contextual cues</span> used for plausibility evaluation using <span class="smallcaps">PECoRe</span>. <span class="light-content" style="color: #bebebe;">Glosses</span> are added for French words of interest to facilitate understanding.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Models</span> We evaluate two bilingual Opus models <span class="citation" data-cites="tiedemann-thottingal-2020-opus">(<a href="references.html#ref-tiedemann-thottingal-2020-opus" role="doc-biblioref">Tiedemann and Thottingal, 2020</a>)</span> using the transformer base architecture <span class="citation" data-cites="vaswani-etal-2017-attention">(<a href="references.html#ref-vaswani-etal-2017-attention" role="doc-biblioref">Vaswani et al., 2017</a>, Small and Large)</span>, and mBART-50 1-to-many <span class="citation" data-cites="tang-etal-2021-multilingual">(<a href="references.html#ref-tang-etal-2021-multilingual" role="doc-biblioref">Tang et al., 2021</a>)</span>, a larger multilingual MT model supporting 50 target languages, using the 🤗 <code>transformers</code> library <span class="citation" data-cites="wolf-etal-2020-transformers">(<a href="references.html#ref-wolf-etal-2020-transformers" role="doc-biblioref">Wolf et al., 2020</a>)</span>. We fine-tune models using extended translation units <span class="citation" data-cites="tiedemann-scherrer-2017-neural">(<a href="references.html#ref-tiedemann-scherrer-2017-neural" role="doc-biblioref">Tiedemann and Scherrer, 2017</a>)</span> with contextual inputs marked by break tags such as <code>source context &lt;brk&gt; source current</code> to produce translations in the format <code>target context &lt;brk&gt; target current</code>, where context and current target sentences are generated. We perform context-aware fine-tuning on 242k IWSLT 2017 English<span class="math inline">\(\rightarrow\)</span>French examples <span class="citation" data-cites="cettolo-etal-2017-overview">(<a href="references.html#ref-cettolo-etal-2017-overview" role="doc-biblioref">Cettolo et al., 2017</a>)</span>, using a dynamic context size of 0-4 preceding sentences to ensure robustness to different context lengths and allow contextless usage. To further improve models’ context sensitivity, we continue fine-tuning on the SCAT training split, containing 11k examples with inter- and intra-sentential pronoun anaphora.</p>
+<div id="tbl-model-accuracies" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-model-accuracies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="center-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th rowspan="2" class="rowspan" data-quarto-table-cell-role="th"><strong>Model</strong></th>
+<th colspan="3" class="group-header" data-quarto-table-cell-role="th"><strong>SCAT+</strong></th>
+<th colspan="3" class="group-header" data-quarto-table-cell-role="th"><strong><span class="smallcaps">DiscEval-MT (ana)</span></strong></th>
+<th colspan="3" class="group-header" data-quarto-table-cell-role="th"><strong><span class="smallcaps">DiscEval-MT (lex)</span></strong></th>
+</tr>
+<tr class="subheader even">
+<th data-quarto-table-cell-role="th"><strong><span class="smallcaps">bleu</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong><span class="smallcaps">ok</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong><span class="smallcaps">ok-cs</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong><span class="smallcaps">bleu</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong><span class="smallcaps">ok</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong><span class="smallcaps">ok-cs</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong><span class="smallcaps">bleu</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong><span class="smallcaps">ok</span></strong></th>
+<th data-quarto-table-cell-role="th"><strong><span class="smallcaps">ok-cs</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="namerow">Opus Small <span class="italic">(def.)</span></td>
+<td>29.1</td>
+<td>0.14</td>
+<td class="smallrow">-</td>
+<td>43.9</td>
+<td>0.40</td>
+<td class="smallrow">-</td>
+<td>30.5</td>
+<td>0.29</td>
+<td class="smallrow">-</td>
+</tr>
+<tr class="midrule even">
+<td class="namerow">Opus Small S+T<span class="math inline">\(_{\text{ctx}}\)</span></td>
+<td class="underline">39.1</td>
+<td class="underline">0.81</td>
+<td class="smallrow">0.59</td>
+<td class="underline">48.1</td>
+<td class="underline">0.60</td>
+<td class="smallrow">0.24</td>
+<td class="underline">33.5</td>
+<td class="underline">0.36</td>
+<td class="smallrow">0.07</td>
+</tr>
+<tr class="odd">
+<td class="namerow">Opus Large <span class="italic">(def.)</span></td>
+<td>29.0</td>
+<td>0.16</td>
+<td class="smallrow">-</td>
+<td>39.2</td>
+<td>0.41</td>
+<td class="smallrow">-</td>
+<td>31.2</td>
+<td>0.31</td>
+<td class="smallrow">-</td>
+</tr>
+<tr class="midrule even">
+<td class="namerow">Opus Large S+T<span class="math inline">\(_{\text{ctx}}\)</span></td>
+<td class="bold-underline">40.3</td>
+<td class="bold-underline">0.83</td>
+<td class="smallrow">0.58</td>
+<td class="underline">48.9</td>
+<td class="bold-underline">0.68</td>
+<td class="smallrow">0.31</td>
+<td class="bold-underline">34.8</td>
+<td class="bold-underline">0.38</td>
+<td class="smallrow">0.10</td>
+</tr>
+<tr class="odd">
+<td class="namerow">mBART-50 <span class="italic">(def.)</span></td>
+<td>23.8</td>
+<td>0.26</td>
+<td class="smallrow">-</td>
+<td>33.4</td>
+<td>0.42</td>
+<td class="smallrow">-</td>
+<td>24.5</td>
+<td>0.25</td>
+<td class="smallrow">-</td>
+</tr>
+<tr class="even">
+<td class="namerow">mBART-50 S+T<span class="math inline">\(_{\text{ctx}}\)</span></td>
+<td class="underline">37.6</td>
+<td class="underline">0.82</td>
+<td class="smallrow">0.55</td>
+<td class="bold-underline">49.0</td>
+<td class="underline">0.62</td>
+<td class="smallrow">0.32</td>
+<td class="underline">29.3</td>
+<td class="underline">0.30</td>
+<td class="smallrow">0.07</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-model-accuracies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.2: Translation quality of English<span class="math inline">\(\rightarrow\)</span>French MT models before <em>(def.)</em> and after <em>(S+T</em><span class="math inline">\(_\text{ctx}\)</span><em>)</em> context-aware MT fine-tuning. <strong><span class="smallcaps">ok</span></strong>: % of translations with correct disambiguation for discourse phenomena. <strong><span class="smallcaps">ok-cs</span></strong>: % of translations where the correct disambiguation is achieved only when context is provided.
+</figcaption>
+</figure>
+</div>
+<p><span class="paragraph">Model Disambiguation Accuracy</span> We estimate contextual disambiguation accuracy by verifying whether annotated (gold) context-sensitive words are found in model outputs. Results before and after context-aware fine-tuning are shown in <a href="#tbl-model-accuracies" class="quarto-xref">Table&nbsp;<span>4.2</span></a>. We find that fine-tuning improves translation quality and disambiguation accuracy across all tested models, with larger gains for anaphora resolution datasets that closely match the fine-tuning data. To gain further insight into these results, we use context-aware models to translate examples with and without context and identify a subset of <em>context-sensitive translations</em> (<span class="smallcaps">ok-cs</span>) for which the correct target word is generated only when input context is provided to the model. Interestingly, we find a non-negligible amount of translations that are correctly disambiguated even in the absence of input context (corresponding to <span class="smallcaps">ok</span> minus <span class="smallcaps">ok-cs</span> in <a href="#tbl-model-accuracies" class="quarto-xref">Table&nbsp;<span>4.2</span></a>). For these examples, the correct prediction of ambiguous words aligns with model biases, such as defaulting to masculine gender for anaphoric pronouns <span class="citation" data-cites="stanovsky-etal-2019-evaluating">(<a href="references.html#ref-stanovsky-etal-2019-evaluating" role="doc-biblioref">Stanovsky et al., 2019</a>)</span> or using the most frequent sense for word sense disambiguation. Provided that such examples are unlikely to exhibit context reliance, we focus particularly on the <span class="smallcaps">ok-cs</span> subset results in our following evaluation.</p>
+</section>
+<section id="sec-chap4-cti-metrics" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="sec-chap4-cti-metrics"><span class="header-section-number">4.4.2</span> Metrics for Context-sensitive Target Identification</h3>
+<p>The following contrastive metrics are evaluated for detecting context-sensitive tokens in the CTI step.</p>
+<p><strong>Relative Context Saliency</strong> We use contrastive gradient norm attribution <span class="citation" data-cites="yin-neubig-2022-interpreting">(<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">Yin and Neubig, 2022</a>)</span> to compute input importance towards predicting the next token <span class="math inline">\(\hat y_i\)</span> with and without input context. Positive importance scores are obtained for every input token using the L2 gradient vectors norm <span class="citation" data-cites="bastings-etal-2022-will">(<a href="references.html#ref-bastings-etal-2022-will" role="doc-biblioref">Bastings et al., 2022</a>)</span>, and relative context saliency is obtained as the proportion between the normalized importance for context tokens <span class="math inline">\(c \in C_x, C_y\)</span> and the overall input importance, following previous work quantifying MT input contributions <span class="citation" data-cites="voita-etal-2021-analyzing ferrando-etal-2022-towards edman-etal-2024-character">(<a href="references.html#ref-voita-etal-2021-analyzing" role="doc-biblioref">Voita et al., 2021</a>; <a href="references.html#ref-ferrando-etal-2022-towards" role="doc-biblioref">Ferrando et al., 2022a</a>; <a href="references.html#ref-edman-etal-2024-character" role="doc-biblioref">Edman et al., 2024</a>)</span>.</p>
+<p><span class="math display">\[\nabla_\text{ctx} (P_\text{ctx}^{i}, P_\text{no-ctx}^{i}) = \frac{\sum_{c \in C_x, C_y} \big\| \nabla_c \big( P_\text{ctx}(\hat y_i) - P_\text{no-ctx}(\hat y_i) \big) \big\|}{\sum_{t \in X_\text{ctx}^{i}} \big\| \nabla_t \big( P_\text{ctx}(\hat y_i) - P_\text{no-ctx}(\hat y_i) \big) \big\|}\]</span></p>
+<p><strong>Likelihood Ratio (LR)</strong> and <strong>Pointwise Contextual Cross-mutual Information (P-CXMI)</strong> Proposed by <span class="citation" data-cites="vamvas-sennrich-2021-contrastive">Vamvas and Sennrich (<a href="references.html#ref-vamvas-sennrich-2021-contrastive" role="doc-biblioref">2021a</a>)</span> and <span class="citation" data-cites="fernandes-etal-2023-translation">Fernandes et al. (<a href="references.html#ref-fernandes-etal-2023-translation" role="doc-biblioref">2023</a>)</span>, respectively, both metrics frame context dependence as a ratio of contextual and non-contextual probabilities.</p>
+<p><span class="math display">\[\text{LR}(P_\text{ctx}^{i}, P_\text{no-ctx}^{i}) = \frac{P_\text{ctx}(\hat{y}_i)}{P_\text{ctx}(\hat{y}_i) + P_\text{no-ctx}(\hat{y}_i)}\]</span></p>
+<p><span class="math display">\[\text{P-CXMI}(P_\text{ctx}^{i}, P_\text{no-ctx}^{i}) = - \log \frac{P_\text{ctx}(\hat{y}_i)}{P_\text{no-ctx}(\hat{y}_i)}\]</span></p>
+<p><strong>KL-Divergence</strong> <span class="citation" data-cites="kullback-leibler-1951-information">(<a href="references.html#ref-kullback-leibler-1951-information" role="doc-biblioref">Kullback and Leibler, 1951</a>)</span> between <span class="math inline">\(P_\text{ctx}^{i}\)</span> and <span class="math inline">\(P_\text{no-ctx}^{i}\)</span> is the only metric we evaluate that considers the full distribution rather than the probability of the predicted token. We include it to test the intuition that the impact of context inclusion might extend beyond top-1 token probabilities.</p>
+<p><span class="math display">\[D_\text{KL}(P_\text{ctx}^{i} \| P_\text{no-ctx}^{i}) = \sum_{\hat{y}_i \in \mathcal{V}} P_\text{ctx}(\hat{y}_i) \log \frac{P_\text{ctx}(\hat{y}_i)}{P_\text{no-ctx}(\hat{y}_i)}\]</span></p>
+</section>
+<section id="plausibility-evaluation-metrics" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="plausibility-evaluation-metrics"><span class="header-section-number">4.4.3</span> Plausibility Evaluation Metrics</h3>
+<p>In practice, the CTI and CCI steps in <span class="smallcaps">PECoRe</span> produce a sequence of continuous scores that are later binarized using selectors <span class="math inline">\(s_\text{cti}, s_\text{cci}\)</span>, introduced in <a href="#sec-chap4-pecore-framework" class="quarto-xref"><span>Section 4.3</span></a>. To evaluate their validity, those are compared to a sequence <span class="math inline">\(I_h\)</span> of the same length containing binary values, where 1s correspond to the cues identified by human annotators, while the rest are set to 0. In our experiments, we use two standard plausibility metrics introduced by <span class="citation" data-cites="deyoung-etal-2020-eraser">DeYoung et al. (<a href="references.html#ref-deyoung-etal-2020-eraser" role="doc-biblioref">2020</a>)</span>:</p>
+<p><strong>Token-level Macro F1</strong> is the harmonic mean of precision and recall at the token level, using <span class="math inline">\(I_h\)</span> as the ground truth and the post-selector binarized scores as predictions. Macro-averaging is used to account for the sparsity of cues in <span class="math inline">\(I_h\)</span>. We use this metric in our primary analysis, as the discretization step is more likely to reflect realistic plausibility performance, since it matches more closely the annotation process used to derive <span class="math inline">\(I_h\)</span>. We note that Macro F1 can be considered a lower bound for plausibility, as the results depend heavily on the choice of the selector used for discretization.</p>
+<p><strong>Area Under Precision-Recall Curve (AUPRC)</strong> is computed as the area under the curve obtained by varying a threshold over token importance scores and computing the precision and recall for resulting discretized <span class="math inline">\(I_m\)</span> predictions while keeping <span class="math inline">\(I_h\)</span> as the ground truth. Contrary to Macro F1, AUPRC is selector-independent and accounts for tokens’ relative ranking and degree of importance. Consequently, it acts as an upper bound for plausibility, as if the optimal selector was used. Results using AUPRC are presented in <a href="appendix-a.html#sec-pecore-appendix-cti-cci-results" class="quarto-xref"><span>Section A.2.2</span></a> for completeness, but we focus on Macro F1 in the primary analysis.</p>
+</section>
+<section id="sec-chap4-cti-results" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="sec-chap4-cti-results"><span class="header-section-number">4.4.4</span> CTI Plausibility Results</h3>
+<p><a href="#fig-marian-big-f1-cti" class="quarto-xref">Figure&nbsp;<span>4.3</span></a> presents our metrics evaluation for CTI, with results for the full test sets and the subsets of context-sensitive sentences (<span class="smallcaps">ok-cs</span>) highlighted in <a href="#tbl-model-accuracies" class="quarto-xref">Table&nbsp;<span>4.2</span></a>. To keep our evaluation simple, we use a naive <span class="math inline">\(s_\text{cti}\)</span> selector tagging all tokens with metric scores one standard deviation above the per-example mean as context-sensitive. We also include a stratified random baseline matching the frequency of occurrence of context-sensitive tokens in each dataset. Datapoints in <a href="#fig-marian-big-f1-cti" class="quarto-xref">Figure&nbsp;<span>4.3</span></a> are sentence-level macro F1 scores computed for every dataset example.</p>
+<div id="fig-marian-big-f1-cti" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-marian-big-f1-cti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-4-pecore/macro_f1_cti_marian-big-scat-target_box.webp" class="img-fluid figure-img" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-marian-big-f1-cti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: Macro F1 of contrastive metrics for context-sensitive target token identification (CTI) using Opus Large on the full datasets (left) or on <span class="smallcaps">ok-cs</span> context-sensitive subsets (right).
+</figcaption>
+</figure>
+</div>
+<p>Pointwise metrics (LR, P-CXMI) show high plausibility for the context-sensitive subsets <span class="smallcaps">ok-cs</span> across all datasets and models, but achieve lower performances on the full test set, especially for lexical choice phenomena less present in MT models’ training. KL-Divergence performs on par with or better than pointwise metrics, suggesting that distributional shifts beyond top prediction candidates can provide helpful information for detecting context sensitivity. On the contrary, the poor performance of context saliency suggests that aggregate context reliance cannot reliably predict context sensitivity. A manual examination of misclassified examples reveals several context-sensitive tokens that were not annotated as such, as they did not match the dataset’s phenomena of interest, but were still identified by CTI metrics. <a href="#tbl-false-negatives-cti" class="quarto-xref">Table&nbsp;<span>4.3</span></a> presents several examples illustrating the contextual influence of French pronoun formality, whereas SCAT+ examples focus solely on gender disambiguation for anaphoric pronouns. This suggests that our evaluation of CTI metrics’ plausibility can be considered a lower bound for actual method accuracy, as it is restricted to the two phenomena available in the datasets we used (anaphora resolution and lexical choice), rather than the broad set of contextual dependence phenomena. These results further underscore the importance of data-driven, end-to-end approaches like <span class="smallcaps">PECoRe</span> in limiting the influence of selection bias during evaluation.</p>
+<div id="tbl-false-negatives-cti" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-false-negatives-cti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="bottomrule odd">
+<td><strong>Pronoun Grammatical Formality, SCAT+</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: […] That demon that was in you, it wants you. But not like before. I think it loves you.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: […] Ce démon qui était en <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">vous</span>, il <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">vous</span> veut. Mais pas comme avant. Je pense qu’il <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">vous</span> aime.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: And it’s powerless without <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">you</span>.</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="math inline">\(y\)</span>: Et il est impuissant sans <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">vous</span> <span class="light-content" style="color: #bebebe;">(<em>you</em>, <strong>2nd p.&nbsp;plur., formal</strong>)</span>.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: You threaten my father again, I’ll kill you myself… on this road. You hear me?</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">Tu</span> menaces encore mon père, je <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">te</span> tuerai moi-même… sur cette route. <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">Tu</span> m’entends?</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: Now it is with <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">you</span> as well.</td>
+</tr>
+<tr class="midrule odd">
+<td><span class="math inline">\(y\)</span>: Maintenant elle est aussi avec <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">toi</span> <span class="light-content" style="color: #bebebe;">(<em>you</em>, <strong>2nd p.&nbsp;sing., informal</strong>)</span>.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: She went back to Delhi. What do you think? […] Girls, I tell you.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: Elle est revenue à Delhi. Qu’en penses-<span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">tu</span>? […] Les filles, je <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">te</span> le dis.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: I wish they were all like <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">you</span>.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(y\)</span>: J’aimerais qu’elles soient toutes comme <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">toi</span> <span class="light-content" style="color: #bebebe;">(<em>you</em>, <strong>2nd p.&nbsp;sing., informal</strong>)</span>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-false-negatives-cti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.3: Examples of SCAT+ sentences with <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">context-sensitive target tokens</span> identified by CTI but not originally labeled as context-dependent in the dataset, since they do not match the gendered pronoun rule match used to create SCAT+. Relevant <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">formality contextual cues</span> are highlighted, and <span class="light-content" style="color: #bebebe;">glosses</span> are added for French words of interest to facilitate understanding.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-chap4-cci-metrics" class="level3" data-number="4.4.5">
+<h3 data-number="4.4.5" class="anchored" data-anchor-id="sec-chap4-cci-metrics"><span class="header-section-number">4.4.5</span> Methods for Contextual Cues Imputation</h3>
+<p>The following attribution methods are evaluated for detecting contextual cues in the CCI step.</p>
+<p><strong>Contrastive Gradient Norm</strong> <span class="citation" data-cites="yin-neubig-2022-interpreting">(<a href="references.html#ref-yin-neubig-2022-interpreting" role="doc-biblioref">Yin and Neubig, 2022</a>)</span> estimates the input tokens’ contributions towards predicting a target token, rather than a contrastive alternative. We use this method to explain the generation of context-sensitive tokens in the presence and absence of context.</p>
+<p><span class="math display">\[A_{t\,\text{ctx}} = \{\,\| \nabla_c \big(f_\text{tgt}(P_\text{ctx}^{i}, \dots) \big)\|\,|\, \forall c \in C\}\]</span></p>
+<p>For the choice of <span class="math inline">\(f_\text{tgt}\)</span>, we evaluate both probability difference <span class="math inline">\(P_\text{ctx}(\hat y_i) - P_\text{no-ctx}(\hat y_i)\)</span>, conceptually similar to the original formulation, and the KL-Divergence of contextual and non-contextual distributions <span class="math inline">\(D_\text{KL}(P_\text{ctx}^{i} \| P_\text{no-ctx}^{i})\)</span>. We use <span class="math inline">\(\nabla_\text{diff}\)</span> and <span class="math inline">\(\nabla_\text{KL}\)</span> to identify gradient norm attribution in the two settings. <span class="math inline">\(\nabla_\text{KL}\)</span> scores can be seen as the contribution of input tokens towards the shift in probability distribution caused by the presence of input context.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p><span class="paragraph">Attention Weights</span> Following previous work, we use the mean attention weight across all heads and layers (<strong>Attention Mean</strong>, <span class="citation" data-cites="kim-etal-2019-document">Kim et al. (<a href="references.html#ref-kim-etal-2019-document" role="doc-biblioref">2019</a>)</span>) and the weight for the head obtaining the highest plausibility per-dataset (<strong>Attention Best</strong>, <span class="citation" data-cites="yin-etal-2021-context">Yin et al. (<a href="references.html#ref-yin-etal-2021-context" role="doc-biblioref">2021</a>)</span>) as importance measures for CCI. Attention Best can be seen as a best-case estimate of attention performance but is not a viable metric in real settings, provided that the best attention head to capture a phenomenon of interest is unknown beforehand. Since attention weights are model byproducts unaffected by predicted outputs, we use only attention scores for the contextual setting <span class="math inline">\(P_\text{ctx}^{i}\)</span> and ignore the contextless alternative when using these metrics.</p>
+</section>
+<section id="sec-chap4-cci-results" class="level3" data-number="4.4.6">
+<h3 data-number="4.4.6" class="anchored" data-anchor-id="sec-chap4-cci-results"><span class="header-section-number">4.4.6</span> CCI Plausibility Results</h3>
+<div id="fig-marian-big-f1-cci" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-marian-big-f1-cci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-4-pecore/macro_f1_cci_marian-big-scat+tgt_box.webp" class="img-fluid figure-img" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-marian-big-f1-cci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.4: Macro F1 of CCI methods over full datasets using Opus Large models trained with only source context (left) or with source+target context (right). Boxes and red median lines show CCI results based on gold context-sensitive tokens. Dotted bars show median CCI scores obtained from context-sensitive tokens identified by KL-Divergence during CTI (E2E settings).
+</figcaption>
+</figure>
+</div>
+<p>We conduct a controlled CCI evaluation using gold context-sensitive tokens as the starting point to attribute contextual cues. Provided that gold context-sensitive tokens are only available in annotated reference translations, a simple option when applying CCI to those would involve using references as model generations. However, this was shown to be problematic by previous research, as it would induce a <em>distributional discrepancy</em> in model predictions <span class="citation" data-cites="vamvas-sennrich-2021-limits">(<a href="references.html#ref-vamvas-sennrich-2021-limits" role="doc-biblioref">Vamvas and Sennrich, 2021b</a>)</span>. For this reason, we let the model generate a natural translation and instead try to align tags to this new sentence using the <span class="smallcaps">awesome</span> aligner <span class="citation" data-cites="dou-neubig-2021-word">(<a href="references.html#ref-dou-neubig-2021-word" role="doc-biblioref">Dou and Neubig, 2021</a>)</span> with <span class="smallcaps">labse</span> multilingual embeddings <span class="citation" data-cites="feng-etal-2022-language">(<a href="references.html#ref-feng-etal-2022-language" role="doc-biblioref">Feng et al., 2022</a>)</span>. While this process is not guaranteed to always result in accurate tags, it provides a good approximation of gold CTI annotations for model generation, which is suitable for our assessment. This corresponds to the baseline plausibility evaluation described in <a href="chap-2-background.html#sec-chap2-attrib-eval" class="quarto-xref"><span>Section 2.2.2</span></a>, allowing us to evaluate attribution methods in isolation, assuming perfect identification of context-sensitive tokens. <a href="#fig-marian-big-f1-cci" class="quarto-xref">Figure&nbsp;<span>4.4</span></a> presents our results. Scores in the right plot are relative to the context-aware Opus Large model of <a href="#sec-chap4-cti-results" class="quarto-xref"><span>Section 4.4.4</span></a> using both source and target context. Instead, the left plot presents results for an alternative version of the same model that was fine-tuned using only the source context (i.e., translating <span class="math inline">\(C_x, x \rightarrow y\)</span> without producing the target context <span class="math inline">\(C_y\)</span>). Source-only context was used in previous context-aware MT studies <span class="citation" data-cites="fernandes-etal-2022-quality">(<a href="references.html#ref-fernandes-etal-2022-quality" role="doc-biblioref">Fernandes et al., 2022</a>)</span>, and we include it in our analysis to assess how the presence of target context impacts model plausibility. We finally validate the end-to-end plausibility of <span class="smallcaps">PECoRe</span>-detected pairs using context-sensitive tokens identified by the best CTI metric from <a href="#sec-chap4-cti-results" class="quarto-xref"><span>Section 4.4.4</span></a> (KL-Divergence) as the starting point for CCI, and using a simple statistical selector equivalent to the one used for CTI evaluation.</p>
+<p>First, contextual cues are more easily detected for the source-only model using all evaluated methods. This finding corroborates previous evidence highlighting how context usage issues might emerge when lengthy context is provided <span class="citation" data-cites="fernandes-etal-2021-measuring shi-etal-2023-large">(<a href="references.html#ref-fernandes-etal-2021-measuring" role="doc-biblioref">Fernandes et al., 2021</a>; <a href="references.html#ref-shi-etal-2023-large" role="doc-biblioref">Shi et al., 2023</a>)</span>. When moving from gold CTI tags to the end-to-end setting (E2E) we observe a larger drop in plausibility for the SCAT+ and <span class="smallcaps">DiscEval-MT ana</span> datasets that more closely match the fine-tuning data of analyzed MT models. This suggests that standard evaluation practices may overestimate model plausibility for in-domain settings and that our proposed framework can effectively mitigate this issue. Interestingly, the Attention Best method suffers the most from end-to-end CCI application, while other approaches are more mildly affected. This can result from attention heads failing to generalize to other discourse-level phenomena at test time, providing further evidence of the limitations of attention as an explanatory metric <span class="citation" data-cites="jain-wallace-2019-attention bastings-filippova-2020-elephant">(<a href="references.html#ref-jain-wallace-2019-attention" role="doc-biblioref">Jain and Wallace, 2019</a>; <a href="references.html#ref-bastings-filippova-2020-elephant" role="doc-biblioref">Bastings and Filippova, 2020</a>)</span>. While <span class="math inline">\(\nabla_\text{diff}\)</span> and <span class="math inline">\(\nabla_\text{KL}\)</span> appear as the most robust choices across the two datasets, per-example variability remains high across the board, leaving space for improvement for more plausible attribution methods in future work.</p>
+</section>
+</section>
+<section id="sec-chap4-analysis" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="sec-chap4-analysis"><span class="header-section-number">4.5</span> Detecting Context Reliance in the Wild</h2>
+<p>We continue our analysis by applying the <span class="smallcaps">PECoRe</span> method to the popular Flores-101 MT benchmark <span class="citation" data-cites="goyal-etal-2022-flores">(<a href="references.html#ref-goyal-etal-2022-flores" role="doc-biblioref">Goyal et al., 2022</a>)</span>, containing groups of 3-5 contiguous sentences from English Wikipedia. While previous sections used labeled examples to evaluate the effectiveness of <span class="smallcaps">PECoRe</span> components, here we apply our framework end-to-end to unannotated MT outputs and inspect the resulting cue-target pairs to identify the successes and failures of context-aware MT models.</p>
+<p>Specifically, we apply <span class="smallcaps">PECoRe</span> to the context-aware Opus Large and mBART-50 models of <a href="#sec-chap4-setup" class="quarto-xref"><span>Section 4.4.1</span></a>, using KL-Divergence as CTI metric and <span class="math inline">\(\nabla_\text{KL}\)</span> as CCI attribution method. We set <span class="math inline">\(s_\text{cti}\)</span> and <span class="math inline">\(s_\text{cci}\)</span> to two standard deviations above the per-example average score to focus our analysis on very salient tokens.</p>
+<div id="tbl-pecore-examples-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-pecore-examples-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="bottomrule odd">
+<td><strong>1. Acronym Translation (English → French, correct but more generic)</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: Across the United States of America, there are approximately 400,000 known cases of <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">Multiple Sclerosis (MS)</span> […]</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: Aux États-Unis, il y a environ 400 000 cas connus de sclérose en plaques […]</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: MS affects the central nervous system, which is made up of the brain, the spinal cord and the optic nerve.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\tilde y\)</span>: <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">La SEP</span> affecte le système nerveux central, composé du cerveau, de la moelle épinière et du nerf optique.</td>
+</tr>
+<tr class="midrule even">
+<td><span class="math inline">\(\hat y\)</span>: <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">La maladie</span> affecte le système nerveux central, composé du cerveau, de la moelle épinière et du nerf optique.</td>
+</tr>
+<tr class="bottomrule odd">
+<td><strong>2. Anaphora Resolution (English → French, incorrect)</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: The terrified King and Madam Elizabeth were forced back to Paris by a <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">mob</span> of <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">market women</span>.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: Le roi et Madame Elizabeth ont été forcés à revenir à Paris par une foule de <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">femmes</span> du marché.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: In a carriage, they traveled back to Paris surrounded by a mob of people screaming and shouting threats […]</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\tilde y\)</span>: Dans une carriole, <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">ils</span> sont retournés à Paris entourés d’une foule de gens hurlant et criant des menaces […]</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat y\)</span>: Dans une carriole, <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">elles</span> sont <em>retournées</em> à Paris <em>entourées</em> d’une foule de gens hurlant et criant des menaces […]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-pecore-examples-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.4: Flores-101 examples with cue-target pairs identified by <span class="smallcaps">PECoRe</span> in Opus Large contextual translations. <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">Context-sensitive tokens</span> generated instead of their <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">non-contextual</span> counterparts are identified by CTI, and <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">contextual cues</span> justifying their predictions are retrieved by CCI. <em>Other changes</em> in <span class="math inline">\(\hat y\)</span> are not considered context-sensitive by <span class="smallcaps">PECoRe</span>.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-pecore-examples-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-pecore-examples-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="fullwidthtable leftalign table" data-quarto-postprocess="true">
+<tbody>
+<tr class="bottomrule odd">
+<td><strong>3. Numeric format cohesion (English → French, incorrect)</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: The game kicked off at <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">10:00</span>am with great weather apart from mid morning drizzle […]</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: Le match a commencé à <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">10:00</span> du matin avec un beau temps à part la nuée du matin […]</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: South Africa started on the right note when they had a comfortable 26-00 win against Zambia.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\tilde y\)</span>: L’Afrique du Sud a commencé sur la bonne note quand ils ont eu une confortable victoire de <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">26</span> contre le Zambia.</td>
+</tr>
+<tr class="midrule even">
+<td><span class="math inline">\(\hat y\)</span>: L’Afrique du Sud a commencé sur la bonne note quand ils ont eu une confortable victoire de <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">26:00</span> contre le Zambia.</td>
+</tr>
+<tr class="bottomrule odd">
+<td><strong>4. Lexical cohesion (English → Turkish, correct)</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_x\)</span>: The activity of all stars in the system was found to be driven by their luminosity, their rotation, and nothing else.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_y\)</span>: Sistemdeki bütün ulduzların faaliyetlerinin, parlaklıkları, <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">rotasyonları</span> ve başka hiçbir şeyin etkisi altında olduğunu ortaya çıkardılar.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>: The luminosity and rotation are used together to determine a star’s Rossby number, which is related to plasma flow.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\tilde y\)</span>: Parlaklık ve <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">döngü</span>, bir akışıyla ilgili Rossby sayısını belirlemek için birlikte kullanılıyor.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat y\)</span>: Parlaklık ve <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">rotasyon</span>, bir akışıyla ilgili Rossby sayısını belirlemek için birlikte kullanılıyor.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-pecore-examples-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.5: Flores-101 examples with cue-target pairs identified by <span class="smallcaps">PECoRe</span> in mBART-50 contextual translations. <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">Context-sensitive tokens</span> generated instead of their <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ea9999;">non-contextual</span> counterparts are identified by CTI, and <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">contextual cues</span> justifying their predictions are retrieved by CCI. <em>Other changes</em> in <span class="math inline">\(\hat y\)</span> are not considered context-sensitive by <span class="smallcaps">PECoRe</span>.
+</figcaption>
+</figure>
+</div>
+<p><a href="#tbl-pecore-examples-1" class="quarto-xref">Table&nbsp;<span>4.4</span></a> and <a href="#tbl-pecore-examples-2" class="quarto-xref">Table&nbsp;<span>4.5</span></a> show some examples annotated with <span class="smallcaps">PECoRe</span> outputs. In the first example, the acronym MS, standing for Multiple Sclerosis, is translated generically as <em>la maladie</em> (the illness) in the contextual output, but as <em>SEP</em> (the French acronym for MS, i.e.&nbsp;<em>sclérose en plaques</em>) when context is not provided. <span class="smallcaps">PECoRe</span> shows how this choice is mostly driven by the MS mention in source context <span class="math inline">\(C_x\)</span> while the term <em>sclérose en plaques</em> in target context <span class="math inline">\(C_y\)</span> is not identified as influential, possibly motivating the choice for the more generic option.</p>
+<p>In the second example, the prediction of pronoun <em>elles</em> (they, feminine) depends on the context noun phrase <em>mob of market women</em> (<em>foule de femmes du marché</em> in French). However, the correct pronoun referent is <em>Le roi et Madame Elizabeth</em> (<em>the king and Madam Elizabeth</em>), so the pronoun should be the masculine default <em>ils</em>, commonly used for mixed-gender groups in French. <span class="smallcaps">PECoRe</span> identifies this as a context-dependent failure due to an issue with the MT model’s anaphora resolution.</p>
+<p>The third example presents an interesting case of erroneous numeric format cohesion that would typically go undetected when relying on pre-defined linguistic hypotheses. In this sentence, the score <em>26-00</em> is translated as <em>26</em> in the contextless output and as <em>26:00</em> in the context-aware translation. The <em>10:00</em> time indications found by <span class="smallcaps">PECoRe</span> in the contexts suggest this is a case of problematic lexical cohesion.</p>
+<p>Finally, we include an example of context usage for English<span class="math inline">\(\rightarrow\)</span>Turkish translation to test the contextual capabilities of the default mBART-50 model without context-aware fine-tuning. Again, <span class="smallcaps">PECoRe</span> shows how the word <em>rotasyon</em> (rotation) is selected over <em>döngü</em> (loop) as the correct translation in the contextual case due to the presence of the lexically similar word <em>rotasyonları</em> in the previous context.</p>
+</section>
+<section id="sec-chap4-inseq-integration" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="sec-chap4-inseq-integration"><span class="header-section-number">4.6</span> Integrating <span class="smallcaps">PECoRe</span> in Inseq</h2>
+<p>To facilitate the use of <span class="smallcaps">PECoRe</span> in future research, a flexible implementation of the framework was incorporated into the Inseq toolkit presented in <a href="chap-3-inseq.html" class="quarto-xref"><span>Chapter 3</span></a>. Since its <a href="https://github.com/inseq-team/inseq/releases/tag/v0.6.0">v0.6.0</a> Inseq offers the CLI command <code>attribute-context</code>, supporting all contrastive step functions and attribution methods in the library, and compatible with any decoder-only and encoder-decoder generative language model. <a href="#fig-chap4-inseq-api-example" class="quarto-xref">Figure&nbsp;<span>4.5</span></a> provides an example employing the Inseq API to attribute a language model answer to input context paragraphs, similarly to the retrieval-augmented generation task we discuss in <a href="chap-5-mirage.html" class="quarto-xref"><span>Chapter 5</span></a>.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> In the example, the StableLM 2 Zephyr 1.6B language model<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> is prompted with contexts retrieved from Wikipedia to provide a long-form answer to a query about population in the Hawaiian islands. When referring to “the information provided” in ⓵, <span class="smallcaps">PECoRe</span> identifies the indices of the two documents containing relevant information as salient. The name of Ni’ihau, a small island with barely any population, is also found important when the model produces an additional remark on their population in ⓶. However, we observe that the answer in the context is not identified as salient by <span class="smallcaps">PECoRe</span> during generation, suggesting that the model might be relying on memorization. We test the hypothesis by prompting the model in a closed-book setting without context paragraphs, finding that the model can indeed respond correctly without context. Moreover, as expected, the island of Ni’ihau is never mentioned in the contextless response. Additional examples of <span class="smallcaps">PECoRe</span> usage for other generation tasks are provided in <a href="appendix-a.html#sec-pecore-appendix-other-tasks" class="quarto-xref"><span>Section A.2.3</span></a>.</p>
+<div id="fig-chap4-inseq-api-example" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chap4-inseq-api-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/chap-4-pecore/inseq_api_example.webp" class="img-fluid figure-img" style="width:95.0%" data-fig-pos="t">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chap4-inseq-api-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.5: Example of context attribution for open-book QA using the Inseq-powered <span class="smallcaps">PECoRe</span> demo. <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #b6d7a8;">Context-sensitive tokens</span> and <span class="light-content" style="border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #9fc5e8;">contextual cues</span> are highlighted.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusion" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">4.7</span> Conclusion</h2>
+<p>We introduced <span class="smallcaps">PECoRe</span>, a novel interpretability framework for detecting and attributing context usage in language models’ generations. <span class="smallcaps">PECoRe</span> extends the standard plausibility evaluation procedure adopted in interpretability research by proposing a two-step procedure to identify context-sensitive generated tokens and match them to contextual cues contributing to their prediction. We applied <span class="smallcaps">PECoRe</span> to context-aware MT, finding that context-sensitive tokens and their disambiguating rationales can be detected consistently and with reasonable accuracy across several datasets, models and discourse phenomena. Moreover, an end-to-end application of our framework without human annotations revealed incorrect context usage, leading to problematic MT model outputs.</p>
+<p>While our evaluation is mainly focused on the machine translation domain, thanks to its generality and its integration in the Inseq framework <span class="smallcaps">PECoRe</span> can easily be applied to other context-dependent language generation tasks such as question answering and summarization, as also demonstrated in the previous section. Future applications of our methodology could investigate the usage of in-context demonstrations and chain-of-thought reasoning in large language models <span class="citation" data-cites="brown-etal-2020-language wei-etal-2022-chain">(<a href="references.html#ref-brown-etal-2020-language" role="doc-biblioref">Brown et al., 2020</a>; <a href="references.html#ref-wei-etal-2022-chain" role="doc-biblioref">Wei et al., 2022</a>)</span>, and explore <span class="smallcaps">PECoRe</span> usage for different model architectures and input modalities. In the next chapter, we extend <span class="smallcaps">PECoRe</span> for attributing context usage in retrieval-augmented generation tasks, where the model is expected to rely on external knowledge sources to produce answers to user queries.</p>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-abnar-zuidema-2020-quantifying" class="csl-entry" role="listitem">
+Samira Abnar and Willem Zuidema. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.385">Quantifying attention flow in transformers</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 4190–4197, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-atanasova-etal-2020-diagnostic" class="csl-entry" role="listitem">
+Pepa Atanasova, Jakob Grue Simonsen, Christina Lioma, and Isabelle Augenstein. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-main.263">A diagnostic study of explainability techniques for text classification</a>. In Bonnie Webber, Trevor Cohn, Yulan He, and Yang Liu, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing (EMNLP)</em>, pages 3256–3274, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-attanasio-etal-2023-ferret" class="csl-entry" role="listitem">
+Giuseppe Attanasio, Eliana Pastor, Chiara Di Bonaventura, and Debora Nozza. 2023. <a href="https://doi.org/10.18653/v1/2023.eacl-demo.29">Ferret: A framework for benchmarking explainers on transformers</a>. In Danilo Croce and Luca Soldaini, editors, <em>Proceedings of the 17th conference of the european chapter of the association for computational linguistics: System demonstrations</em>, pages 256–266, Dubrovnik, Croatia. Association for Computational Linguistics.
+</div>
+<div id="ref-bastings-etal-2022-will" class="csl-entry" role="listitem">
+Jasmijn Bastings, Sebastian Ebert, Polina Zablotskaia, Anders Sandholm, and Katja Filippova. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.64"><span>“</span>Will you find these shortcuts?<span>”</span> A protocol for evaluating the faithfulness of input salience methods for text classification</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 976–991, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-bastings-filippova-2020-elephant" class="csl-entry" role="listitem">
+Jasmijn Bastings and Katja Filippova. 2020. <a href="https://doi.org/10.18653/v1/2020.blackboxnlp-1.14">The elephant in the interpretability room: Why use attention as explanation when we have saliency methods?</a> In Afra Alishahi, Yonatan Belinkov, Grzegorz Chrupała, Dieuwke Hupkes, Yuval Pinter, and Hassan Sajjad, editors, <em>Proceedings of the third BlackboxNLP workshop on analyzing and interpreting neural networks for NLP</em>, pages 149–155, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-bawden-etal-2018-evaluating" class="csl-entry" role="listitem">
+Rachel Bawden, Rico Sennrich, Alexandra Birch, and Barry Haddow. 2018. <a href="https://doi.org/10.18653/v1/N18-1118">Evaluating discourse phenomena in neural machine translation</a>. In Marilyn Walker, Heng Ji, and Amanda Stent, editors, <em>Proceedings of the 2018 conference of the north <span>A</span>merican chapter of the association for computational linguistics: Human language technologies, volume 1 (long papers)</em>, pages 1304–1313, New Orleans, Louisiana. Association for Computational Linguistics.
+</div>
+<div id="ref-belrose-etal-2023-eliciting" class="csl-entry" role="listitem">
+Nora Belrose, Zach Furman, Logan Smith, Danny Halawi, Igor Ostrovsky, Lev McKinney, Stella Biderman, and Jacob Steinhardt. 2023. <a href="https://arxiv.org/abs/2303.08112">Eliciting latent predictions from transformers with the tuned lens</a>. <em>ArXiv</em>, abs/2303.08112.
+</div>
+<div id="ref-brown-etal-2020-language" class="csl-entry" role="listitem">
+Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M. Ziegler, Jeffrey Wu, Clemens Winter, et al. 2020. Language models are few-shot learners. In <em>Proceedings of the 34th international conference on neural information processing systems</em>, Red Hook, NY, USA. Curran Associates Inc.
+</div>
+<div id="ref-cettolo-etal-2017-overview" class="csl-entry" role="listitem">
+Mauro Cettolo, Marcello Federico, Luisa Bentivogli, Jan Niehues, Sebastian Stüker, Katsuhito Sudoh, Koichiro Yoshino, and Christian Federmann. 2017. <a href="https://aclanthology.org/2017.iwslt-1.1/">Overview of the <span>IWSLT</span> 2017 evaluation campaign</a>. In Sakriani Sakti and Masao Utiyama, editors, <em>Proceedings of the 14th international conference on spoken language translation</em>, pages 2–14, Tokyo, Japan. International Workshop on Spoken Language Translation.
+</div>
+<div id="ref-dale-etal-2023-detecting" class="csl-entry" role="listitem">
+David Dale, Elena Voita, Loic Barrault, and Marta R. Costa-jussà. 2023a. <a href="https://doi.org/10.18653/v1/2023.acl-long.3">Detecting and mitigating hallucinations in machine translation: Model internal workings alone do well, sentence similarity <span>E</span>ven better</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 36–50, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-dale-etal-2023-halomi" class="csl-entry" role="listitem">
+David Dale, Elena Voita, Janice Lam, Prangthip Hansanti, Christophe Ropers, Elahe Kalbassi, Cynthia Gao, Loic Barrault, and Marta Costa-jussà. 2023b. <a href="https://doi.org/10.18653/v1/2023.emnlp-main.42"><span>H</span>al<span>O</span>mi: A manually annotated benchmark for multilingual hallucination and omission detection in machine translation</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Proceedings of the 2023 conference on empirical methods in natural language processing</em>, pages 638–653, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-deyoung-etal-2020-eraser" class="csl-entry" role="listitem">
+Jay DeYoung, Sarthak Jain, Nazneen Fatema Rajani, Eric Lehman, Caiming Xiong, Richard Socher, and Byron C. Wallace. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.408"><span>ERASER</span>: <span>A</span> benchmark to evaluate rationalized <span>NLP</span> models</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 4443–4458, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-dou-neubig-2021-word" class="csl-entry" role="listitem">
+Zi-Yi Dou and Graham Neubig. 2021. <a href="https://doi.org/10.18653/v1/2021.eacl-main.181">Word alignment by fine-tuning embeddings on parallel corpora</a>. In Paola Merlo, Jorg Tiedemann, and Reut Tsarfaty, editors, <em>Proceedings of the 16th conference of the european chapter of the association for computational linguistics: Main volume</em>, pages 2112–2128, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-durmus-etal-2020-feqa" class="csl-entry" role="listitem">
+Esin Durmus, He He, and Mona Diab. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.454"><span>FEQA</span>: A question answering evaluation framework for faithfulness assessment in abstractive summarization</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 5055–5070, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-edman-etal-2024-character" class="csl-entry" role="listitem">
+Lukas Edman, Gabriele Sarti, Antonio Toral, Gertjan van Noord, and Arianna Bisazza. 2024. <a href="https://doi.org/10.1162/tacl_a_00651">Are character-level translations worth the wait? Comparing <span>B</span>y<span>T</span>5 and m<span>T</span>5 for machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 12:392–410.
+</div>
+<div id="ref-feng-etal-2022-language" class="csl-entry" role="listitem">
+Fangxiaoyu Feng, Yinfei Yang, Daniel Cer, Naveen Arivazhagan, and Wei Wang. 2022. <a href="https://doi.org/10.18653/v1/2022.acl-long.62">Language-agnostic <span>BERT</span> sentence embedding</a>. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio, editors, <em>Proceedings of the 60th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 878–891, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-fernandes-etal-2022-quality" class="csl-entry" role="listitem">
+Patrick Fernandes, António Farinhas, Ricardo Rei, José G. C. de Souza, Perez Ogayo, Graham Neubig, and Andre Martins. 2022. <a href="https://doi.org/10.18653/v1/2022.naacl-main.100">Quality-aware decoding for neural machine translation</a>. In Marine Carpuat, Marie-Catherine de Marneffe, and Ivan Vladimir Meza Ruiz, editors, <em>Proceedings of the 2022 conference of the north american chapter of the association for computational linguistics: Human language technologies</em>, pages 1396–1412, Seattle, United States. Association for Computational Linguistics.
+</div>
+<div id="ref-fernandes-etal-2023-translation" class="csl-entry" role="listitem">
+Patrick Fernandes, Kayo Yin, Emmy Liu, André Martins, and Graham Neubig. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-long.36">When does translation require context? A data-driven, multilingual exploration</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 606–626, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-fernandes-etal-2021-measuring" class="csl-entry" role="listitem">
+Patrick Fernandes, Kayo Yin, Graham Neubig, and André F. T. Martins. 2021. <a href="https://doi.org/10.18653/v1/2021.acl-long.505">Measuring and increasing context usage in context-aware machine translation</a>. In Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli, editors, <em>Proceedings of the 59th annual meeting of the association for computational linguistics and the 11th international joint conference on natural language processing (volume 1: Long papers)</em>, pages 6467–6478, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-ferrando-etal-2022-towards" class="csl-entry" role="listitem">
+Javier Ferrando, Gerard I. Gállego, Belen Alastruey, Carlos Escolano, and Marta R. Costa-jussà. 2022a. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.599">Towards opening the black box of neural machine translation: Source and target interpretations of the transformer</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 8756–8769, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-ferrando-etal-2022-measuring" class="csl-entry" role="listitem">
+Javier Ferrando, Gerard I. Gállego, and Marta R. Costa-jussà. 2022b. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.595">Measuring the mixing of contextual information in the transformer</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 8698–8714, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-ferrando-etal-2023-explaining" class="csl-entry" role="listitem">
+Javier Ferrando, Gerard I. Gállego, Ioannis Tsiamas, and Marta R. Costa-jussà. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-long.301">Explaining how transformers use context to build predictions</a>. In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 5486–5513, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-geva-etal-2022-transformer" class="csl-entry" role="listitem">
+Mor Geva, Avi Caciularu, Kevin Wang, and Yoav Goldberg. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.3">Transformer feed-forward layers build predictions by promoting concepts in the vocabulary space</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 30–45, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-goyal-etal-2022-flores" class="csl-entry" role="listitem">
+Naman Goyal, Cynthia Gao, Vishrav Chaudhary, Peng-Jen Chen, Guillaume Wenzek, Da Ju, Sanjana Krishnan, Marc’Aurelio Ranzato, Francisco Guzmán, and Angela Fan. 2022. <a href="https://doi.org/10.1162/tacl_a_00474">The <span>F</span>lores-101 evaluation benchmark for low-resource and multilingual machine translation</a>. <em>Transactions of the Association for Computational Linguistics</em>, 10:522–538.
+</div>
+<div id="ref-goyal-durrett-2021-annotating" class="csl-entry" role="listitem">
+Tanya Goyal and Greg Durrett. 2021. <a href="https://doi.org/10.18653/v1/2021.naacl-main.114">Annotating and modeling fine-grained factuality in summarization</a>. In Kristina Toutanova, Anna Rumshisky, Luke Zettlemoyer, Dilek Hakkani-Tur, Iz Beltagy, Steven Bethard, Ryan Cotterell, Tanmoy Chakraborty, and Yichao Zhou, editors, <em>Proceedings of the 2021 conference of the north american chapter of the association for computational linguistics: Human language technologies</em>, pages 1449–1462, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-holtzman-etal-2021-surface" class="csl-entry" role="listitem">
+Ari Holtzman, Peter West, Vered Shwartz, Yejin Choi, and Luke Zettlemoyer. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.564">Surface form competition: Why the highest probability answer isn‘t always right</a>. In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing</em>, pages 7038–7051, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-jacovi-goldberg-2020-towards" class="csl-entry" role="listitem">
+Alon Jacovi and Yoav Goldberg. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.386">Towards faithfully interpretable <span>NLP</span> systems: How should we define and evaluate faithfulness?</a> In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 4198–4205, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-jain-wallace-2019-attention" class="csl-entry" role="listitem">
+Sarthak Jain and Byron C. Wallace. 2019. <a href="https://doi.org/10.18653/v1/N19-1357"><span>A</span>ttention is not <span>E</span>xplanation</a>. In Jill Burstein, Christy Doran, and Thamar Solorio, editors, <em>Proceedings of the 2019 conference of the north <span>A</span>merican chapter of the association for computational linguistics: Human language technologies, volume 1 (long and short papers)</em>, pages 3543–3556, Minneapolis, Minnesota. Association for Computational Linguistics.
+</div>
+<div id="ref-jin-etal-2023-challenges" class="csl-entry" role="listitem">
+Linghao Jin, Jacqueline He, Jonathan May, and Xuezhe Ma. 2023. <a href="https://doi.org/10.18653/v1/2023.emnlp-main.943">Challenges in context-aware neural machine translation</a>. In Houda Bouamor, Juan Pino, and Kalika Bali, editors, <em>Proceedings of the 2023 conference on empirical methods in natural language processing</em>, pages 15246–15263, Singapore. Association for Computational Linguistics.
+</div>
+<div id="ref-kim-etal-2019-document" class="csl-entry" role="listitem">
+Yunsu Kim, Duc Thanh Tran, and Hermann Ney. 2019. <a href="https://doi.org/10.18653/v1/D19-6503">When and why is document-level context useful in neural machine translation?</a> In Andrei Popescu-Belis, Sharid Loáiciga, Christian Hardmeier, and Deyi Xiong, editors, <em>Proceedings of the fourth workshop on discourse in machine translation (DiscoMT 2019)</em>, pages 24–34, Hong Kong, China. Association for Computational Linguistics.
+</div>
+<div id="ref-kobayashi-etal-2020-attention" class="csl-entry" role="listitem">
+Goro Kobayashi, Tatsuki Kuribayashi, Sho Yokoi, and Kentaro Inui. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-main.574">Attention is not only a weight: Analyzing transformers with vector norms</a>. In Bonnie Webber, Trevor Cohn, Yulan He, and Yang Liu, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing (EMNLP)</em>, pages 7057–7075, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-kryscinski-etal-2020-evaluating" class="csl-entry" role="listitem">
+Wojciech Kryscinski, Bryan McCann, Caiming Xiong, and Richard Socher. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-main.750">Evaluating the factual consistency of abstractive text summarization</a>. In Bonnie Webber, Trevor Cohn, Yulan He, and Yang Liu, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing (EMNLP)</em>, pages 9332–9346, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-kullback-leibler-1951-information" class="csl-entry" role="listitem">
+Solomon Kullback and Richard A Leibler. 1951. On information and sufficiency. <em>The annals of mathematical statistics</em>, 22(1):79–86.
+</div>
+<div id="ref-lison-etal-2018-opensubtitles2018" class="csl-entry" role="listitem">
+Pierre Lison, Jörg Tiedemann, and Milen Kouylekov. 2018. <a href="https://aclanthology.org/L18-1275/"><span>O</span>pen<span>S</span>ubtitles2018: Statistical rescoring of sentence alignments in large, noisy parallel corpora</a>. In Nicoletta Calzolari, Khalid Choukri, Christopher Cieri, Thierry Declerck, Sara Goggi, Koiti Hasida, Hitoshi Isahara, Bente Maegaard, Joseph Mariani, Hélène Mazo, Asuncion Moreno, Jan Odijk, Stelios Piperidis, and Takenobu Tokunaga, editors, <em>Proceedings of the eleventh international conference on language resources and evaluation (<span>LREC</span> 2018)</em>, Miyazaki, Japan. European Language Resources Association (ELRA).
+</div>
+<div id="ref-lopes-etal-2020-document" class="csl-entry" role="listitem">
+António Lopes, M. Amin Farajian, Rachel Bawden, Michael Zhang, and André F. T. Martins. 2020. <a href="https://aclanthology.org/2020.eamt-1.24/">Document-level neural <span>MT</span>: A systematic comparison</a>. In André Martins, Helena Moniz, Sara Fumega, Bruno Martins, Fernando Batista, Luisa Coheur, Carla Parra, Isabel Trancoso, Marco Turchi, Arianna Bisazza, Joss Moorkens, Ana Guerberof, Mary Nurminen, Lena Marg, and Mikel L. Forcada, editors, <em>Proceedings of the 22nd annual conference of the european association for machine translation</em>, pages 225–234, Lisboa, Portugal. European Association for Machine Translation.
+</div>
+<div id="ref-madsen-etal-2022-posthoc" class="csl-entry" role="listitem">
+Andreas Madsen, Siva Reddy, and Sarath Chandar. 2022. <a href="https://doi.org/10.1145/3546577">Post-hoc interpretability for neural NLP: A survey</a>. <em>ACM Comput. Surv.</em>, 55(8).
+</div>
+<div id="ref-majumder-etal-2022-baseline" class="csl-entry" role="listitem">
+Suvodeep Majumder, Stanislas Lauly, Maria Nadejde, Marcello Federico, and Georgiana Dinu. 2022. <a href="https://arxiv.org/abs/2210.10906">A baseline revisited: Pushing the limits of multi-segment models for context-aware translation</a>. <em>ArXiv</em>, abs/2210.10906.
+</div>
+<div id="ref-maruf-etal-2021-survey" class="csl-entry" role="listitem">
+Sameen Maruf, Fahimeh Saleh, and Gholamreza Haffari. 2021. <a href="https://doi.org/10.1145/3441691">A survey on document-level neural machine translation: Methods and evaluation</a>. <em>ACM Comput. Surv.</em>, 54(2).
+</div>
+<div id="ref-maynez-etal-2020-faithfulness" class="csl-entry" role="listitem">
+Joshua Maynez, Shashi Narayan, Bernd Bohnet, and Ryan McDonald. 2020. <a href="https://doi.org/10.18653/v1/2020.acl-main.173">On faithfulness and factuality in abstractive summarization</a>. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, <em>Proceedings of the 58th annual meeting of the association for computational linguistics</em>, pages 1906–1919, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-mccoy-etal-2019-right" class="csl-entry" role="listitem">
+R. Thomas McCoy, Ellie Pavlick, and Tal Linzen. 2019. <a href="https://doi.org/10.18653/v1/P19-1334">Right for the wrong reasons: Diagnosing syntactic heuristics in natural language inference</a>. In Anna Korhonen, David Traum, and Lluís Màrquez, editors, <em>Proceedings of the 57th annual meeting of the association for computational linguistics</em>, pages 3428–3448, Florence, Italy. Association for Computational Linguistics.
+</div>
+<div id="ref-mohebbi-etal-2023-quantifying" class="csl-entry" role="listitem">
+Hosein Mohebbi, Willem Zuidema, Grzegorz Chrupała, and Afra Alishahi. 2023. <a href="https://doi.org/10.18653/v1/2023.eacl-main.245">Quantifying context mixing in transformers</a>. In Andreas Vlachos and Isabelle Augenstein, editors, <em>Proceedings of the 17th conference of the european chapter of the association for computational linguistics</em>, pages 3378–3400, Dubrovnik, Croatia. Association for Computational Linguistics.
+</div>
+<div id="ref-sarti-etal-2024-quantifying" class="csl-entry" role="listitem">
+Gabriele Sarti, Grzegorz Chrupała, Malvina Nissim, and Arianna Bisazza. 2024a. <a href="https://openreview.net/forum?id=XTHfNGI3zT">Quantifying the plausibility of context reliance in neural machine translation</a>. In <em>The twelfth international conference on learning representations (ICLR 2024)</em>, Vienna, Austria. OpenReview.
+</div>
+<div id="ref-sarti-etal-2024-democratizing" class="csl-entry" role="listitem">
+Gabriele Sarti, Nils Feldhus, Jirui Qi, Malvina Nissim, and Arianna Bisazza. 2024b. <a href="https://ceur-ws.org/Vol-3793/paper_37.pdf">Democratizing advanced attribution analyses of generative language models with the inseq toolkit</a>. In <em>xAI-2024 late-breaking work, demos and doctoral consortium joint proceedings</em>, pages 289–296, Valletta, Malta. CEUR.org.
+</div>
+<div id="ref-sarti-etal-2023-inseq-fixed" class="csl-entry" role="listitem">
+Gabriele Sarti, Nils Feldhus, Ludwig Sickert, Oskar van der Wal, Malvina Nissim, and Arianna Bisazza. 2023. <a href="https://doi.org/10.18653/v1/2023.acl-demo.40">Inseq: An interpretability toolkit for sequence generation models</a>. In Danushka Bollegala, Ruihong Huang, and Alan Ritter, editors, <em>Proceedings of the 61st annual meeting of the association for computational linguistics (volume 3: System demonstrations)</em>, pages 421–435, Toronto, Canada. Association for Computational Linguistics.
+</div>
+<div id="ref-shi-etal-2023-large" class="csl-entry" role="listitem">
+Freda Shi, Xinyun Chen, Kanishka Misra, Nathan Scales, David Dohan, Ed Chi, Nathanael Schärli, and Denny Zhou. 2023. Large language models can be easily distracted by irrelevant context. In <em>Proceedings of the 40th international conference on machine learning</em>, Honolulu, Hawaii, USA. JMLR.org.
+</div>
+<div id="ref-simonyan-etal-2014-saliency" class="csl-entry" role="listitem">
+Karen Simonyan, Andrea Vedaldi, and Andrew Zisserman. 2014. <a href="http://arxiv.org/abs/1312.6034">Deep inside convolutional networks: Visualising image classification models and saliency maps</a>. In Yoshua Bengio and Yann LeCun, editors, <em>2nd international conference on learning representations, (<span>ICLR</span>)</em>, Banff, AB, Canada.
+</div>
+<div id="ref-stanovsky-etal-2019-evaluating" class="csl-entry" role="listitem">
+Gabriel Stanovsky, Noah A. Smith, and Luke Zettlemoyer. 2019. <a href="https://doi.org/10.18653/v1/P19-1164">Evaluating gender bias in machine translation</a>. In Anna Korhonen, David Traum, and Lluís Màrquez, editors, <em>Proceedings of the 57th annual meeting of the association for computational linguistics</em>, pages 1679–1684, Florence, Italy. Association for Computational Linguistics.
+</div>
+<div id="ref-sundararajan-etal-2017-ig" class="csl-entry" role="listitem">
+Mukund Sundararajan, Ankur Taly, and Qiqi Yan. 2017. <a href="https://dl.acm.org/doi/10.5555/3305890.3306024">Axiomatic attribution for deep networks</a>. In <em>Proceedings of the 34th international conference on machine learning (ICML)</em>, volume 70, pages 3319–3328, Sydney, Australia. Journal of Machine Learning Research (JMLR).
+</div>
+<div id="ref-tang-etal-2022-reducing" class="csl-entry" role="listitem">
+Joel Tang, Marina Fomicheva, and Lucia Specia. 2022. <a href="https://arxiv.org/abs/2211.09878">Reducing hallucinations in neural machine translation with feature attribution</a>. <em>ArXiv</em>.
+</div>
+<div id="ref-tang-etal-2021-multilingual" class="csl-entry" role="listitem">
+Yuqing Tang, Chau Tran, Xian Li, Peng-Jen Chen, Naman Goyal, Vishrav Chaudhary, Jiatao Gu, and Angela Fan. 2021. <a href="https://doi.org/10.18653/v1/2021.findings-acl.304">Multilingual translation from denoising pre-training</a>. In Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli, editors, <em>Findings of the association for computational linguistics: ACL-IJCNLP 2021</em>, pages 3450–3466, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-tiedemann-scherrer-2017-neural" class="csl-entry" role="listitem">
+Jörg Tiedemann and Yves Scherrer. 2017. <a href="https://doi.org/10.18653/v1/W17-4811">Neural machine translation with extended context</a>. In Bonnie Webber, Andrei Popescu-Belis, and Jörg Tiedemann, editors, <em>Proceedings of the third workshop on discourse in machine translation</em>, pages 82–92, Copenhagen, Denmark. Association for Computational Linguistics.
+</div>
+<div id="ref-tiedemann-thottingal-2020-opus" class="csl-entry" role="listitem">
+Jörg Tiedemann and Santhosh Thottingal. 2020. <a href="https://aclanthology.org/2020.eamt-1.61/"><span>OPUS</span>-<span>MT</span> <span>–</span> building open translation services for the world</a>. In André Martins, Helena Moniz, Sara Fumega, Bruno Martins, Fernando Batista, Luisa Coheur, Carla Parra, Isabel Trancoso, Marco Turchi, Arianna Bisazza, Joss Moorkens, Ana Guerberof, Mary Nurminen, Lena Marg, and Mikel L. Forcada, editors, <em>Proceedings of the 22nd annual conference of the european association for machine translation</em>, pages 479–480, Lisboa, Portugal. European Association for Machine Translation.
+</div>
+<div id="ref-vafa-etal-2021-rationales" class="csl-entry" role="listitem">
+Keyon Vafa, Yuntian Deng, David Blei, and Alexander Rush. 2021. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.807">Rationales for sequential predictions</a>. In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing</em>, pages 10314–10332, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-vamvas-sennrich-2021-contrastive" class="csl-entry" role="listitem">
+Jannis Vamvas and Rico Sennrich. 2021a. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.803">Contrastive conditioning for assessing disambiguation in <span>MT</span>: <span>A</span> case study of distilled bias</a>. In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, editors, <em>Proceedings of the 2021 conference on empirical methods in natural language processing</em>, pages 10246–10265, Online; Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-vamvas-sennrich-2021-limits" class="csl-entry" role="listitem">
+Jannis Vamvas and Rico Sennrich. 2021b. <a href="https://doi.org/10.18653/v1/2021.blackboxnlp-1.5">On the limits of minimal pairs in contrastive evaluation</a>. In Jasmijn Bastings, Yonatan Belinkov, Emmanuel Dupoux, Mario Giulianelli, Dieuwke Hupkes, Yuval Pinter, and Hassan Sajjad, editors, <em>Proceedings of the fourth BlackboxNLP workshop on analyzing and interpreting neural networks for NLP</em>, pages 58–68, Punta Cana, Dominican Republic. Association for Computational Linguistics.
+</div>
+<div id="ref-vamvas-sennrich-2022-little" class="csl-entry" role="listitem">
+Jannis Vamvas and Rico Sennrich. 2022. <a href="https://doi.org/10.18653/v1/2022.acl-short.53">As little as possible, as much as necessary: Detecting over- and undertranslations with contrastive conditioning</a>. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio, editors, <em>Proceedings of the 60th annual meeting of the association for computational linguistics (volume 2: Short papers)</em>, pages 490–500, Dublin, Ireland. Association for Computational Linguistics.
+</div>
+<div id="ref-vaswani-etal-2017-attention" class="csl-entry" role="listitem">
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <a href="https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf">Attention is all you need</a>. In I. Guyon, U. Von Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, editors, <em>Advances in neural information processing systems</em>, volume 30. Curran Associates, Inc.
+</div>
+<div id="ref-voita-etal-2019-context" class="csl-entry" role="listitem">
+Elena Voita, Rico Sennrich, and Ivan Titov. 2019. <a href="https://doi.org/10.18653/v1/D19-1081">Context-aware monolingual repair for neural machine translation</a>. In Kentaro Inui, Jing Jiang, Vincent Ng, and Xiaojun Wan, editors, <em>Proceedings of the 2019 conference on empirical methods in natural language processing and the 9th international joint conference on natural language processing (EMNLP-IJCNLP)</em>, pages 877–886, Hong Kong, China. Association for Computational Linguistics.
+</div>
+<div id="ref-voita-etal-2021-analyzing" class="csl-entry" role="listitem">
+Elena Voita, Rico Sennrich, and Ivan Titov. 2021. <a href="https://doi.org/10.18653/v1/2021.acl-long.91">Analyzing the source and target contributions to predictions in neural machine translation</a>. In Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli, editors, <em>Proceedings of the 59th annual meeting of the association for computational linguistics and the 11th international joint conference on natural language processing (volume 1: Long papers)</em>, pages 1126–1140, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-voita-etal-2018-context" class="csl-entry" role="listitem">
+Elena Voita, Pavel Serdyukov, Rico Sennrich, and Ivan Titov. 2018. <a href="https://doi.org/10.18653/v1/P18-1117">Context-aware neural machine translation learns anaphora resolution</a>. In Iryna Gurevych and Yusuke Miyao, editors, <em>Proceedings of the 56th annual meeting of the association for computational linguistics (volume 1: Long papers)</em>, pages 1264–1274, Melbourne, Australia. Association for Computational Linguistics.
+</div>
+<div id="ref-wei-etal-2022-chain" class="csl-entry" role="listitem">
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed Chi, Quoc V. Le, and Denny Zhou. 2022. <a href="https://dl.acm.org/doi/10.5555/3600270.3602070">Chain-of-thought prompting elicits reasoning in large language models</a>. In S. Koyejo, S. Mohamed, A. Agarwal, D. Belgrave, K. Cho, and A. Oh, editors, <em>Advances in neural information processing systems</em>, volume 35, pages 24824–24837. Curran Associates, Inc.
+</div>
+<div id="ref-wolf-etal-2020-transformers" class="csl-entry" role="listitem">
+Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue, Anthony Moi, Pierric Cistac, Tim Rault, Remi Louf, Morgan Funtowicz, Joe Davison, Sam Shleifer, Patrick von Platen, Clara Ma, Yacine Jernite, Julien Plu, Canwen Xu, Teven Le Scao, Sylvain Gugger, et al. 2020. <a href="https://doi.org/10.18653/v1/2020.emnlp-demos.6">Transformers: State-of-the-art natural language processing</a>. In Qun Liu and David Schlangen, editors, <em>Proceedings of the 2020 conference on empirical methods in natural language processing: System demonstrations</em>, pages 38–45, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-yin-etal-2021-context" class="csl-entry" role="listitem">
+Kayo Yin, Patrick Fernandes, Danish Pruthi, Aditi Chaudhary, André F. T. Martins, and Graham Neubig. 2021. <a href="https://doi.org/10.18653/v1/2021.acl-long.65">Do context-aware translation models pay the right attention?</a> In Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli, editors, <em>Proceedings of the 59th annual meeting of the association for computational linguistics and the 11th international joint conference on natural language processing (volume 1: Long papers)</em>, pages 788–801, Online. Association for Computational Linguistics.
+</div>
+<div id="ref-yin-neubig-2022-interpreting" class="csl-entry" role="listitem">
+Kayo Yin and Graham Neubig. 2022. <a href="https://doi.org/10.18653/v1/2022.emnlp-main.14">Interpreting language models with contrastive explanations</a>. In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang, editors, <em>Proceedings of the 2022 conference on empirical methods in natural language processing</em>, pages 184–198, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+</div>
+<div id="ref-zeiler-fergus-2014-visualizing" class="csl-entry" role="listitem">
+Matthew D. Zeiler and Rob Fergus. 2014. <a href="https://doi.org/10.1007/978-3-319-10590-1_53">Visualizing and understanding convolutional networks</a>. In David Fleet, Tomas Pajdla, Bernt Schiele, and Tinne Tuytelaars, editors, <em>13th european conference on computer vision (ECCV)</em>, pages 818–833, Switzerland. Springer International Publishing.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Code: <a href="https://github.com/gsarti/pecore" class="uri">https://github.com/gsarti/pecore</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We avoid using the term <em>faithfulness</em> due to its ambiguous usage in interpretability research.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>In the contextual MT example of <a href="#fig-pecore" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>, <span class="math inline">\(C\)</span> includes source context <span class="math inline">\(C_x\)</span> and target context <span class="math inline">\(C_y\)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>We use <span class="math inline">\(m^i\)</span> to denote the result of <span class="math inline">\(m(P_\text{ctx}^{i}, P_\text{no-ctx}^{i})\)</span>. Several metrics are presented in <a href="#sec-chap4-cti-metrics" class="quarto-xref"><span>Section 4.4.2</span></a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>SCAT+ is available on the Hugging Face Hub: <a href="https://hf.co/datasets/inseq/scat"><code>inseq/scat</code></a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Our modified version of <span class="smallcaps">DiscEval-MT</span> is available on the Hugging Face Hub: <a href="https://hf.co/datasets/inseq/disc_eval_mt"><code>inseq/disc_eval_mt</code></a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Provided that <span class="math inline">\(P_\text{no-ctx}(\hat y_i)\)</span> does not depend on context, the <span class="math inline">\(\nabla_\text{KL}\)</span> gradient is functionally equivalent to the gradient for the cross-entropy function <span class="math inline">\(H(P_\text{ctx}, P_\text{no-ctx}) = - \sum_{\hat{y}_i \in \mathcal{V}} P_\text{ctx}(\hat{y}_i) \log P_\text{no-ctx}(\hat{y}_i)\)</span>).<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>The interface is available at: <a href="https://huggingface.co/spaces/gsarti/pecore" class="uri">https://huggingface.co/spaces/gsarti/pecore</a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><a href="https://huggingface.co/stabilityai/stablelm-2-zephyr-1_6b"><code>stabilityai/stablelm-2-zephyr-1_6b</code></a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/chap-3-inseq.html" class="pagination-link" aria-label="Attributing Language Model Generations with the Inseq Toolkit">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Attributing Language Model Generations with the Inseq Toolkit</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/chap-5-mirage.html" class="pagination-link" aria-label="Answer Attribution for Trustworthy Retrieval-Augmented Generation">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Answer Attribution for Trustworthy Retrieval-Augmented Generation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Gabriele Sarti. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://www.rug.nl/?lang=en"><img src="../figures/logos/rug_eng_red.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/?lang=en"><img src="../figures/logos/clcg.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://projects.illc.uva.nl/indeep/"><img src="../figures/logos/indeep_logo_horizontal.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a> <a href="https://www.rug.nl/research/clcg/research/cl/?lang=en"><img src="../figures/logos/gronlp.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+</div>
+    <div class="nav-footer-right">
+<p>Written with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>
