@@ -21,7 +21,7 @@ date_end = "2023-07-01"
 program = "MSc in AI, RUG"
 program_url = "https://www.rug.nl/masters/artificial-intelligence"
 website_url = "https://www.linkedin.com/in/lsickert"
-image_url = "https://media.licdn.com/dms/image/v2/C4D03AQHC30RRdIjJhQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1594219499683?e=1749686400&v=beta&t=pC6z_omu2bONjrpDITawuG18Ts6d6t4z-p_Af14HzA8"
+image_url = "https://cdn.prod.website-files.com/667132321e704c85d0ba4cda/6853cda0851700591a7b7fc8_ludwig2.avif"
 projects = [
   {date = "2022-04-11", date_end = "2023-07-01", project_type = "MSc Thesis", project = "Assessing Formality in Machine Translation through Interpretability Methods", project_url = ""}
 ]
@@ -68,13 +68,14 @@ projects = [
 
 name = "Sara Candussio"
 date = "2024-04-01"
-date_end = "2024-09-20"
-program = "MSc in Data Science, University of Trieste"
-program_url = "https://dssc.units.it/"
+date_end = "2027-10-31"
+program = "PhD in Artificial Intelligence, University of Trieste"
+program_url = "https://adsai.units.it/"
 website_url = "https://www.linkedin.com/in/sara-candussio-830772283/"
-image_url = "https://media.licdn.com/dms/image/v2/D5603AQHfLAqdb7zZGg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1689350451259?e=1749686400&v=beta&t=pM5ky-eUH4Lhh-jeGjdwoip7-QLBcZwPLG7WDyrEKc8"
+image_url = "https://cdn-avatars.huggingface.co/v1/production/uploads/651fe087c656e1d4e49c9809/ydb-kJdEzZKBru8kgGYX8.jpeg"
 projects = [
-  {date = "2024-04-01", date_end = "2024-09-20", project_type = "MSc Thesis", project = "A Dialectic Pipeline for Improving LLM Robustness", project_url = ""}
+  {date = "2024-04-01", date_end = "2024-09-20", project_type = "MSc Thesis", project = "A Dialectic Pipeline for Improving LLM Robustness", project_url = ""},
+  {date = "2024-11-01", date_end = "2027-10-31", project_type = "PhD Thesis", project = "Augmenting Large Language Models with Neuro-symbolic Reasoning", project_url = ""},
 ]
 
 [supervision.sdavenia]
@@ -85,7 +86,7 @@ date_end = "2024-10-21"
 program = "MSc in Data Science, University of Trieste"
 program_url = "https://dssc.units.it/"
 website_url = "https://www.linkedin.com/in/samuele-d-avenia-537a2b229"
-image_url = "https://media.licdn.com/dms/image/v2/D4D03AQELygRo0Bogpg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1665005557870?e=1749686400&v=beta&t=cfCj0WfiEB4r_J6fc-XfI1VJfNZAsm5gsGX6rDbSJWI"
+image_url = "https://media.licdn.com/dms/image/v2/D4D03AQELygRo0Bogpg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1665005557870?e=2147483647&v=beta&t=Y-wNNCKZRmZ1KFA4Rb80nBsj8qZ3fBkI96b4PWtxYwA"
 projects = [
   {date = "2024-04-20", date_end = "2024-10-21", project_type = "MSc Thesis", project = "Interpretability in VLMs: Extending the PECoRe Framework to Image Context", project_url = ""}
 ]
@@ -100,18 +101,18 @@ program_url = "https://lct-master.org/"
 website_url = "https://scholar.google.com/citations?user=UsCFAAcAAAAJ"
 image_url = "https://scholar.googleusercontent.com/citations?view_op=view_photo&user=UsCFAAcAAAAJ&citpid=15"
 projects = [
-  {date = "2024-11-01", date_end = "2025-05-01", project_type = "MSc Project", project = "Evaluating and Attributing Reasoning in LLMs for the Bangla Language", project_url = ""}
+  {date = "2024-11-01", date_end = "2025-05-01", project_type = "MSc Project", project = "Reveal-Bangla: A Dataset for Cross-Lingual Multi-Step Reasoning Evaluation", project_url = "", paperlink = ["https://arxiv.org/abs/2508.08933"]}
 ]
 
 [academic_service]
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024, ICLR 2025, ICLR 2026"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024, ICLR 2025, ICLR 2026, TMLR, EACL 2026"
 
 area_chair.icon = "chair"
 area_chair.task = "Area Chair"
-area_chair.venues = "ACL 2025, CLiC-it 2025, EMNLP 2025"
+area_chair.venues = "ACL 2025, CLiC-it 2025, EMNLP 2025, BlackboxNLP 2025"
 
 workshop_organizer.icon = "users"
 workshop_organizer.task = "Workshop Organizer"
@@ -163,6 +164,13 @@ iknlp25.website = "https://sites.google.com/rug.nl/ik-nlp-2025"
 iknlp25.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
 [events]
+
+emnlp25.shortname = "EMNLP 2025"
+emnlp25.date = "2025-11-04"
+emnlp25.url = "2025.emnlp.org"
+emnlp25.location = "Suzhou, China"
+emnlp25.paperlink = ["https://gsarti.com/publication/qe4pe", "https://gsarti.com/publication/unsup-wqe"]
+emnlp25.description = "2 oral presentations"
 
 nemi25.shortname = "NEMI 2025"
 nemi25.date = "2025-08-22"
