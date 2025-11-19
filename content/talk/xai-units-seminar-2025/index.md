@@ -2,20 +2,20 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Interpretability for Language Models: Current Trends and Applications"
-event: Invited Lecture, MSc Course on Trustworthy and Explainable AI, University of Groningen
+event: Invited Lecture, MSc Course on Explainable and Neuro-symbolic AI, University of Trieste
 event_url:
-location:  Bernoulli Institute, Faculty of Science and Engineering, University of Groningen
+location:  Online
 address:
   street:
-  city: Groningen
+  city:
   region: 
   postcode:
-  country: Netherlands
-summary: "In this presentation, I will provide an overview of the interpretability research landscape and describe various promising methods for exploring and controlling the inner mechanisms of generative language models. I will focus specifically on post-hoc attribution technique and their usage to identify relevant input and model components, showcasing their usage with our Inseq open-source toolkit. A practical application of attribution techniques will be presented with the PECoRe data-driven framework for context usage attribution and its adaptation to produce internals-based citations for model answers in retrieval-augmented generation settings (MIRAGE)."
+  country: Italy
+summary: "In this presentation, I will provide an overview of the interpretability research landscape and describe various promising methods for exploring and controlling the inner mechanisms of generative language models. I will start discussing post-hoc attribution technique and their usage to identify prediction-relevant inputs, showcasing their usage within our PECoRe framework for context usage attribution, and its adaptation to produce internals-based citations in retrieval-augmented generation settings (MIRAGE). The final part will present core insight from recent mechanistic interpretability literature, focusing on the construction of replacement models to build concept attribution graphs and their practical usage for monitoring LLM behaviors."
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-date: 2025-03-24T14:00:00+01:00
+date: 2025-11-19T10:00:00+01:00
 #date_end: 2019-10-27T17:59:41+01:00
 all_day: true
 
@@ -23,7 +23,7 @@ all_day: true
 publishDate: 2024-07-15
 
 authors: [Gabriele Sarti]
-tags: [Natural Language Processing, Interpretability, Sequence-to-sequence, Language Modeling, Feature Attribution, Retrieval-augmented Generation]
+tags: [Natural Language Processing, Interpretability, Language Modeling, Feature Attribution, Retrieval-augmented Generation, Mechanistic Interpretability]
 categories: ["Natural Language Processing", "Academic"]
 
 # Is this a featured talk? (true/false)
@@ -46,9 +46,9 @@ image:
 #   icon: twitter
 
 # Optional filename of your slides within your talk's folder or a URL.
-url_slides: https://docs.google.com/presentation/d/1uid4lkMgk2qgnkbHByM6ZoAhg4M9kdIigHAjruvaxgE/edit?usp=sharing
+url_slides: https://docs.google.com/presentation/d/1KTV22f30jCdaRaLPARFF19yfBM4qknsHdK6Ndt_NkgU/edit?usp=sharing
 
-url_code: https://github.com/inseq-team/inseq
+url_code:
 url_pdf:
 url_video:
 
