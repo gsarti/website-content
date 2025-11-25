@@ -29,8 +29,10 @@ title = "PhD Thesis"
     <p class="subtitle">PhD Thesis at the University of Groningen</p>
     <p>This dissertation aims to bridge the gap between method-centric interpretability research and outcome-centric real-world machine translation applications. We develop novel methods to understand and control language model generation, then study how to integrate these advances effectively into human translation workflows. Our research spans three interconnected macro-themes: understanding how language models <b>exploit contextual information</b> during generation, <b>controlling model generation</b> for personalized translation outputs, and <b>integrating interpretability insights</b> into human translation workflows.</p>
     <p style="margin-top: 1.5rem;">
-      <a href="/phd-thesis/" target="_blank" class="btn btn-primary" style="margin-right: 10px;">Web version</a>
-      <a href="/files/gabriele_sarti_from_insights_to_impact.pdf" target="_blank" class="btn btn-outline-primary" style="margin-right: 10px;">PDF</a>
+      <a href="/phd-thesis/" target="_blank" class="btn btn-primary" style="margin-right: 10px;">Web Book</a>
+      <a href="/files/gabriele_sarti_from_insights_to_impact.pdf" target="_blank" class="btn btn-primary" style="margin-right: 10px;">PDF</a>
+      <button type="button" class="btn btn-outline-primary my-1 js-cite-modal" data-filename="/publication/from-insight-to-impact/cite.bib" style="margin-right: 10px;">Cite</button>
+      <a href="https://hdl.handle.net/11370/97754e4b-f978-477e-a394-83f67cca257c" target="_blank" class="btn btn-outline-primary" style="margin-right: 10px;">RUG Page</a>
       <a href="https://github.com/gsarti/phd-thesis" target="_blank" class="btn btn-outline-primary">Quarto template</a>
     </p>
   </div>
