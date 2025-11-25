@@ -1,0 +1,149 @@
+// Override this file to add your own SCSS styling.
+.interest-list-item {
+    padding-bottom: 10px;
+}
+
+/* PhD Thesis 3D Book Styles */
+.phd-book-section {
+  display: flex;
+  gap: 3rem;
+  margin: 2rem 0;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.phd-book-container {
+  z-index: 1;
+  perspective: 3000px;
+  flex: 0 0 auto;
+}
+
+.phd-book-link {
+  text-decoration: none;
+  display: block;
+}
+
+.phd-book {
+  position: relative;
+  display: block;
+  width: 311px;
+  height: 400px;
+  margin: 0 auto;
+  border-radius: 2px 4px 4px 2px;
+  box-shadow: 13px 13px 8px 0px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  transform: rotate3d(0, 1, 0, 30deg);
+  transition: transform 0.5s;
+  cursor: pointer;
+}
+
+.phd-book:hover {
+  transform: rotate3d(0, 1, 0, 50deg);
+}
+
+.phd-book > div {
+  display: block;
+  position: absolute;
+}
+
+.phd-front {
+  transform-style: preserve-3d;
+  transform-origin: 0% 50%;
+  transition: transform 0.5s;
+  transform: translate3d(0, 0, 20px);
+  z-index: 10;
+}
+
+.phd-front > div {
+  width: 300px;
+  height: 400px;
+}
+
+.phd-cover {
+  background-image: url('/files/phd_thesis_cover.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 3px 3px 0;
+  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.phd-left-side {
+  width: 30px;
+  left: -8px;
+  height: 400px;
+  background-image: url('/files/phd_thesis_spine.png');
+  background-size: cover;
+  background-position: center;
+  transform: rotate3d(0, 1, 0, -90deg);
+}
+
+.phd-left-side h2 {
+  width: 400px;
+  height: 40px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 40px;
+  padding-right: 10px;
+  text-align: right;
+  margin: 0;
+  transform-origin: 0 0;
+  transform: rotate(90deg) translateY(-40px);
+}
+
+.phd-left-side h2 span:first-child {
+  font-weight: 400;
+  font-size: 12px;
+  padding-right: 20px;
+}
+
+.phd-left-side h2 span:last-child {
+  font-weight: 600;
+}
+
+.phd-book-description {
+  flex: 1 1 400px;
+  min-width: 300px;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.75rem;
+  }
+
+  .subtitle {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 768px) {
+  .phd-book-section {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .phd-book {
+    width: 240px;
+    height: 340px;
+  }
+
+  .phd-front > div {
+    width: 240px;
+    height: 340px;
+  }
+
+  .phd-left-side {
+    height: 340px;
+  }
+
+  .phd-left-side h2 {
+    width: 340px;
+  }
+}
