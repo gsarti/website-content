@@ -10,12 +10,12 @@ authors:
 superuser: true
 
 # Role/position
-role: PhD in Natural Language Processing
+role: Postdoc in Interpretability for NLP
 
 # Organizations/Affiliations
 organizations:
-- name: CLCG, University of Groningen
-  url: "https://www.rug.nl/research/clcg/?lang=en"
+- name: Khoury College of Computer Sciences, Northeastern University
+  url: "https://baulab.info/"
 
 # Short bio (displayed in user profile at end of posts)
 bio: I am PhD student in interpretable neural machine translation at the University of Groningen. My research focuses on interpretability for NLP models, in particular to the benefit of end-users and by leveraging human behavioral signals.
@@ -35,7 +35,7 @@ education:
   - course: PhD in Natural Language Processing
     institution: University of Groningen
     country: NL
-    year: 2021 - Ongoing
+    year: 2021 - 2025
     url: https://www.rug.nl/research/clcg/?lang=en
   - course: MSc. in Data Science and Scientific Computing
     institution: University of Trieste & SISSA
@@ -49,6 +49,13 @@ education:
 
 work_experience:
   positions:
+  - denomination: Postdoctoral Researcher
+    company: Northeastern University
+    url: https://baulab.info
+    location: US
+    year: 2026 -
+    icon: university
+    icon_type: fas
   - denomination: Applied Scientist Intern
     company: Amazon Web Services
     url: https://aws.amazon.com/translate/
@@ -63,13 +70,13 @@ work_experience:
     icon: flask
     icon_type: fas
     location: IT
-  - denomination: Visiting Research Assistant
-    company: ILC-CNR ItaliaNLP Lab
-    url: "http://www.italianlp.it"
-    year: 2019
-    icon: flask
-    icon_type: fas
-    location: IT
+  #- denomination: Visiting Research Assistant
+  #  company: ILC-CNR ItaliaNLP Lab
+  #  url: "http://www.italianlp.it"
+  #  year: 2019
+  #  icon: flask
+  #  icon_type: fas
+  #  location: IT
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
@@ -116,10 +123,10 @@ user_groups:
 - Visitors
 ---
 
-Welcome to my website! 👋 I am a PhD student in the [InCLoW team](https://inclow-lm.github.io/) within the [Natural Language Processing group](https://www.rug.nl/research/clcg/research/cl/) (GroNLP 🐮) at the University of Groningen. I'm also a member of the [InDeep consortium](https://projects.illc.uva.nl/indeep/), working on user-centric interpretability for generative language models. My supervisors are [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me).
+Welcome to my website! 👋 I am a postdoc in the [BauLab](https://baulab.info) at Northeastern University, working on the [National Deep Inference Fabric (NDIF)](https://ndif.us) project to empower interpretability researchers with intuitive and extensible interfaces.
 
-Previously, I was a applied scientist intern at [Amazon Translate NYC](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), and a [Data Science MSc](https://dssc.units.it/) student at the University of Trieste, where I helped found the [AI Student Society](https://www.ai2s.it).
+Previously, I was a PhD student at the University of Groningen, where I completed my thesis on [actionable interpretability for machine translation](https://gsarti.com/phd-thesis/) as a member of the [InCLoW team](https://inclow-lm.github.io/), the [GroNLP group](https://www.rug.nl/research/clcg/research/cl/) and the Dutch [InDeep consortium](https://projects.illc.uva.nl/indeep/). My supervisors were [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me). Before that, I was a applied scientist intern at [Amazon Translate NYC](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), and a [Data Science MSc](https://dssc.units.it/) student at the University of Trieste, where I helped found the [AI Student Society](https://www.ai2s.it).
 
-My research aims to translate theoretical advances in language models interpretability into actionable insights for improving trustworthiness and human-AI collaboration. To this end, I lead the development of [open-source interpretability software](https://github.com/inseq-team/inseq) projects to enable reproducible analyses of model behaviors. I am also excited about the potential of [human behavioral signals](https://gsarti.com/msc-thesis/introduction.html) such as keylogging, gaze and brain recordings to improve the usability and personalization of AI solutions.
+My research aims to translate theoretical advances in language models interpretability into actionable insights for improving trustworthiness and human-AI collaboration. To this end, I lead the development of [open-source interpretability software](https://github.com/inseq-team/inseq) projects to enable reproducible analyses of model behaviors. I am also excited about the potential of [human behavioral signals](https://gsarti.com/msc-thesis/introduction.html) for personalizing AI workflows.
 
 Your [(anonymous) constructive feedback](https://www.admonymous.co/gsarti) is always welcome! 🙂

@@ -383,7 +383,13 @@ lcl19.paperlink = ["https://github.com/gsarti/svevo-letters-analysis"]
  css_class = ""
 +++
 
+### 2026
+
+**January 2026**: I started a postdoctoral position at Northeastern University as a member of the [BauLab](https://baulab.info). Very excited to work with the [NDIF team](https://ndif.us) on building cutting-edge tools for interpretability research! 🔍
+
 ### 2025
+
+**December 2025**: I graduated cum laude with my PhD in Natural Language Processing from the University of Groningen! 🎓 My thesis on [Actionable Interpretability for Machine Translation](https://gsarti.com/phd-thesis/) is now available online. Huge thanks to my supervisors [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me) for their support during these years.
 
 **February 2025**: I am visiting the [IRT Saint-Exupéry](https://www.irt-saintexupery.com/) in Toulouse, France, to collaborate on an interpretability project with the [DEEL team](https://www.irt-saintexupery.com/deel-le-programme-en-intelligence-artificielle-robuste-et-explicable-entre-dans-sa-phase-2/).
 
