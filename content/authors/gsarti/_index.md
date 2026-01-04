@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Postdoc in Interpretability for NLP
+role: Postdoc in NLP Interpretability
 
 # Organizations/Affiliations
 organizations:
