@@ -50,6 +50,8 @@ title = "🗞️ News"
 
 &nbsp;
 
+- I am mentoring a project titled "[Monitoring and Attributing Implicit Personalization in Conversational Agents](https://sparai.org/projects/sp26/recx8Hxs0HQW6Sgkg) as part of the [Spring'26 SPAR Program](https://sparai.org). Looking for 3-4 motivated mentees! Apply by **January 14th, 2026**. 🚀
+
 - I started a postdoctoral position at Northeastern University as a member of the [BauLab](https://baulab.info). Very excited to work with the [NDIF team](https://ndif.us) on building cutting-edge tools for interpretability research! 🔍
 
 - I graduated cum laude with my PhD in Natural Language Processing from the University of Groningen! 🎓 My thesis on [Actionable Interpretability for Machine Translation](https://gsarti.com/phd-thesis/) is now available online. Huge thanks to my supervisors [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me) for their support during these years.
