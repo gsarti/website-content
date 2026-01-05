@@ -18,7 +18,7 @@ organizations:
   url: "https://baulab.info/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: I am PhD student in interpretable neural machine translation at the University of Groningen. My research focuses on interpretability for NLP models, in particular to the benefit of end-users and by leveraging human behavioral signals.
+bio: I am postdoc in the BauLab at Northeastern University, working on the National Deep Inference Fabric (NDIF) project to empower researchers with intuitive and extensible interfaces for interpretability analyses. My research interests include natural language processing, deep learning interpretability and human-AI interaction.
 
 interests:
 - name: Generative Language Models
