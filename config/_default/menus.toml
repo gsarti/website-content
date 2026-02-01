@@ -62,8 +62,19 @@
   weight = 1
 
 [[main]]
-  name = "Communities"
+  name = "Tools"
   weight = 9
+  identifier = "tools"
+
+[[main]]
+  name = "LangLearn"
+  url = "langlearn/"
+  parent = "tools"
+  weight = 1
+
+[[main]]
+  name = "Communities"
+  weight = 10
   identifier = "communities"
 
 [[main]]
