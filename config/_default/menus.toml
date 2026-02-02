@@ -67,10 +67,16 @@
   identifier = "tools"
 
 [[main]]
+  name = "Inseq"
+  url = "https://github.com/inseq-team/inseq"
+  parent = "tools"
+  weight = 1
+
+[[main]]
   name = "LangLearn"
   url = "langlearn/"
   parent = "tools"
-  weight = 1
+  weight = 2
 
 [[main]]
   name = "Communities"
