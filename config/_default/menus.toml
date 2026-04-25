@@ -79,6 +79,12 @@
   weight = 2
 
 [[main]]
+  name = "Scholar Monitor"
+  url = "scholar_monitor/"
+  parent = "tools"
+  weight = 3
+
+[[main]]
   name = "Communities"
   weight = 10
   identifier = "communities"
