@@ -36,8 +36,6 @@ featured: false
 #   icon_pack: fab
 #   icon: twitter
 links:
-
-links:
 - name: CLiC-it 2020
   url: http://ceur-ws.org/Vol-2769/paper_56.pdf
   icon_pack: fas
