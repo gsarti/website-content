@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Postdoc in NLP Interpretability
+role: Postdoc in LLM Interpretability
 
 # Organizations/Affiliations
 organizations:
@@ -18,16 +18,16 @@ organizations:
   url: "https://baulab.info/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: I am postdoc in the BauLab at Northeastern University, working on the National Deep Inference Fabric (NDIF) project to empower researchers with intuitive and extensible interfaces for interpretability analyses. My research interests include natural language processing, deep learning interpretability and human-AI interaction.
+bio: I am postdoc in the BauLab at Northeastern University, working on interpretability interfaces and white-box methods for the evaluations ecosystem as part of the National Deep Inference Fabric (NDIF). My research interests include LLM reasoning, interpretability, user modeling and white-box auditing of agentic systems.
 
 interests:
-- name: Generative Language Models
+- name: Reasoning Language Models
   icon: comment-dots
-- name: Deep Learning Interpretability
+- name: Mechanistic Interpretability
   icon: magnifying-glass
-- name: Human-AI Interaction
-  icon: handshake
 - name: User Modeling and Personalization
+  icon: handshake
+- name: Alignment Auditing for Agents
   icon: eye
 
 education:
@@ -42,10 +42,6 @@ education:
     country: IT
     year: 2018 - 2020
     url: https://dssc.units.it/
-  - course: DEC in Software Management
-    institution: Cégep de Saint-Hyacinthe
-    year: 2015 - 2018
-    country: CA
 
 work_experience:
   positions:
@@ -123,10 +119,10 @@ user_groups:
 - Visitors
 ---
 
-Welcome to my website! 👋 I am a postdoc in the [BauLab](https://baulab.info) at Northeastern University, working on the [National Deep Inference Fabric (NDIF)](https://ndif.us) project to empower interpretability researchers with intuitive and extensible interfaces.
+Welcome to my website! 👋 I am a postdoc at the [BauLab](https://baulab.info) at Northeastern University, working on interpretability interfaces and white-box methods for the evaluations ecosystem as part of the [National Deep Inference Fabric (NDIF)](https://ndif.us).
 
-Previously, I was a PhD student at the University of Groningen, where I completed my thesis on [actionable interpretability for machine translation](https://gsarti.com/phd-thesis/) as a member of the [InCLoW team](https://inclow-lm.github.io/), the [GroNLP group](https://www.rug.nl/research/clcg/research/cl/) and the Dutch [InDeep consortium](https://projects.illc.uva.nl/indeep/). My supervisors were [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me). Before that, I was a applied scientist intern at [Amazon Translate NYC](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing), a research scientist at [Aindo](https://www.aindo.com), and a [Data Science MSc](https://dssc.units.it/) student at the University of Trieste, where I helped found the [AI Student Society](https://www.ai2s.it).
+Previously, I was a PhD student at the University of Groningen, where I completed my thesis on [actionable interpretability for machine translation](https://gsarti.com/phd-thesis/) as a member of the [InCLoW team](https://inclow-lm.github.io/), the [GroNLP group](https://www.rug.nl/research/clcg/research/cl/) and the Dutch [InDeep consortium](https://projects.illc.uva.nl/indeep/). Before that, I was a applied scientist intern at [Amazon Translate NYC](https://www.amazon.science/research-areas/conversational-ai-natural-language-processing) and a research scientist at [Aindo](https://www.aindo.com).
 
-My research aims to translate theoretical advances in language models interpretability into actionable insights for improving trustworthiness and human-AI collaboration. To this end, I lead the development of [open-source interpretability software](https://github.com/inseq-team/inseq) projects to enable reproducible analyses of model behaviors. I am also excited about the potential of [human behavioral signals](https://gsarti.com/msc-thesis/introduction.html) for personalizing AI workflows.
+My current research interests include LLM reasoning, interpretability, user modeling and monitoring of agentic systems. I'm especially interested in making white-box auditing a practical part of how we evaluate frontier AI, since behavioural tests [fail to surface unverbalized behaviors](https://www.apolloresearch.ai/governance/the-need-for-deeper-white-box-access-to-maintain-state-of-the-art-evaluations-for-loss-of-control-threats/), and are [increasingly inadequate](https://www.far.ai/news/ai-deception-white-box) as models get more capable. I work on ways to surface and steer the beliefs, goals, and plans behind what an agent does, and on the open infrastructure that links interpretability tools to the evaluation ecosystem. If you're excited about these topics, shoot me a message!
 
 Your [(anonymous) constructive feedback](https://www.admonymous.co/gsarti) is always welcome! 🙂

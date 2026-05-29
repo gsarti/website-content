@@ -50,15 +50,19 @@ title = "🗞️ News"
 
 &nbsp;
 
-- I am mentoring a project titled "[Monitoring and Attributing Implicit Personalization in Conversational Agents](https://sparai.org/projects/sp26/recx8Hxs0HQW6Sgkg) as part of the [Spring'26 SPAR Program](https://sparai.org). Looking for 3-4 motivated mentees! Apply by **January 14th, 2026**. 🚀
+- I am co-organizing the [BlackboxNLP Workshop](https://blackboxnlp.github.io/2025/) at EMNLP 2026! Participate in our [reproducibility challenge](https://blackboxnlp.github.io/2026/reproducibility/)! 🔍
+
+- I worked with talented mentees as part of the [Spring'26 SPAR Program](https://sparai.org) on the project "[Monitoring and Attributing Implicit Personalization in Conversational Agents](https://sparai.org/projects/sp26/recx8Hxs0HQW6Sgkg), and will be a mentor for the [CBAI Summer Fellowship](https://www.cbai.ai/gabriele-sarti) as well! 🌱
+
+- My PhD thesis on [Actionable Interpretability for Machine Translation](https://gsarti.com/phd-thesis/) was awarded the [2025 Best Dissertation Award](https://eamt.org/2026/04/14/2025-anthony-c-clarke-award-for-the-eamt-best-thesis-awardee-announcement/) by the [European Association for Machine Translation](https://eamt.org)! Excited to present my work in Tilburg in June 🏆
 
 - I started a postdoctoral position at Northeastern University as a member of the [BauLab](https://baulab.info). Very excited to work with the [NDIF team](https://ndif.us) on building cutting-edge tools for interpretability research! 🔍
 
-- I graduated cum laude with my PhD in Natural Language Processing from the University of Groningen! 🎓 My thesis on [Actionable Interpretability for Machine Translation](https://gsarti.com/phd-thesis/) is now available online. Huge thanks to my supervisors [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me) for their support during these years.
+- I graduated cum laude from my PhD in Natural Language Processing at the University of Groningen! 🎓 My thesis on [Actionable Interpretability for Machine Translation](https://gsarti.com/phd-thesis/) is now available online. Huge thanks to my supervisors [Arianna Bisazza](http://www.cs.rug.nl/~bisazza/), [Malvina Nissim](https://malvinanissim.github.io/) and [Grzegorz Chrupała](https://grzegorz.chrupala.me) for their support during these years.
 
-- Our paper [QE4PE: Word-level Quality Estimation for Human Post-Editing](https://arxiv.org/abs/2503.03044) was accepted by [TACL](https://transacl.org/index.php/tacl), and [Unsupervised Word-level Quality Estimation for Machine Translation Through the Lens of Annotators (Dis)agreement](https://arxiv.org/abs/2505.23183) was accepted to [EMNLP Main](https://2025.emnlp.org/)! I will present both at EMNLP in Suzhou, China 🇨🇳
+<!-- - Our paper [QE4PE: Word-level Quality Estimation for Human Post-Editing](https://arxiv.org/abs/2503.03044) was accepted by [TACL](https://transacl.org/index.php/tacl), and [Unsupervised Word-level Quality Estimation for Machine Translation Through the Lens of Annotators (Dis)agreement](https://arxiv.org/abs/2505.23183) was accepted to [EMNLP Main](https://2025.emnlp.org/)! I will present both at EMNLP in Suzhou, China 🇨🇳 -->
 
-- I am co-organizing the [BlackboxNLP Workshop](https://blackboxnlp.github.io/2025/) at EMNLP 2025! Test your localization methods in our [shared task](https://blackboxnlp.github.io/2025/task/)! 🔍
+<!-- - I am co-organizing the [BlackboxNLP Workshop](https://blackboxnlp.github.io/2025/) at EMNLP 2025! Test your localization methods in our [shared task](https://blackboxnlp.github.io/2025/task/)! 🔍 -->
 
 <!-- - I am visiting the [IRT Saint-Exupéry](https://www.irt-saintexupery.com/) in Toulouse, France, to collaborate on an interpretability project with the [DEEL team](https://www.irt-saintexupery.com/deel-le-programme-en-intelligence-artificielle-robuste-et-explicable-entre-dans-sa-phase-2/)! 🇫🇷 -->
 

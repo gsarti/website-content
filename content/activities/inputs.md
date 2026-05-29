@@ -13,6 +13,33 @@ subtitle = "A summary of my professional activities"
 
 [supervision]
 
+[supervision.cbai]
+
+name = "CBAI Mentees"
+date = "2026-06-01"
+date_end = "2026-09-01"
+program = "Cambridge Boston Alignment Initiative (CBAI)"
+program_url = "https://cbai.ai"
+website_url = ""
+image_url = "https://pbs.twimg.com/profile_images/1996061222731415552/325AnOv7_400x400.jpg"
+projects = [
+  {date = "2026-06-01", date_end = "2026-09-01", project_type = "Summer '26", project = "TBD", project_url = "https://www.cbai.ai/gabriele-sarti"},
+]
+
+[supervision.spar]
+
+name = "SPAR Mentees"
+date = "2025-09-15"
+date_end = "2026-08-01"
+program = "Supervised Program for Alignment Research (SPAR)"
+program_url = "https://sparai.org"
+website_url = ""
+image_url = "https://pbs.twimg.com/profile_images/1978535488286801920/zt6kGtDc_400x400.jpg"
+projects = [
+  {date = "2025-09-15", date_end = "2025-12-31", project_type = "Fall '25", project = "Towards a Science of AI Agency: Modelling, Measuring, and Intervening on Goal-Directed Behaviour", project_url = "https://airtable.com/appypGt9DhCljq3Gh/shrpaJMUhvElTxcI8?detail=eyJwYWdlSWQiOiJwYWd5SURLVXg5WHk4bHlmMCIsInJvd0lkIjoicmVjenFFSjRwekoySHJNa3YiLCJzaG93Q29tbWVudHMiOmZhbHNlLCJxdWVyeU9yaWdpbkhpbnQiOnsidHlwZSI6InBhZ2VFbGVtZW50IiwiZWxlbWVudElkIjoicGVsSmM5QmgwWDIxMEpmUVEiLCJxdWVyeUNvbnRhaW5lcklkIjoicGVsUlNqc0xIbWhUVmJOaE4iLCJzYXZlZEZpbHRlclNldElkIjoic2ZzUFEzV0xzODJQWU1JRE8ifX0", paperlink = ["https://arxiv.org/abs/2602.08964v1"]},
+  {date = "2026-02-15", date_end = "2026-08-01", project_type = "Spring '26", project = "Monitoring and Attributing Implicit Personalization in Conversational Agents", project_url = "https://sparai.org/projects/sp26/recx8Hxs0HQW6Sgkg"}
+]
+
 [supervision.lsickert]
 
 name = "Ludwig Sickert"
@@ -108,15 +135,15 @@ projects = [
 
 reviewing.icon = "pen"
 reviewing.task = "Reviewing"
-reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024, ICLR 2025, ICLR 2026, TMLR, EACL 2026"
+reviewing.venues = "CLiC-it 2021, LREC 2022, EMNLP 2022, ACL 2023, EMNLP 2023, BlackboxNLP 2023, NAACL 2024, COLM 2024, MechInterp WS 2024, EMNLP 2024, BlackboxNLP 2024, CLiC-it 2024, ICLR 2025, ICLR 2026, TMLR, EACL 2026, NeurIPS 2026"
 
 area_chair.icon = "chair"
 area_chair.task = "Area Chair"
-area_chair.venues = "ACL 2025, CLiC-it 2025, EMNLP 2025, BlackboxNLP 2025"
+area_chair.venues = "ACL 2025, CLiC-it 2025, EMNLP 2025, BlackboxNLP 2025, COLM 2026, MechInterp WS 2026"
 
 workshop_organizer.icon = "users"
 workshop_organizer.task = "Workshop Organizer"
-workshop_organizer.venues = "BlackboxNLP 2025, EVALITA 2026 Cruciverb-IT Task"
+workshop_organizer.venues = "BlackboxNLP 2025, Cruciverb-IT @ EVALITA 2026, BlackboxNLP 2026"
 
 [teaching]
 
@@ -164,6 +191,13 @@ iknlp25.website = "https://sites.google.com/rug.nl/ik-nlp-2025"
 iknlp25.repository = "https://github.com/gsarti/ik-nlp-tutorials"
 
 [events]
+
+raw2026.shortname = "Meridian RAW 2026"
+raw2026.date = "2026-05-12"
+raw2026.url = "https://www.meridiancambridge.org/"
+raw2026.location = "Cambridge, UK"
+raw2026.paperlink = []
+raw2026.description = "Research acceleration week"
 
 emnlp25.shortname = "EMNLP 2025"
 emnlp25.date = "2025-11-04"
